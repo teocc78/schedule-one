@@ -1,11 +1,11 @@
 /**
- * Single module for all Anthropic API calls.
+ * All Gemini API calls.
  * - Structured JSON outputs with Zod schema validation
  * - One automatic retry on validation failure
  * - API key from environment variable only
  */
 
-import Anthropic from "@anthropic-ai/sdk";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import { z } from "zod";
 import type {
   TranscriptData,
@@ -20,8 +20,9 @@ import type {
 import { validateSchedule } from "@/lib/validator";
 import { mapCoursesToGroups } from "@/lib/requirements";
 
-const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-const MODEL = "claude-opus-4-6";
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
+// shortcut: model name validated at runtime by API; set GEMINI_MODEL=gemini-2.0-flash
+const MODEL = process.env.GEMINI_MODEL ?? "gemini-2.0-flash";
 
 // ── Zod schemas ───────────────────────────────────────────────
 
@@ -71,16 +72,9 @@ async function callWithRetry<T>(
   schema: z.ZodType<T>,
   attempt = 1
 ): Promise<T> {
-  const message = await client.messages.create({
-    model: MODEL,
-    max_tokens: 4096,
-    messages: [{ role: "user", content: prompt }],
-  });
-
-  const text = message.content
-    .filter((b) => b.type === "text")
-    .map((b) => (b as { type: "text"; text: string }).text)
-    .join("");
+  const model = genAI.getGenerativeModel({ model: MODEL });
+  const response = await model.generateContent(prompt);
+  const text = response.response.text();
 
   // Extract JSON from the response (handles markdown code blocks)
   const jsonMatch = text.match(/```(?:json)?\s*([\s\S]*?)```/) ??
