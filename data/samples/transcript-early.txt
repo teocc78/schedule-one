@@ -1,0 +1,24 @@
+MOCK DATA — University of California, Santa Barbara
+UNOFFICIAL TRANSCRIPT
+
+Student: Alex Rivera
+Student ID: XXXX-1234
+Major: Statistics & Data Science
+Class Standing: Sophomore
+Total Units Earned: 32
+
+--- Academic Record ---
+
+FALL 2024
+MATH 3A  Calculus with Applications I         4.0  A
+MATH 3B  Calculus with Applications II        4.0  A-
+CMPSC 9  Intermediate Python Programming      4.0  B+
+WRIT 2   Academic Writing                     4.0  B
+
+WINTER 2025
+MATH 3C  Calculus with Applications III       4.0  B+
+MATH 4A  Linear Algebra                       4.0  B
+ENGL 10  Reading and Writing about Literature  4.0  B+
+GE AREA  Introduction to Philosophy           4.0  A-
+
+--- End of Record ---

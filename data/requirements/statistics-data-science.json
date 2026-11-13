@@ -1,0 +1,64 @@
+{
+  "_note": "MOCK DATA — Statistics & Data Science B.S. requirements (UCSB). Structured to match real catalog; swap real data in as needed.",
+  "major": "Statistics & Data Science",
+  "majorCode": "statistics-data-science",
+  "groups": [
+    {
+      "id": "lower-math",
+      "name": "Lower-Division Mathematics",
+      "kind": "all",
+      "description": "Required calculus and linear algebra sequence",
+      "courses": ["MATH 3A", "MATH 3B", "MATH 3C", "MATH 4A", "MATH 4B"]
+    },
+    {
+      "id": "lower-cs",
+      "name": "Lower-Division Computing",
+      "kind": "all",
+      "description": "Introductory programming sequence",
+      "courses": ["CMPSC 9", "CMPSC 16"]
+    },
+    {
+      "id": "lower-pstat-core",
+      "name": "Lower-Division Statistics Core",
+      "kind": "all",
+      "description": "Core probability and statistics",
+      "courses": ["PSTAT 120A", "PSTAT 120B", "PSTAT 122"]
+    },
+    {
+      "id": "upper-methods",
+      "name": "Upper-Division Statistical Methods",
+      "kind": "all",
+      "description": "Core upper-division methods",
+      "courses": ["PSTAT 126", "PSTAT 131", "PSTAT 160A", "PSTAT 160B"]
+    },
+    {
+      "id": "upper-theory",
+      "name": "Upper-Division Statistical Theory",
+      "kind": "all",
+      "description": "Theoretical foundations",
+      "courses": ["PSTAT 220A", "PSTAT 220B"]
+    },
+    {
+      "id": "upper-electives",
+      "name": "Upper-Division Electives",
+      "kind": "choose_n",
+      "n": 2,
+      "description": "Choose 2 from approved upper-division electives",
+      "courses": ["PSTAT 171", "PSTAT 174", "PSTAT 175", "PSTAT 176", "PSTAT 194", "PSTAT 197", "PSTAT 199"]
+    },
+    {
+      "id": "data-science",
+      "name": "Data Science Requirement",
+      "kind": "all",
+      "description": "Applied data science coursework",
+      "courses": ["PSTAT 134", "PSTAT 135"]
+    },
+    {
+      "id": "writing",
+      "name": "Writing Requirement",
+      "kind": "all",
+      "description": "Upper-division writing",
+      "courses": ["WRIT 105DS"]
+    }
+  ]
+}

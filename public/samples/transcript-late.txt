@@ -1,0 +1,54 @@
+MOCK DATA — University of California, Santa Barbara
+UNOFFICIAL TRANSCRIPT
+
+Student: Morgan Patel
+Student ID: XXXX-9012
+Major: Statistics & Data Science
+Class Standing: Senior
+Total Units Earned: 148
+
+--- Academic Record ---
+
+FALL 2022
+MATH 3A  Calculus with Applications I         4.0  A
+MATH 3B  Calculus with Applications II        4.0  A
+CMPSC 9  Intermediate Python Programming      4.0  A
+WRIT 2   Academic Writing                     4.0  A-
+
+WINTER 2023
+MATH 3C  Calculus with Applications III       4.0  A-
+MATH 4A  Linear Algebra                       4.0  A
+CMPSC 16 Problem Solving with Computers I     4.0  A
+HIST 4C  Western Civilization                 4.0  B+
+
+SPRING 2023
+MATH 4B  Differential Equations               4.0  A-
+PSTAT 120A Probability and Statistics         4.0  A
+ECON 1   Intro to Economics                   4.0  B+
+COMM 1   Public Speaking                      4.0  A-
+
+FALL 2023
+PSTAT 120B Probability and Statistics II      4.0  A
+PSTAT 122  Intro to Statistical Data Science  4.0  A-
+SOC 1    Introduction to Sociology            4.0  B+
+GE AREA  Environmental Studies               4.0  A-
+
+WINTER 2024
+PSTAT 126 Regression Analysis                 4.0  A
+PSTAT 131 Statistical Machine Learning        4.0  A-
+ARTHI 6  Introduction to Art History          4.0  B+
+PSYCH 1  Introduction to Psychology           4.0  B+
+
+SPRING 2024
+PSTAT 134 Statistical Data Science            4.0  A-
+PSTAT 160A Stochastic Processes               4.0  B+
+PSTAT 174 Time Series                         4.0  A-
+THTR 5   Introduction to Theatre             4.0  A
+
+FALL 2024
+PSTAT 135 Applications of Statistics          4.0  A
+PSTAT 160B Stochastic Processes II            4.0  B+
+PSTAT 194 Special Topics: Bayesian Statistics 4.0  A
+WRIT 105DS Writing in Data Science            4.0  A-
+
+--- End of Record ---

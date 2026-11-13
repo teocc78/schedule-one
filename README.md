@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Schedule One
 
-## Getting Started
+AI-powered class schedule planner for UCSB Statistics & Data Science students. Demo-quality prototype.
 
-First, run the development server:
+## Setup
 
 ```bash
+# 1. Install dependencies
+npm install
+
+# 2. Set up environment variables
+cp .env.local.example .env.local
+# Edit .env.local and add your Anthropic API key
+
+# 3. Run the dev server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Required environment variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Variable | Description |
+|---|---|
+| `ANTHROPIC_API_KEY` | Your Anthropic API key from console.anthropic.com |
 
-## Learn More
+## How to use
 
-To learn more about Next.js, take a look at the following resources:
+1. **Upload & Setup** — Paste your unofficial transcript (or load a sample), set scheduling preferences
+2. **Processing** — The app parses your transcript and generates a validated schedule (~10–25 seconds)
+3. **Results** — View your primary schedule on a weekly calendar grid, plus two backup options and swap suggestions
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Running tests
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm test
+```
 
-## Deploy on Vercel
+23 unit tests cover the requirements engine (group satisfaction, choose-n logic, eligible offerings) and the schedule validator (time conflicts, unit limits, prerequisites, constraints).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Project structure
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+app/
+  page.tsx                  # Upload & Setup screen
+  processing/page.tsx       # Processing screen
+  results/page.tsx          # Results screen
+  api/
+    parse-transcript/       # POST: extract courses from transcript text
+    plan/                   # POST: generate + validate schedules
+components/
+  WeeklyCalendar.tsx        # Weekly grid view
+  ScheduleCard.tsx          # Full schedule display (calendar + list + swaps + validation)
+  ValidationBadge.tsx       # Shows which checks passed
+lib/
+  llm.ts                    # All Anthropic API calls (single module, retry logic)
+  planner.ts                # Orchestrates requirements -> LLM -> validation
+  requirements.ts           # Pure functions: requirement status, eligible offerings
+  validator.ts              # Deterministic validator (no LLM)
+types/
+  index.ts                  # All shared TypeScript types
+data/
+  requirements/             # Major requirement JSON files
+  offerings/                # Quarter course offering JSON files
+  samples/                  # Sample transcripts for testing
+```
+
+## Swapping in real data
+
+- **Offerings**: Replace `data/offerings/winter-2026.json` with real GOLD data in the same schema (`QuarterOfferings` type in `types/index.ts`)
+- **Requirements**: Replace `data/requirements/statistics-data-science.json` with the real catalog requirements (`MajorRequirements` type)
+- **Additional majors**: Add more files to `data/requirements/` and update the `/api/plan` route to select based on `majorCode`
+
+## Architecture notes
+
+- The LLM *proposes* schedules; the deterministic validator in `lib/validator.ts` *gates* them. Invalid schedules are never shown.
+- All Anthropic calls are in `lib/llm.ts` with Zod schema validation and one automatic retry on malformed output.
+- No user accounts, database, or scraping. All data is mock and local.

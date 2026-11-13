@@ -1,26 +1,372 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap');
 
+/* ── UCSB Design Tokens ───────────────────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --paper:   #f5f3ef;
+  --surf:    #ffffff;
+  --ink:     #003660;
+  --ink2:    #2a5a8a;
+  --ink3:    #6b8fa8;
+  --line:    #ddd8cc;
+  --plate:   #003660;
+  --gold:    #febc11;
+  --gold-d:  #d4990c;
+  --gold-s:  #fff8e1;
+  --good:    #2d7a4f;
+  --good-s:  #e0f0e8;
+  --warn:    #c97d2a;
+  --warn-s:  #fdf0e0;
+  --bad:     #b03a2e;
+  --bad-s:   #fce8e6;
+  --unk:     #5a7a8a;
+  --unk-s:   #e0eaf0;
+  --display: var(--font-anton, 'Anton', Impact, sans-serif);
+  --ui:      var(--font-inter, 'Inter', 'Segoe UI', system-ui, sans-serif);
+  --acc:     var(--gold);
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  :root:not([data-theme="light"]) {
+    --paper:  #0a1929;
+    --surf:   #0d2137;
+    --ink:    #e8e0d0;
+    --ink2:   #a8c0d0;
+    --ink3:   #6888a0;
+    --line:   #1a3050;
+    --plate:  #061520;
+    --gold:   #febc11;
+    --gold-d: #ffd040;
+    --gold-s: #2a2000;
+    --good:   #6ab88a;
+    --good-s: #1a3028;
+    --warn:   #e8a050;
+    --warn-s: #2a1a08;
+    --bad:    #e07060;
+    --bad-s:  #2a1010;
+    --unk:    #7898a8;
+    --unk-s:  #182838;
   }
 }
 
+:root[data-theme="dark"] {
+  --paper:  #0a1929;
+  --surf:   #0d2137;
+  --ink:    #e8e0d0;
+  --ink2:   #a8c0d0;
+  --ink3:   #6888a0;
+  --line:   #1a3050;
+  --plate:  #061520;
+  --gold:   #febc11;
+  --gold-d: #ffd040;
+  --gold-s: #2a2000;
+  --good:   #6ab88a;
+  --good-s: #1a3028;
+  --warn:   #e8a050;
+  --warn-s: #2a1a08;
+  --bad:    #e07060;
+  --bad-s:  #2a1010;
+  --unk:    #7898a8;
+  --unk-s:  #182838;
+}
+
+/* ── Tailwind theme tokens ────────────────────────────────────── */
+@theme inline {
+  --color-paper:  var(--paper);
+  --color-surf:   var(--surf);
+  --color-ink:    var(--ink);
+  --color-ink2:   var(--ink2);
+  --color-ink3:   var(--ink3);
+  --color-line:   var(--line);
+  --color-plate:  var(--plate);
+  --color-gold:   var(--gold);
+  --color-gold-d: var(--gold-d);
+  --color-gold-s: var(--gold-s);
+  --color-good:   var(--good);
+  --color-good-s: var(--good-s);
+  --color-warn:   var(--warn);
+  --color-warn-s: var(--warn-s);
+  --color-bad:    var(--bad);
+  --color-bad-s:  var(--bad-s);
+  --color-unk:    var(--unk);
+  --color-unk-s:  var(--unk-s);
+  --font-display: var(--display);
+  --font-ui:      var(--ui);
+}
+
+/* ── Base ─────────────────────────────────────────────────────── */
+html { height: 100%; }
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  min-height: 100%;
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 16px/1.5 var(--ui);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: var(--display);
+  font-weight: 400;
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+button { font: inherit; color: inherit; cursor: pointer; }
+
+/* ── Focus ring ───────────────────────────────────────────────── */
+:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* ── Shared component classes ─────────────────────────────────── */
+.btn {
+  background: var(--surf);
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  padding: .45rem 1.1rem;
+  font-weight: 700;
+  transition: transform .12s, background .12s;
+  font-family: var(--ui);
+}
+.btn:hover { transform: translateY(-1px); }
+.btn.pri {
+  background: var(--plate);
+  color: var(--gold);
+  border-color: var(--plate);
+}
+.btn.gold {
+  background: var(--gold);
+  color: var(--plate);
+  border-color: var(--gold-d);
+}
+.btn.sm { padding: .2rem .7rem; font-size: .85rem; }
+
+.card {
+  background: var(--surf);
+  border: 2px solid var(--line);
+  border-radius: 20px;
+  padding: 1.1rem 1.25rem;
+}
+
+.tag {
+  font-weight: 700;
+  font-size: .78rem;
+  border-radius: 999px;
+  padding: 0 .55rem;
+  border: 2px solid currentColor;
+  font-family: var(--ui);
+}
+.tag.good  { color: var(--good); background: var(--good-s); }
+.tag.warn  { color: var(--warn); background: var(--warn-s); }
+.tag.bad   { color: var(--bad);  background: var(--bad-s);  }
+.tag.unk   { color: var(--unk);  background: var(--unk-s);  }
+
+.fine { font-size: .85rem; color: var(--ink2); }
+
+.empty {
+  border: 2px dashed var(--ink3);
+  border-radius: 18px;
+  padding: 1rem;
+  color: var(--ink2);
+  text-align: center;
+}
+
+/* ── App shell: rail + main ───────────────────────────────────── */
+.app-shell {
+  display: flex;
+  min-height: 100vh;
+}
+
+.rail {
+  width: 220px;
+  flex: none;
+  background: var(--plate);
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0 1.5rem;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.rail-wordmark {
+  font-family: var(--display);
+  font-size: 1.6rem;
+  color: var(--gold);
+  letter-spacing: .03em;
+  line-height: 1;
+  padding: .5rem 1.1rem 1.2rem;
+  transform: skewX(-4deg);
+  display: block;
+}
+
+.rail-sub {
+  font-size: .68rem;
+  color: var(--ink3);
+  font-family: var(--ui);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: 0 1.1rem .8rem;
+  transform: skewX(-4deg);
+  margin-top: -.8rem;
+  display: block;
+}
+
+.rail .tab {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  background: none;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  padding: .5rem .9rem;
+  margin: 0 .5rem .15rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: .88rem;
+  color: var(--ink3);
+  font-family: var(--ui);
+  transition: background .15s, color .15s, border-color .15s;
+  width: calc(100% - 1rem);
+}
+.rail .tab i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--ta, var(--gold));
+  border: 2px solid rgba(255,255,255,.25);
+  flex: none;
+}
+.rail .tab:hover {
+  background: rgba(255,255,255,.07);
+  color: #fff;
+}
+.rail .tab[aria-selected="true"] {
+  background: var(--gold);
+  border-color: var(--gold-d);
+  color: var(--plate);
+}
+.rail .tab[aria-selected="true"] i {
+  border-color: var(--plate);
+}
+
+.rail-signout {
+  margin-top: auto;
+  padding: 0 .5rem;
+}
+
+.app-main {
+  flex: 1;
+  min-width: 0;
+  padding: 2rem;
+  max-width: 860px;
+}
+
+/* ── Top gold bar ─────────────────────────────────────────────── */
+.gold-bar {
+  height: 6px;
+  background: linear-gradient(90deg, var(--gold) 0%, var(--plate) 100%);
+}
+
+/* ── Section heading ──────────────────────────────────────────── */
+h2.sec {
+  font-size: 1.5rem;
+  margin: 1.4rem 0 .6rem;
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  font-family: var(--display);
+}
+h2.sec::before {
+  content: "";
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--acc);
+  border: 2px solid var(--ink);
+  flex: none;
+}
+
+/* ── Scrollable table wrapper ─────────────────────────────────── */
+.scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; }
+th, td {
+  text-align: left;
+  padding: .4rem .7rem;
+  border-bottom: 1px solid var(--line);
+  font-size: .88rem;
+}
+th { font-weight: 700; color: var(--ink2); font-size: .78rem; letter-spacing: .04em; text-transform: uppercase; }
+
+/* ── Custom scrollbar ─────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--paper); }
+::-webkit-scrollbar-thumb { background: var(--line); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--ink3); }
+
+/* ── Text selection ───────────────────────────────────────────── */
+::selection { background: var(--gold); color: var(--plate); }
+
+/* ── Mobile: horizontal rail at top ──────────────────────────── */
+@media (max-width: 768px) {
+  .app-shell { flex-direction: column; }
+  .rail {
+    width: 100%;
+    height: auto;
+    position: sticky;
+    top: 0;
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: .5rem .75rem .6rem;
+    gap: .25rem;
+    z-index: 10;
+    border-bottom: 3px solid var(--gold);
+    scrollbar-width: none;
+  }
+  .rail::-webkit-scrollbar { display: none; }
+  .rail-wordmark { display: none; }
+  .rail-sub { display: none; }
+  .rail .tab {
+    flex: none;
+    white-space: nowrap;
+    margin: 0;
+    width: auto;
+    padding: .4rem .75rem;
+    font-size: .82rem;
+  }
+  .rail-signout { margin-top: 0; padding: 0; }
+  .app-main { padding: 1.25rem 1rem; }
+}
+
+/* ── Touch tap targets ────────────────────────────────────────── */
+@media (pointer: coarse) {
+  .btn, .rail .tab { min-height: 44px; }
+  input, select { min-height: 44px; }
+}
+
+/* ── Inputs ───────────────────────────────────────────────────── */
+input, select, textarea {
+  font: inherit;
+  color: var(--ink);
+  background: var(--paper);
+  border: 2px solid var(--line);
+  border-radius: 10px;
+  padding: .45rem .7rem;
+  transition: border-color .15s;
+}
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--gold);
+}
+label {
+  font-weight: 600;
+  font-size: .88rem;
+  display: block;
+  margin: .5rem 0 .2rem;
+  color: var(--ink2);
 }
