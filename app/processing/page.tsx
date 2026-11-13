@@ -1,5 +1,4 @@
 "use client";
-export const dynamic = "force-dynamic";
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -23,7 +22,8 @@ export default function ProcessingPage() {
   const [step, setStep] = useState(0);
   const [done, setDone] = useState(false);
   const [error, setError] = useState("");
-  const [factIdx] = useState(() => Math.floor(Math.random() * FUN_FACTS.length));
+  const [factIdx, setFactIdx] = useState(0);
+  useEffect(() => { setFactIdx(Math.floor(Math.random() * FUN_FACTS.length)); }, []);
 
   useEffect(() => {
     const transcriptText = sessionStorage.getItem("transcript_text");
