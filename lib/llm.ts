@@ -21,8 +21,8 @@ import { validateSchedule } from "@/lib/validator";
 import { mapCoursesToGroups } from "@/lib/requirements";
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
-// shortcut: model name validated at runtime by API; set GEMINI_MODEL=gemini-2.0-flash
-const MODEL = process.env.GEMINI_MODEL ?? "gemini-2.0-flash";
+// shortcut: model name validated at runtime by API; set GEMINI_MODEL=gemini-3.8-flash
+const MODEL = process.env.GEMINI_MODEL ?? "gemini-3.8-flash";
 
 // ── Zod schemas ───────────────────────────────────────────────
 
