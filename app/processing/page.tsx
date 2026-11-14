@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 const STEPS = [
   { label: "Reading your transcript",    sublabel: "Extracting completed courses and grades" },
   { label: "Mapping requirements",       sublabel: "Checking what's left in your degree plan" },
-  { label: "Designing schedules",        sublabel: "Claude is picking the best course combinations" },
+  { label: "Designing schedules",        sublabel: "Gemini is picking the best course combinations" },
   { label: "Validating everything",      sublabel: "Checking conflicts, prerequisites, and your preferences" },
 ];
 

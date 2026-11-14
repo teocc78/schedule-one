@@ -6,7 +6,7 @@ import type { PlanResult, TranscriptData } from "@/types";
 import { ScheduleCard } from "@/components/ScheduleCard";
 import { ValidationBadge } from "@/components/ValidationBadge";
 import requirementsData from "@/data/requirements/statistics-data-science.json";
-import offeringsData from "@/data/offerings/winter-2026.json";
+import offeringsData from "@/data/offerings/winter-2027.json";
 import { computeRequirementStatus } from "@/lib/requirements";
 import type { MajorRequirements, QuarterOfferings } from "@/types";
 

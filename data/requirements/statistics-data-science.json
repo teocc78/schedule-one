@@ -1,64 +1,84 @@
 {
-  "_note": "MOCK DATA — Statistics & Data Science B.S. requirements (UCSB). Structured to match real catalog; swap real data in as needed.",
+  "_note": "Statistics & Data Science B.S. 2026-27 requirements. Source: pstat.ucsb.edu/media/202",
+  "_catalog_year": "2026-27",
   "major": "Statistics & Data Science",
   "majorCode": "statistics-data-science",
   "groups": [
     {
-      "id": "lower-math",
-      "name": "Lower-Division Mathematics",
+      "id": "pre-calc",
+      "name": "Pre-Major: Calculus",
       "kind": "all",
-      "description": "Required calculus and linear algebra sequence",
-      "courses": ["MATH 3A", "MATH 3B", "MATH 3C", "MATH 4A", "MATH 4B"]
+      "description": "MATH 3A-B (or 2A-B equivalent) + MATH 4A + MATH 6A",
+      "courses": ["MATH 3A", "MATH 3B", "MATH 4A", "MATH 6A"]
     },
     {
-      "id": "lower-cs",
-      "name": "Lower-Division Computing",
+      "id": "pre-prob-stat",
+      "name": "Pre-Major: Transition to Statistics",
+      "kind": "choose_n",
+      "n": 1,
+      "description": "One of MATH 8 or PSTAT 8 (grade B or better in calc first)",
+      "courses": ["MATH 8", "PSTAT 8"]
+    },
+    {
+      "id": "pre-pstat10",
+      "name": "Pre-Major: Principles of Data Science",
       "kind": "all",
-      "description": "Introductory programming sequence",
+      "description": "PSTAT 10 required (prereq: MATH 2B or 3B with C or better)",
+      "courses": ["PSTAT 10"]
+    },
+    {
+      "id": "prep-cs-intro",
+      "name": "Preparation: Intro Computing",
+      "kind": "all",
+      "description": "CMPSC 8 (or W8) required",
+      "courses": ["CMPSC 8"]
+    },
+    {
+      "id": "prep-cs-prog",
+      "name": "Preparation: Intermediate Computing",
+      "kind": "choose_n",
+      "n": 1,
+      "description": "CMPSC 9 (recommended) or CMPSC 16",
       "courses": ["CMPSC 9", "CMPSC 16"]
     },
     {
-      "id": "lower-pstat-core",
-      "name": "Lower-Division Statistics Core",
+      "id": "upper-core-theory",
+      "name": "Upper-Division A: Probability & Statistics Theory",
       "kind": "all",
-      "description": "Core probability and statistics",
-      "courses": ["PSTAT 120A", "PSTAT 120B", "PSTAT 122"]
+      "description": "PSTAT 120A, 120B, 120C all required (12 units)",
+      "courses": ["PSTAT 120A", "PSTAT 120B", "PSTAT 120C"]
     },
     {
-      "id": "upper-methods",
-      "name": "Upper-Division Statistical Methods",
+      "id": "upper-core-methods",
+      "name": "Upper-Division B: Core Methods",
       "kind": "all",
-      "description": "Core upper-division methods",
-      "courses": ["PSTAT 126", "PSTAT 131", "PSTAT 160A", "PSTAT 160B"]
+      "description": "PSTAT 126 and PSTAT 131 both required (8 units)",
+      "courses": ["PSTAT 126", "PSTAT 131"]
     },
     {
-      "id": "upper-theory",
-      "name": "Upper-Division Statistical Theory",
-      "kind": "all",
-      "description": "Theoretical foundations",
-      "courses": ["PSTAT 220A", "PSTAT 220B"]
+      "id": "upper-electives-c",
+      "name": "Upper-Division C: PSTAT Electives",
+      "kind": "choose_n",
+      "n": 5,
+      "description": "20 units (~5 courses) from approved PSTAT electives (excl. 109, 182T, 188, 190, 193)",
+      "courses": [
+        "PSTAT 100", "PSTAT 105", "PSTAT 115", "PSTAT 122", "PSTAT 123",
+        "PSTAT 127", "PSTAT 130", "PSTAT 132", "PSTAT 133", "PSTAT 134",
+        "PSTAT 135", "PSTAT 160A", "PSTAT 160B", "PSTAT 170", "PSTAT 171",
+        "PSTAT 172A", "PSTAT 172B", "PSTAT 173", "PSTAT 174", "PSTAT 175",
+        "PSTAT 177", "PSTAT 183", "PSTAT 197A", "PSTAT 197B", "PSTAT 197C"
+      ]
     },
     {
-      "id": "upper-electives",
-      "name": "Upper-Division Electives",
+      "id": "upper-electives-d",
+      "name": "Upper-Division D: Breadth",
       "kind": "choose_n",
       "n": 2,
-      "description": "Choose 2 from approved upper-division electives",
-      "courses": ["PSTAT 171", "PSTAT 174", "PSTAT 175", "PSTAT 176", "PSTAT 194", "PSTAT 197", "PSTAT 199"]
-    },
-    {
-      "id": "data-science",
-      "name": "Data Science Requirement",
-      "kind": "all",
-      "description": "Applied data science coursework",
-      "courses": ["PSTAT 134", "PSTAT 135"]
-    },
-    {
-      "id": "writing",
-      "name": "Writing Requirement",
-      "kind": "all",
-      "description": "Upper-division writing",
-      "courses": ["WRIT 105DS"]
+      "description": "8 units from approved MATH or ECON upper-division courses",
+      "courses": [
+        "MATH 108A", "MATH 108B", "MATH 116", "MATH 132A", "MATH 137A",
+        "ECON 100B", "ECON 101", "ECON 134A", "ECON 134B"
+      ]
     }
   ]
 }

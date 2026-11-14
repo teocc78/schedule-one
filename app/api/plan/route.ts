@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { runPlanner } from "@/lib/planner";
 import type { PlanRequest } from "@/types";
 import requirementsData from "@/data/requirements/statistics-data-science.json";
-import offeringsData from "@/data/offerings/winter-2026.json";
+import offeringsData from "@/data/offerings/winter-2027.json";
 import type { MajorRequirements, QuarterOfferings } from "@/types";
 
 const requirements = requirementsData as unknown as MajorRequirements;
