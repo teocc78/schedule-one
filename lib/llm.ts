@@ -5,7 +5,7 @@
  * - API key from environment variable only
  */
 
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { GoogleGenAI } from "@google/genai";
 import { z } from "zod";
 import type {
   TranscriptData,
@@ -20,7 +20,7 @@ import type {
 import { validateSchedule } from "@/lib/validator";
 import { mapCoursesToGroups } from "@/lib/requirements";
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY! });
 // shortcut: model name validated at runtime by API; set GEMINI_MODEL=gemini-3.8-flash
 const MODEL = process.env.GEMINI_MODEL ?? "gemini-3.8-flash";
 
@@ -72,9 +72,8 @@ async function callWithRetry<T>(
   schema: z.ZodType<T>,
   attempt = 1
 ): Promise<T> {
-  const model = genAI.getGenerativeModel({ model: MODEL });
-  const response = await model.generateContent(prompt);
-  const text = response.response.text();
+  const response = await ai.models.generateContent({ model: MODEL, contents: prompt });
+  const text = response.text ?? "";
 
   // Extract JSON from the response (handles markdown code blocks)
   const jsonMatch = text.match(/```(?:json)?\s*([\s\S]*?)```/) ??
