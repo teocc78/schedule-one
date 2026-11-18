@@ -133,7 +133,7 @@ export default function OnboardingPage() {
           </div>
         ))}
         <div style={{ ...card, background: "var(--gold-s)", borderColor: "var(--gold)", marginTop: "1rem" }}>
-          <strong>Demo note:</strong> <span className="fine">This prototype uses mock course data for Winter 2026. Real UCSB offerings can be dropped in later.</span>
+          <strong>Demo note:</strong> <span className="fine">This prototype uses mock course data for Winter 2027. Real UCSB offerings can be dropped in later.</span>
         </div>
         <button className="btn pri" style={{ width: "100%", marginTop: "1.25rem", fontSize: ".95rem" }} onClick={goNext}>
           I'm ready — let's go →

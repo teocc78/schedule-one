@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import type { PlanResult, TranscriptData } from "@/types";
 import { ScheduleCard } from "@/components/ScheduleCard";
 import { ValidationBadge } from "@/components/ValidationBadge";
+import { QuarterPlanner } from "@/components/planner/QuarterPlanner";
 import requirementsData from "@/data/requirements/statistics-data-science.json";
 import offeringsData from "@/data/offerings/winter-2027.json";
 import { computeRequirementStatus } from "@/lib/requirements";
@@ -211,7 +212,7 @@ function CoursesTab() {
 
   return (
     <div>
-      <h2 className="sec" style={{ "--acc": "#c4a04a" } as React.CSSProperties}>Courses — Winter 2026</h2>
+      <h2 className="sec" style={{ "--acc": "#c4a04a" } as React.CSSProperties}>Courses — Winter 2027</h2>
       <input
         type="search"
         placeholder="Filter by code or title…"
@@ -361,7 +362,7 @@ export default function DashboardPage() {
     switch (activeTab) {
       case "today":      return <TodayTab plan={plan} transcript={transcript} />;
       case "degree":     return <DegreeTab transcript={transcript} />;
-      case "planner":    return <ComingSoon tab="Planner" />;
+      case "planner":    return <QuarterPlanner />;
       case "schedule":   return <ScheduleTab plan={plan} />;
       case "courses":    return <CoursesTab />;
       case "transcript": return <TranscriptTab transcript={transcript} />;
@@ -376,7 +377,7 @@ export default function DashboardPage() {
       {/* ── Rail nav ── */}
       <nav className="rail" role="tablist" aria-label="Sections">
         <span className="rail-wordmark">SCHEDULE<br />ONE</span>
-        <span className="rail-sub">UCSB · Winter 2026</span>
+        <span className="rail-sub">UCSB · Winter 2027</span>
 
         {TABS.map(({ id, label, color }) => (
           <button
