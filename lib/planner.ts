@@ -93,6 +93,9 @@ export async function runPlanner(
       // A missing key must surface; anything else (timeout, malformed
       // output, model outage) falls through to the deterministic planner.
       if (err instanceof LLMConfigError) throw err;
+      if (err instanceof Error && /api key/i.test(err.message)) {
+        throw new LLMConfigError("The Gemini API key was rejected. Check GEMINI_API_KEY.");
+      }
       console.error("[planner] LLM proposal failed:", err instanceof Error ? err.message : err);
       break;
     }

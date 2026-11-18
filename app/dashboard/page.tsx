@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import type { PlanResult, TranscriptData } from "@/types";
 import { ScheduleCard } from "@/components/ScheduleCard";
 import { ValidationBadge } from "@/components/ValidationBadge";
+import { QuarterPlanner } from "@/components/planner/QuarterPlanner";
 import requirementsData from "@/data/requirements/statistics-data-science.json";
 import offeringsData from "@/data/offerings/winter-2027.json";
 import { computeRequirementStatus } from "@/lib/requirements";
@@ -361,7 +362,7 @@ export default function DashboardPage() {
     switch (activeTab) {
       case "today":      return <TodayTab plan={plan} transcript={transcript} />;
       case "degree":     return <DegreeTab transcript={transcript} />;
-      case "planner":    return <ComingSoon tab="Planner" />;
+      case "planner":    return <QuarterPlanner />;
       case "schedule":   return <ScheduleTab plan={plan} />;
       case "courses":    return <CoursesTab />;
       case "transcript": return <TranscriptTab transcript={transcript} />;
