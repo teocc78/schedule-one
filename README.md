@@ -1,78 +1,62 @@
 # Schedule One
 
-AI-powered class schedule planner for UCSB Statistics & Data Science students. Demo-quality prototype.
+Class schedule planner for UCSB students. Student project, not an official UCSB application.
 
 ## Setup
 
 ```bash
-# 1. Install dependencies
 npm install
-
-# 2. Set up environment variables
-cp .env.local.example .env.local
-# Edit .env.local and add your Anthropic API key
-
-# 3. Run the dev server
+cp .env.local.example .env.local   # then fill in the values below
 npm run dev
 ```
 
 Open http://localhost:3000.
 
-## Required environment variables
+## Environment variables (server-side only, never commit them)
 
-| Variable | Description |
-|---|---|
-| `ANTHROPIC_API_KEY` | Your Anthropic API key from console.anthropic.com |
+| Variable | Required | What it does |
+|---|---|---|
+| `GEMINI_API_KEY` | Yes | Gemini key for transcript parsing and schedule proposals (aistudio.google.com) |
+| `GEMINI_MODEL` | No | Override the model; defaults to `gemini-2.5-flash` |
+| `UCSB_API_KEY` | No | UCSB Academic Curriculums v3 consumer key. Without it the app uses the saved fixtures in `data/ucsb-fixtures/` |
+| `NEXT_PUBLIC_FEATURE_LIKELIHOOD` | No | `true` shows offered/seat likelihood buckets (low confidence until enrollment history is verified) |
 
-## How to use
+Set the same variables in Vercel under Project Settings > Environment Variables.
 
-1. **Upload & Setup** — Paste your unofficial transcript (or load a sample), set scheduling preferences
-2. **Processing** — The app parses your transcript and generates a validated schedule (~10–25 seconds)
-3. **Results** — View your primary schedule on a weekly calendar grid, plus two backup options and swap suggestions
+## What it does
+
+1. **Upload & setup**: paste a transcript or progress check, set preferences.
+2. **Plan**: the LLM proposes schedules from eligible courses only; `lib/validator.ts` gates them. If the LLM fails or proposes invalid schedules, `lib/fallback-scheduler.ts` builds valid ones deterministically.
+3. **Planner tab** (dashboard): week grid with hard/soft blocks and a buffer, time-vs-professor toggle, two-phase lecture/section planning, open-slot finder with backups and swap impact, GE status and suggestions, pass plan with waitlist warning, and a copy-paste GOLD cart prompt (add to cart only).
 
 ## Running tests
 
 ```bash
-npm test
+npm test        # Vitest
+npx tsc --noEmit
+npm run build
 ```
 
-23 unit tests cover the requirements engine (group satisfaction, choose-n logic, eligible offerings) and the schedule validator (time conflicts, unit limits, prerequisites, constraints).
-
-## Project structure
+## Project structure (main parts)
 
 ```
-app/
-  page.tsx                  # Upload & Setup screen
-  processing/page.tsx       # Processing screen
-  results/page.tsx          # Results screen
-  api/
-    parse-transcript/       # POST: extract courses from transcript text
-    plan/                   # POST: generate + validate schedules
-components/
-  WeeklyCalendar.tsx        # Weekly grid view
-  ScheduleCard.tsx          # Full schedule display (calendar + list + swaps + validation)
-  ValidationBadge.tsx       # Shows which checks passed
+app/api/plan, app/api/parse-transcript   # LLM routes (maxDuration 60)
+app/api/ucsb/classes                      # Course data via the UCSB layer
+components/planner/QuarterPlanner.tsx     # Planner tab
 lib/
-  llm.ts                    # All Anthropic API calls (single module, retry logic)
-  planner.ts                # Orchestrates requirements -> LLM -> validation
-  requirements.ts           # Pure functions: requirement status, eligible offerings
-  validator.ts              # Deterministic validator (no LLM)
-types/
-  index.ts                  # All shared TypeScript types
-data/
-  requirements/             # Major requirement JSON files
-  offerings/                # Quarter course offering JSON files
-  samples/                  # Sample transcripts for testing
+  llm.ts, planner.ts, validator.ts        # Propose -> validate -> retry -> fallback
+  fallback-scheduler.ts, course-codes.ts
+  ge.ts                                   # GE areas (one per course) + stacking special subjects
+  schedule-engine.ts                      # Two-phase lecture/section scheduler, open slots, swaps
+  pass-planner.ts                         # Pass caps 11.5 / 15.5, waitlist >= 12 units
+  recommend.ts, likelihood.ts, cart-prompt.ts, flags.ts, ratings.ts
+  ucsb/                                   # Curriculums v3 client, cache, adapter, quarter codes, fixtures
+docs/
+  product-spec.md, ucsb-api-reference.md, gap-analysis.md, chrome-extension.md
 ```
 
-## Swapping in real data
+## Notes
 
-- **Offerings**: Replace `data/offerings/winter-2026.json` with real GOLD data in the same schema (`QuarterOfferings` type in `types/index.ts`)
-- **Requirements**: Replace `data/requirements/statistics-data-science.json` with the real catalog requirements (`MajorRequirements` type)
-- **Additional majors**: Add more files to `data/requirements/` and update the `/api/plan` route to select based on `majorCode`
-
-## Architecture notes
-
-- The LLM *proposes* schedules; the deterministic validator in `lib/validator.ts` *gates* them. Invalid schedules are never shown.
-- All Anthropic calls are in `lib/llm.ts` with Zod schema validation and one automatic retry on malformed output.
-- No user accounts, database, or scraping. All data is mock and local.
+- Hard rules live in code; the AI only proposes and ranks.
+- The UCSB client caches responses and limits live calls per hour; it never logs or stores student data.
+- Professor ratings have no source yet (Rate My Professors does not allow scraping), so professor mode ranks on time fit until one is added.
