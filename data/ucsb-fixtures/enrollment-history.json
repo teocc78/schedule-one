@@ -1,0 +1,106 @@
+{
+ "_synthetic": "SYNTHETIC enrollment history in the shape of past-quarter /v3/classes/search results (enrolledTotal, maxEnroll per quarter). The pattern (C LIT 36 in Winter almost every year, Fall only twice) follows the spec; the numbers are made up.",
+ "courses": {
+  "C LIT 36": [
+   {
+    "quarter": "20211",
+    "enrolledTotal": 118,
+    "maxEnroll": 120
+   },
+   {
+    "quarter": "20221",
+    "enrolledTotal": 120,
+    "maxEnroll": 120
+   },
+   {
+    "quarter": "20224",
+    "enrolledTotal": 64,
+    "maxEnroll": 120
+   },
+   {
+    "quarter": "20231",
+    "enrolledTotal": 117,
+    "maxEnroll": 120
+   },
+   {
+    "quarter": "20241",
+    "enrolledTotal": 120,
+    "maxEnroll": 120
+   },
+   {
+    "quarter": "20244",
+    "enrolledTotal": 80,
+    "maxEnroll": 120
+   },
+   {
+    "quarter": "20251",
+    "enrolledTotal": 119,
+    "maxEnroll": 120
+   },
+   {
+    "quarter": "20261",
+    "enrolledTotal": 120,
+    "maxEnroll": 120
+   }
+  ],
+  "JAPAN 80": [
+   {
+    "quarter": "20231",
+    "enrolledTotal": 70,
+    "maxEnroll": 90
+   },
+   {
+    "quarter": "20241",
+    "enrolledTotal": 65,
+    "maxEnroll": 90
+   },
+   {
+    "quarter": "20251",
+    "enrolledTotal": 88,
+    "maxEnroll": 90
+   },
+   {
+    "quarter": "20261",
+    "enrolledTotal": 90,
+    "maxEnroll": 90
+   }
+  ],
+  "PSY 10B": [
+   {
+    "quarter": "20231",
+    "enrolledTotal": 250,
+    "maxEnroll": 250
+   },
+   {
+    "quarter": "20232",
+    "enrolledTotal": 248,
+    "maxEnroll": 250
+   },
+   {
+    "quarter": "20241",
+    "enrolledTotal": 250,
+    "maxEnroll": 250
+   },
+   {
+    "quarter": "20242",
+    "enrolledTotal": 250,
+    "maxEnroll": 250
+   },
+   {
+    "quarter": "20251",
+    "enrolledTotal": 250,
+    "maxEnroll": 250
+   },
+   {
+    "quarter": "20252",
+    "enrolledTotal": 249,
+    "maxEnroll": 250
+   },
+   {
+    "quarter": "20261",
+    "enrolledTotal": 250,
+    "maxEnroll": 250
+   }
+  ]
+ }
+}

@@ -1,0 +1,853 @@
+{
+ "_synthetic": "SYNTHETIC fixture built from the Curriculums v3 schema for tests and the demo. Enroll code 59915 and the PSY 10B / PSTAT 8 / EEMB 7 / JAPAN 80 times come from the product spec; every other value is made up. Replace with a captured response once a key exists.",
+ "pageNumber": 1,
+ "pageSize": 500,
+ "total": 7,
+ "classes": [
+  {
+   "quarter": "20271",
+   "courseId": "PSY      10B ",
+   "title": "Introduction to Statistics II (sample)",
+   "description": null,
+   "contactHours": null,
+   "college": "L&S",
+   "objLevelCode": "L",
+   "subjectArea": "PSY",
+   "deptCode": null,
+   "instructionType": "LEC",
+   "instructionTypeSecondary": "Discussion",
+   "gradingOption": null,
+   "unitsFixed": 5,
+   "unitsVariableHigh": null,
+   "unitsVariableLow": null,
+   "delayedSectioning": null,
+   "inProgressCourse": false,
+   "onLineCourse": false,
+   "generalEducation": [
+    {
+     "geCode": "QNT",
+     "geCollege": "UCSB"
+    }
+   ],
+   "classSections": [
+    {
+     "enrollCode": "10001",
+     "section": "0100",
+     "session": null,
+     "classClosed": null,
+     "courseCancelled": null,
+     "gradingOptionCode": null,
+     "secondaryStatus": null,
+     "enrolledTotal": 240,
+     "maxEnroll": 250,
+     "departmentApprovalRequired": false,
+     "instructorApprovalRequired": false,
+     "restrictionLevel": null,
+     "restrictionMajor": null,
+     "restrictionMajorPass": null,
+     "restrictionMinor": null,
+     "restrictionMinorPass": null,
+     "concurrentCourses": [],
+     "timeLocations": [
+      {
+       "room": "TBA",
+       "building": "TBA",
+       "roomCapacity": null,
+       "days": "M W    ",
+       "beginTime": "11:00",
+       "endTime": "12:15"
+      }
+     ],
+     "instructors": [
+      {
+       "instructor": "STAFF",
+       "functionCode": "Teaching and in charge"
+      }
+     ]
+    },
+    {
+     "enrollCode": "10019",
+     "section": "0101",
+     "session": null,
+     "classClosed": null,
+     "courseCancelled": null,
+     "gradingOptionCode": null,
+     "secondaryStatus": null,
+     "enrolledTotal": 24,
+     "maxEnroll": 25,
+     "departmentApprovalRequired": false,
+     "instructorApprovalRequired": false,
+     "restrictionLevel": null,
+     "restrictionMajor": null,
+     "restrictionMajorPass": null,
+     "restrictionMinor": null,
+     "restrictionMinorPass": null,
+     "concurrentCourses": [],
+     "timeLocations": [
+      {
+       "room": "TBA",
+       "building": "TBA",
+       "roomCapacity": null,
+       "days": "  W    ",
+       "beginTime": "15:00",
+       "endTime": "16:50"
+      }
+     ],
+     "instructors": [
+      {
+       "instructor": "STAFF",
+       "functionCode": "Teaching and in charge"
+      }
+     ]
+    },
+    {
+     "enrollCode": "10027",
+     "section": "0102",
+     "session": null,
+     "classClosed": null,
+     "courseCancelled": null,
+     "gradingOptionCode": null,
+     "secondaryStatus": null,
+     "enrolledTotal": 25,
+     "maxEnroll": 25,
+     "departmentApprovalRequired": false,
+     "instructorApprovalRequired": false,
+     "restrictionLevel": null,
+     "restrictionMajor": null,
+     "restrictionMajorPass": null,
+     "restrictionMinor": null,
+     "restrictionMinorPass": null,
+     "concurrentCourses": [],
+     "timeLocations": [
+      {
+       "room": "TBA",
+       "building": "TBA",
+       "roomCapacity": null,
+       "days": "   R   ",
+       "beginTime": "09:00",
+       "endTime": "10:50"
+      }
+     ],
+     "instructors": [
+      {
+       "instructor": "STAFF",
+       "functionCode": "Teaching and in charge"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "quarter": "20271",
+   "courseId": "PSTAT     8 ",
+   "title": "Transition to Data Science, Probability and Statistics (sample)",
+   "description": null,
+   "contactHours": null,
+   "college": "L&S",
+   "objLevelCode": "L",
+   "subjectArea": "PSTAT",
+   "deptCode": null,
+   "instructionType": "LEC",
+   "instructionTypeSecondary": "Discussion",
+   "gradingOption": null,
+   "unitsFixed": 5,
+   "unitsVariableHigh": null,
+   "unitsVariableLow": null,
+   "delayedSectioning": null,
+   "inProgressCourse": false,
+   "onLineCourse": false,
+   "generalEducation": [],
+   "classSections": [
+    {
+     "enrollCode": "20001",
+     "section": "0100",
+     "session": null,
+     "classClosed": null,
+     "courseCancelled": null,
+     "gradingOptionCode": null,
+     "secondaryStatus": null,
+     "enrolledTotal": 180,
+     "maxEnroll": 200,
+     "departmentApprovalRequired": false,
+     "instructorApprovalRequired": false,
+     "restrictionLevel": null,
+     "restrictionMajor": null,
+     "restrictionMajorPass": null,
+     "restrictionMinor": null,
+     "restrictionMinorPass": null,
+     "concurrentCourses": [],
+     "timeLocations": [
+      {
+       "room": "TBA",
+       "building": "TBA",
+       "roomCapacity": null,
+       "days": "M W    ",
+       "beginTime": "12:30",
+       "endTime": "13:45"
+      }
+     ],
+     "instructors": [
+      {
+       "instructor": "STAFF",
+       "functionCode": "Teaching and in charge"
+      }
+     ]
+    },
+    {
+     "enrollCode": "20027",
+     "section": "0101",
+     "session": null,
+     "classClosed": null,
+     "courseCancelled": null,
+     "gradingOptionCode": null,
+     "secondaryStatus": null,
+     "enrolledTotal": 30,
+     "maxEnroll": 35,
+     "departmentApprovalRequired": false,
+     "instructorApprovalRequired": false,
+     "restrictionLevel": null,
+     "restrictionMajor": null,
+     "restrictionMajorPass": null,
+     "restrictionMinor": null,
+     "restrictionMinorPass": null,
+     "concurrentCourses": [],
+     "timeLocations": [
+      {
+       "room": "TBA",
+       "building": "TBA",
+       "roomCapacity": null,
+       "days": " T R   ",
+       "beginTime": "17:00",
+       "endTime": "17:50"
+      }
+     ],
+     "instructors": [
+      {
+       "instructor": "STAFF",
+       "functionCode": "Teaching and in charge"
+      }
+     ]
+    },
+    {
+     "enrollCode": "20035",
+     "section": "0102",
+     "session": null,
+     "classClosed": null,
+     "courseCancelled": null,
+     "gradingOptionCode": null,
+     "secondaryStatus": null,
+     "enrolledTotal": 22,
+     "maxEnroll": 35,
+     "departmentApprovalRequired": false,
+     "instructorApprovalRequired": false,
+     "restrictionLevel": null,
+     "restrictionMajor": null,
+     "restrictionMajorPass": null,
+     "restrictionMinor": null,
+     "restrictionMinorPass": null,
+     "concurrentCourses": [],
+     "timeLocations": [
+      {
+       "room": "TBA",
+       "building": "TBA",
+       "roomCapacity": null,
+       "days": " T R   ",
+       "beginTime": "08:00",
+       "endTime": "08:50"
+      }
+     ],
+     "instructors": [
+      {
+       "instructor": "STAFF",
+       "functionCode": "Teaching and in charge"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "quarter": "20271",
+   "courseId": "EEMB      7 ",
+   "title": "Introduction to Ecology and Evolution (sample)",
+   "description": null,
+   "contactHours": null,
+   "college": "L&S",
+   "objLevelCode": "L",
+   "subjectArea": "EEMB",
+   "deptCode": null,
+   "instructionType": "LEC",
+   "instructionTypeSecondary": "Discussion",
+   "gradingOption": null,
+   "unitsFixed": 4,
+   "unitsVariableHigh": null,
+   "unitsVariableLow": null,
+   "delayedSectioning": null,
+   "inProgressCourse": false,
+   "onLineCourse": false,
+   "generalEducation": [
+    {
+     "geCode": "C",
+     "geCollege": "UCSB"
+    }
+   ],
+   "classSections": [
+    {
+     "enrollCode": "30001",
+     "section": "0100",
+     "session": null,
+     "classClosed": null,
+     "courseCancelled": null,
+     "gradingOptionCode": null,
+     "secondaryStatus": null,
+     "enrolledTotal": 150,
+     "maxEnroll": 300,
+     "departmentApprovalRequired": false,
+     "instructorApprovalRequired": false,
+     "restrictionLevel": null,
+     "restrictionMajor": null,
+     "restrictionMajorPass": null,
+     "restrictionMinor": null,
+     "restrictionMinorPass": null,
+     "concurrentCourses": [],
+     "timeLocations": [
+      {
+       "room": "TBA",
+       "building": "TBA",
+       "roomCapacity": null,
+       "days": " T R   ",
+       "beginTime": "15:30",
+       "endTime": "16:45"
+      }
+     ],
+     "instructors": [
+      {
+       "instructor": "STAFF",
+       "functionCode": "Teaching and in charge"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "quarter": "20271",
+   "courseId": "JAPAN    80 ",
+   "title": "Japanese Literature in Translation (sample)",
+   "description": null,
+   "contactHours": null,
+   "college": "L&S",
+   "objLevelCode": "L",
+   "subjectArea": "JAPAN",
+   "deptCode": null,
+   "instructionType": "LEC",
+   "instructionTypeSecondary": "Discussion",
+   "gradingOption": null,
+   "unitsFixed": 5,
+   "unitsVariableHigh": null,
+   "unitsVariableLow": null,
+   "delayedSectioning": null,
+   "inProgressCourse": false,
+   "onLineCourse": false,
+   "generalEducation": [
+    {
+     "geCode": "G",
+     "geCollege": "UCSB"
+    },
+    {
+     "geCode": "WRT",
+     "geCollege": "UCSB"
+    },
+    {
+     "geCode": "NWC",
+     "geCollege": "UCSB"
+    }
+   ],
+   "classSections": [
+    {
+     "enrollCode": "59907",
+     "section": "0100",
+     "session": null,
+     "classClosed": null,
+     "courseCancelled": null,
+     "gradingOptionCode": null,
+     "secondaryStatus": null,
+     "enrolledTotal": 60,
+     "maxEnroll": 90,
+     "departmentApprovalRequired": false,
+     "instructorApprovalRequired": false,
+     "restrictionLevel": null,
+     "restrictionMajor": null,
+     "restrictionMajorPass": null,
+     "restrictionMinor": null,
+     "restrictionMinorPass": null,
+     "concurrentCourses": [],
+     "timeLocations": [
+      {
+       "room": "TBA",
+       "building": "TBA",
+       "roomCapacity": null,
+       "days": " T R   ",
+       "beginTime": "11:00",
+       "endTime": "12:15"
+      }
+     ],
+     "instructors": [
+      {
+       "instructor": "STAFF",
+       "functionCode": "Teaching and in charge"
+      }
+     ]
+    },
+    {
+     "enrollCode": "59915",
+     "section": "0101",
+     "session": null,
+     "classClosed": null,
+     "courseCancelled": null,
+     "gradingOptionCode": null,
+     "secondaryStatus": null,
+     "enrolledTotal": 18,
+     "maxEnroll": 30,
+     "departmentApprovalRequired": false,
+     "instructorApprovalRequired": false,
+     "restrictionLevel": null,
+     "restrictionMajor": null,
+     "restrictionMajorPass": null,
+     "restrictionMinor": null,
+     "restrictionMinorPass": null,
+     "concurrentCourses": [],
+     "timeLocations": [
+      {
+       "room": "TBA",
+       "building": "TBA",
+       "roomCapacity": null,
+       "days": "   R   ",
+       "beginTime": "15:00",
+       "endTime": "15:50"
+      }
+     ],
+     "instructors": [
+      {
+       "instructor": "STAFF",
+       "functionCode": "Teaching and in charge"
+      }
+     ]
+    },
+    {
+     "enrollCode": "59923",
+     "section": "0102",
+     "session": null,
+     "classClosed": null,
+     "courseCancelled": null,
+     "gradingOptionCode": null,
+     "secondaryStatus": null,
+     "enrolledTotal": 20,
+     "maxEnroll": 30,
+     "departmentApprovalRequired": false,
+     "instructorApprovalRequired": false,
+     "restrictionLevel": null,
+     "restrictionMajor": null,
+     "restrictionMajorPass": null,
+     "restrictionMinor": null,
+     "restrictionMinorPass": null,
+     "concurrentCourses": [],
+     "timeLocations": [
+      {
+       "room": "TBA",
+       "building": "TBA",
+       "roomCapacity": null,
+       "days": "    F  ",
+       "beginTime": "10:00",
+       "endTime": "10:50"
+      }
+     ],
+     "instructors": [
+      {
+       "instructor": "STAFF",
+       "functionCode": "Teaching and in charge"
+      }
+     ]
+    },
+    {
+     "enrollCode": "59931",
+     "section": "0103",
+     "session": null,
+     "classClosed": null,
+     "courseCancelled": null,
+     "gradingOptionCode": null,
+     "secondaryStatus": null,
+     "enrolledTotal": 22,
+     "maxEnroll": 30,
+     "departmentApprovalRequired": false,
+     "instructorApprovalRequired": false,
+     "restrictionLevel": null,
+     "restrictionMajor": null,
+     "restrictionMajorPass": null,
+     "restrictionMinor": null,
+     "restrictionMinorPass": null,
+     "concurrentCourses": [],
+     "timeLocations": [
+      {
+       "room": "TBA",
+       "building": "TBA",
+       "roomCapacity": null,
+       "days": "M      ",
+       "beginTime": "14:00",
+       "endTime": "14:50"
+      }
+     ],
+     "instructors": [
+      {
+       "instructor": "STAFF",
+       "functionCode": "Teaching and in charge"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "quarter": "20271",
+   "courseId": "C LIT    36 ",
+   "title": "Global Humanities (sample)",
+   "description": null,
+   "contactHours": null,
+   "college": "L&S",
+   "objLevelCode": "L",
+   "subjectArea": "C LIT",
+   "deptCode": null,
+   "instructionType": "LEC",
+   "instructionTypeSecondary": "Discussion",
+   "gradingOption": null,
+   "unitsFixed": 4,
+   "unitsVariableHigh": null,
+   "unitsVariableLow": null,
+   "delayedSectioning": null,
+   "inProgressCourse": false,
+   "onLineCourse": false,
+   "generalEducation": [
+    {
+     "geCode": "E",
+     "geCollege": "UCSB"
+    },
+    {
+     "geCode": "WRT",
+     "geCollege": "UCSB"
+    },
+    {
+     "geCode": "NWC",
+     "geCollege": "UCSB"
+    }
+   ],
+   "classSections": [
+    {
+     "enrollCode": "61001",
+     "section": "0100",
+     "session": null,
+     "classClosed": null,
+     "courseCancelled": null,
+     "gradingOptionCode": null,
+     "secondaryStatus": null,
+     "enrolledTotal": 110,
+     "maxEnroll": 120,
+     "departmentApprovalRequired": false,
+     "instructorApprovalRequired": false,
+     "restrictionLevel": null,
+     "restrictionMajor": null,
+     "restrictionMajorPass": null,
+     "restrictionMinor": null,
+     "restrictionMinorPass": null,
+     "concurrentCourses": [],
+     "timeLocations": [
+      {
+       "room": "TBA",
+       "building": "TBA",
+       "roomCapacity": null,
+       "days": " T R   ",
+       "beginTime": "14:00",
+       "endTime": "15:15"
+      }
+     ],
+     "instructors": [
+      {
+       "instructor": "STAFF",
+       "functionCode": "Teaching and in charge"
+      }
+     ]
+    },
+    {
+     "enrollCode": "61019",
+     "section": "0101",
+     "session": null,
+     "classClosed": null,
+     "courseCancelled": null,
+     "gradingOptionCode": null,
+     "secondaryStatus": null,
+     "enrolledTotal": 28,
+     "maxEnroll": 30,
+     "departmentApprovalRequired": false,
+     "instructorApprovalRequired": false,
+     "restrictionLevel": null,
+     "restrictionMajor": null,
+     "restrictionMajorPass": null,
+     "restrictionMinor": null,
+     "restrictionMinorPass": null,
+     "concurrentCourses": [],
+     "timeLocations": [
+      {
+       "room": "TBA",
+       "building": "TBA",
+       "roomCapacity": null,
+       "days": "    F  ",
+       "beginTime": "09:00",
+       "endTime": "09:50"
+      }
+     ],
+     "instructors": [
+      {
+       "instructor": "STAFF",
+       "functionCode": "Teaching and in charge"
+      }
+     ]
+    },
+    {
+     "enrollCode": "61027",
+     "section": "0102",
+     "session": null,
+     "classClosed": null,
+     "courseCancelled": null,
+     "gradingOptionCode": null,
+     "secondaryStatus": null,
+     "enrolledTotal": 30,
+     "maxEnroll": 30,
+     "departmentApprovalRequired": false,
+     "instructorApprovalRequired": false,
+     "restrictionLevel": null,
+     "restrictionMajor": null,
+     "restrictionMajorPass": null,
+     "restrictionMinor": null,
+     "restrictionMinorPass": null,
+     "concurrentCourses": [],
+     "timeLocations": [
+      {
+       "room": "TBA",
+       "building": "TBA",
+       "roomCapacity": null,
+       "days": "    F  ",
+       "beginTime": "11:00",
+       "endTime": "11:50"
+      }
+     ],
+     "instructors": [
+      {
+       "instructor": "STAFF",
+       "functionCode": "Teaching and in charge"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "quarter": "20271",
+   "courseId": "ANTH    W 3 ",
+   "title": "Introductory Cultural Anthropology (online sample)",
+   "description": null,
+   "contactHours": null,
+   "college": "L&S",
+   "objLevelCode": "L",
+   "subjectArea": "ANTH",
+   "deptCode": null,
+   "instructionType": "LEC",
+   "instructionTypeSecondary": "Discussion",
+   "gradingOption": null,
+   "unitsFixed": 4,
+   "unitsVariableHigh": null,
+   "unitsVariableLow": null,
+   "delayedSectioning": null,
+   "inProgressCourse": false,
+   "onLineCourse": false,
+   "generalEducation": [
+    {
+     "geCode": "D",
+     "geCollege": "UCSB"
+    },
+    {
+     "geCode": "WRT",
+     "geCollege": "UCSB"
+    },
+    {
+     "geCode": "NWC",
+     "geCollege": "UCSB"
+    }
+   ],
+   "classSections": [
+    {
+     "enrollCode": "62000",
+     "section": "0100",
+     "session": null,
+     "classClosed": null,
+     "courseCancelled": null,
+     "gradingOptionCode": null,
+     "secondaryStatus": null,
+     "enrolledTotal": 150,
+     "maxEnroll": 200,
+     "departmentApprovalRequired": false,
+     "instructorApprovalRequired": false,
+     "restrictionLevel": null,
+     "restrictionMajor": null,
+     "restrictionMajorPass": null,
+     "restrictionMinor": null,
+     "restrictionMinorPass": null,
+     "concurrentCourses": [],
+     "timeLocations": [
+      {
+       "room": "TBA",
+       "building": "TBA",
+       "roomCapacity": null,
+       "days": "       ",
+       "beginTime": null,
+       "endTime": null
+      }
+     ],
+     "instructors": [
+      {
+       "instructor": "STAFF",
+       "functionCode": "Teaching and in charge"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "quarter": "20271",
+   "courseId": "POL S     1 ",
+   "title": "Introduction to Political Philosophy (sample)",
+   "description": null,
+   "contactHours": null,
+   "college": "L&S",
+   "objLevelCode": "L",
+   "subjectArea": "POL S",
+   "deptCode": null,
+   "instructionType": "LEC",
+   "instructionTypeSecondary": "Discussion",
+   "gradingOption": null,
+   "unitsFixed": 4,
+   "unitsVariableHigh": null,
+   "unitsVariableLow": null,
+   "delayedSectioning": null,
+   "inProgressCourse": false,
+   "onLineCourse": false,
+   "generalEducation": [
+    {
+     "geCode": "D",
+     "geCollege": "UCSB"
+    }
+   ],
+   "classSections": [
+    {
+     "enrollCode": "63001",
+     "section": "0100",
+     "session": null,
+     "classClosed": null,
+     "courseCancelled": null,
+     "gradingOptionCode": null,
+     "secondaryStatus": null,
+     "enrolledTotal": 200,
+     "maxEnroll": 300,
+     "departmentApprovalRequired": false,
+     "instructorApprovalRequired": false,
+     "restrictionLevel": null,
+     "restrictionMajor": null,
+     "restrictionMajorPass": null,
+     "restrictionMinor": null,
+     "restrictionMinorPass": null,
+     "concurrentCourses": [],
+     "timeLocations": [
+      {
+       "room": "TBA",
+       "building": "TBA",
+       "roomCapacity": null,
+       "days": "M W    ",
+       "beginTime": "09:30",
+       "endTime": "10:45"
+      }
+     ],
+     "instructors": [
+      {
+       "instructor": "STAFF",
+       "functionCode": "Teaching and in charge"
+      }
+     ]
+    },
+    {
+     "enrollCode": "63019",
+     "section": "0101",
+     "session": null,
+     "classClosed": null,
+     "courseCancelled": null,
+     "gradingOptionCode": null,
+     "secondaryStatus": null,
+     "enrolledTotal": 25,
+     "maxEnroll": 25,
+     "departmentApprovalRequired": false,
+     "instructorApprovalRequired": false,
+     "restrictionLevel": null,
+     "restrictionMajor": null,
+     "restrictionMajorPass": null,
+     "restrictionMinor": null,
+     "restrictionMinorPass": null,
+     "concurrentCourses": [],
+     "timeLocations": [
+      {
+       "room": "TBA",
+       "building": "TBA",
+       "roomCapacity": null,
+       "days": "   R   ",
+       "beginTime": "12:00",
+       "endTime": "12:50"
+      }
+     ],
+     "instructors": [
+      {
+       "instructor": "STAFF",
+       "functionCode": "Teaching and in charge"
+      }
+     ]
+    },
+    {
+     "enrollCode": "63027",
+     "section": "0102",
+     "session": null,
+     "classClosed": null,
+     "courseCancelled": null,
+     "gradingOptionCode": null,
+     "secondaryStatus": null,
+     "enrolledTotal": 10,
+     "maxEnroll": 25,
+     "departmentApprovalRequired": false,
+     "instructorApprovalRequired": false,
+     "restrictionLevel": null,
+     "restrictionMajor": null,
+     "restrictionMajorPass": null,
+     "restrictionMinor": null,
+     "restrictionMinorPass": null,
+     "concurrentCourses": [],
+     "timeLocations": [
+      {
+       "room": "TBA",
+       "building": "TBA",
+       "roomCapacity": null,
+       "days": "    F  ",
+       "beginTime": "12:00",
+       "endTime": "12:50"
+      }
+     ],
+     "instructors": [
+      {
+       "instructor": "STAFF",
+       "functionCode": "Teaching and in charge"
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}
