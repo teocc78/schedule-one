@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { postJson } from "@/lib/fetch-json";
 
 const STEPS = [
   { label: "Reading your transcript",    sublabel: "Extracting completed courses and grades" },
@@ -34,25 +35,21 @@ export default function ProcessingPage() {
     async function run() {
       try {
         setStep(0);
-        const parseRes = await fetch("/api/parse-transcript", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ text: transcriptText }),
-        });
-        if (!parseRes.ok) throw new Error((await parseRes.json()).error ?? "Transcript parsing failed");
-        const transcript = await parseRes.json();
+        const transcript = await postJson<unknown>(
+          "/api/parse-transcript",
+          { text: transcriptText },
+          "Transcript parsing failed"
+        );
 
         setStep(1);
         await new Promise(r => setTimeout(r, 400));
 
         setStep(2);
-        const planRes = await fetch("/api/plan", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ transcript, majorCode: "statistics-data-science", quarter: "Winter 2026", constraints }),
-        });
-        if (!planRes.ok) throw new Error((await planRes.json()).error ?? "Planning failed");
-        const planResult = await planRes.json();
+        const planResult = await postJson<unknown>(
+          "/api/plan",
+          { transcript, majorCode: "statistics-data-science", quarter: "Winter 2027", constraints },
+          "Planning failed"
+        );
 
         setStep(3);
         await new Promise(r => setTimeout(r, 500));
@@ -80,7 +77,7 @@ export default function ProcessingPage() {
           SCHEDULE ONE
         </span>
         <div style={{ fontSize: ".75rem", color: "var(--ink3)", letterSpacing: ".08em", textTransform: "uppercase", marginTop: ".15rem" }}>
-          UCSB · Winter 2026
+          UCSB · Winter 2027
         </div>
       </div>
 

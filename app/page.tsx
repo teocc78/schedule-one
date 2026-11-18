@@ -27,7 +27,7 @@ export default function LandingPage() {
       {/* Hero */}
       <section style={{ maxWidth: 900, margin: "0 auto", padding: "4rem 1.5rem 3rem", textAlign: "center" }}>
         <div style={{ display: "inline-block", border: "2px solid var(--line)", borderRadius: 999, padding: ".25rem .9rem", fontSize: ".78rem", fontWeight: 600, letterSpacing: ".05em", textTransform: "uppercase", color: "var(--ink2)", marginBottom: "1.5rem", background: "var(--surf)" }}>
-          Statistics &amp; Data Science · UCSB · Winter 2026
+          Statistics &amp; Data Science · UCSB · Winter 2027
         </div>
         <h1 style={{ fontFamily: "var(--display)", fontSize: "clamp(2.4rem, 7vw, 4.5rem)", lineHeight: 1, margin: "0 0 1.25rem", letterSpacing: ".01em" }}>
           YOUR NEXT QUARTER,<br />

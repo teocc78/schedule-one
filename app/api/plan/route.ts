@@ -1,44 +1,43 @@
 import { NextRequest, NextResponse } from "next/server";
-import { runPlanner } from "@/lib/planner";
+import { runPlanner, NoValidScheduleError } from "@/lib/planner";
+import { LLMConfigError } from "@/lib/llm";
 import type { PlanRequest } from "@/types";
 import requirementsData from "@/data/requirements/statistics-data-science.json";
 import offeringsData from "@/data/offerings/winter-2027.json";
 import type { MajorRequirements, QuarterOfferings } from "@/types";
 
+// The LLM call plus one corrective retry can take 20-40 s. Without this,
+// Vercel cuts the function off at its default limit and the browser gets an
+// HTML error page instead of JSON.
+export const maxDuration = 60;
+
 const requirements = requirementsData as unknown as MajorRequirements;
 const offerings = offeringsData as unknown as QuarterOfferings;
 
 export async function POST(req: NextRequest) {
+  let body: PlanRequest;
   try {
-    const body: PlanRequest = await req.json();
-    if (!body.transcript || !body.constraints) {
-      return NextResponse.json({ error: "Missing transcript or constraints" }, { status: 400 });
-    }
+    body = await req.json();
+  } catch {
+    return NextResponse.json({ error: "Request body was not valid JSON" }, { status: 400 });
+  }
+  if (!body.transcript || !body.constraints) {
+    return NextResponse.json({ error: "Missing transcript or constraints" }, { status: 400 });
+  }
 
-    const result = await runPlanner(
-      body.transcript,
-      requirements,
-      offerings,
-      body.constraints
-    );
-
-    // Never return an invalid primary schedule
-    if (!result.primary.validation.valid) {
-      return NextResponse.json(
-        {
-          error: "Could not produce a valid schedule. Errors: " +
-            result.primary.validation.errors.join("; "),
-        },
-        { status: 422 }
-      );
-    }
-
+  try {
+    const result = await runPlanner(body.transcript, requirements, offerings, body.constraints);
     return NextResponse.json(result);
   } catch (err) {
-    console.error("[plan]", err);
-    return NextResponse.json(
-      { error: err instanceof Error ? err.message : "Planning failed" },
-      { status: 500 }
-    );
+    if (err instanceof NoValidScheduleError) {
+      return NextResponse.json({ error: err.message }, { status: 422 });
+    }
+    if (err instanceof LLMConfigError) {
+      console.error("[plan] configuration:", err.message);
+      return NextResponse.json({ error: "The planner isn't configured on the server yet (missing AI key)." }, { status: 503 });
+    }
+    // Never log student data; the message alone is enough to debug.
+    console.error("[plan]", err instanceof Error ? err.message : "unknown error");
+    return NextResponse.json({ error: "Planning failed. Please try again." }, { status: 500 });
   }
 }

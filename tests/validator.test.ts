@@ -4,6 +4,7 @@ import type {
   ScheduledCourse,
   StudentConstraints,
   CompletedCourse,
+  DayOfWeek,
 } from "@/types";
 
 // ── Fixtures ──────────────────────────────────────────────────
@@ -37,7 +38,7 @@ function makeCourse(
       code,
       title: code,
       units,
-      schedule: { days: days as any, startTime: start, endTime: end },
+      schedule: { days: days as DayOfWeek[], startTime: start, endTime: end },
       instructor: "Staff",
       prerequisites: prereqs,
       description: "",
@@ -240,14 +241,68 @@ describe("no_duplicate_requirements", () => {
     expect(result.passedChecks).toContain("no_duplicate_requirements");
   });
 
-  it("flags when same group is covered by two courses", () => {
+  it("flags when more courses claim a group than it still needs", () => {
     const courses = [
       makeCourse("A", ["M"], "09:00", "09:50", 4, [], ["upper-methods"]),
       makeCourse("B", ["T"], "10:00", "11:15", 4, [], ["upper-methods"]),
       makeCourse("C", ["W"], "11:00", "11:50", 4, [], ["data-science"]),
       makeCourse("D", ["R"], "13:00", "14:15", 4, [], ["writing"]),
     ];
-    const result = validateSchedule(courses, defaultConstraints, completedCourses);
+    const result = validateSchedule(courses, defaultConstraints, completedCourses, {
+      groupCapacity: { "upper-methods": 1, "data-science": 1, writing: 1 },
+    });
     expect(result.errors.some((e) => e.includes("upper-methods"))).toBe(true);
+  });
+
+  it("allows two electives toward a choose-n group that still needs them (print-schedule bug)", () => {
+    const courses = [
+      makeCourse("PSTAT 115", ["T", "R"], "11:00", "12:15", 4, [], ["upper-electives-c"]),
+      makeCourse("PSTAT 122", ["M", "W", "F"], "12:00", "12:50", 4, [], ["upper-electives-c"]),
+      makeCourse("PSTAT 127", ["T", "R"], "14:00", "15:15", 4, [], ["upper-electives-c"]),
+    ];
+    const result = validateSchedule(courses, defaultConstraints, completedCourses, {
+      groupCapacity: { "upper-electives-c": 5 },
+    });
+    expect(result.passedChecks).toContain("no_duplicate_requirements");
+    expect(result.valid).toBe(true);
+  });
+
+  it("flags the same course listed twice", () => {
+    const courses = [
+      makeCourse("PSTAT 115", ["T", "R"], "11:00", "12:15"),
+      makeCourse("pstat115", ["M"], "13:00", "13:50"),
+      makeCourse("PSTAT 122", ["W"], "12:00", "12:50"),
+    ];
+    const result = validateSchedule(courses, defaultConstraints, completedCourses);
+    expect(result.errors.some((e) => e.includes("more than once"))).toBe(true);
+  });
+});
+
+describe("prerequisites: normalization and alternatives", () => {
+  it("accepts either alternative in an A|B prerequisite", () => {
+    const courses = [
+      makeCourse("PSTAT 160A", ["T", "R"], "09:30", "10:45", 4, ["MATH 8|PSTAT 8"]),
+      makeCourse("X", ["M"], "09:00", "09:50", 4),
+      makeCourse("Y", ["W"], "09:00", "09:50", 4),
+    ];
+    const done: CompletedCourse[] = [
+      ...completedCourses,
+      { code: "PSTAT 8", title: "Transition", units: 5, grade: "A", quarter: "Fall 2025" },
+    ];
+    const result = validateSchedule(courses, defaultConstraints, done);
+    expect(result.passedChecks).toContain("prerequisites_met");
+  });
+
+  it("matches transcript codes that differ only in spacing or case", () => {
+    const courses = [
+      makeCourse("PSTAT 120B", ["M", "W", "F"], "10:00", "10:50", 4, ["PSTAT 120A"]),
+      makeCourse("X", ["T"], "09:00", "09:50", 4),
+      makeCourse("Y", ["R"], "09:00", "09:50", 4),
+    ];
+    const done: CompletedCourse[] = [
+      { code: "pstat120a", title: "Prob", units: 4, grade: "A", quarter: "Fall 2024" },
+    ];
+    const result = validateSchedule(courses, defaultConstraints, done);
+    expect(result.passedChecks).toContain("prerequisites_met");
   });
 });

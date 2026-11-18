@@ -55,7 +55,7 @@ export default function ResultsPage() {
               <div className="text-sm font-semibold text-gray-900">
                 {transcript.studentName || "Your Schedule"}
               </div>
-              <div className="text-xs text-gray-400">{transcript.major} · Winter 2026</div>
+              <div className="text-xs text-gray-400">{transcript.major} · Winter 2027</div>
             </div>
           </div>
           <div className="flex items-center gap-2">

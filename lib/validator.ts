@@ -5,6 +5,17 @@ import type {
   ValidationCheck,
   CompletedCourse,
 } from "@/types";
+import { normalizeCode, normalizeCodes, prereqSatisfied, describePrereq } from "@/lib/course-codes";
+
+export interface ValidateOptions {
+  /**
+   * How many more courses each requirement group can still absorb
+   * (choose_n: n minus completed; all: courses still missing).
+   * When given, a group is only flagged as over-counted if more scheduled
+   * courses claim it than it still needs.
+   */
+  groupCapacity?: Record<string, number>;
+}
 
 // ── Time helpers ──────────────────────────────────────────────
 
@@ -61,13 +72,16 @@ function checkPrerequisites(
   courses: ScheduledCourse[],
   completed: CompletedCourse[]
 ): string[] {
-  const completedCodes = new Set(completed.map((c) => c.code));
+  const completedCodes = normalizeCodes(completed.map((c) => c.code));
   const errors: string[] = [];
   for (const sc of courses) {
+    if (completedCodes.has(normalizeCode(sc.offering.code))) {
+      errors.push(`${sc.offering.code} has already been completed`);
+    }
     for (const prereq of sc.offering.prerequisites) {
-      if (!completedCodes.has(prereq)) {
+      if (!prereqSatisfied(prereq, completedCodes)) {
         errors.push(
-          `${sc.offering.code} requires ${prereq}, which has not been completed`
+          `${sc.offering.code} requires ${describePrereq(prereq)}, which has not been completed`
         );
       }
     }
@@ -75,19 +89,42 @@ function checkPrerequisites(
   return errors;
 }
 
-function checkNoDuplicateRequirements(courses: ScheduledCourse[]): string[] {
+function checkNoDuplicateRequirements(
+  courses: ScheduledCourse[],
+  groupCapacity?: Record<string, number>
+): string[] {
   const errors: string[] = [];
-  const groupCounts: Record<string, string[]> = {};
+
+  // The same course twice is always wrong.
+  const seen = new Set<string>();
   for (const sc of courses) {
-    for (const gid of sc.satisfies) {
-      groupCounts[gid] = [...(groupCounts[gid] ?? []), sc.offering.code];
-    }
+    const code = normalizeCode(sc.offering.code);
+    if (seen.has(code)) errors.push(`${sc.offering.code} appears more than once`);
+    seen.add(code);
   }
-  for (const [gid, codes] of Object.entries(groupCounts)) {
-    if (codes.length > 1) {
-      errors.push(
-        `Requirement group "${gid}" is covered by multiple courses: ${codes.join(", ")} — possible over-counting`
-      );
+
+  // Several courses may legitimately count toward one group (two PSTAT
+  // electives toward a "choose 5" group). Only flag a group when more
+  // courses claim it than it still needs. Without capacity data there is
+  // nothing to compare against, so no group is flagged.
+  //
+  // Bug fixed here: this used to flag ANY group claimed by two courses,
+  // which rejected normal elective-heavy schedules and made /api/plan
+  // return 422 "Could not produce a valid schedule" at random.
+  if (groupCapacity) {
+    const groupCounts: Record<string, string[]> = {};
+    for (const sc of courses) {
+      for (const gid of sc.satisfies) {
+        groupCounts[gid] = [...(groupCounts[gid] ?? []), sc.offering.code];
+      }
+    }
+    for (const [gid, codes] of Object.entries(groupCounts)) {
+      const cap = groupCapacity[gid] ?? 0;
+      if (codes.length > cap) {
+        errors.push(
+          `Requirement group "${gid}" only needs ${cap} more course(s) but ${codes.length} are counted toward it: ${codes.join(", ")}`
+        );
+      }
     }
   }
   return errors;
@@ -122,15 +159,15 @@ function checkConstraints(
     }
 
     // Must-exclude courses
-    if (constraints.mustExclude.includes(sc.offering.code)) {
+    if (constraints.mustExclude.map(normalizeCode).includes(normalizeCode(sc.offering.code))) {
       errors.push(`${sc.offering.code} is in the excluded courses list`);
     }
   }
 
   // Must-include courses
-  const scheduledCodes = new Set(courses.map((sc) => sc.offering.code));
+  const scheduledCodes = normalizeCodes(courses.map((sc) => sc.offering.code));
   for (const code of constraints.mustInclude) {
-    if (!scheduledCodes.has(code)) {
+    if (!scheduledCodes.has(normalizeCode(code))) {
       errors.push(`${code} was requested but is not in the schedule`);
     }
   }
@@ -143,7 +180,8 @@ function checkConstraints(
 export function validateSchedule(
   courses: ScheduledCourse[],
   constraints: StudentConstraints,
-  completed: CompletedCourse[]
+  completed: CompletedCourse[],
+  options: ValidateOptions = {}
 ): ValidationResult {
   const passedChecks: ValidationCheck[] = [];
   const allErrors: string[] = [];
@@ -160,7 +198,7 @@ export function validateSchedule(
   if (prereqErrors.length === 0) passedChecks.push("prerequisites_met");
   else allErrors.push(...prereqErrors);
 
-  const dupErrors = checkNoDuplicateRequirements(courses);
+  const dupErrors = checkNoDuplicateRequirements(courses, options.groupCapacity);
   if (dupErrors.length === 0) passedChecks.push("no_duplicate_requirements");
   else allErrors.push(...dupErrors);
 

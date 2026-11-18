@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { parseTranscript } from "@/lib/llm";
+import { parseTranscript, LLMConfigError } from "@/lib/llm";
 import type { ParseTranscriptRequest } from "@/types";
+
+export const maxDuration = 60;
 
 export async function POST(req: NextRequest) {
   try {
@@ -11,10 +13,12 @@ export async function POST(req: NextRequest) {
     const transcript = await parseTranscript(body.text);
     return NextResponse.json(transcript);
   } catch (err) {
-    console.error("[parse-transcript]", err);
-    return NextResponse.json(
-      { error: err instanceof Error ? err.message : "Failed to parse transcript" },
-      { status: 500 }
-    );
+    if (err instanceof LLMConfigError) {
+      console.error("[parse-transcript] configuration:", err.message);
+      return NextResponse.json({ error: "The planner isn't configured on the server yet (missing AI key)." }, { status: 503 });
+    }
+    // Transcript text is sensitive: log the error message only.
+    console.error("[parse-transcript]", err instanceof Error ? err.message : "unknown error");
+    return NextResponse.json({ error: "Couldn't read that transcript. Please try again." }, { status: 500 });
   }
 }

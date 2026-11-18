@@ -211,7 +211,7 @@ function CoursesTab() {
 
   return (
     <div>
-      <h2 className="sec" style={{ "--acc": "#c4a04a" } as React.CSSProperties}>Courses — Winter 2026</h2>
+      <h2 className="sec" style={{ "--acc": "#c4a04a" } as React.CSSProperties}>Courses — Winter 2027</h2>
       <input
         type="search"
         placeholder="Filter by code or title…"
@@ -376,7 +376,7 @@ export default function DashboardPage() {
       {/* ── Rail nav ── */}
       <nav className="rail" role="tablist" aria-label="Sections">
         <span className="rail-wordmark">SCHEDULE<br />ONE</span>
-        <span className="rail-sub">UCSB · Winter 2026</span>
+        <span className="rail-sub">UCSB · Winter 2027</span>
 
         {TABS.map(({ id, label, color }) => (
           <button

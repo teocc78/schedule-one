@@ -10,19 +10,37 @@ import { z } from "zod";
 import type {
   TranscriptData,
   MajorRequirements,
-  QuarterOfferings,
+  CourseOffering,
   StudentConstraints,
-  PlanResult,
-  ScheduledCourse,
-  Schedule,
-  SwapOption,
 } from "@/types";
-import { validateSchedule } from "@/lib/validator";
-import { mapCoursesToGroups } from "@/lib/requirements";
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY! });
-// shortcut: model name validated at runtime by API; set GEMINI_MODEL=gemini-3.8-flash
-const MODEL = process.env.GEMINI_MODEL ?? "gemini-3.8-flash";
+/**
+ * Model used for every call. Override with GEMINI_MODEL in .env.local or the
+ * Vercel project settings. The old default ("gemini-3.8-flash") was a guess
+ * and fails with a 404 whenever GEMINI_MODEL is not set.
+ */
+const DEFAULT_MODEL = "gemini-2.5-flash";
+
+export class LLMConfigError extends Error {}
+
+let client: GoogleGenAI | null = null;
+
+/** Created on first use so a missing key never breaks `next build`. */
+function getClient(): GoogleGenAI {
+  if (client) return client;
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) {
+    throw new LLMConfigError(
+      "GEMINI_API_KEY is not set on the server. Add it to .env.local (local) or the Vercel project's environment variables."
+    );
+  }
+  client = new GoogleGenAI({ apiKey });
+  return client;
+}
+
+function model(): string {
+  return process.env.GEMINI_MODEL?.trim() || DEFAULT_MODEL;
+}
 
 // ── Zod schemas ───────────────────────────────────────────────
 
@@ -72,7 +90,13 @@ async function callWithRetry<T>(
   schema: z.ZodType<T>,
   attempt = 1
 ): Promise<T> {
-  const response = await ai.models.generateContent({ model: MODEL, contents: prompt });
+  const response = await getClient().models.generateContent({
+    model: model(),
+    contents: prompt,
+    // Ask Gemini for raw JSON so markdown fences and chatty text don't
+    // break parsing.
+    config: { responseMimeType: "application/json", temperature: 0.4 },
+  });
   const text = response.text ?? "";
 
   // Extract JSON from the response (handles markdown code blocks)
@@ -148,24 +172,34 @@ ${text}
 
 // ── Schedule planning ─────────────────────────────────────────
 
-export async function planSchedule(
+export type RawSchedule = z.infer<typeof ScheduleSchema>;
+export type RawPlan = z.infer<typeof PlanLLMOutputSchema>;
+
+/**
+ * Ask the LLM to propose three schedules from courses the student is
+ * already eligible for. The LLM only proposes and explains; the planner
+ * validates every proposal with deterministic rules before showing it.
+ *
+ * `feedback` carries validation errors from a previous attempt so the
+ * model can correct itself.
+ */
+export async function proposeSchedules(
   transcript: TranscriptData,
   requirements: MajorRequirements,
-  offerings: QuarterOfferings,
+  quarterLabel: string,
+  eligible: CourseOffering[],
   constraints: StudentConstraints,
-  remainingGroupSummary: string
-): Promise<PlanResult> {
+  remainingGroupSummary: string,
+  feedback?: string
+): Promise<RawPlan> {
   const offeringsJson = JSON.stringify(
-    offerings.courses.map((c) => ({
+    eligible.map((c) => ({
       code: c.code,
       title: c.title,
       units: c.units,
       schedule: c.schedule,
-      prerequisites: c.prerequisites,
       requirementGroups: c.requirementGroups,
-    })),
-    null,
-    2
+    }))
   );
 
   const completedCodes = transcript.completedCourses.map((c) => c.code);
@@ -185,110 +219,35 @@ ${constraints.mustInclude.length ? `- Must include: ${constraints.mustInclude.jo
 ${constraints.mustExclude.length ? `- Must exclude: ${constraints.mustExclude.join(", ")}` : ""}
 ${constraints.freeText ? `- Student preference: ${constraints.freeText}` : ""}
 
-AVAILABLE COURSES (${offerings.quarter} ${offerings.year}):
+ELIGIBLE COURSES (${quarterLabel}; prerequisites already met, none completed):
 ${offeringsJson}
 
-Create 3 schedules: one primary and two backups. Each backup must differ from the primary by at least one course swap.
+Create 3 schedules: one primary and two backups. Each backup must differ from the primary by at least one course.
 
 Return ONLY a JSON object:
 {
   "primary": {
-    "courses": [
-      { "code": "PSTAT 126", "satisfies": ["upper-methods"] }
-    ],
+    "courses": [ { "code": "PSTAT 126", "satisfies": ["upper-core-methods"] } ],
     "explanation": "Plain English: why these courses, what requirements they satisfy",
-    "swaps": {
-      "PSTAT 126": [{ "code": "PSTAT 131", "reason": "Also satisfies upper-methods and has later times" }]
-    }
+    "swaps": { "PSTAT 126": [{ "code": "PSTAT 131", "reason": "..." }] }
   },
-  "backup1": {
-    "courses": [...],
-    "explanation": "...",
-    "changeNote": "Swapped X for Y because ...",
-    "swaps": {}
-  },
-  "backup2": {
-    "courses": [...],
-    "explanation": "...",
-    "changeNote": "Swapped ...",
-    "swaps": {}
-  }
+  "backup1": { "courses": [], "explanation": "...", "changeNote": "Swapped X for Y because ...", "swaps": {} },
+  "backup2": { "courses": [], "explanation": "...", "changeNote": "...", "swaps": {} }
 }
 
 Rules:
-- Only include courses from the AVAILABLE COURSES list
-- Do not include courses already completed
+- Only use codes from ELIGIBLE COURSES
+- No two courses may meet at overlapping times on a shared day
 - Respect all constraints (time, free days, unit range)
-- Only include courses whose prerequisites are all in COMPLETED COURSES
-- satisfies array: list the requirement group IDs this course counts toward (use the requirementGroups field from the course data)
-- Each schedule should total between ${constraints.minUnits} and ${constraints.maxUnits} units
-- swaps: for each primary course, optionally suggest 1-2 alternative courses from the available list`;
+- Each schedule must total between ${constraints.minUnits} and ${constraints.maxUnits} units
+- swaps: for each primary course, optionally suggest 1-2 alternatives from the eligible list${
+    feedback
+      ? `
 
-  const raw = await callWithRetry(prompt, PlanLLMOutputSchema);
+Your previous answer was rejected by the validator for these reasons. Fix them:
+${feedback}`
+      : ""
+  }`;
 
-  // Resolve each raw schedule into a full Schedule with validation
-  const offeringMap = new Map(offerings.courses.map((o) => [o.code, o]));
-
-  function resolveSchedule(
-    raw: z.infer<typeof ScheduleSchema>,
-    isBackup: boolean
-  ): Schedule {
-    const scheduledCourses: ScheduledCourse[] = raw.courses
-      .map((rc) => {
-        const offering = offeringMap.get(rc.code);
-        if (!offering) return null;
-        return { offering, satisfies: rc.satisfies };
-      })
-      .filter((sc): sc is ScheduledCourse => sc !== null);
-
-    const swaps: Record<string, SwapOption[]> = {};
-    for (const [courseCode, swapList] of Object.entries(raw.swaps)) {
-      const typedSwapList = swapList as Array<{ code: string; reason: string }>;
-      swaps[courseCode] = typedSwapList
-        .map((s) => {
-          const offering = offeringMap.get(s.code);
-          if (!offering) return null;
-          return { offering, reason: s.reason };
-        })
-        .filter((s): s is SwapOption => s !== null);
-    }
-
-    const totalUnits = scheduledCourses.reduce(
-      (sum, sc) => sum + sc.offering.units,
-      0
-    );
-
-    const validation = validateSchedule(
-      scheduledCourses,
-      constraints,
-      transcript.completedCourses
-    );
-
-    return {
-      courses: scheduledCourses,
-      totalUnits,
-      explanation: raw.explanation,
-      changeNote: isBackup ? raw.changeNote : undefined,
-      validation,
-      swaps,
-    };
-  }
-
-  const primary = resolveSchedule(raw.primary, false);
-  const backup1 = resolveSchedule(raw.backup1, true);
-  const backup2 = resolveSchedule(raw.backup2, true);
-
-  // Compute remaining requirements after this quarter
-  const allScheduledCodes = primary.courses.map((sc) => sc.offering.code);
-  const grouped = mapCoursesToGroups(allScheduledCodes, requirements);
-  const coveredGroupIds = new Set(Object.values(grouped).flat());
-  const remainingRequirements = requirements.groups
-    .map((g) => g.id)
-    .filter((id) => !coveredGroupIds.has(id));
-
-  return {
-    primary,
-    backups: [backup1, backup2],
-    remainingRequirements,
-  };
+  return callWithRetry(prompt, PlanLLMOutputSchema);
 }

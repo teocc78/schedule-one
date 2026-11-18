@@ -1,9 +1,9 @@
 import type {
   MajorRequirements,
   CompletedCourse,
-  RequirementGroup,
   CourseOffering,
 } from "@/types";
+import { normalizeCode, normalizeCodes, prereqSatisfied } from "@/lib/course-codes";
 
 export interface RequirementStatus {
   groupId: string;
@@ -23,11 +23,11 @@ export function computeRequirementStatus(
   requirements: MajorRequirements,
   completed: CompletedCourse[]
 ): RequirementStatus[] {
-  const completedCodes = new Set(completed.map((c) => c.code));
+  const completedCodes = normalizeCodes(completed.map((c) => c.code));
 
   return requirements.groups.map((group) => {
-    const completedInGroup = group.courses.filter((c) => completedCodes.has(c));
-    const remaining = group.courses.filter((c) => !completedCodes.has(c));
+    const completedInGroup = group.courses.filter((c) => completedCodes.has(normalizeCode(c)));
+    const remaining = group.courses.filter((c) => !completedCodes.has(normalizeCode(c)));
 
     if (group.kind === "all") {
       return {
@@ -76,22 +76,25 @@ export function getEligibleOfferings(
   remainingGroups: RequirementStatus[],
   completed: CompletedCourse[]
 ): CourseOffering[] {
-  const completedCodes = new Set(completed.map((c) => c.code));
+  const completedCodes = normalizeCodes(completed.map((c) => c.code));
   const remainingGroupIds = new Set(remainingGroups.map((g) => g.groupId));
   // Courses still needed across all groups
-  const remainingCourseCodes = new Set(
+  const remainingCourseCodes = normalizeCodes(
     remainingGroups.flatMap((g) => g.remainingCourses)
   );
 
   return offerings.filter((offering) => {
+    // Never suggest a course the student already finished.
+    if (completedCodes.has(normalizeCode(offering.code))) return false;
+
     const prereqsMet = offering.prerequisites.every((p) =>
-      completedCodes.has(p)
+      prereqSatisfied(p, completedCodes)
     );
     if (!prereqsMet) return false;
 
     // Course appears in a remaining requirement group
     const satisfiesRemaining =
-      remainingCourseCodes.has(offering.code) ||
+      remainingCourseCodes.has(normalizeCode(offering.code)) ||
       (offering.requirementGroups ?? []).some((gid) =>
         remainingGroupIds.has(gid)
       );
@@ -128,4 +131,44 @@ export function mapCoursesToGroups(
   }
 
   return result;
+}
+
+/**
+ * How many more courses each unsatisfied group can absorb this quarter.
+ * Used by the validator so that two electives toward a "choose 5" group
+ * are not mistaken for over-counting.
+ */
+export function groupCapacity(remainingGroups: RequirementStatus[]): Record<string, number> {
+  const cap: Record<string, number> = {};
+  for (const g of remainingGroups) cap[g.groupId] = g.stillNeeded;
+  return cap;
+}
+
+/**
+ * Deterministically decide which remaining group(s) each scheduled course
+ * counts toward, filling each group at most up to what it still needs.
+ * The LLM's own "satisfies" list is advisory only; hard requirement
+ * counting stays in code.
+ */
+export function assignSatisfies(
+  offerings: CourseOffering[],
+  remainingGroups: RequirementStatus[]
+): Map<string, string[]> {
+  const left = groupCapacity(remainingGroups);
+  const out = new Map<string, string[]>();
+  for (const o of offerings) {
+    const code = normalizeCode(o.code);
+    const groups: string[] = [];
+    for (const g of remainingGroups) {
+      const listed =
+        g.remainingCourses.some((c) => normalizeCode(c) === code) ||
+        (o.requirementGroups ?? []).includes(g.groupId);
+      if (listed && (left[g.groupId] ?? 0) > 0) {
+        groups.push(g.groupId);
+        left[g.groupId] -= 1;
+      }
+    }
+    out.set(o.code, groups);
+  }
+  return out;
 }

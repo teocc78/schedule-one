@@ -131,7 +131,7 @@
       "units": 4,
       "schedule": { "days": ["T","R"], "startTime": "09:30", "endTime": "10:45" },
       "instructor": "TBA",
-      "prerequisites": ["MATH 4A", "MATH 8", "PSTAT 120A"],
+      "prerequisites": ["MATH 4A", "MATH 8|PSTAT 8", "PSTAT 120A"],
       "description": "Markov chains, Poisson processes, continuous-time models.",
       "enrollmentCap": 60,
       "requirementGroups": ["upper-electives-c"]
