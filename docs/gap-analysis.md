@@ -24,7 +24,7 @@ Compared `main` against the Nov 16, 2026 product spec (`docs/product-spec.md`). 
 2. No retry or fallback when the LLM's schedule failed validation. Now: one retry with the validator's errors, then a rule-based planner.
 3. Prerequisites were AND-only and course codes were compared raw ("PSTAT8" vs "PSTAT 8"). Now normalized, with either/or prerequisites.
 4. The browser called `res.json()` on Vercel's HTML timeout page. Now reads text first and shows a readable error; routes set `maxDuration = 60`.
-5. The default Gemini model name was not a real model, the client was built at import time, and JSON mode was off.
+5. The Gemini client was built at import time and JSON mode was off. (A later fix restored gemini-3.8-flash as the default model; changing it to gemini-2.5-flash here was a mistake, see the transcript fix PR.)
 
 ## Still open or blocked
 - No `UCSB_API_KEY` yet: the app runs on synthetic fixtures. Capture real ones once a key exists (`docs/ucsb-api-reference.md`).

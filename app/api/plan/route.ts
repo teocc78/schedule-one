@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
     }
     if (err instanceof LLMConfigError) {
       console.error("[plan] configuration:", err.message);
-      return NextResponse.json({ error: "The planner isn't configured on the server yet (missing AI key)." }, { status: 503 });
+      return NextResponse.json({ error: "The planner's AI isn't set up correctly on the server. The site owner needs to check the Gemini settings.", code: "ai_config" }, { status: 503 });
     }
     // Never log student data; the message alone is enough to debug.
     console.error("[plan]", err instanceof Error ? err.message : "unknown error");
