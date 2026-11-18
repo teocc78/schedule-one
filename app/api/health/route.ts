@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { checkAI } from "@/lib/llm";
+import { checkAI, DEFAULT_MODEL } from "@/lib/llm";
 
 export const maxDuration = 30;
 
@@ -12,7 +12,10 @@ export async function GET(req: NextRequest) {
   const keySet = Boolean(process.env.GEMINI_API_KEY?.trim());
   const body: Record<string, unknown> = {
     geminiKeySet: keySet,
+    // Shows the GEMINI_MODEL environment variable; null means it isn't set
+    // and the code default is used.
     geminiModelSetting: process.env.GEMINI_MODEL?.trim() || null,
+    defaultModel: DEFAULT_MODEL,
     ucsbKeySet: Boolean(process.env.UCSB_API_KEY?.trim()),
   };
   if (req.nextUrl.searchParams.get("ai") === "1" && keySet) {

@@ -7,6 +7,7 @@
 
 import { GoogleGenAI } from "@google/genai";
 import { z } from "zod";
+import { parseTranscriptByRules, rulesAreEnough } from "@/lib/transcript-fallback";
 import type {
   TranscriptData,
   MajorRequirements,
@@ -30,8 +31,26 @@ export const FALLBACK_MODELS = ["gemini-3.8-flash", "gemini-flash-latest", "gemi
 
 /** The server is missing or has a wrong setting (key, model). */
 export class LLMConfigError extends Error {}
-/** Gemini is rate limiting or overloaded; trying again later can work. */
-export class LLMBusyError extends Error {}
+
+/**
+ * Gemini refused for load reasons. `reason` is "quota" when the key's usage
+ * limit is used up (429) and "overloaded" when Google's servers are busy (503).
+ */
+export class LLMBusyError extends Error {
+  constructor(message: string, public reason: "quota" | "overloaded", public attempts: ModelAttempt[] = []) {
+    super(message);
+  }
+}
+
+/** What happened when one model was tried. Never contains the key. */
+export interface ModelAttempt {
+  model: string;
+  ok: boolean;
+  status?: number;
+  kind?: LLMErrorKind;
+  /** Short reason from Gemini, e.g. "RESOURCE_EXHAUSTED: quota exceeded for ... requests per day". */
+  detail?: string;
+}
 
 let client: GoogleGenAI | null = null;
 
@@ -48,10 +67,14 @@ function getClient(): GoogleGenAI {
   return client;
 }
 
+/** Test seam: replaces the wait between retries. */
+let sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
+
 /** For tests only. */
-export function resetClientForTests() {
+export function resetClientForTests(fakeSleep?: (ms: number) => Promise<void>) {
   client = null;
   workingModel = null;
+  if (fakeSleep) sleep = fakeSleep;
 }
 
 function modelsToTry(): string[] {
@@ -63,51 +86,77 @@ function modelsToTry(): string[] {
 /** Remember which model worked so later calls skip the failed ones. */
 let workingModel: string | null = null;
 
-export type LLMErrorKind = "key" | "model" | "busy" | "other";
+export type LLMErrorKind = "key" | "model" | "quota" | "overloaded" | "other";
+
+function statusOf(err: unknown): number | undefined {
+  const s = typeof err === "object" && err && "status" in err ? Number((err as { status: unknown }).status) : NaN;
+  return Number.isFinite(s) ? s : undefined;
+}
 
 /** Sort a Gemini SDK error into something the app can act on. */
 export function classifyError(err: unknown): LLMErrorKind {
-  const status = typeof err === "object" && err && "status" in err ? Number((err as { status: unknown }).status) : NaN;
+  const status = statusOf(err);
   const msg = err instanceof Error ? err.message : String(err);
   if (/api[ _-]?key (not valid|invalid|expired)|API_KEY_INVALID|invalid\s*api\s*key|unauthenticated/i.test(msg) || status === 401) return "key";
-  if (status === 429 || status === 503 || /RESOURCE_EXHAUSTED|quota|rate limit|overloaded|UNAVAILABLE/i.test(msg)) return "busy";
-  if (status === 404 || /not found|is not supported|not available|no longer available|limit(ed|ing) access|does not have access|permission denied|PERMISSION_DENIED/i.test(msg) || status === 403) return "model";
+  if (status === 429 || /RESOURCE_EXHAUSTED|quota|rate limit|too many requests/i.test(msg)) return "quota";
+  if (status === 503 || status === 504 || /overloaded|UNAVAILABLE|high demand/i.test(msg)) return "overloaded";
+  if (status === 404 || status === 403 || /not found|is not supported|not available|no longer available|limit(ed|ing) access|does not have access|permission denied|PERMISSION_DENIED/i.test(msg)) return "model";
   return "other";
 }
 
-/** Call Gemini, falling back through models this key may not have. */
-async function generate(prompt: string): Promise<string> {
+/** Gemini's own reason, trimmed, with anything that looks like a key removed. */
+function shortDetail(err: unknown): string {
+  const msg = err instanceof Error ? err.message : String(err);
+  return msg.replace(/AIza[0-9A-Za-z_-]{20,}/g, "[key]").replace(/\s+/g, " ").slice(0, 300);
+}
+
+/**
+ * Call Gemini. Each model has its own quota, so on a quota error (429) or a
+ * model that isn't available, move to the next model. On an overload (503),
+ * wait briefly and try the same model once more first.
+ */
+async function generate(prompt: string, attempts: ModelAttempt[] = []): Promise<string> {
   const ai = getClient();
   const candidates = workingModel ? [workingModel, ...modelsToTry().filter((m) => m !== workingModel)] : modelsToTry();
-  let lastModelError = "";
   for (const m of candidates) {
-    try {
-      // No temperature: Google deprecated sampling parameters for Gemini 3
-      // models. JSON mode stops markdown fences and chatty text.
-      const response = await ai.models.generateContent({
-        model: m,
-        contents: prompt,
-        config: { responseMimeType: "application/json" },
-      });
-      workingModel = m;
-      return response.text ?? "";
-    } catch (err) {
-      const kind = classifyError(err);
-      const detail = err instanceof Error ? err.message.slice(0, 200) : "unknown";
-      if (kind === "key") {
-        throw new LLMConfigError("Gemini rejected GEMINI_API_KEY. Create a new key in Google AI Studio and update it in Vercel.");
+    for (let tryNo = 1; tryNo <= 2; tryNo++) {
+      try {
+        // No temperature: Google deprecated sampling parameters for Gemini 3
+        // models. JSON mode stops markdown fences and chatty text.
+        const response = await ai.models.generateContent({
+          model: m,
+          contents: prompt,
+          config: { responseMimeType: "application/json" },
+        });
+        workingModel = m;
+        attempts.push({ model: m, ok: true });
+        return response.text ?? "";
+      } catch (err) {
+        const kind = classifyError(err);
+        const detail = shortDetail(err);
+        attempts.push({ model: m, ok: false, status: statusOf(err), kind, detail });
+        console.error(`[llm] ${m} failed (${kind}, ${statusOf(err) ?? "no status"}): ${detail}`);
+        if (kind === "key") {
+          throw new LLMConfigError("Gemini rejected GEMINI_API_KEY. Create a new key in Google AI Studio and update it in Vercel.");
+        }
+        if (kind === "overloaded" && tryNo === 1) {
+          await sleep(1500);
+          continue;
+        }
+        if (kind === "other") throw err;
+        break; // quota, model, or overloaded twice: next model
       }
-      if (kind === "busy") throw new LLMBusyError(`Gemini is busy or over quota: ${detail}`);
-      if (kind === "model") {
-        console.error(`[llm] model ${m} unavailable for this key: ${detail}`);
-        lastModelError = detail;
-        continue;
-      }
-      throw err;
     }
   }
+  const failed = attempts.filter((a) => !a.ok);
+  if (failed.some((a) => a.kind === "quota")) {
+    throw new LLMBusyError(`Gemini quota used up for: ${[...new Set(failed.filter((a) => a.kind === "quota").map((a) => a.model))].join(", ")}`, "quota", attempts);
+  }
+  if (failed.some((a) => a.kind === "overloaded")) {
+    throw new LLMBusyError("Gemini is overloaded right now.", "overloaded", attempts);
+  }
   throw new LLMConfigError(
-    `None of these Gemini models worked with this key: ${candidates.join(", ")}. Set GEMINI_MODEL to a model your key can use. Last error: ${lastModelError}`
+    `None of these Gemini models worked with this key: ${candidates.join(", ")}. Set GEMINI_MODEL to a model your key can use.`
   );
 }
 
@@ -202,7 +251,26 @@ async function callWithRetry<T>(
 
 // ── Transcript parsing ────────────────────────────────────────
 
+/**
+ * Read a transcript. The rule-based reader goes first and is used on its own
+ * when it reads every course row, so most transcripts need no AI call. The AI
+ * handles unusual layouts; if it is busy, whatever the rules found is used.
+ */
 export async function parseTranscript(text: string): Promise<TranscriptData> {
+  const rules = parseTranscriptByRules(text);
+  if (rulesAreEnough(rules)) return rules.transcript;
+  try {
+    return await parseTranscriptWithAI(text);
+  } catch (err) {
+    if (err instanceof LLMBusyError && rules.transcript.completedCourses.length > 0) {
+      console.error("[llm] AI busy; using rule-based transcript reading");
+      return rules.transcript;
+    }
+    throw err;
+  }
+}
+
+async function parseTranscriptWithAI(text: string): Promise<TranscriptData> {
   const prompt = `You are a transcript parser for UCSB. Extract course information from the following transcript text.
 
 Return ONLY a JSON object with this exact structure:
@@ -340,14 +408,32 @@ ${feedback}`
 
 // ── Health check ──────────────────────────────────────────────
 
-/** One tiny call to see whether the key and a model work. Never returns the key. */
-export async function checkAI(): Promise<{ ok: boolean; model?: string; problem?: string }> {
+/**
+ * Try each candidate model once with a tiny prompt and report what Gemini
+ * said for each, so the site owner can tell quota (429) from overload (503)
+ * from an unavailable model. Never returns the key.
+ */
+export async function checkAI(): Promise<{ ok: boolean; models: ModelAttempt[]; summary: string }> {
+  let ai: GoogleGenAI;
   try {
-    await generate('Reply with {"ok":true}');
-    return { ok: true, model: workingModel ?? undefined };
+    ai = getClient();
   } catch (err) {
-    if (err instanceof LLMConfigError) return { ok: false, problem: err.message };
-    if (err instanceof LLMBusyError) return { ok: false, problem: "Gemini is busy or over quota right now." };
-    return { ok: false, problem: "Unexpected error from Gemini." };
+    return { ok: false, models: [], summary: err instanceof Error ? err.message : "No client" };
   }
+  const models: ModelAttempt[] = [];
+  for (const m of modelsToTry()) {
+    try {
+      await ai.models.generateContent({ model: m, contents: 'Reply with {"ok":true}', config: { responseMimeType: "application/json" } });
+      models.push({ model: m, ok: true });
+    } catch (err) {
+      models.push({ model: m, ok: false, status: statusOf(err), kind: classifyError(err), detail: shortDetail(err) });
+    }
+  }
+  const working = models.filter((x) => x.ok).map((x) => x.model);
+  const summary = working.length
+    ? `Working models: ${working.join(", ")}.`
+    : models.every((x) => x.kind === "quota")
+      ? "Every model returned 429 (quota or rate limit used up for this key's Google project)."
+      : "No model worked; see each model's status and detail.";
+  return { ok: working.length > 0, models, summary };
 }
