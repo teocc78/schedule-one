@@ -27,7 +27,9 @@ export const DEFAULT_MODEL = "gemini-3.8-flash";
  * Tried in order when the configured model is unavailable to this key
  * (unknown model, or not enabled for the project).
  */
-export const FALLBACK_MODELS = ["gemini-3.8-flash", "gemini-flash-latest", "gemini-3.5-flash-lite"];
+// The SDK calls Gemini's v1 API, where the gemini-flash-latest alias returns
+// 404, so it is not in this list. Each model has its own quota.
+export const FALLBACK_MODELS = ["gemini-3.8-flash", "gemini-3.5-flash-lite"];
 
 /** The server is missing or has a wrong setting (key, model). */
 export class LLMConfigError extends Error {}
@@ -86,7 +88,13 @@ function modelsToTry(): string[] {
 /** Remember which model worked so later calls skip the failed ones. */
 let workingModel: string | null = null;
 
-export type LLMErrorKind = "key" | "model" | "quota" | "overloaded" | "other";
+/**
+ * key: the key itself was rejected (401, API_KEY_INVALID).
+ * access: Google refused this key or project (403: API disabled, key
+ *   restricted or reported as leaked, model limited to some projects).
+ * model: that model name doesn't exist on this API (404).
+ */
+export type LLMErrorKind = "key" | "access" | "model" | "quota" | "overloaded" | "other";
 
 function statusOf(err: unknown): number | undefined {
   const s = typeof err === "object" && err && "status" in err ? Number((err as { status: unknown }).status) : NaN;
@@ -100,7 +108,8 @@ export function classifyError(err: unknown): LLMErrorKind {
   if (/api[ _-]?key (not valid|invalid|expired)|API_KEY_INVALID|invalid\s*api\s*key|unauthenticated/i.test(msg) || status === 401) return "key";
   if (status === 429 || /RESOURCE_EXHAUSTED|quota|rate limit|too many requests/i.test(msg)) return "quota";
   if (status === 503 || status === 504 || /overloaded|UNAVAILABLE|high demand/i.test(msg)) return "overloaded";
-  if (status === 404 || status === 403 || /not found|is not supported|not available|no longer available|limit(ed|ing) access|does not have access|permission denied|PERMISSION_DENIED/i.test(msg)) return "model";
+  if (status === 403 || /PERMISSION_DENIED|permission denied|API_KEY_SERVICE_BLOCKED|leaked|has not been used in project|is disabled|limit(ed|ing) access|does not have access/i.test(msg)) return "access";
+  if (status === 404 || /not found|is not supported|no longer available|not available/i.test(msg)) return "model";
   return "other";
 }
 
@@ -144,7 +153,7 @@ async function generate(prompt: string, attempts: ModelAttempt[] = []): Promise<
           continue;
         }
         if (kind === "other") throw err;
-        break; // quota, model, or overloaded twice: next model
+        break; // quota, access, model, or overloaded twice: next model
       }
     }
   }
@@ -155,9 +164,13 @@ async function generate(prompt: string, attempts: ModelAttempt[] = []): Promise<
   if (failed.some((a) => a.kind === "overloaded")) {
     throw new LLMBusyError("Gemini is overloaded right now.", "overloaded", attempts);
   }
-  throw new LLMConfigError(
-    `None of these Gemini models worked with this key: ${candidates.join(", ")}. Set GEMINI_MODEL to a model your key can use.`
-  );
+  const tried = failed.map((a) => `${a.model} (${a.status ?? "no status"} ${a.kind})`).join(", ");
+  if (failed.some((a) => a.kind === "access")) {
+    throw new LLMConfigError(
+      `Google refused this key (403) for: ${tried}. In Google AI Studio, check the key's API restrictions and that the Gemini API is enabled for its project.`
+    );
+  }
+  throw new LLMConfigError(`None of these Gemini models exist for this key: ${tried}. Set GEMINI_MODEL to a model your key can use.`);
 }
 
 // ── Zod schemas ───────────────────────────────────────────────
@@ -262,8 +275,10 @@ export async function parseTranscript(text: string): Promise<TranscriptData> {
   try {
     return await parseTranscriptWithAI(text);
   } catch (err) {
-    if (err instanceof LLMBusyError && rules.transcript.completedCourses.length > 0) {
-      console.error("[llm] AI busy; using rule-based transcript reading");
+    // Any AI failure (busy, wrong settings, bad output): if the rules found
+    // courses, use them rather than stopping the student.
+    if (rules.transcript.completedCourses.length > 0) {
+      console.error("[llm] AI unavailable; using rule-based transcript reading:", err instanceof Error ? err.message.slice(0, 300) : "unknown error");
       return rules.transcript;
     }
     throw err;
@@ -434,6 +449,8 @@ export async function checkAI(): Promise<{ ok: boolean; models: ModelAttempt[]; 
     ? `Working models: ${working.join(", ")}.`
     : models.every((x) => x.kind === "quota")
       ? "Every model returned 429 (quota or rate limit used up for this key's Google project)."
+      : models.some((x) => x.kind === "access")
+        ? "Google refused this key (403) for some models; check the key's restrictions in Google AI Studio."
       : "No model worked; see each model's status and detail.";
   return { ok: working.length > 0, models, summary };
 }

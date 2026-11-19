@@ -17,7 +17,7 @@ Open http://localhost:3000.
 | Variable | Required | What it does |
 |---|---|---|
 | `GEMINI_API_KEY` | Yes | Gemini key for transcript parsing and schedule proposals (aistudio.google.com) |
-| `GEMINI_MODEL` | No | Override the model; defaults to `gemini-3.8-flash`. Leave empty unless you need a specific model. If the model is unavailable to your key, the app tries gemini-3.8-flash, gemini-flash-latest and gemini-3.5-flash-lite |
+| `GEMINI_MODEL` | No | Override the model; defaults to `gemini-3.8-flash`. Leave empty unless you need a specific model. If the model is unavailable to your key, the app tries gemini-3.8-flash and gemini-3.5-flash-lite. Aliases like gemini-flash-latest return 404 on the API version the SDK uses |
 | `UCSB_API_KEY` | No | UCSB Academic Curriculums v3 consumer key. Without it the app uses the saved fixtures in `data/ucsb-fixtures/` |
 | `NEXT_PUBLIC_FEATURE_LIKELIHOOD` | No | `true` shows offered/seat likelihood buckets (low confidence until enrollment history is verified) |
 
@@ -25,7 +25,7 @@ Set the same variables in Vercel under Project Settings > Environment Variables,
 
 To check the live setup, open `/api/health` (shows whether the keys are set, never their values; `geminiModelSetting` is the GEMINI_MODEL variable, null when unset) or `/api/health?ai=1` (tries each model once and shows Gemini's status for each: 429 means the key's quota or rate limit is used up, 503 means Google is overloaded).
 
-Most transcripts are read by rules with no AI call (`lib/transcript-fallback.ts`); the AI handles unusual layouts. Schedule planning falls back to the rule-based planner when the AI is busy.
+Most transcripts are read by rules with no AI call (`lib/transcript-fallback.ts`); the AI handles unusual layouts. If the AI is busy or misconfigured, transcript reading uses what the rules found and planning uses the rule-based planner, so students are not blocked; the cause shows in the server logs and `/api/health?ai=1`.
 
 ## What it does
 

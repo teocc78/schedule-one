@@ -16,7 +16,7 @@ import {
   assignSatisfies,
   type RequirementStatus,
 } from "@/lib/requirements";
-import { proposeSchedules, LLMConfigError, type RawPlan, type RawSchedule } from "@/lib/llm";
+import { proposeSchedules, type RawPlan, type RawSchedule } from "@/lib/llm";
 import { validateSchedule } from "@/lib/validator";
 import { buildFallbackSchedules } from "@/lib/fallback-scheduler";
 import { normalizeCode } from "@/lib/course-codes";
@@ -90,13 +90,10 @@ export async function runPlanner(
         feedback
       );
     } catch (err) {
-      // A missing key must surface; anything else (timeout, malformed
-      // output, model outage) falls through to the deterministic planner.
-      if (err instanceof LLMConfigError) throw err;
-      if (err instanceof Error && /api key/i.test(err.message)) {
-        throw new LLMConfigError("The Gemini API key was rejected. Check GEMINI_API_KEY.");
-      }
-      console.error("[planner] LLM proposal failed:", err instanceof Error ? err.message : err);
+      // Any AI failure (wrong settings, quota, outage, malformed output)
+      // falls through to the deterministic planner so the student still gets
+      // schedules. The site owner sees the cause here and in /api/health?ai=1.
+      console.error("[planner] AI proposal failed; using rule-based planner:", err instanceof Error ? err.message : "unknown error");
       break;
     }
     schedules = [raw.primary, raw.backup1, raw.backup2].map((r, i) =>

@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { runPlanner, NoValidScheduleError } from "@/lib/planner";
-import { LLMConfigError } from "@/lib/llm";
 import type { PlanRequest } from "@/types";
 import requirementsData from "@/data/requirements/statistics-data-science.json";
 import offeringsData from "@/data/offerings/winter-2027.json";
@@ -31,10 +30,6 @@ export async function POST(req: NextRequest) {
   } catch (err) {
     if (err instanceof NoValidScheduleError) {
       return NextResponse.json({ error: err.message }, { status: 422 });
-    }
-    if (err instanceof LLMConfigError) {
-      console.error("[plan] configuration:", err.message);
-      return NextResponse.json({ error: "The planner's AI isn't set up correctly on the server. The site owner needs to check the Gemini settings.", code: "ai_config" }, { status: 503 });
     }
     // Never log student data; the message alone is enough to debug.
     console.error("[plan]", err instanceof Error ? err.message : "unknown error");

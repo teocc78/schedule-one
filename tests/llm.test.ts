@@ -86,7 +86,7 @@ describe("parseTranscript", () => {
     const err = await parseTranscript("x").catch((e) => e);
     expect(err).toBeInstanceOf(LLMBusyError);
     expect(err.reason).toBe("quota");
-    expect(new Set(generateContent.mock.calls.map((c) => c[0].model)).size).toBe(3);
+    expect(new Set(generateContent.mock.calls.map((c) => c[0].model)).size).toBe(2);
   });
 
   it("moves to the next model when one model's quota is used up", async () => {
@@ -94,7 +94,7 @@ describe("parseTranscript", () => {
       .mockRejectedValueOnce(apiError(429, "RESOURCE_EXHAUSTED: quota exceeded"))
       .mockResolvedValue({ text: JSON.stringify(good) });
     await parseTranscript("x");
-    expect(generateContent.mock.calls.map((c) => c[0].model)).toEqual(["gemini-3.8-flash", "gemini-flash-latest"]);
+    expect(generateContent.mock.calls.map((c) => c[0].model)).toEqual(["gemini-3.8-flash", "gemini-3.5-flash-lite"]);
   });
 
   it("retries the same model once when Google is overloaded", async () => {
@@ -105,9 +105,28 @@ describe("parseTranscript", () => {
     expect(generateContent.mock.calls.map((c) => c[0].model)).toEqual(["gemini-3.8-flash", "gemini-3.8-flash"]);
   });
 
+  it("gets past an overloaded model and a missing alias to one that works (Nov 19 health check)", async () => {
+    process.env.GEMINI_MODEL = "gemini-flash-latest";
+    generateContent.mockImplementation(async ({ model }: { model: string }) => {
+      if (model === "gemini-3.8-flash") throw apiError(503, '{"error":{"code":503,"message":"This model is currently experiencing high demand.","status":"UNAVAILABLE"}}');
+      if (model === "gemini-flash-latest") throw apiError(404, "models/gemini-flash-latest is not found for API version v1, or is not supported for generateContent.");
+      return { text: JSON.stringify(good) };
+    });
+    const t = await parseTranscript("x");
+    expect(t.completedCourses.map((c) => c.code)).toEqual(["PSTAT 8"]);
+    expect(generateContent.mock.calls.map((c) => c[0].model)).toEqual([
+      "gemini-flash-latest", "gemini-3.8-flash", "gemini-3.8-flash", "gemini-3.5-flash-lite",
+    ]);
+  });
+
+  it("names a 403 as Google refusing the key, not a missing model", async () => {
+    generateContent.mockRejectedValue(apiError(403, "PERMISSION_DENIED: Generative Language API has not been used in project"));
+    await expect(parseTranscript("x")).rejects.toThrow(/Google refused this key \(403\)/);
+  });
+
   it("gives a config error naming the models when none work", async () => {
     generateContent.mockRejectedValue(apiError(404, "models/x is not found"));
-    await expect(parseTranscript("x")).rejects.toThrow(/None of these Gemini models worked/);
+    await expect(parseTranscript("x")).rejects.toThrow(/None of these Gemini models exist/);
   });
 });
 
@@ -117,6 +136,8 @@ describe("classifyError", () => {
     expect(classifyError(apiError(429, "quota exceeded"))).toBe("quota");
     expect(classifyError(apiError(503, "The model is overloaded"))).toBe("overloaded");
     expect(classifyError(apiError(404, "not found"))).toBe("model");
+    expect(classifyError(apiError(403, "PERMISSION_DENIED: Your API key was reported as leaked"))).toBe("access");
+    expect(classifyError(apiError(403, "We are limiting access to the 2.5 models"))).toBe("access");
     expect(classifyError(apiError(500, "internal"))).toBe("other");
   });
 });
@@ -129,7 +150,7 @@ describe("checkAI", () => {
     const r = await checkAI();
     expect(r.ok).toBe(true);
     expect(r.models[0]).toMatchObject({ model: "gemini-3.8-flash", ok: false, status: 429, kind: "quota" });
-    expect(r.models[1]).toMatchObject({ model: "gemini-flash-latest", ok: true });
+    expect(r.models[1]).toMatchObject({ model: "gemini-3.5-flash-lite", ok: true });
   });
 
   it("never echoes something that looks like a key", async () => {
@@ -148,6 +169,13 @@ describe("rule-based transcript reading", () => {
     expect(t.completedCourses.length).toBeGreaterThanOrEqual(15);
     expect(t.completedCourses[0]).toEqual({ code: "MATH 3A", title: "Calculus with Applications I", units: 4, grade: "A", quarter: "Fall 2023" });
     expect(t.completedCourses.find((c) => c.code === "PSTAT 120A")?.quarter).toBe("Spring 2024");
+  });
+
+  it("uses what the rules found when the Gemini settings are wrong", async () => {
+    generateContent.mockRejectedValue(apiError(404, "models/x is not found"));
+    const text = "FALL 2025\nPSTAT 8  Transition to Data Science  4.0  A-\nSome odd row PSTAT 10 4.0 ??";
+    const t = await parseTranscript(text);
+    expect(t.completedCourses.map((c) => c.code)).toEqual(["PSTAT 8"]);
   });
 
   it("uses what the rules found when the AI is over quota", async () => {
