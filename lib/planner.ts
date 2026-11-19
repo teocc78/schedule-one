@@ -20,7 +20,7 @@ import { proposeSchedules, type RawPlan, type RawSchedule } from "@/lib/llm";
 import { validateSchedule } from "@/lib/validator";
 import { buildFallbackSchedules } from "@/lib/fallback-scheduler";
 import { normalizeCode } from "@/lib/course-codes";
-import { classStanding, planNotices } from "@/lib/standing";
+import { classStanding, planNotices, fullTimeNotice, FULL_TIME_MIN_UNITS } from "@/lib/standing";
 
 /** Thrown when no valid schedule exists at all; the API turns it into a 422. */
 export class NoValidScheduleError extends Error {}
@@ -60,6 +60,21 @@ export async function runPlanner(
     );
   }
 
+  // Early in a major, the rest of the major often waits on one gateway course
+  // (an Econ sophomore can only take ECON 10A in Winter). When the eligible
+  // major courses can't reach the unit minimum, plan what there is and tell
+  // the student how many GE or elective units to add, instead of failing.
+  const unitsByCode = new Map<string, number>();
+  for (const o of eligible) {
+    const k = normalizeCode(o.code);
+    unitsByCode.set(k, Math.max(unitsByCode.get(k) ?? 0, o.units));
+  }
+  const majorUnitsAvailable = [...unitsByCode.values()].reduce((a, b) => a + b, 0);
+  const shortOfMinimum = majorUnitsAvailable < constraints.minUnits;
+  const planConstraints: StudentConstraints = shortOfMinimum
+    ? { ...constraints, minUnits: majorUnitsAvailable }
+    : constraints;
+
   const remainingGroupSummary = remainingGroups
     .map((g) => {
       const needed =
@@ -73,7 +88,7 @@ export async function runPlanner(
   const quarterLabel = offerings.quarter.includes(String(offerings.year))
     ? offerings.quarter
     : `${offerings.quarter} ${offerings.year}`;
-  const ctx: Ctx = { eligible, remainingGroups, constraints, transcript };
+  const ctx: Ctx = { eligible, remainingGroups, constraints: planConstraints, transcript };
 
   let schedules: Schedule[] = [];
   let feedback: string | undefined;
@@ -86,7 +101,7 @@ export async function runPlanner(
         requirements,
         quarterLabel,
         eligible,
-        constraints,
+        planConstraints,
         remainingGroupSummary,
         feedback
       );
@@ -116,7 +131,7 @@ export async function runPlanner(
 
   // Top up with deterministic schedules until there are three valid ones.
   if (valid.length < 3) {
-    const fallback = buildFallbackSchedules(eligible, remainingGroups, constraints, 6);
+    const fallback = buildFallbackSchedules(eligible, remainingGroups, planConstraints, 6);
     for (const f of fallback) {
       if (valid.length >= 3) break;
       const s = fromFallback(f.courses, f.satisfies, valid.length > 0, ctx);
@@ -144,17 +159,31 @@ export async function runPlanner(
     .map((g) => g.groupId)
     .filter((id) => !covered.has(id));
 
-  const earned = transcript.totalUnitsEarned;
+  // Courses in progress finish before the quarter being planned starts.
+  const earned = transcript.totalUnitsEarned + (transcript.unitsInProgress ?? 0);
   return {
     primary,
     backups: [backup1, backup2],
     remainingRequirements,
     standing: classStanding(earned),
-    notices: planNotices(earned, primary.totalUnits, primary.courses.map((c) => c.offering.code)),
+    notices: shortOfMinimum
+      ? [
+          gapNotice(primary.totalUnits, constraints.minUnits),
+          ...planNotices(earned, primary.totalUnits, primary.courses.map((c) => c.offering.code)).filter(
+            (n) => n !== fullTimeNotice(primary.totalUnits)
+          ),
+        ]
+      : planNotices(earned, primary.totalUnits, primary.courses.map((c) => c.offering.code)),
   };
 }
 
 // ── helpers ──────────────────────────────────────────────────
+
+/** Used when the major's eligible courses can't reach the unit minimum. */
+export function gapNotice(majorUnits: number, minUnits: number): string {
+  const target = Math.max(minUnits, FULL_TIME_MIN_UNITS);
+  return `Only ${majorUnits} units of your major's courses are open to you this quarter, because the rest need a prerequisite first. Add at least ${target - majorUnits} units of GE or elective courses in GOLD to reach ${target} units${target === FULL_TIME_MIN_UNITS ? " (full time)" : ""}.`;
+}
 
 interface Ctx {
   eligible: CourseOffering[];

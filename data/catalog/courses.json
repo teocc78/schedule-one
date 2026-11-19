@@ -1,0 +1,2386 @@
+{
+ "_note": "Course titles, units, GE areas and prerequisites for the courses Schedule One plans, from the UCSB General Catalog 2026-27 (catalog.ucsb.edu). Prerequisites are simplified to UCSB courses: each entry must be met and \"A|B\" means either; entries in concurrent may be taken the same quarter. terms lists the only quarters a course runs, where known. Minimum grades, placement exams, AP credit and major restrictions are not modelled.",
+ "_catalog_year": "2026-27",
+ "courses": {
+  "CHEM 1A": {
+   "title": "General Chemistry",
+   "units": 4,
+   "ge": "C"
+  },
+  "CHEM 1B": {
+   "title": "General Chemistry",
+   "units": 3,
+   "prereqs": [
+    "CHEM 1A|CHEM 2A"
+   ]
+  },
+  "CHEM 1C": {
+   "title": "General Chemistry",
+   "units": 3,
+   "prereqs": [
+    "CHEM 1B|CHEM 2B"
+   ]
+  },
+  "CHEM 2A": {
+   "title": "General Chemistry (Honors)",
+   "units": 3,
+   "ge": "C"
+  },
+  "CHEM 2AL": {
+   "title": "General Chemistry Lab (Part A)",
+   "units": 2.5,
+   "prereqs": [
+    "CHEM 1A|CHEM 2A"
+   ],
+   "concurrent": [
+    "CHEM 1A|CHEM 2A"
+   ]
+  },
+  "CHEM 2B": {
+   "title": "General Chemistry (Honors)",
+   "units": 3,
+   "prereqs": [
+    "CHEM 2A|CHEM 1A"
+   ]
+  },
+  "CHEM 2BL": {
+   "title": "General Chemistry Laboratory (Part B)",
+   "units": 2.5,
+   "prereqs": [
+    "CHEM 1B|CHEM 2B"
+   ],
+   "concurrent": [
+    "CHEM 1B|CHEM 2B"
+   ]
+  },
+  "CHEM 2C": {
+   "title": "General Chemistry (Honors)",
+   "units": 3,
+   "prereqs": [
+    "CHEM 2B|CHEM 1B"
+   ]
+  },
+  "CHEM 6AL": {
+   "title": "Laboratory Methods of Organic Chemistry",
+   "units": 3,
+   "prereqs": [
+    "CHEM 2AL",
+    "CHEM 2BL",
+    "CHEM 109A",
+    "CHEM 109B"
+   ],
+   "concurrent": [
+    "CHEM 109B"
+   ]
+  },
+  "CHEM 109A": {
+   "title": "Organic Chemistry",
+   "units": 4,
+   "prereqs": [
+    "CHEM 1C|CHEM 2C"
+   ]
+  },
+  "CHEM 109AH": {
+   "title": "Organic Chemistry (H)",
+   "units": 4,
+   "prereqs": [
+    "CHEM 1B|CHEM 2B"
+   ]
+  },
+  "CHEM 109B": {
+   "title": "Organic Chemistry",
+   "units": 4,
+   "prereqs": [
+    "CHEM 109A"
+   ]
+  },
+  "CHEM 109BH": {
+   "title": "Organic Chemistry (H)",
+   "units": 4,
+   "prereqs": [
+    "CHEM 109A|CHEM 109AH"
+   ]
+  },
+  "CHEM 109C": {
+   "title": "Organic Chemistry",
+   "units": 4,
+   "prereqs": [
+    "CHEM 109B"
+   ]
+  },
+  "CMPSC 8": {
+   "title": "Introduction to Computer Science",
+   "units": 4,
+   "ge": "C"
+  },
+  "CMPSC 9": {
+   "title": "Intermediate Python Programming",
+   "units": 4,
+   "prereqs": [
+    "CMPSC 8|ENGR 3|ECE 3"
+   ]
+  },
+  "CMPSC 16": {
+   "title": "Problem Solving with Computers I",
+   "units": 4,
+   "prereqs": [
+    "MATH 3A|MATH 2A"
+   ],
+   "concurrent": [
+    "MATH 3A|MATH 2A"
+   ]
+  },
+  "ECE 3": {
+   "title": "Introduction to Python Programming For Engineers",
+   "units": 4
+  },
+  "ECE 5": {
+   "title": "Introduction to Electrical & Computer Engineering",
+   "units": 4
+  },
+  "ECE 6": {
+   "title": "The Physics of Energy, Information, and Communication",
+   "units": 4
+  },
+  "ECE 10A": {
+   "title": "Foundations of Analog and Digital Circuits & Systems",
+   "units": 3,
+   "prereqs": [
+    "MATH 3B|MATH 2B",
+    "MATH 4A",
+    "MATH 4B",
+    "PHYS 7B"
+   ],
+   "concurrent": [
+    "MATH 4B",
+    "PHYS 7B"
+   ]
+  },
+  "ECE 10AL": {
+   "title": "Foundations of Analog and Digital Circuits and Systems Lab",
+   "units": 2,
+   "prereqs": [
+    "ECE 10A"
+   ],
+   "concurrent": [
+    "ECE 10A"
+   ]
+  },
+  "ECE 10B": {
+   "title": "Foundations of Analog and Digital Circuits and Systems",
+   "units": 3,
+   "prereqs": [
+    "ECE 10A"
+   ]
+  },
+  "ECE 10BL": {
+   "title": "Foundations of Analog and Digital Circuits and Systems Lab",
+   "units": 2,
+   "prereqs": [
+    "ECE 10B"
+   ],
+   "concurrent": [
+    "ECE 10B"
+   ]
+  },
+  "ECE 10C": {
+   "title": "Foundations of Analog and Digital Circuits and Systems",
+   "units": 3,
+   "prereqs": [
+    "ECE 10B"
+   ]
+  },
+  "ECE 10CL": {
+   "title": "Foundations of Analog and Digital Circuits and Systems Lab",
+   "units": 2,
+   "prereqs": [
+    "ECE 10C"
+   ],
+   "concurrent": [
+    "ECE 10C"
+   ]
+  },
+  "ECE 15A": {
+   "title": "Fundamentals of Logic Design",
+   "units": 4
+  },
+  "ECE 120A": {
+   "title": "Integrated Circuit Design and Fabrication",
+   "units": 4,
+   "prereqs": [
+    "ECE 132"
+   ]
+  },
+  "ECE 120B": {
+   "title": "Integrated Circuit Design and Fabrication",
+   "units": 4,
+   "prereqs": [
+    "ECE 120A"
+   ]
+  },
+  "ECE 122A": {
+   "title": "VLSI Principles",
+   "units": 4,
+   "prereqs": [
+    "ECE 152A"
+   ]
+  },
+  "ECE 122B": {
+   "title": "VLSI Architecture and Design",
+   "units": 4,
+   "prereqs": [
+    "ECE 122A|ECE 123"
+   ]
+  },
+  "ECE 123": {
+   "title": "High-Performance Digital Circuit Design",
+   "units": 4,
+   "prereqs": [
+    "ECE 10C",
+    "ECE 10CL"
+   ]
+  },
+  "ECE 125": {
+   "title": "High Speed Digital Integrated Circuit Design",
+   "units": 4,
+   "prereqs": [
+    "ECE 137A"
+   ]
+  },
+  "ECE 130A": {
+   "title": "Signal Analysis and Processing",
+   "units": 4,
+   "prereqs": [
+    "MATH 4B"
+   ]
+  },
+  "ECE 130B": {
+   "title": "Signal Analysis and Processing",
+   "units": 4,
+   "prereqs": [
+    "ECE 130A"
+   ]
+  },
+  "ECE 130C": {
+   "title": "Introduction to Applied Linear Algebra",
+   "units": 4
+  },
+  "ECE 132": {
+   "title": "Introduction to Solid-State Electronic Devices",
+   "units": 4,
+   "prereqs": [
+    "PHYS 7D",
+    "MATH 4B"
+   ]
+  },
+  "ECE 133": {
+   "title": "Introduction to Optimization and Learning",
+   "units": 4,
+   "standing": "upper"
+  },
+  "ECE 134": {
+   "title": "Introduction to Fields and Waves",
+   "units": 4,
+   "prereqs": [
+    "PHYS 7B",
+    "PHYS 7C",
+    "MATH 4B",
+    "MATH 6A",
+    "MATH 6B"
+   ]
+  },
+  "ECE 135": {
+   "title": "Optical Fiber Communications",
+   "units": 4,
+   "prereqs": [
+    "ECE 132",
+    "ECE 134"
+   ]
+  },
+  "ECE 136A": {
+   "title": "Introduction to Optics and Photonics",
+   "units": 4,
+   "prereqs": [
+    "PHYS 7D",
+    "PHYS 7L"
+   ]
+  },
+  "ECE 136B": {
+   "title": "Optics and Imaging",
+   "units": 4,
+   "prereqs": [
+    "PHYS 7D",
+    "PHYS 7L"
+   ]
+  },
+  "ECE 136C": {
+   "title": "Quantum Photonics",
+   "units": 4,
+   "prereqs": [
+    "PHYS 7D",
+    "PHYS 7L"
+   ]
+  },
+  "ECE 137A": {
+   "title": "Circuits and Electronics I",
+   "units": 4,
+   "prereqs": [
+    "ECE 10C",
+    "ECE 10CL",
+    "ECE 130A",
+    "ECE 132"
+   ]
+  },
+  "ECE 137B": {
+   "title": "Circuits and Electronics II",
+   "units": 4,
+   "prereqs": [
+    "ECE 10C",
+    "ECE 137A"
+   ]
+  },
+  "ECE 139": {
+   "title": "Probability and Statistics",
+   "units": 4
+  },
+  "ECE 141A": {
+   "title": "Introduction to Nanoelectromechanical and Microelectromechanical systems (NEMS/MEMS)",
+   "units": 3,
+   "prereqs": [
+    "ECE 130A",
+    "ECE 137A"
+   ]
+  },
+  "ECE 141B": {
+   "title": "MEMS: Processing and Device Characterization",
+   "units": 4,
+   "prereqs": [
+    "ECE 141A"
+   ]
+  },
+  "ECE 142": {
+   "title": "INTRODUCTION TO POWER ELECTRONICS",
+   "units": 4,
+   "prereqs": [
+    "ECE 132",
+    "ECE 134",
+    "ECE 137A"
+   ]
+  },
+  "ECE 144": {
+   "title": "Electromagnetic Fields and Waves",
+   "units": 4,
+   "prereqs": [
+    "ECE 134"
+   ]
+  },
+  "ECE 145A": {
+   "title": "Communication Electronics",
+   "units": 5,
+   "prereqs": [
+    "ECE 137A",
+    "ECE 137B"
+   ]
+  },
+  "ECE 145B": {
+   "title": "Communication Electronics II",
+   "units": 5,
+   "prereqs": [
+    "ECE 145A"
+   ]
+  },
+  "ECE 145C": {
+   "title": "Communication Electronics III",
+   "units": 5,
+   "prereqs": [
+    "ECE 145B"
+   ]
+  },
+  "ECE 146A": {
+   "title": "Digital Communication Fundamentals",
+   "units": 5,
+   "prereqs": [
+    "ECE 130A",
+    "ECE 130B",
+    "ECE 139|PSTAT 120A"
+   ]
+  },
+  "ECE 146B": {
+   "title": "Advanced Topics in Wireless Systems",
+   "units": 5,
+   "prereqs": [
+    "ECE 146A"
+   ]
+  },
+  "ECE 147A": {
+   "title": "Feedback Control Systems - Theory and Design",
+   "units": 5,
+   "prereqs": [
+    "ECE 130A",
+    "ECE 130B"
+   ]
+  },
+  "ECE 147B": {
+   "title": "Digital Control Systems - Theory and Design",
+   "units": 5,
+   "prereqs": [
+    "ECE 147A"
+   ]
+  },
+  "ECE 147C": {
+   "title": "Control System Design Project",
+   "units": 5,
+   "prereqs": [
+    "ECE 147A"
+   ]
+  },
+  "ECE 148": {
+   "title": "Applications of Signal Analysis and Processing",
+   "units": 4,
+   "prereqs": [
+    "ECE 130A",
+    "ECE 130B"
+   ]
+  },
+  "ECE 149": {
+   "title": "Game Theory for Networked Systems",
+   "units": 4,
+   "standing": "upper"
+  },
+  "ECE 152A": {
+   "title": "Digital Design Principles",
+   "units": 5,
+   "prereqs": [
+    "ECE 15A",
+    "ECE 10A",
+    "ECE 10AL"
+   ]
+  },
+  "ECE 152B": {
+   "title": "Digital System Design",
+   "units": 4,
+   "prereqs": [
+    "ECE 152A"
+   ]
+  },
+  "ECE 153A": {
+   "title": "Hardware/Software Interface",
+   "units": 4,
+   "prereqs": [
+    "ECE 152A"
+   ],
+   "standing": "upper"
+  },
+  "ECE 153B": {
+   "title": "Sensor and Peripheral Interface Design",
+   "units": 4,
+   "prereqs": [
+    "ECE 152A"
+   ]
+  },
+  "ECE 154A": {
+   "title": "Introduction to Computer Architecture",
+   "units": 4,
+   "prereqs": [
+    "ECE 152A"
+   ]
+  },
+  "ECE 154B": {
+   "title": "Advanced Computer Architecture",
+   "units": 4,
+   "prereqs": [
+    "ECE 154A"
+   ]
+  },
+  "ECE 157A": {
+   "title": "Machine Learning in Design and Test Automation",
+   "units": 4,
+   "prereqs": [
+    "ECE 152A"
+   ]
+  },
+  "ECE 157B": {
+   "title": "Artificial Intelligence in Design and Test Automation",
+   "units": 4,
+   "prereqs": [
+    "ECE 157A"
+   ]
+  },
+  "ECE 157C": {
+   "title": "AI Agents for the Semiconductor Industry",
+   "units": 4,
+   "standing": "upper"
+  },
+  "ECE 158": {
+   "title": "Digital Signal Processing",
+   "units": 4,
+   "prereqs": [
+    "ECE 130A",
+    "ECE 130B"
+   ]
+  },
+  "ECE 160": {
+   "title": "Multimedia Systems",
+   "units": 4,
+   "standing": "upper"
+  },
+  "ECE 162A": {
+   "title": "The Quantum Description of Electronic Materials",
+   "units": 4,
+   "prereqs": [
+    "ECE 130A",
+    "ECE 130B",
+    "ECE 134"
+   ]
+  },
+  "ECE 162B": {
+   "title": "Fundamentals of the Solid State",
+   "units": 4,
+   "prereqs": [
+    "ECE 162A"
+   ]
+  },
+  "ECE 162C": {
+   "title": "Optoelectronic Materials and Devices",
+   "units": 4,
+   "prereqs": [
+    "ECE 162B"
+   ]
+  },
+  "ECE 178": {
+   "title": "Introduction to Digital Image and Video Processing",
+   "units": 4,
+   "standing": "upper"
+  },
+  "ECE 179D": {
+   "title": "Introduction to Robotics: Dynamics and Control",
+   "units": 4,
+   "prereqs": [
+    "ECE 130A"
+   ]
+  },
+  "ECE 179P": {
+   "title": "Introduction to Robotics: Planning and Kinematics",
+   "units": 4,
+   "prereqs": [
+    "MATH 4A"
+   ],
+   "standing": "upper"
+  },
+  "ECE 180": {
+   "title": "INTRODUCTION TO DEEP LEARNING",
+   "units": 4,
+   "standing": "upper"
+  },
+  "ECE 181": {
+   "title": "Introduction to Computer Vision",
+   "units": 4,
+   "standing": "upper"
+  },
+  "ECE 183": {
+   "title": "Nonlinear Phenomena",
+   "units": 4,
+   "standing": "upper"
+  },
+  "ECE 186": {
+   "title": "Probabilistic Machine Learning",
+   "units": 4,
+   "prereqs": [
+    "ECE 139|PSTAT 120A"
+   ]
+  },
+  "ECE 188A": {
+   "title": "Senior Electrical Engineering Project",
+   "units": 4,
+   "prereqs": [
+    "ECE 153A|ECE 153B"
+   ],
+   "terms": [
+    "Fall"
+   ]
+  },
+  "ECE 188B": {
+   "title": "Senior Electrical Engineering Project",
+   "units": 4,
+   "prereqs": [
+    "ECE 188A"
+   ],
+   "terms": [
+    "Winter"
+   ]
+  },
+  "ECE 188C": {
+   "title": "Senior Electrical Engineering Project",
+   "units": 4,
+   "prereqs": [
+    "ECE 188B"
+   ],
+   "terms": [
+    "Spring"
+   ]
+  },
+  "ECON 1": {
+   "title": "Principles of Economics-Micro",
+   "units": 5,
+   "ge": "D"
+  },
+  "ECON 2": {
+   "title": "Principles of Economics-Macro",
+   "units": 5,
+   "prereqs": [
+    "ECON 1"
+   ],
+   "ge": "D"
+  },
+  "ECON 3A": {
+   "title": "Financial Accounting",
+   "units": 5
+  },
+  "ECON 3B": {
+   "title": "Financial Accounting",
+   "units": 5,
+   "prereqs": [
+    "ECON 3A"
+   ]
+  },
+  "ECON 5": {
+   "title": "Statistics for Economics",
+   "units": 5,
+   "prereqs": [
+    "MATH 3A|MATH 2A|MATH 34A",
+    "MATH 3B|MATH 2B|MATH 34B"
+   ],
+   "concurrent": [
+    "MATH 3B|MATH 2B|MATH 34B"
+   ]
+  },
+  "ECON 10A": {
+   "title": "Intermediate Microeconomic Theory",
+   "units": 5,
+   "prereqs": [
+    "ECON 1",
+    "ECON 2",
+    "MATH 3B|MATH 2B|MATH 34B"
+   ]
+  },
+  "ECON 100B": {
+   "title": "Intermediate Microeconomic Theory",
+   "units": 4,
+   "prereqs": [
+    "ECON 10A",
+    "ECON 5|PSTAT 120A"
+   ]
+  },
+  "ECON 100C": {
+   "title": "Intermediate Microeconomic Theory",
+   "units": 4,
+   "prereqs": [
+    "ECON 100B"
+   ]
+  },
+  "ECON 101": {
+   "title": "Intermediate Macroeconomic Theory",
+   "units": 4,
+   "prereqs": [
+    "ECON 10A",
+    "ECON 5|PSTAT 120A"
+   ]
+  },
+  "ECON 106": {
+   "title": "Managerial Economics",
+   "units": 4,
+   "prereqs": [
+    "ECON 100B"
+   ]
+  },
+  "ECON 107A": {
+   "title": "History of Economics",
+   "units": 4,
+   "prereqs": [
+    "ECON 10A"
+   ]
+  },
+  "ECON 107B": {
+   "title": "History of Economics",
+   "units": 4,
+   "prereqs": [
+    "ECON 10A"
+   ]
+  },
+  "ECON 112A": {
+   "title": "European Economic History to 1850",
+   "units": 4,
+   "prereqs": [
+    "ECON 10A"
+   ]
+  },
+  "ECON 112B": {
+   "title": "European Economic History Since 1850",
+   "units": 4,
+   "prereqs": [
+    "ECON 10A"
+   ]
+  },
+  "ECON 113A": {
+   "title": "Economic History of the United States to 1900",
+   "units": 4,
+   "prereqs": [
+    "ECON 10A"
+   ]
+  },
+  "ECON 113B": {
+   "title": "Twentieth-Century United States Economic History",
+   "units": 4,
+   "prereqs": [
+    "ECON 10A"
+   ]
+  },
+  "ECON 114A": {
+   "title": "Economic Development",
+   "units": 4,
+   "prereqs": [
+    "ECON 10A"
+   ]
+  },
+  "ECON 114B": {
+   "title": "Economic Development",
+   "units": 4,
+   "prereqs": [
+    "ECON 10A"
+   ]
+  },
+  "ECON 115": {
+   "title": "Environmental Economics",
+   "units": 4,
+   "prereqs": [
+    "ECON 10A"
+   ]
+  },
+  "ECON 116A": {
+   "title": "Industrial Organization Principles",
+   "units": 4,
+   "prereqs": [
+    "ECON 100B",
+    "ECON 140A"
+   ]
+  },
+  "ECON 116B": {
+   "title": "Economic Regulation",
+   "units": 4,
+   "prereqs": [
+    "ECON 100B"
+   ]
+  },
+  "ECON 116C": {
+   "title": "Antitrust Economics",
+   "units": 4,
+   "prereqs": [
+    "ECON 100B"
+   ]
+  },
+  "ECON 117A": {
+   "title": "Law and Economics I",
+   "units": 4,
+   "prereqs": [
+    "ECON 100B",
+    "ECON 140A"
+   ]
+  },
+  "ECON 118": {
+   "title": "Financial Accounting Analysis and Planning",
+   "units": 4,
+   "prereqs": [
+    "ECON 136C"
+   ]
+  },
+  "ECON 120": {
+   "title": "Urban and Regional Economics",
+   "units": 4,
+   "prereqs": [
+    "ECON 100B",
+    "ECON 140A"
+   ]
+  },
+  "ECON 122": {
+   "title": "Natural Resource Economics",
+   "units": 4,
+   "prereqs": [
+    "ECON 10A"
+   ]
+  },
+  "ECON 127": {
+   "title": "Climate Change",
+   "units": 4,
+   "prereqs": [
+    "ECON 10A"
+   ]
+  },
+  "ECON 130": {
+   "title": "Public Finance",
+   "units": 4,
+   "prereqs": [
+    "ECON 100B",
+    "ECON 101"
+   ]
+  },
+  "ECON 132A": {
+   "title": "Auditing",
+   "units": 4,
+   "prereqs": [
+    "ECON 136B"
+   ]
+  },
+  "ECON 132B": {
+   "title": "Fraud and Forensic Accounting",
+   "units": 4,
+   "prereqs": [
+    "ECON 136B"
+   ]
+  },
+  "ECON 133": {
+   "title": "Topics in Macroeconomic Theory",
+   "units": 4,
+   "prereqs": [
+    "ECON 100B",
+    "ECON 101"
+   ]
+  },
+  "ECON 134A": {
+   "title": "Financial Management",
+   "units": 4,
+   "prereqs": [
+    "ECON 100B",
+    "ECON 140A"
+   ]
+  },
+  "ECON 134B": {
+   "title": "Financial Management",
+   "units": 4,
+   "prereqs": [
+    "ECON 134A"
+   ]
+  },
+  "ECON 134C": {
+   "title": "Behavioral Finance",
+   "units": 4,
+   "prereqs": [
+    "ECON 134A"
+   ]
+  },
+  "ECON 135": {
+   "title": "Monetary Economics",
+   "units": 4,
+   "prereqs": [
+    "ECON 100B",
+    "ECON 101"
+   ]
+  },
+  "ECON 136A": {
+   "title": "Intermediate Accounting",
+   "units": 5,
+   "prereqs": [
+    "ECON 3B",
+    "ECON 10A",
+    "ECON 5|PSTAT 120A"
+   ]
+  },
+  "ECON 136B": {
+   "title": "Intermediate Accounting",
+   "units": 4,
+   "prereqs": [
+    "ECON 136A"
+   ]
+  },
+  "ECON 136C": {
+   "title": "Intermediate Accounting",
+   "units": 4,
+   "prereqs": [
+    "ECON 136B"
+   ]
+  },
+  "ECON 137A": {
+   "title": "Managerial Accounting",
+   "units": 4,
+   "prereqs": [
+    "ECON 3B",
+    "ECON 10A",
+    "ECON 5|PSTAT 120A"
+   ]
+  },
+  "ECON 137B": {
+   "title": "Managerial Accounting",
+   "units": 4,
+   "prereqs": [
+    "ECON 137A"
+   ]
+  },
+  "ECON 138A": {
+   "title": "Income Taxation",
+   "units": 4,
+   "prereqs": [
+    "ECON 3B",
+    "ECON 10A",
+    "ECON 5|PSTAT 120A"
+   ]
+  },
+  "ECON 138B": {
+   "title": "Income Taxation",
+   "units": 4,
+   "prereqs": [
+    "ECON 138A"
+   ]
+  },
+  "ECON 139": {
+   "title": "Advanced Accounting",
+   "units": 4,
+   "prereqs": [
+    "ECON 136B"
+   ]
+  },
+  "ECON 140A": {
+   "title": "Introduction to Econometrics",
+   "units": 4,
+   "prereqs": [
+    "ECON 10A",
+    "ECON 5|PSTAT 120A"
+   ]
+  },
+  "ECON 140B": {
+   "title": "Introduction to Econometrics",
+   "units": 4,
+   "prereqs": [
+    "ECON 140A"
+   ]
+  },
+  "ECON 140C": {
+   "title": "Machine Learning and Artificial Intelligence",
+   "units": 4,
+   "prereqs": [
+    "ECON 140A"
+   ]
+  },
+  "ECON 141": {
+   "title": "Econometric Methods",
+   "units": 4,
+   "prereqs": [
+    "PSTAT 120A",
+    "MATH 4A"
+   ]
+  },
+  "ECON 145": {
+   "title": "Data Wrangling for Economics",
+   "units": 5
+  },
+  "ECON 150A": {
+   "title": "Labor Economics",
+   "units": 4,
+   "prereqs": [
+    "ECON 10A"
+   ]
+  },
+  "ECON 151": {
+   "title": "Economics of Gender",
+   "units": 4,
+   "prereqs": [
+    "ECON 100B",
+    "ECON 140A"
+   ]
+  },
+  "ECON 152": {
+   "title": "Personnel Economics",
+   "units": 4,
+   "prereqs": [
+    "ECON 100B"
+   ]
+  },
+  "ECON 153": {
+   "title": "Economics of Education",
+   "units": 4,
+   "prereqs": [
+    "ECON 10A",
+    "ECON 140A"
+   ]
+  },
+  "ECON 154": {
+   "title": "Economics of the Family",
+   "units": 4,
+   "prereqs": [
+    "ECON 100B",
+    "ECON 140A"
+   ]
+  },
+  "ECON 155": {
+   "title": "Using Big Data to Address Social and Economic Problems",
+   "units": 4,
+   "prereqs": [
+    "ECON 100B",
+    "ECON 140A"
+   ]
+  },
+  "ECON 156": {
+   "title": "Topics in Applied Economics",
+   "units": 4,
+   "prereqs": [
+    "ECON 100B",
+    "ECON 140A"
+   ]
+  },
+  "ECON 157": {
+   "title": "Behavioral Economics",
+   "units": 4,
+   "prereqs": [
+    "ECON 100B"
+   ]
+  },
+  "ECON 160": {
+   "title": "Economics of Crime and Justice",
+   "units": 4,
+   "prereqs": [
+    "ECON 10A",
+    "PSTAT 120A"
+   ]
+  },
+  "ECON 164": {
+   "title": "Economics of Arts and Culture",
+   "units": 4,
+   "prereqs": [
+    "ECON 10A"
+   ]
+  },
+  "ECON 170": {
+   "title": "Health Economics",
+   "units": 4,
+   "prereqs": [
+    "ECON 100B",
+    "ECON 140A"
+   ]
+  },
+  "ECON 171": {
+   "title": "Introduction to Game Theory",
+   "units": 4,
+   "prereqs": [
+    "ECON 100B"
+   ]
+  },
+  "ECON 174": {
+   "title": "Negotiations",
+   "units": 4,
+   "prereqs": [
+    "ECON 100B",
+    "ECON 140A"
+   ]
+  },
+  "ECON 176": {
+   "title": "Experimental Economics",
+   "units": 4,
+   "prereqs": [
+    "ECON 100B",
+    "ECON 140A"
+   ]
+  },
+  "ECON 177": {
+   "title": "Auction",
+   "units": 4,
+   "prereqs": [
+    "ECON 100B",
+    "ECON 140A"
+   ]
+  },
+  "ECON 180": {
+   "title": "International Trade",
+   "units": 4,
+   "prereqs": [
+    "ECON 100B",
+    "ECON 101"
+   ]
+  },
+  "ECON 181": {
+   "title": "International Finance",
+   "units": 4,
+   "prereqs": [
+    "ECON 100B",
+    "ECON 101"
+   ]
+  },
+  "ECON 182": {
+   "title": "International Accounting and Financial Management",
+   "units": 4,
+   "prereqs": [
+    "ECON 136A"
+   ]
+  },
+  "ECON 183": {
+   "title": "Entrepreneurial Insights",
+   "units": 4,
+   "prereqs": [
+    "ECON 100B"
+   ]
+  },
+  "ECON 184": {
+   "title": "Decisions Under Uncertainty",
+   "units": 4,
+   "prereqs": [
+    "ECON 10A"
+   ]
+  },
+  "ECON 185": {
+   "title": "Audit Data Analytics in Accounting Information Systems",
+   "units": 4,
+   "prereqs": [
+    "ECON 3B",
+    "ECON 10A",
+    "ECON 5|PSTAT 120A"
+   ]
+  },
+  "ECON 187": {
+   "title": "Topics in Personnel Economics",
+   "units": 4,
+   "prereqs": [
+    "ECON 100B"
+   ]
+  },
+  "ECON 189": {
+   "title": "Business Law and Ethics in Accounting",
+   "units": 4,
+   "prereqs": [
+    "ECON 3B",
+    "ECON 10A",
+    "ECON 5|PSTAT 120A"
+   ]
+  },
+  "EEMB 2": {
+   "title": "Introductory Biology II--Ecology and Evolution",
+   "units": 3,
+   "prereqs": [
+    "MCDB 1A"
+   ]
+  },
+  "EEMB 2LL": {
+   "title": "Introductory Biology Laboratory II",
+   "units": 1.5,
+   "prereqs": [
+    "EEMB 2"
+   ],
+   "concurrent": [
+    "EEMB 2"
+   ]
+  },
+  "EEMB 3": {
+   "title": "Introductory Biology III",
+   "units": 3,
+   "prereqs": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2"
+   ],
+   "ge": "C"
+  },
+  "EEMB 101": {
+   "title": "Genomics and Molecular Evolution",
+   "units": 4,
+   "prereqs": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ]
+  },
+  "EEMB 102": {
+   "title": "Macroevolution: Biodiversity in Deep Time",
+   "units": 4,
+   "prereqs": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ]
+  },
+  "EEMB 103A": {
+   "title": "Flora and Vegetation of California",
+   "units": 4,
+   "prereqs": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ]
+  },
+  "EEMB 106": {
+   "title": "Biology of Fishes",
+   "units": 4,
+   "prereqs": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ]
+  },
+  "EEMB 109": {
+   "title": "Vertebrate Paleontology",
+   "units": 4,
+   "prereqs": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ]
+  },
+  "EEMB 111": {
+   "title": "Parasitology",
+   "units": 5,
+   "prereqs": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ]
+  },
+  "EEMB 112": {
+   "title": "Invertebrate Zoology",
+   "units": 5,
+   "prereqs": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ]
+  },
+  "EEMB 113": {
+   "title": "Vertebrate Biology, Ecology and Evolution",
+   "units": 4,
+   "prereqs": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ]
+  },
+  "EEMB 116": {
+   "title": "Invertebrate Zoology: Higher Invertebrates",
+   "units": 5,
+   "prereqs": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ]
+  },
+  "EEMB 118": {
+   "title": "Entomology: insect biology, ecology, and evolution",
+   "units": 4,
+   "prereqs": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ]
+  },
+  "EEMB 119": {
+   "title": "Ecology and Management of California Wildlands",
+   "units": 5,
+   "prereqs": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ]
+  },
+  "EEMB 120": {
+   "title": "Introduction to Ecology",
+   "units": 4,
+   "prereqs": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ]
+  },
+  "EEMB 127": {
+   "title": "Plant Biology and Biodiversity",
+   "units": 4,
+   "prereqs": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ]
+  },
+  "EEMB 127L": {
+   "title": "Plant Biology and Biodiversity Lab",
+   "units": 3,
+   "prereqs": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3",
+    "EEMB 127"
+   ]
+  },
+  "EEMB 128": {
+   "title": "Foundations of Ecosystem Restoration",
+   "units": 4,
+   "prereqs": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ]
+  },
+  "EEMB 129": {
+   "title": "Introductory Genetics",
+   "units": 4,
+   "prereqs": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ]
+  },
+  "EEMB 130": {
+   "title": "Population Genetics",
+   "units": 4,
+   "prereqs": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ]
+  },
+  "EEMB 131": {
+   "title": "Principles of Evolution",
+   "units": 4,
+   "prereqs": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ]
+  },
+  "EEMB 133": {
+   "title": "Biodiversity and Conservation Biology",
+   "units": 4,
+   "prereqs": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ]
+  },
+  "EEMB 137": {
+   "title": "Plant Paleobiology",
+   "units": 4,
+   "standing": "upper"
+  },
+  "EEMB 138": {
+   "title": "Ethology and Behavioral Ecology",
+   "units": 5,
+   "prereqs": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ]
+  },
+  "EEMB 140": {
+   "title": "General Plant Ecology",
+   "units": 4,
+   "prereqs": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ]
+  },
+  "EEMB 140L": {
+   "title": "General Plant Ecology Lab",
+   "units": 3,
+   "prereqs": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3",
+    "EEMB 140"
+   ],
+   "concurrent": [
+    "EEMB 140"
+   ]
+  },
+  "EEMB 142A": {
+   "title": "Aquatic Communities",
+   "units": 4,
+   "prereqs": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ]
+  },
+  "EEMB 142AL": {
+   "title": "Methods in Aquatic Community Ecology",
+   "units": 3,
+   "prereqs": [
+    "EEMB 142A"
+   ],
+   "concurrent": [
+    "EEMB 142A"
+   ]
+  },
+  "EEMB 145": {
+   "title": "Terrestrial Microbiology",
+   "units": 4,
+   "prereqs": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ]
+  },
+  "EEMB 147": {
+   "title": "Coral Reef Biology and Ecology",
+   "units": 4,
+   "prereqs": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ]
+  },
+  "EEMB 148": {
+   "title": "Ecology of Running Waters",
+   "units": 4,
+   "prereqs": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ]
+  },
+  "EEMB 150A": {
+   "title": "Microbial Diversity I",
+   "units": 4,
+   "prereqs": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ]
+  },
+  "EEMB 150B": {
+   "title": "Microbial Diversity II",
+   "units": 4,
+   "prereqs": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3",
+    "EEMB 150A|EEMB 145|EEMB 157A|MCDB 131"
+   ]
+  },
+  "EEMB 153": {
+   "title": "Ecology of Lakes and Wetlands",
+   "units": 4,
+   "prereqs": [
+    "EEMB 142A|EEMB 120"
+   ]
+  },
+  "EEMB 157A": {
+   "title": "Cell Physiology",
+   "units": 4,
+   "prereqs": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ]
+  },
+  "EEMB 157B": {
+   "title": "Animal Physiology",
+   "units": 4,
+   "prereqs": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ]
+  },
+  "EEMB 157C": {
+   "title": "Plant Physiology",
+   "units": 4,
+   "prereqs": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ]
+  },
+  "EEMB 158": {
+   "title": "Environmental Change Impacts on Marine Ecosystems",
+   "units": 4,
+   "prereqs": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ]
+  },
+  "EEMB 159": {
+   "title": "Tropical Ecology",
+   "units": 4,
+   "prereqs": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ]
+  },
+  "EEMB 162": {
+   "title": "Fungi & Enterprise",
+   "units": 4,
+   "prereqs": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ]
+  },
+  "EEMB 163": {
+   "title": "Deep-Sea Biology",
+   "units": 4,
+   "prereqs": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ]
+  },
+  "EEMB 165": {
+   "title": "Fields Studies in Marine Ecological Physiology",
+   "units": 4,
+   "prereqs": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ]
+  },
+  "EEMB 168": {
+   "title": "Conservation Ecology",
+   "units": 4,
+   "prereqs": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ]
+  },
+  "EEMB 171": {
+   "title": "Ecosystem Processes",
+   "units": 4,
+   "prereqs": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ]
+  },
+  "EEMB 179": {
+   "title": "Ecological Modeling",
+   "units": 4,
+   "prereqs": [
+    "MATH 3B|MATH 34B|MATH 2B"
+   ]
+  },
+  "EEMB 180": {
+   "title": "Evolutionary theory and models of behavioral processes",
+   "units": 5,
+   "prereqs": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3",
+    "MATH 3B|MATH 34B|MATH 2B"
+   ]
+  },
+  "ENGR 3": {
+   "title": "Introduction to Programming",
+   "units": 3
+  },
+  "ENGR 101": {
+   "title": "Ethics in Engineering",
+   "units": 3,
+   "standing": "senior"
+  },
+  "MATH 2A": {
+   "title": "Calculus with Algebra and Trigonometry",
+   "units": 5,
+   "ge": "C"
+  },
+  "MATH 2B": {
+   "title": "Calculus with Algebra and Trigonometry",
+   "units": 5,
+   "prereqs": [
+    "MATH 2A"
+   ],
+   "ge": "C"
+  },
+  "MATH 3A": {
+   "title": "Calculus with Applications, First Course",
+   "units": 4,
+   "ge": "C"
+  },
+  "MATH 3B": {
+   "title": "Calculus with Applications, Second Course",
+   "units": 4,
+   "prereqs": [
+    "MATH 3A|MATH 2A"
+   ],
+   "ge": "C"
+  },
+  "MATH 4A": {
+   "title": "Linear Algebra with Applications",
+   "units": 4,
+   "prereqs": [
+    "MATH 3B|MATH 2B"
+   ]
+  },
+  "MATH 4B": {
+   "title": "Differential Equations",
+   "units": 4,
+   "prereqs": [
+    "MATH 4A"
+   ]
+  },
+  "MATH 6A": {
+   "title": "Vector Calculus with Applications, First Course",
+   "units": 4,
+   "prereqs": [
+    "MATH 4A"
+   ]
+  },
+  "MATH 6B": {
+   "title": "Vector calculus with Applications, Second Course",
+   "units": 4,
+   "prereqs": [
+    "MATH 4B",
+    "MATH 6A"
+   ]
+  },
+  "MATH 8": {
+   "title": "Transition to Higher Mathematics",
+   "units": 5,
+   "prereqs": [
+    "MATH 3B|MATH 2B"
+   ]
+  },
+  "MATH 34A": {
+   "title": "Calculus for Social and Life Sciences",
+   "units": 4,
+   "ge": "C"
+  },
+  "MATH 34B": {
+   "title": "Calculus for Social and Life Sciences",
+   "units": 4,
+   "prereqs": [
+    "MATH 34A|MATH 3A|MATH 2A"
+   ],
+   "ge": "C"
+  },
+  "MATH 108A": {
+   "title": "Linear Algebra",
+   "units": 4,
+   "prereqs": [
+    "MATH 4A",
+    "MATH 8"
+   ]
+  },
+  "MATH 108B": {
+   "title": "Linear Algebra",
+   "units": 4,
+   "prereqs": [
+    "MATH 108A"
+   ]
+  },
+  "MATH 116": {
+   "title": "Combinatorial Analysis",
+   "units": 4,
+   "prereqs": [
+    "MATH 8"
+   ]
+  },
+  "MATH 132A": {
+   "title": "Optimization",
+   "units": 4,
+   "prereqs": [
+    "MATH 6A",
+    "MATH 108A"
+   ]
+  },
+  "MATH 137A": {
+   "title": "Graph and Network Theory",
+   "units": 4,
+   "prereqs": [
+    "MATH 4A",
+    "MATH 8"
+   ]
+  },
+  "MCDB 1A": {
+   "title": "Introductory Biology I",
+   "units": 4,
+   "prereqs": [
+    "CHEM 1A|CHEM 2A",
+    "CHEM 1B|CHEM 2B",
+    "CHEM 1C|CHEM 2C"
+   ],
+   "concurrent": [
+    "CHEM 1C|CHEM 2C"
+   ],
+   "ge": "C"
+  },
+  "MCDB 1B": {
+   "title": "Introductory Biology II--Physiology",
+   "units": 4,
+   "prereqs": [
+    "MCDB 1A"
+   ]
+  },
+  "MCDB 1LL": {
+   "title": "Introductory Biology Laboratory I",
+   "units": 1.5,
+   "prereqs": [
+    "MCDB 1A"
+   ],
+   "concurrent": [
+    "MCDB 1A"
+   ]
+  },
+  "MCDB 101A": {
+   "title": "Molecular Genetics I: Prokaryotes",
+   "units": 4,
+   "prereqs": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "CHEM 1C|CHEM 2C"
+   ]
+  },
+  "MCDB 101B": {
+   "title": "Molecular Genetics II: Eukaryotes",
+   "units": 4,
+   "prereqs": [
+    "MCDB 101A",
+    "MCDB 1B",
+    "EEMB 2"
+   ]
+  },
+  "MCDB 101L": {
+   "title": "Molecular Genetics Laboratory",
+   "units": 4,
+   "prereqs": [
+    "MCDB 101A|EEMB 129",
+    "MCDB 101B"
+   ],
+   "concurrent": [
+    "MCDB 101B"
+   ]
+  },
+  "MCDB 103": {
+   "title": "Cell Biology",
+   "units": 4,
+   "prereqs": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2"
+   ]
+  },
+  "MCDB 103L": {
+   "title": "Laboratory in Molecular Cell Biology",
+   "units": 4,
+   "prereqs": [
+    "MCDB 103"
+   ],
+   "concurrent": [
+    "MCDB 103"
+   ]
+  },
+  "MCDB 108A": {
+   "title": "Biochemistry - Structure and Function of Macromolecules",
+   "units": 4,
+   "prereqs": [
+    "MCDB 1B",
+    "EEMB 2",
+    "CHEM 109B",
+    "CHEM 109C"
+   ],
+   "concurrent": [
+    "CHEM 109C"
+   ]
+  },
+  "MCDB 110": {
+   "title": "Principles of Biochemistry",
+   "units": 4,
+   "prereqs": [
+    "CHEM 1C|CHEM 2C",
+    "CHEM 109B"
+   ]
+  },
+  "MCDB 111": {
+   "title": "Human Physiology",
+   "units": 4,
+   "prereqs": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2"
+   ]
+  },
+  "MCDB 112": {
+   "title": "Developmental Biology",
+   "units": 4,
+   "prereqs": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ]
+  },
+  "MCDB 112L": {
+   "title": "Laboratory in Developmental Biology",
+   "units": 3,
+   "prereqs": [
+    "MCDB 101A",
+    "MCDB 112"
+   ],
+   "concurrent": [
+    "MCDB 112"
+   ]
+  },
+  "MCDB 118": {
+   "title": "Plant Development",
+   "units": 4,
+   "prereqs": [
+    "MCDB 1B",
+    "EEMB 2",
+    "MCDB 101A|EEMB 129"
+   ]
+  },
+  "MCDB 126": {
+   "title": "Basic Pharmacology",
+   "units": 5,
+   "prereqs": [
+    "MCDB 101A",
+    "CHEM 109C"
+   ],
+   "concurrent": [
+    "MCDB 101A"
+   ]
+  },
+  "MCDB 126AL": {
+   "title": "Pharmacology Lab I",
+   "units": 4,
+   "prereqs": [
+    "MCDB 126"
+   ],
+   "concurrent": [
+    "MCDB 126"
+   ]
+  },
+  "MCDB 126B": {
+   "title": "Basic Pharmacology",
+   "units": 4,
+   "prereqs": [
+    "MCDB 101A",
+    "CHEM 109C"
+   ]
+  },
+  "MCDB 126BL": {
+   "title": "Pharmacology Laboratory II",
+   "units": 4,
+   "prereqs": [
+    "MCDB 126B"
+   ],
+   "concurrent": [
+    "MCDB 126B"
+   ]
+  },
+  "MCDB 131": {
+   "title": "General Microbiology",
+   "units": 4,
+   "prereqs": [
+    "MCDB 101A",
+    "CHEM 109B"
+   ]
+  },
+  "MCDB 131L": {
+   "title": "Laboratory in General Microbiology",
+   "units": 2,
+   "prereqs": [
+    "MCDB 131"
+   ],
+   "concurrent": [
+    "MCDB 131"
+   ]
+  },
+  "MCDB 132": {
+   "title": "Bacterial Pathogenesis",
+   "units": 3,
+   "prereqs": [
+    "MCDB 101A"
+   ]
+  },
+  "MCDB 132L": {
+   "title": "Bacterial Pathogenesis Laboratory",
+   "units": 3,
+   "prereqs": [
+    "MCDB 132"
+   ],
+   "concurrent": [
+    "MCDB 132"
+   ]
+  },
+  "MCDB 133": {
+   "title": "Molecular and Cellular Immunobiology",
+   "units": 5,
+   "prereqs": [
+    "MCDB 101A"
+   ]
+  },
+  "MCDB 133L": {
+   "title": "Molecular and Cellular Immunobiology Lab",
+   "units": 4,
+   "prereqs": [
+    "MCDB 133"
+   ],
+   "concurrent": [
+    "MCDB 133"
+   ]
+  },
+  "MCDB 134": {
+   "title": "General Animal Virology",
+   "units": 4,
+   "prereqs": [
+    "MCDB 101A|EEMB 129"
+   ]
+  },
+  "MCDB 135": {
+   "title": "Cellular Growth Control and Oncogenesis",
+   "units": 4,
+   "prereqs": [
+    "MCDB 101A",
+    "MCDB 101B"
+   ]
+  },
+  "MCDB 139": {
+   "title": "Medical Microbiology",
+   "units": 4,
+   "prereqs": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ]
+  },
+  "MCDB 140L": {
+   "title": "Recombinant DNA Methods",
+   "units": 4,
+   "prereqs": [
+    "MCDB 101B",
+    "MCDB 110"
+   ]
+  },
+  "MCDB 146": {
+   "title": "Stem Cell Biology in Health and Disease",
+   "units": 4,
+   "prereqs": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3",
+    "CHEM 1C|CHEM 2C"
+   ]
+  },
+  "MCDB 151": {
+   "title": "Neurobiology I: Cellular Organization and Biophysics of the Nervous System",
+   "units": 4,
+   "prereqs": [
+    "MCDB 1A",
+    "MCDB 1B"
+   ]
+  },
+  "MCDB 152": {
+   "title": "Neurobiology II: Molecular and Cellular Neurobiology",
+   "units": 4,
+   "prereqs": [
+    "MCDB 1B",
+    "MCDB 151"
+   ]
+  },
+  "MCDB 153": {
+   "title": "Neurobiology III: Developmental Neurobiology",
+   "units": 4,
+   "prereqs": [
+    "MCDB 1B",
+    "MCDB 101A|EEMB 129"
+   ]
+  },
+  "PHYS 6A": {
+   "title": "Introductory Physics",
+   "units": 3,
+   "prereqs": [
+    "MATH 3A|MATH 2A|MATH 34A"
+   ],
+   "concurrent": [
+    "MATH 3A|MATH 2A|MATH 34A"
+   ],
+   "ge": "C"
+  },
+  "PHYS 6AL": {
+   "title": "Introductory Experimental Physics",
+   "units": 1,
+   "prereqs": [
+    "PHYS 6A"
+   ],
+   "concurrent": [
+    "PHYS 6A"
+   ],
+   "ge": "C"
+  },
+  "PHYS 6B": {
+   "title": "Introductory Physics",
+   "units": 3,
+   "prereqs": [
+    "PHYS 6A"
+   ],
+   "ge": "C"
+  },
+  "PHYS 6BL": {
+   "title": "Introductory Experimental Physics",
+   "units": 1,
+   "prereqs": [
+    "PHYS 6B"
+   ],
+   "concurrent": [
+    "PHYS 6B"
+   ],
+   "ge": "C"
+  },
+  "PHYS 6C": {
+   "title": "Introductory Physics",
+   "units": 3,
+   "prereqs": [
+    "PHYS 6B"
+   ],
+   "ge": "C"
+  },
+  "PHYS 6CL": {
+   "title": "Introductory Experimental Physics",
+   "units": 1,
+   "prereqs": [
+    "PHYS 6C"
+   ],
+   "concurrent": [
+    "PHYS 6C"
+   ],
+   "ge": "C"
+  },
+  "PHYS 7A": {
+   "title": "Basic Physics",
+   "units": 4,
+   "prereqs": [
+    "MATH 3A|MATH 2A"
+   ]
+  },
+  "PHYS 7B": {
+   "title": "Basic Physics",
+   "units": 4,
+   "prereqs": [
+    "PHYS 7A",
+    "MATH 3B|MATH 2B"
+   ]
+  },
+  "PHYS 7C": {
+   "title": "Basic Physics",
+   "units": 4,
+   "prereqs": [
+    "PHYS 7B"
+   ]
+  },
+  "PHYS 7D": {
+   "title": "Basic Physics",
+   "units": 3,
+   "prereqs": [
+    "PHYS 7C",
+    "MATH 4A"
+   ]
+  },
+  "PHYS 7L": {
+   "title": "Physics Laboratory",
+   "units": 1,
+   "prereqs": [
+    "PHYS 7B",
+    "PHYS 7C"
+   ],
+   "concurrent": [
+    "PHYS 7C"
+   ]
+  },
+  "PSTAT 5A": {
+   "title": "Understanding Data",
+   "units": 5,
+   "ge": "C"
+  },
+  "PSTAT 5LS": {
+   "title": "Statistics for Life Sciences",
+   "units": 5,
+   "ge": "C"
+  },
+  "PSTAT 8": {
+   "title": "Transition to Data Science, Probability and Statistics",
+   "units": 5,
+   "prereqs": [
+    "MATH 4A"
+   ]
+  },
+  "PSTAT 10": {
+   "title": "Principles of Data Science with R",
+   "units": 5,
+   "prereqs": [
+    "MATH 3B|MATH 2B"
+   ]
+  },
+  "PSTAT 100": {
+   "title": "Data Science Concepts and Analysis",
+   "units": 4,
+   "prereqs": [
+    "PSTAT 120A",
+    "CMPSC 9|CMPSC 16",
+    "MATH 4A"
+   ]
+  },
+  "PSTAT 105": {
+   "title": "Introduction to Nonparametric Methods",
+   "units": 4,
+   "prereqs": [
+    "PSTAT 10",
+    "PSTAT 120B"
+   ]
+  },
+  "PSTAT 115": {
+   "title": "Introduction to Bayesian Data Analysis",
+   "units": 4,
+   "prereqs": [
+    "PSTAT 126"
+   ]
+  },
+  "PSTAT 120A": {
+   "title": "Probability and Statistics",
+   "units": 4,
+   "prereqs": [
+    "MATH 4A|MATH 6A"
+   ]
+  },
+  "PSTAT 120B": {
+   "title": "Probability and Statistics",
+   "units": 4,
+   "prereqs": [
+    "PSTAT 120A"
+   ]
+  },
+  "PSTAT 120C": {
+   "title": "Probability and Statistics",
+   "units": 4,
+   "prereqs": [
+    "PSTAT 120B"
+   ]
+  },
+  "PSTAT 122": {
+   "title": "Design and Analysis of Experiments",
+   "units": 4,
+   "prereqs": [
+    "PSTAT 10",
+    "PSTAT 120B"
+   ]
+  },
+  "PSTAT 123": {
+   "title": "Sampling Techniques",
+   "units": 4,
+   "prereqs": [
+    "PSTAT 10",
+    "PSTAT 120B"
+   ]
+  },
+  "PSTAT 126": {
+   "title": "Regression Analysis",
+   "units": 4,
+   "prereqs": [
+    "PSTAT 10",
+    "PSTAT 120B"
+   ]
+  },
+  "PSTAT 127": {
+   "title": "Advanced Statistical Models",
+   "units": 4,
+   "prereqs": [
+    "PSTAT 126"
+   ]
+  },
+  "PSTAT 130": {
+   "title": "SAS Base Programming",
+   "units": 4,
+   "prereqs": [
+    "PSTAT 120A"
+   ]
+  },
+  "PSTAT 131": {
+   "title": "Introduction to Statistical Machine Learning",
+   "units": 4,
+   "prereqs": [
+    "PSTAT 120B",
+    "PSTAT 126"
+   ]
+  },
+  "PSTAT 132": {
+   "title": "Database Management for Data Analysis",
+   "units": 4,
+   "prereqs": [
+    "PSTAT 10",
+    "PSTAT 8|MATH 8"
+   ]
+  },
+  "PSTAT 133": {
+   "title": "Statistical Deep Learning for Artificial Intelligence",
+   "units": 4,
+   "prereqs": [
+    "PSTAT 126"
+   ]
+  },
+  "PSTAT 134": {
+   "title": "Statistical Data Science",
+   "units": 4,
+   "prereqs": [
+    "PSTAT 131",
+    "CMPSC 9|CMPSC 16"
+   ]
+  },
+  "PSTAT 135": {
+   "title": "Big Data Analytics",
+   "units": 4,
+   "prereqs": [
+    "PSTAT 131",
+    "CMPSC 9|CMPSC 16"
+   ]
+  },
+  "PSTAT 160A": {
+   "title": "Applied Stochastic Processes",
+   "units": 4,
+   "prereqs": [
+    "MATH 4A",
+    "MATH 8|PSTAT 8",
+    "PSTAT 120A"
+   ]
+  },
+  "PSTAT 160B": {
+   "title": "Applied Stochastic Processes",
+   "units": 4,
+   "prereqs": [
+    "MATH 4B",
+    "PSTAT 120B",
+    "PSTAT 160A"
+   ]
+  },
+  "PSTAT 170": {
+   "title": "Introduction to Mathematical Finance",
+   "units": 4,
+   "prereqs": [
+    "MATH 4B",
+    "PSTAT 120B",
+    "PSTAT 160A"
+   ]
+  },
+  "PSTAT 171": {
+   "title": "Mathematics of Fixed Income Markets",
+   "units": 4,
+   "prereqs": [
+    "MATH 3B|MATH 2B"
+   ]
+  },
+  "PSTAT 172A": {
+   "title": "Actuarial Statistics I",
+   "units": 4,
+   "prereqs": [
+    "PSTAT 120A",
+    "PSTAT 171"
+   ]
+  },
+  "PSTAT 172B": {
+   "title": "Actuarial Statistics II",
+   "units": 4,
+   "prereqs": [
+    "MATH 4B",
+    "PSTAT 172A"
+   ]
+  },
+  "PSTAT 173": {
+   "title": "Risk Theory",
+   "units": 4,
+   "prereqs": [
+    "PSTAT 120B"
+   ]
+  },
+  "PSTAT 174": {
+   "title": "Time Series",
+   "units": 4,
+   "prereqs": [
+    "PSTAT 10",
+    "PSTAT 120B"
+   ]
+  },
+  "PSTAT 175": {
+   "title": "Survival Analysis",
+   "units": 4,
+   "prereqs": [
+    "PSTAT 10",
+    "PSTAT 120B"
+   ]
+  },
+  "PSTAT 177": {
+   "title": "Financial Market Risk and Modeling",
+   "units": 4,
+   "prereqs": [
+    "PSTAT 126",
+    "PSTAT 171"
+   ]
+  },
+  "PSTAT 183": {
+   "title": "Fundamental Actuarial Concepts",
+   "units": 4,
+   "prereqs": [
+    "PSTAT 171"
+   ]
+  },
+  "PSTAT 197A": {
+   "title": "Data Science Capstone Project Preparation",
+   "units": 4,
+   "prereqs": [
+    "PSTAT 126"
+   ],
+   "consent": true
+  },
+  "PSTAT 197B": {
+   "title": "Capstone Project in Data Science",
+   "units": 4,
+   "prereqs": [
+    "PSTAT 197A"
+   ],
+   "standing": "upper",
+   "consent": true
+  },
+  "PSTAT 197C": {
+   "title": "Capstone Project in Data Science",
+   "units": 4,
+   "prereqs": [
+    "PSTAT 197B"
+   ],
+   "standing": "upper",
+   "consent": true
+  }
+ }
+}

@@ -1,3 +1,4 @@
+import { PastGrades } from "@/components/PastGrades";
 import type { Schedule } from "@/types";
 import { WeeklyCalendar } from "./WeeklyCalendar";
 import { ValidationBadge } from "./ValidationBadge";
@@ -69,6 +70,7 @@ export function ScheduleCard({ schedule, title, isPrimary = false }: Props) {
                       {sc.offering.schedule.days.join("")} · {sc.offering.schedule.startTime}–{sc.offering.schedule.endTime} · {sc.offering.instructor}
                     </div>
                     <CourseFlags termPattern={sc.termPattern} mustGet={sc.mustGet} mustGetReason={sc.mustGetReason} />
+                    <PastGrades code={sc.offering.code} />
                     {sc.satisfies.length > 0 && (
                       <div className="flex gap-1 mt-1.5 flex-wrap">
                         {sc.satisfies.map((gid) => (

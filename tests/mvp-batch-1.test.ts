@@ -59,7 +59,7 @@ describe("majors and double majors", () => {
   });
 
   it("refuses a program without requirement data", () => {
-    expect(() => combinedRequirements(["electrical-engineering"])).toThrow(ProgramNotReadyError);
+    expect(() => combinedRequirements(["computer-science"])).toThrow(ProgramNotReadyError);
   });
 
   it("combines two programs and renames clashing group ids", () => {

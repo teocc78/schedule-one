@@ -1,0 +1,160 @@
+{
+  "_note": "Electrical Engineering B.S., 2026-27 catalog (catalog.ucsb.edu program BSEE). Electives are 36 units of approved ECE courses; the planner counts them as nine courses. Depth sequences need faculty adviser approval and are not modelled.",
+  "_catalog_year": "2026-27",
+  "major": "Electrical Engineering",
+  "majorCode": "electrical-engineering",
+  "equivalents": {
+    "MATH 3A": [
+      "MATH 2A"
+    ],
+    "MATH 3B": [
+      "MATH 2B"
+    ]
+  },
+  "groups": [
+    {
+      "id": "ee-chem",
+      "name": "Chemistry or ECE 6",
+      "kind": "choose_n",
+      "n": 1,
+      "courses": [
+        "CHEM 1A",
+        "CHEM 2A",
+        "ECE 6"
+      ]
+    },
+    {
+      "id": "ee-programming",
+      "name": "Programming",
+      "kind": "choose_n",
+      "n": 1,
+      "courses": [
+        "CMPSC 16",
+        "CMPSC 9",
+        "ECE 3"
+      ]
+    },
+    {
+      "id": "ee-math",
+      "name": "Mathematics",
+      "kind": "all",
+      "courses": [
+        "MATH 3A",
+        "MATH 3B",
+        "MATH 4A",
+        "MATH 4B",
+        "MATH 6A",
+        "MATH 6B"
+      ]
+    },
+    {
+      "id": "ee-physics",
+      "name": "Physics",
+      "kind": "all",
+      "courses": [
+        "PHYS 7A",
+        "PHYS 7B",
+        "PHYS 7C",
+        "PHYS 7D",
+        "PHYS 7L"
+      ]
+    },
+    {
+      "id": "ee-prep",
+      "name": "ECE preparation",
+      "kind": "all",
+      "courses": [
+        "ECE 5",
+        "ECE 10A",
+        "ECE 10AL",
+        "ECE 10B",
+        "ECE 10BL",
+        "ECE 10C",
+        "ECE 10CL",
+        "ECE 15A",
+        "ECE 130A",
+        "ECE 130B",
+        "ECE 139"
+      ]
+    },
+    {
+      "id": "ee-upper",
+      "name": "Upper-division required",
+      "kind": "all",
+      "courses": [
+        "ECE 134",
+        "ECE 152A",
+        "ECE 188A",
+        "ECE 188B",
+        "ECE 188C",
+        "ENGR 101"
+      ]
+    },
+    {
+      "id": "ee-interface",
+      "name": "ECE 153A or 153B",
+      "kind": "choose_n",
+      "n": 1,
+      "courses": [
+        "ECE 153B",
+        "ECE 153A"
+      ]
+    },
+    {
+      "id": "ee-electives",
+      "name": "Departmental electives (36 units)",
+      "kind": "choose_n",
+      "n": 9,
+      "courses": [
+        "ECE 132",
+        "ECE 137A",
+        "ECE 137B",
+        "ECE 147A",
+        "ECE 154A",
+        "ECE 158",
+        "ECE 130C",
+        "ECE 148",
+        "ECE 144",
+        "ECE 147B",
+        "ECE 120A",
+        "ECE 120B",
+        "ECE 122A",
+        "ECE 122B",
+        "ECE 123",
+        "ECE 125",
+        "ECE 133",
+        "ECE 135",
+        "ECE 136A",
+        "ECE 136B",
+        "ECE 136C",
+        "ECE 141A",
+        "ECE 141B",
+        "ECE 142",
+        "ECE 145A",
+        "ECE 145B",
+        "ECE 145C",
+        "ECE 146A",
+        "ECE 146B",
+        "ECE 147C",
+        "ECE 149",
+        "ECE 152B",
+        "ECE 154B",
+        "ECE 157A",
+        "ECE 157B",
+        "ECE 157C",
+        "ECE 160",
+        "ECE 162A",
+        "ECE 162B",
+        "ECE 162C",
+        "ECE 178",
+        "ECE 179D",
+        "ECE 179P",
+        "ECE 180",
+        "ECE 181",
+        "ECE 183",
+        "ECE 186"
+      ],
+      "description": "Needs an approved depth sequence; check with your ECE faculty adviser."
+    }
+  ]
+}

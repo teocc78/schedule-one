@@ -9,13 +9,13 @@
  */
 import type { TranscriptData } from "@/types";
 
-const GRADE = "A\\+|A-|A|B\\+|B-|B|C\\+|C-|C|D\\+|D-|D|F|NP|P";
+const GRADE = "A\\+|A-|A|B\\+|B-|B|C\\+|C-|C|D\\+|D-|D|F|NP|P|IP";
 const COURSE_LINE = new RegExp(
   // department (1-2 words, e.g. "PSTAT", "C LIT", "W&L"), number (e.g. 8, 120A, 5AA), title, units, grade
   `^\\s*([A-Z][A-Z&]{0,7}(?: [A-Z&]{1,6})?)\\s+(\\d{1,3}[A-Z]{0,3})\\s+(.+?)\\s+(\\d{1,2}(?:\\.\\d)?)\\s+(${GRADE})\\s*$`
 );
 const QUARTER_LINE = /^\s*(FALL|WINTER|SPRING|SUMMER)\s+(?:QUARTER\s+)?(\d{4})\s*$/i;
-const NOT_FINAL = /\s(IP|W|I|NR)\s*$/;
+const NOT_FINAL = /\s(W|I|NR)\s*$/;
 
 function titleCase(s: string): string {
   return s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
@@ -63,9 +63,10 @@ export function parseTranscriptByRules(text: string): RuleParseResult {
     }
   }
 
-  const totalUnitsEarned = Math.round(completedCourses.reduce((n, c) => n + c.units, 0) * 10) / 10;
+  const sum = (ip: boolean) =>
+    Math.round(completedCourses.filter((c) => (c.grade === "IP") === ip).reduce((n, c) => n + c.units, 0) * 10) / 10;
   return {
-    transcript: { studentName: "", studentId: "0000", major, completedCourses, totalUnitsEarned },
+    transcript: { studentName: "", studentId: "0000", major, completedCourses, totalUnitsEarned: sum(false), unitsInProgress: sum(true) },
     unreadCourseLines: unread,
   };
 }

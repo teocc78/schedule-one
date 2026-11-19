@@ -423,3 +423,9 @@ label {
 .notices { list-style: none; padding: 0; margin: 0 0 1rem; }
 .notices li { border-left: 4px solid var(--warn); background: var(--warn-s); padding: .5rem .75rem; border-radius: 8px; margin-bottom: .4rem; font-size: .9rem; }
 .must-get { color: var(--bad); background: var(--bad-s); border: 2px solid var(--bad); border-radius: 999px; padding: 0 .5rem; font-weight: 700; font-size: .72rem; }
+
+/* 4-year plan */
+.plan-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: .75rem; }
+.plan-quarter { padding: .75rem .9rem; }
+.plan-course { padding: .4rem 0; border-top: 1px solid var(--line); }
+.plan-course:first-child { border-top: none; }

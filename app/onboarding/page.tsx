@@ -27,10 +27,11 @@ const STEP_LABELS: Record<Step, string> = {
 const DAYS: DayOfWeek[] = ["M", "T", "W", "R", "F"];
 const DAY_LABELS: Record<DayOfWeek, string> = { M: "Mon", T: "Tue", W: "Wed", R: "Thu", F: "Fri" };
 
+// Fictional students with real 2026-27 UCSB courses. Picking one also sets the major.
 const SAMPLES = [
-  { label: "Early student", sublabel: "Sophomore, Stats & Data Science", file: "transcript-early.txt" },
-  { label: "Mid student", sublabel: "Junior, Stats & Data Science", file: "transcript-mid.txt" },
-  { label: "Late student", sublabel: "Senior, Stats & Data Science", file: "transcript-late.txt" },
+  { label: "Sophomore", sublabel: "Economics & Accounting", file: "transcript-econ-accounting-sophomore.txt", major: "economics-accounting" },
+  { label: "Junior", sublabel: "Biological Sciences", file: "transcript-biology-junior.txt", major: "biological-sciences" },
+  { label: "Senior", sublabel: "Electrical Engineering", file: "transcript-ee-senior.txt", major: "electrical-engineering" },
 ];
 
 // Every preset is at least 12 units, the full-time minimum.
@@ -65,6 +66,7 @@ export default function OnboardingPage() {
   const [minor, setMinor] = useState("");
   const [text, setText] = useState("");
   const [fileNote, setFileNote] = useState("");
+  const [sampleNote, setSampleNote] = useState("");
   const [busy, setBusy] = useState<string | null>(null);
   const [presetIdx, setPresetIdx] = useState(1);
   const [minUnits, setMinUnits] = useState(12);
@@ -95,9 +97,17 @@ export default function OnboardingPage() {
   const goNext = () => { const i = order.indexOf(step); if (i < order.length - 1) go(order[i + 1]); };
   const goBack = () => { const i = order.indexOf(step); if (i > 0) go(order[i - 1]); };
 
-  async function loadSample(file: string) {
+  async function loadSample(file: string, sampleMajor: string) {
     setBusy(file);
-    try { setText(await (await fetch(`/samples/${file}`)).text()); setFileNote(""); }
+    try {
+      setText(await (await fetch(`/samples/${file}`)).text());
+      const changed = sampleMajor !== major || secondMajor || minor;
+      setMajor(sampleMajor);
+      setSecondMajor("");
+      setMinor("");
+      setFileNote(file);
+      setSampleNote(changed ? `Your major is now ${findProgram(sampleMajor)?.name ?? sampleMajor}, to match this sample.` : "");
+    }
     catch { setError("Couldn't load that sample."); }
     finally { setBusy(null); }
   }
@@ -113,6 +123,7 @@ export default function OnboardingPage() {
       if (!res.ok || typeof data.text !== "string") throw new Error(data.error ?? "Couldn't read that file.");
       setText(data.text);
       setFileNote(f.name);
+      setSampleNote("");
     } catch (e) {
       setError(e instanceof Error ? e.message : "Couldn't read that file.");
     } finally {
@@ -214,7 +225,7 @@ export default function OnboardingPage() {
 
         <div className="grid3">
           {SAMPLES.map((s) => (
-            <button key={s.file} className="choice" onClick={() => loadSample(s.file)}>
+            <button key={s.file} className="choice" onClick={() => loadSample(s.file, s.major)}>
               <strong>{s.label}</strong>
               <span className="fine">{busy === s.file ? "Loading..." : s.sublabel}</span>
             </button>
@@ -230,14 +241,15 @@ export default function OnboardingPage() {
         <textarea
           id="paste"
           value={text}
-          onChange={(e) => { setText(e.target.value); setFileNote(""); }}
+          onChange={(e) => { setText(e.target.value); setFileNote(""); setSampleNote(""); }}
           placeholder={"FALL 2024\nMATH 3A  Calculus with Applications I  4.0  A\n..."}
           className="mono"
         />
         <div className="row between">
           <span className="fine">{text ? (fileNote ? `Read from ${fileNote}, ${lineCount} lines` : `${lineCount} lines added`) : ""}</span>
-          {text && <button className="link bad" onClick={() => { setText(""); setFileNote(""); }}>Clear</button>}
+          {text && <button className="link bad" onClick={() => { setText(""); setFileNote(""); setSampleNote(""); }}>Clear</button>}
         </div>
+        {sampleNote && text && <div className="note">{sampleNote}</div>}
         {error && <div className="tag bad">{error}</div>}
 
         <div className="row">

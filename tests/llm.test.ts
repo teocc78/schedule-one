@@ -50,15 +50,17 @@ describe("parseTranscript", () => {
     expect(args.config.temperature).toBeUndefined();
   });
 
-  it("accepts nulls and numbers as strings, drops bad rows, recomputes units", async () => {
+  it("accepts nulls and numbers as strings, drops bad rows, keeps in-progress courses, recomputes units", async () => {
     generateContent.mockResolvedValue({ text: JSON.stringify(good) });
     const t = await parseTranscript("x");
     expect(t.studentName).toBe("");
     expect(t.studentId).toBe("0000");
     expect(t.completedCourses).toEqual([
       { code: "PSTAT 8", title: "Transition to Data Science", units: 4, grade: "A-", quarter: "Fall 2025" },
+      { code: "MATH 3A", title: "Calculus", units: 4, grade: "IP", quarter: "Winter 2026" },
     ]);
     expect(t.totalUnitsEarned).toBe(4);
+    expect(t.unitsInProgress).toBe(4);
   });
 
   it("falls back to another model when the configured one is not available to this key", async () => {
@@ -67,7 +69,7 @@ describe("parseTranscript", () => {
       .mockRejectedValueOnce(apiError(403, "We are limiting access to the 2.5 models to users who have actively used them"))
       .mockResolvedValue({ text: JSON.stringify(good) });
     const t = await parseTranscript("x");
-    expect(t.completedCourses).toHaveLength(1);
+    expect(t.completedCourses).toHaveLength(2);
     expect(generateContent.mock.calls.map((c) => c[0].model)).toEqual(["gemini-2.5-flash", "gemini-3.8-flash"]);
   });
 
@@ -113,7 +115,7 @@ describe("parseTranscript", () => {
       return { text: JSON.stringify(good) };
     });
     const t = await parseTranscript("x");
-    expect(t.completedCourses.map((c) => c.code)).toEqual(["PSTAT 8"]);
+    expect(t.completedCourses.map((c) => c.code)).toEqual(["PSTAT 8", "MATH 3A"]);
     expect(generateContent.mock.calls.map((c) => c[0].model)).toEqual([
       "gemini-flash-latest", "gemini-3.8-flash", "gemini-3.8-flash", "gemini-3.5-flash-lite",
     ]);

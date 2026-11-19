@@ -31,7 +31,18 @@ Most transcripts are read by rules with no AI call (`lib/transcript-fallback.ts`
 
 1. **Upload & setup**: pick a major (plus an optional second major or minor), upload the transcript as a PDF or .txt or paste it, then either "Build it for me" or personalize (units, earliest start, latest end, free days, and upper-division courses that seem interesting). Programs without requirement data show as "coming soon" and the plan route answers 422 `program_not_ready`.
 2. **Plan**: the LLM proposes schedules from eligible courses only; `lib/validator.ts` gates them. If the LLM fails or proposes invalid schedules, `lib/fallback-scheduler.ts` builds valid ones deterministically.
-3. **Planner tab** (dashboard): week grid with hard/soft blocks and a buffer, time-vs-professor toggle, two-phase lecture/section planning, open-slot finder with backups and swap impact, GE status and suggestions, pass plan with waitlist warning, and a copy-paste GOLD cart prompt (add to cart only).
+3. **4-Year Plan tab** (`lib/four-year-plan.ts`, `/api/four-year-plan`): rule-based, no AI. Lays out every remaining major course quarter by quarter from Winter 2027 to 180 units, keeps prerequisites in order, fills each quarter to full time with GE or electives, lists backups per quarter, and marks courses as "MUST TAKE IN WINTER" (and so on) when a course runs once a year, sits on the path to graduation, or unlocks 4+ later courses. In-progress courses (grade IP) count as done. It still works when the AI is down.
+4. **Past grades**: course rows show average GPA and % A's since 2023, and the instructors who taught it lately (`data/grades/recent-grades.json`, from the Daily Nexus's UCSB Registrar public-records data, which it publishes as free to reuse).
+5. **Planner tab** (dashboard): week grid with hard/soft blocks and a buffer, time-vs-professor toggle, two-phase lecture/section planning, open-slot finder with backups and swap impact, GE status and suggestions, pass plan with waitlist warning, and a copy-paste GOLD cart prompt (add to cart only).
+
+## Majors and sample data
+
+- The major picker lists the Sigma Eta Pi majors. Economics & Accounting, Statistics & Data Science, Biological Sciences and Electrical Engineering have requirement data (`data/requirements/`); the rest show as coming soon.
+- `data/catalog/courses.json` holds titles, units, prerequisites, standing and term limits for 296 courses from the 2026-27 catalog.
+- `data/offerings/winter-2027-standin.json` holds STAND-IN Winter 2027 sections (real courses, made-up times) for the newer majors until the UCSB API key is set.
+- `public/samples/` has three made-up students (Econ & Accounting sophomore, Biology junior, EE senior). Picking one in onboarding also sets the major.
+- When a student's major courses can't reach 12 units this quarter (an Econ sophomore can only take ECON 10A), the quarter plan schedules what is open and says how many GE units to add.
+- `docs/ucsb-api-key-prompt.md` is a browser-agent prompt for getting the UCSB API key.
 
 ## Running tests
 
@@ -55,6 +66,8 @@ lib/
   schedule-engine.ts                      # Two-phase lecture/section scheduler, open slots, swaps
   pass-planner.ts                         # Pass caps 11.5 / 15.5 / 21.0, waitlist >= 12 units
   majors.ts                               # Program list; combines double majors and minors
+  four-year-plan.ts, catalog.ts           # 4-year plan; 2026-27 catalog lookups
+  grade-history.ts                        # Past grade distributions (ratings stand-in)
   standing.ts                             # Class standing, 12-unit full time, upper-division notice
   registration-flags.ts                   # "Mostly a Fall course" and "Must get" from past offerings
   interests.ts, pdf-text.ts
@@ -68,6 +81,6 @@ docs/
 
 - Hard rules live in code; the AI only proposes and ranks.
 - The UCSB client caches responses and limits live calls per hour; it never logs or stores student data.
-- Not built yet: study abroad and transfer courses, requirement data for majors other than Statistics & Data Science, minors, and college-specific GE rules. The UI says so.
+- Not built yet: study abroad and transfer courses, requirement data for most SEP majors and all minors, and college-specific GE rules. The UI says so.
 - Term flags use the synthetic `data/ucsb-fixtures/enrollment-history.json` until the UCSB API key is set, so most courses show no flag.
-- Professor ratings have no source yet (Rate My Professors does not allow scraping), so professor mode ranks on time fit until one is added.
+- Professor ratings: Rate My Professors does not allow scraping, so the app shows past grade distributions instead. Professor mode still ranks on time fit, because Winter 2027 instructors are TBA until the UCSB API key is set.

@@ -12,6 +12,9 @@
  */
 import type { MajorRequirements } from "@/types";
 import sds from "@/data/requirements/statistics-data-science.json";
+import econAcc from "@/data/requirements/economics-accounting.json";
+import bio from "@/data/requirements/biological-sciences.json";
+import ee from "@/data/requirements/electrical-engineering.json";
 
 export type College = "Letters & Science" | "Engineering" | "Creative Studies";
 
@@ -23,15 +26,40 @@ export interface Program {
   ready: boolean;
 }
 
+/**
+ * The SEP major list, in the order the chapter uses. `ready` means the
+ * requirement data is in data/requirements; the rest show as coming soon.
+ */
 export const PROGRAMS: Program[] = [
+  { code: "economics", name: "Economics (B.A.)", kind: "major", college: "Letters & Science", ready: false },
+  { code: "economics-accounting", name: "Economics & Accounting (B.A.)", kind: "major", college: "Letters & Science", ready: true },
+  { code: "communication", name: "Communication (B.A.)", kind: "major", college: "Letters & Science", ready: false },
   { code: "statistics-data-science", name: "Statistics & Data Science (B.S.)", kind: "major", college: "Letters & Science", ready: true },
-  { code: "economics-accounting", name: "Economics & Accounting (B.A.)", kind: "major", college: "Letters & Science", ready: false },
-  { code: "biological-sciences", name: "Biological Sciences (B.S.)", kind: "major", college: "Letters & Science", ready: false },
-  { code: "electrical-engineering", name: "Electrical Engineering (B.S.)", kind: "major", college: "Engineering", ready: false },
+  { code: "computer-science", name: "Computer Science (B.S.)", kind: "major", college: "Engineering", ready: false },
+  { code: "political-science", name: "Political Science (B.A.)", kind: "major", college: "Letters & Science", ready: false },
+  { code: "psychological-brain-sciences", name: "Psychological & Brain Sciences (B.S.)", kind: "major", college: "Letters & Science", ready: false },
+  { code: "financial-math-statistics", name: "Financial Mathematics & Statistics (B.S.)", kind: "major", college: "Letters & Science", ready: false },
+  { code: "biological-sciences", name: "Biological Sciences (B.S.)", kind: "major", college: "Letters & Science", ready: true },
+  { code: "biopsychology", name: "Biopsychology (B.S.)", kind: "major", college: "Letters & Science", ready: false },
+  { code: "electrical-engineering", name: "Electrical Engineering (B.S.)", kind: "major", college: "Engineering", ready: true },
+  { code: "computer-engineering", name: "Computer Engineering (B.S.)", kind: "major", college: "Engineering", ready: false },
+  { code: "actuarial-science", name: "Actuarial Science (B.S.)", kind: "major", college: "Letters & Science", ready: false },
+  { code: "applied-mathematics", name: "Applied Mathematics (B.S.)", kind: "major", college: "Letters & Science", ready: false },
+  { code: "mathematics", name: "Mathematics (B.A. or B.S.)", kind: "major", college: "Letters & Science", ready: false },
+  { code: "history", name: "History (B.A.)", kind: "major", college: "Letters & Science", ready: false },
+  { code: "environmental-studies", name: "Environmental Studies (B.A. or B.S.)", kind: "major", college: "Letters & Science", ready: false },
+  { code: "history-policy-law-governance", name: "History of Policy, Law & Governance (B.A.)", kind: "major", college: "Letters & Science", ready: false },
+  { code: "geography", name: "Geography (B.A.)", kind: "major", college: "Letters & Science", ready: false },
+  { code: "chemical-engineering", name: "Chemical Engineering (B.S.)", kind: "major", college: "Engineering", ready: false },
+  { code: "chemistry", name: "Chemistry (B.A. or B.S.)", kind: "major", college: "Letters & Science", ready: false },
+  { code: "biochemistry", name: "Biochemistry (B.S.)", kind: "major", college: "Letters & Science", ready: false },
 ];
 
 const REQUIREMENTS: Record<string, MajorRequirements> = {
   "statistics-data-science": sds as unknown as MajorRequirements,
+  "economics-accounting": econAcc as unknown as MajorRequirements,
+  "biological-sciences": bio as unknown as MajorRequirements,
+  "electrical-engineering": ee as unknown as MajorRequirements,
 };
 
 export const majors = () => PROGRAMS.filter((p) => p.kind === "major");
@@ -65,10 +93,17 @@ export function combinedRequirements(codes: string[]): MajorRequirements {
       return { ...g, id, name: `${REQUIREMENTS[code].major}: ${g.name}` };
     })
   );
+  const equivalents: Record<string, string[]> = {};
+  for (const code of unique) {
+    for (const [k, v] of Object.entries(REQUIREMENTS[code].equivalents ?? {})) {
+      equivalents[k] = [...new Set([...(equivalents[k] ?? []), ...v])];
+    }
+  }
   return {
     major: unique.map((c) => REQUIREMENTS[c].major).join(" + "),
     majorCode: unique.join("+"),
     groups,
+    equivalents,
   };
 }
 

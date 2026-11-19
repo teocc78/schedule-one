@@ -19,8 +19,12 @@ export interface TranscriptData {
   studentName: string;
   studentId: string;  // last 4 digits only, for display
   major: string;
+  /** Finished courses, plus in-progress ones with grade "IP" (they count as done for planning). */
   completedCourses: CompletedCourse[];
+  /** Units with a final grade. In-progress units are not included. */
   totalUnitsEarned: number;
+  /** Units of courses still in progress (grade "IP"). */
+  unitsInProgress?: number;
 }
 
 // ── Requirements ─────────────────────────────────────────────
@@ -41,6 +45,8 @@ export interface MajorRequirements {
   major: string;
   majorCode: string;
   groups: RequirementGroup[];
+  /** Courses that count in place of a listed course, e.g. MATH 3A: ["MATH 2A", "MATH 34A"]. */
+  equivalents?: Record<string, string[]>;
 }
 
 // ── Offerings ────────────────────────────────────────────────

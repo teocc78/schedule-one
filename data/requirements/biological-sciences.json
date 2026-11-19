@@ -1,0 +1,270 @@
+{
+  "_note": "Biological Sciences B.S., 2026-27 catalog (catalog.ucsb.edu program BSBIOSC). Uses the General Chemistry series with CHEM 2AL-2BL labs. A course can count toward only one area. Electives bring upper-division units to 48; the planner counts them as three EEMB or MCDB courses.",
+  "_catalog_year": "2026-27",
+  "major": "Biological Sciences",
+  "majorCode": "biological-sciences",
+  "equivalents": {
+    "CHEM 1A": [
+      "CHEM 2A"
+    ],
+    "CHEM 1B": [
+      "CHEM 2B"
+    ],
+    "CHEM 1C": [
+      "CHEM 2C"
+    ],
+    "CHEM 109A": [
+      "CHEM 109AH"
+    ],
+    "CHEM 109B": [
+      "CHEM 109BH"
+    ],
+    "MATH 3A": [
+      "MATH 34A"
+    ],
+    "MATH 3B": [
+      "MATH 34B"
+    ],
+    "MCDB 101A": [
+      "EEMB 129"
+    ],
+    "MCDB 101B": [
+      "EEMB 130",
+      "EEMB 101"
+    ]
+  },
+  "groups": [
+    {
+      "id": "bio-chem",
+      "name": "General chemistry",
+      "kind": "all",
+      "courses": [
+        "CHEM 1A",
+        "CHEM 1B",
+        "CHEM 1C",
+        "CHEM 2AL",
+        "CHEM 2BL"
+      ]
+    },
+    {
+      "id": "bio-intro",
+      "name": "Introductory biology",
+      "kind": "all",
+      "courses": [
+        "MCDB 1A",
+        "MCDB 1B",
+        "EEMB 2",
+        "EEMB 3",
+        "MCDB 1LL",
+        "EEMB 2LL"
+      ]
+    },
+    {
+      "id": "bio-organic",
+      "name": "Organic chemistry",
+      "kind": "all",
+      "courses": [
+        "CHEM 109A",
+        "CHEM 109B",
+        "CHEM 6AL"
+      ]
+    },
+    {
+      "id": "bio-math",
+      "name": "Calculus",
+      "kind": "all",
+      "courses": [
+        "MATH 3A",
+        "MATH 3B"
+      ],
+      "description": "MATH 34A-B also counts."
+    },
+    {
+      "id": "bio-stats",
+      "name": "Statistics",
+      "kind": "choose_n",
+      "n": 1,
+      "courses": [
+        "PSTAT 5LS",
+        "PSTAT 5A",
+        "MATH 4A"
+      ]
+    },
+    {
+      "id": "bio-physics",
+      "name": "Physics with labs",
+      "kind": "all",
+      "courses": [
+        "PHYS 6A",
+        "PHYS 6AL",
+        "PHYS 6B",
+        "PHYS 6BL",
+        "PHYS 6C",
+        "PHYS 6CL"
+      ]
+    },
+    {
+      "id": "bio-genetics",
+      "name": "Genetics (A)",
+      "kind": "all",
+      "courses": [
+        "MCDB 101A",
+        "MCDB 101B"
+      ],
+      "description": "EEMB 129 + 130 or EEMB 101 + 129 also count."
+    },
+    {
+      "id": "bio-b1",
+      "name": "Physiology (B1)",
+      "kind": "choose_n",
+      "n": 1,
+      "courses": [
+        "MCDB 111",
+        "EEMB 157B",
+        "MCDB 151",
+        "EEMB 157A",
+        "EEMB 157C",
+        "MCDB 126",
+        "MCDB 132",
+        "EEMB 165"
+      ]
+    },
+    {
+      "id": "bio-b2",
+      "name": "Developmental and cell biology (B2)",
+      "kind": "choose_n",
+      "n": 1,
+      "courses": [
+        "MCDB 103",
+        "MCDB 112",
+        "MCDB 135",
+        "MCDB 146",
+        "MCDB 118",
+        "MCDB 133",
+        "MCDB 151",
+        "MCDB 152",
+        "MCDB 153"
+      ]
+    },
+    {
+      "id": "bio-b3",
+      "name": "Biochemistry and molecular biology (B3)",
+      "kind": "choose_n",
+      "n": 1,
+      "courses": [
+        "MCDB 108A",
+        "MCDB 110",
+        "MCDB 134",
+        "MCDB 126B",
+        "MCDB 133"
+      ]
+    },
+    {
+      "id": "bio-b4",
+      "name": "Ecology (B4)",
+      "kind": "choose_n",
+      "n": 1,
+      "courses": [
+        "EEMB 120",
+        "EEMB 140",
+        "EEMB 142A",
+        "EEMB 119",
+        "EEMB 128",
+        "EEMB 147",
+        "EEMB 148",
+        "EEMB 153",
+        "EEMB 158",
+        "EEMB 159",
+        "EEMB 168",
+        "EEMB 171",
+        "EEMB 179"
+      ]
+    },
+    {
+      "id": "bio-b5",
+      "name": "Evolution (B5)",
+      "kind": "choose_n",
+      "n": 1,
+      "courses": [
+        "EEMB 131",
+        "EEMB 102",
+        "EEMB 138",
+        "EEMB 101",
+        "EEMB 109",
+        "EEMB 113",
+        "EEMB 127",
+        "EEMB 130",
+        "EEMB 137",
+        "EEMB 180"
+      ]
+    },
+    {
+      "id": "bio-b6",
+      "name": "Biodiversity and systematics (B6)",
+      "kind": "choose_n",
+      "n": 1,
+      "courses": [
+        "EEMB 133",
+        "EEMB 118",
+        "EEMB 106",
+        "EEMB 103A",
+        "EEMB 111",
+        "EEMB 112",
+        "EEMB 113",
+        "EEMB 116",
+        "EEMB 127",
+        "EEMB 145",
+        "EEMB 150A",
+        "EEMB 150B",
+        "EEMB 162",
+        "EEMB 163",
+        "MCDB 131",
+        "MCDB 139"
+      ]
+    },
+    {
+      "id": "bio-b7",
+      "name": "Laboratory (B7)",
+      "kind": "choose_n",
+      "n": 1,
+      "courses": [
+        "MCDB 101L",
+        "EEMB 140L",
+        "MCDB 103L",
+        "EEMB 142AL",
+        "EEMB 127L",
+        "MCDB 112L",
+        "MCDB 126AL",
+        "MCDB 126BL",
+        "MCDB 131L",
+        "MCDB 132L",
+        "MCDB 133L",
+        "MCDB 140L"
+      ]
+    },
+    {
+      "id": "bio-electives",
+      "name": "Upper-division electives (C)",
+      "kind": "choose_n",
+      "n": 3,
+      "courses": [
+        "EEMB 129",
+        "MCDB 111",
+        "MCDB 103",
+        "EEMB 168",
+        "EEMB 133",
+        "EEMB 131",
+        "MCDB 112",
+        "MCDB 139",
+        "EEMB 157A",
+        "EEMB 140",
+        "EEMB 102",
+        "MCDB 134",
+        "MCDB 151",
+        "EEMB 118",
+        "EEMB 171"
+      ],
+      "description": "Enough EEMB or MCDB upper-division units to reach 48 in the major."
+    }
+  ]
+}

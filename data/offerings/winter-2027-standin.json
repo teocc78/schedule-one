@@ -1,0 +1,3293 @@
+{
+ "_note": "STAND-IN Winter 2027 sections for Economics & Accounting, Biological Sciences and Electrical Engineering. Course titles, units and prerequisites come from the 2026-27 catalog; which courses run in Winter, the days and the times are made up until the UCSB API is connected. Check GOLD for real sections.",
+ "quarter": "Winter 2027",
+ "year": 2027,
+ "courses": [
+  {
+   "code": "ECON 1",
+   "title": "Principles of Economics-Micro",
+   "units": 5,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "09:00",
+    "endTime": "09:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [],
+   "description": "Principles of Economics-Micro.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECON 2",
+   "title": "Principles of Economics-Macro",
+   "units": 5,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "09:30",
+    "endTime": "10:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECON 1"
+   ],
+   "description": "Principles of Economics-Macro.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECON 3A",
+   "title": "Financial Accounting",
+   "units": 5,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "10:00",
+    "endTime": "10:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [],
+   "description": "Financial Accounting.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECON 3B",
+   "title": "Financial Accounting",
+   "units": 5,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "11:00",
+    "endTime": "12:15"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECON 3A"
+   ],
+   "description": "Financial Accounting.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECON 10A",
+   "title": "Intermediate Microeconomic Theory",
+   "units": 5,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "11:00",
+    "endTime": "11:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECON 1",
+    "ECON 2",
+    "MATH 3B|MATH 2B|MATH 34B"
+   ],
+   "description": "Intermediate Microeconomic Theory.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "MATH 3A",
+   "title": "Calculus with Applications, First Course",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "12:30",
+    "endTime": "13:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [],
+   "description": "Calculus with Applications, First Course.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "MATH 3B",
+   "title": "Calculus with Applications, Second Course",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "12:00",
+    "endTime": "12:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MATH 3A|MATH 2A"
+   ],
+   "description": "Calculus with Applications, Second Course.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECON 5",
+   "title": "Statistics for Economics",
+   "units": 5,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "14:00",
+    "endTime": "15:15"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MATH 3A|MATH 2A|MATH 34A",
+    "MATH 3B|MATH 2B|MATH 34B"
+   ],
+   "description": "Statistics for Economics.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECON 100B",
+   "title": "Intermediate Microeconomic Theory",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W"
+    ],
+    "startTime": "14:00",
+    "endTime": "15:15"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECON 10A",
+    "ECON 5|PSTAT 120A"
+   ],
+   "description": "Intermediate Microeconomic Theory.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECON 101",
+   "title": "Intermediate Macroeconomic Theory",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "15:30",
+    "endTime": "16:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECON 10A",
+    "ECON 5|PSTAT 120A"
+   ],
+   "description": "Intermediate Macroeconomic Theory.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECON 134A",
+   "title": "Financial Management",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "13:00",
+    "endTime": "13:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECON 100B",
+    "ECON 140A"
+   ],
+   "description": "Financial Management.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECON 140A",
+   "title": "Introduction to Econometrics",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W"
+    ],
+    "startTime": "15:30",
+    "endTime": "16:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECON 10A",
+    "ECON 5|PSTAT 120A"
+   ],
+   "description": "Introduction to Econometrics.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECON 136A",
+   "title": "Intermediate Accounting",
+   "units": 5,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "09:00",
+    "endTime": "09:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECON 3B",
+    "ECON 10A",
+    "ECON 5|PSTAT 120A"
+   ],
+   "description": "Intermediate Accounting.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECON 136B",
+   "title": "Intermediate Accounting",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "09:30",
+    "endTime": "10:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECON 136A"
+   ],
+   "description": "Intermediate Accounting.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECON 136C",
+   "title": "Intermediate Accounting",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "10:00",
+    "endTime": "10:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECON 136B"
+   ],
+   "description": "Intermediate Accounting.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECON 118",
+   "title": "Financial Accounting Analysis and Planning",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "11:00",
+    "endTime": "12:15"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECON 136C"
+   ],
+   "description": "Financial Accounting Analysis and Planning.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECON 137A",
+   "title": "Managerial Accounting",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "11:00",
+    "endTime": "11:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECON 3B",
+    "ECON 10A",
+    "ECON 5|PSTAT 120A"
+   ],
+   "description": "Managerial Accounting.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECON 134B",
+   "title": "Financial Management",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "12:30",
+    "endTime": "13:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECON 134A"
+   ],
+   "description": "Financial Management.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECON 140B",
+   "title": "Introduction to Econometrics",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "12:00",
+    "endTime": "12:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECON 140A"
+   ],
+   "description": "Introduction to Econometrics.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECON 171",
+   "title": "Introduction to Game Theory",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "14:00",
+    "endTime": "15:15"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECON 100B"
+   ],
+   "description": "Introduction to Game Theory.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECON 100C",
+   "title": "Intermediate Microeconomic Theory",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W"
+    ],
+    "startTime": "14:00",
+    "endTime": "15:15"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECON 100B"
+   ],
+   "description": "Intermediate Microeconomic Theory.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECON 106",
+   "title": "Managerial Economics",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "15:30",
+    "endTime": "16:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECON 100B"
+   ],
+   "description": "Managerial Economics.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECON 137B",
+   "title": "Managerial Accounting",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "13:00",
+    "endTime": "13:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECON 137A"
+   ],
+   "description": "Managerial Accounting.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECON 132A",
+   "title": "Auditing",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W"
+    ],
+    "startTime": "15:30",
+    "endTime": "16:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECON 136B"
+   ],
+   "description": "Auditing.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECON 138A",
+   "title": "Income Taxation",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "09:00",
+    "endTime": "09:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECON 3B",
+    "ECON 10A",
+    "ECON 5|PSTAT 120A"
+   ],
+   "description": "Income Taxation.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECON 138B",
+   "title": "Income Taxation",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "09:30",
+    "endTime": "10:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECON 138A"
+   ],
+   "description": "Income Taxation.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECON 132B",
+   "title": "Fraud and Forensic Accounting",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "10:00",
+    "endTime": "10:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECON 136B"
+   ],
+   "description": "Fraud and Forensic Accounting.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "CHEM 1A",
+   "title": "General Chemistry",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "11:00",
+    "endTime": "12:15"
+   },
+   "instructor": "TBA",
+   "prerequisites": [],
+   "description": "General Chemistry.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "CHEM 1B",
+   "title": "General Chemistry",
+   "units": 3,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "11:00",
+    "endTime": "11:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "CHEM 1A|CHEM 2A"
+   ],
+   "description": "General Chemistry.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "CHEM 1C",
+   "title": "General Chemistry",
+   "units": 3,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "12:30",
+    "endTime": "13:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "CHEM 1B|CHEM 2B"
+   ],
+   "description": "General Chemistry.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "CHEM 2AL",
+   "title": "General Chemistry Lab (Part A)",
+   "units": 2.5,
+   "schedule": {
+    "days": [
+     "F"
+    ],
+    "startTime": "13:00",
+    "endTime": "15:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "CHEM 1A|CHEM 2A"
+   ],
+   "description": "General Chemistry Lab (Part A).",
+   "enrollmentCap": 40
+  },
+  {
+   "code": "CHEM 2BL",
+   "title": "General Chemistry Laboratory (Part B)",
+   "units": 2.5,
+   "schedule": {
+    "days": [
+     "T"
+    ],
+    "startTime": "16:00",
+    "endTime": "18:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "CHEM 1B|CHEM 2B"
+   ],
+   "description": "General Chemistry Laboratory (Part B).",
+   "enrollmentCap": 40
+  },
+  {
+   "code": "MCDB 1A",
+   "title": "Introductory Biology I",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "12:00",
+    "endTime": "12:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "CHEM 1A|CHEM 2A",
+    "CHEM 1B|CHEM 2B",
+    "CHEM 1C|CHEM 2C"
+   ],
+   "description": "Introductory Biology I.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "MCDB 1B",
+   "title": "Introductory Biology II--Physiology",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "14:00",
+    "endTime": "15:15"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MCDB 1A"
+   ],
+   "description": "Introductory Biology II--Physiology.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "EEMB 2",
+   "title": "Introductory Biology II--Ecology and Evolution",
+   "units": 3,
+   "schedule": {
+    "days": [
+     "M",
+     "W"
+    ],
+    "startTime": "14:00",
+    "endTime": "15:15"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MCDB 1A"
+   ],
+   "description": "Introductory Biology II--Ecology and Evolution.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "EEMB 3",
+   "title": "Introductory Biology III",
+   "units": 3,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "15:30",
+    "endTime": "16:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2"
+   ],
+   "description": "Introductory Biology III.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "MCDB 1LL",
+   "title": "Introductory Biology Laboratory I",
+   "units": 1.5,
+   "schedule": {
+    "days": [
+     "R"
+    ],
+    "startTime": "16:00",
+    "endTime": "18:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MCDB 1A"
+   ],
+   "description": "Introductory Biology Laboratory I.",
+   "enrollmentCap": 40
+  },
+  {
+   "code": "EEMB 2LL",
+   "title": "Introductory Biology Laboratory II",
+   "units": 1.5,
+   "schedule": {
+    "days": [
+     "W"
+    ],
+    "startTime": "17:00",
+    "endTime": "19:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "EEMB 2"
+   ],
+   "description": "Introductory Biology Laboratory II.",
+   "enrollmentCap": 40
+  },
+  {
+   "code": "CHEM 109A",
+   "title": "Organic Chemistry",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "13:00",
+    "endTime": "13:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "CHEM 1C|CHEM 2C"
+   ],
+   "description": "Organic Chemistry.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "CHEM 109B",
+   "title": "Organic Chemistry",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W"
+    ],
+    "startTime": "15:30",
+    "endTime": "16:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "CHEM 109A"
+   ],
+   "description": "Organic Chemistry.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "CHEM 6AL",
+   "title": "Laboratory Methods of Organic Chemistry",
+   "units": 3,
+   "schedule": {
+    "days": [
+     "M"
+    ],
+    "startTime": "17:00",
+    "endTime": "19:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "CHEM 2AL",
+    "CHEM 2BL",
+    "CHEM 109A",
+    "CHEM 109B"
+   ],
+   "description": "Laboratory Methods of Organic Chemistry.",
+   "enrollmentCap": 40
+  },
+  {
+   "code": "PSTAT 5LS",
+   "title": "Statistics for Life Sciences",
+   "units": 5,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "09:00",
+    "endTime": "09:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [],
+   "description": "Statistics for Life Sciences.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "MATH 4A",
+   "title": "Linear Algebra with Applications",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "09:30",
+    "endTime": "10:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MATH 3B|MATH 2B"
+   ],
+   "description": "Linear Algebra with Applications.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "PHYS 6A",
+   "title": "Introductory Physics",
+   "units": 3,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "10:00",
+    "endTime": "10:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MATH 3A|MATH 2A|MATH 34A"
+   ],
+   "description": "Introductory Physics.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "PHYS 6AL",
+   "title": "Introductory Experimental Physics",
+   "units": 1,
+   "schedule": {
+    "days": [
+     "F"
+    ],
+    "startTime": "13:00",
+    "endTime": "15:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "PHYS 6A"
+   ],
+   "description": "Introductory Experimental Physics.",
+   "enrollmentCap": 40
+  },
+  {
+   "code": "PHYS 6B",
+   "title": "Introductory Physics",
+   "units": 3,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "11:00",
+    "endTime": "12:15"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "PHYS 6A"
+   ],
+   "description": "Introductory Physics.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "PHYS 6BL",
+   "title": "Introductory Experimental Physics",
+   "units": 1,
+   "schedule": {
+    "days": [
+     "T"
+    ],
+    "startTime": "16:00",
+    "endTime": "18:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "PHYS 6B"
+   ],
+   "description": "Introductory Experimental Physics.",
+   "enrollmentCap": 40
+  },
+  {
+   "code": "PHYS 6C",
+   "title": "Introductory Physics",
+   "units": 3,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "11:00",
+    "endTime": "11:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "PHYS 6B"
+   ],
+   "description": "Introductory Physics.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "PHYS 6CL",
+   "title": "Introductory Experimental Physics",
+   "units": 1,
+   "schedule": {
+    "days": [
+     "R"
+    ],
+    "startTime": "16:00",
+    "endTime": "18:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "PHYS 6C"
+   ],
+   "description": "Introductory Experimental Physics.",
+   "enrollmentCap": 40
+  },
+  {
+   "code": "MCDB 101A",
+   "title": "Molecular Genetics I: Prokaryotes",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "12:30",
+    "endTime": "13:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "CHEM 1C|CHEM 2C"
+   ],
+   "description": "Molecular Genetics I: Prokaryotes.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "MCDB 101B",
+   "title": "Molecular Genetics II: Eukaryotes",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "12:00",
+    "endTime": "12:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MCDB 101A",
+    "MCDB 1B",
+    "EEMB 2"
+   ],
+   "description": "Molecular Genetics II: Eukaryotes.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "MCDB 111",
+   "title": "Human Physiology",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "14:00",
+    "endTime": "15:15"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2"
+   ],
+   "description": "Human Physiology.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "EEMB 157B",
+   "title": "Animal Physiology",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W"
+    ],
+    "startTime": "14:00",
+    "endTime": "15:15"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ],
+   "description": "Animal Physiology.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "MCDB 151",
+   "title": "Neurobiology I: Cellular Organization and Biophysics of the Nervous System",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "15:30",
+    "endTime": "16:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MCDB 1A",
+    "MCDB 1B"
+   ],
+   "description": "Neurobiology I: Cellular Organization and Biophysics of the Nervous System.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "EEMB 157A",
+   "title": "Cell Physiology",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "13:00",
+    "endTime": "13:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ],
+   "description": "Cell Physiology.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "EEMB 157C",
+   "title": "Plant Physiology",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W"
+    ],
+    "startTime": "15:30",
+    "endTime": "16:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ],
+   "description": "Plant Physiology.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "MCDB 103",
+   "title": "Cell Biology",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "09:00",
+    "endTime": "09:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2"
+   ],
+   "description": "Cell Biology.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "MCDB 112",
+   "title": "Developmental Biology",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "09:30",
+    "endTime": "10:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ],
+   "description": "Developmental Biology.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "MCDB 135",
+   "title": "Cellular Growth Control and Oncogenesis",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "10:00",
+    "endTime": "10:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MCDB 101A",
+    "MCDB 101B"
+   ],
+   "description": "Cellular Growth Control and Oncogenesis.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "MCDB 146",
+   "title": "Stem Cell Biology in Health and Disease",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "11:00",
+    "endTime": "12:15"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3",
+    "CHEM 1C|CHEM 2C"
+   ],
+   "description": "Stem Cell Biology in Health and Disease.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "MCDB 118",
+   "title": "Plant Development",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "11:00",
+    "endTime": "11:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MCDB 1B",
+    "EEMB 2",
+    "MCDB 101A|EEMB 129"
+   ],
+   "description": "Plant Development.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "MCDB 108A",
+   "title": "Biochemistry - Structure and Function of Macromolecules",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "12:30",
+    "endTime": "13:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MCDB 1B",
+    "EEMB 2",
+    "CHEM 109B",
+    "CHEM 109C"
+   ],
+   "description": "Biochemistry - Structure and Function of Macromolecules.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "MCDB 110",
+   "title": "Principles of Biochemistry",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "12:00",
+    "endTime": "12:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "CHEM 1C|CHEM 2C",
+    "CHEM 109B"
+   ],
+   "description": "Principles of Biochemistry.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "MCDB 134",
+   "title": "General Animal Virology",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "14:00",
+    "endTime": "15:15"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MCDB 101A|EEMB 129"
+   ],
+   "description": "General Animal Virology.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "MCDB 126B",
+   "title": "Basic Pharmacology",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W"
+    ],
+    "startTime": "14:00",
+    "endTime": "15:15"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MCDB 101A",
+    "CHEM 109C"
+   ],
+   "description": "Basic Pharmacology.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "MCDB 133",
+   "title": "Molecular and Cellular Immunobiology",
+   "units": 5,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "15:30",
+    "endTime": "16:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MCDB 101A"
+   ],
+   "description": "Molecular and Cellular Immunobiology.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "EEMB 120",
+   "title": "Introduction to Ecology",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "13:00",
+    "endTime": "13:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ],
+   "description": "Introduction to Ecology.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "EEMB 140",
+   "title": "General Plant Ecology",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W"
+    ],
+    "startTime": "15:30",
+    "endTime": "16:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ],
+   "description": "General Plant Ecology.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "EEMB 142A",
+   "title": "Aquatic Communities",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "09:00",
+    "endTime": "09:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ],
+   "description": "Aquatic Communities.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "EEMB 119",
+   "title": "Ecology and Management of California Wildlands",
+   "units": 5,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "09:30",
+    "endTime": "10:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ],
+   "description": "Ecology and Management of California Wildlands.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "EEMB 128",
+   "title": "Foundations of Ecosystem Restoration",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "10:00",
+    "endTime": "10:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ],
+   "description": "Foundations of Ecosystem Restoration.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "EEMB 131",
+   "title": "Principles of Evolution",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "11:00",
+    "endTime": "12:15"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ],
+   "description": "Principles of Evolution.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "EEMB 102",
+   "title": "Macroevolution: Biodiversity in Deep Time",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "11:00",
+    "endTime": "11:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ],
+   "description": "Macroevolution: Biodiversity in Deep Time.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "EEMB 138",
+   "title": "Ethology and Behavioral Ecology",
+   "units": 5,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "12:30",
+    "endTime": "13:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ],
+   "description": "Ethology and Behavioral Ecology.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "EEMB 101",
+   "title": "Genomics and Molecular Evolution",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "12:00",
+    "endTime": "12:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ],
+   "description": "Genomics and Molecular Evolution.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "EEMB 109",
+   "title": "Vertebrate Paleontology",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "14:00",
+    "endTime": "15:15"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ],
+   "description": "Vertebrate Paleontology.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "EEMB 133",
+   "title": "Biodiversity and Conservation Biology",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W"
+    ],
+    "startTime": "14:00",
+    "endTime": "15:15"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ],
+   "description": "Biodiversity and Conservation Biology.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "EEMB 118",
+   "title": "Entomology: insect biology, ecology, and evolution",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "15:30",
+    "endTime": "16:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ],
+   "description": "Entomology: insect biology, ecology, and evolution.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "EEMB 106",
+   "title": "Biology of Fishes",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "13:00",
+    "endTime": "13:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ],
+   "description": "Biology of Fishes.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "EEMB 103A",
+   "title": "Flora and Vegetation of California",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W"
+    ],
+    "startTime": "15:30",
+    "endTime": "16:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ],
+   "description": "Flora and Vegetation of California.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "EEMB 111",
+   "title": "Parasitology",
+   "units": 5,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "09:00",
+    "endTime": "09:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ],
+   "description": "Parasitology.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "MCDB 101L",
+   "title": "Molecular Genetics Laboratory",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "W"
+    ],
+    "startTime": "17:00",
+    "endTime": "19:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MCDB 101A|EEMB 129",
+    "MCDB 101B"
+   ],
+   "description": "Molecular Genetics Laboratory.",
+   "enrollmentCap": 40
+  },
+  {
+   "code": "EEMB 140L",
+   "title": "General Plant Ecology Lab",
+   "units": 3,
+   "schedule": {
+    "days": [
+     "M"
+    ],
+    "startTime": "17:00",
+    "endTime": "19:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3",
+    "EEMB 140"
+   ],
+   "description": "General Plant Ecology Lab.",
+   "enrollmentCap": 40
+  },
+  {
+   "code": "MCDB 103L",
+   "title": "Laboratory in Molecular Cell Biology",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "F"
+    ],
+    "startTime": "13:00",
+    "endTime": "15:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MCDB 103"
+   ],
+   "description": "Laboratory in Molecular Cell Biology.",
+   "enrollmentCap": 40
+  },
+  {
+   "code": "EEMB 142AL",
+   "title": "Methods in Aquatic Community Ecology",
+   "units": 3,
+   "schedule": {
+    "days": [
+     "T"
+    ],
+    "startTime": "16:00",
+    "endTime": "18:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "EEMB 142A"
+   ],
+   "description": "Methods in Aquatic Community Ecology.",
+   "enrollmentCap": 40
+  },
+  {
+   "code": "EEMB 127L",
+   "title": "Plant Biology and Biodiversity Lab",
+   "units": 3,
+   "schedule": {
+    "days": [
+     "R"
+    ],
+    "startTime": "16:00",
+    "endTime": "18:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3",
+    "EEMB 127"
+   ],
+   "description": "Plant Biology and Biodiversity Lab.",
+   "enrollmentCap": 40
+  },
+  {
+   "code": "EEMB 129",
+   "title": "Introductory Genetics",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "09:30",
+    "endTime": "10:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ],
+   "description": "Introductory Genetics.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "EEMB 168",
+   "title": "Conservation Ecology",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "10:00",
+    "endTime": "10:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MCDB 1A",
+    "MCDB 1B",
+    "EEMB 2",
+    "EEMB 3"
+   ],
+   "description": "Conservation Ecology.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "CHEM 2A",
+   "title": "General Chemistry (Honors)",
+   "units": 3,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "11:00",
+    "endTime": "12:15"
+   },
+   "instructor": "TBA",
+   "prerequisites": [],
+   "description": "General Chemistry (Honors).",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 6",
+   "title": "The Physics of Energy, Information, and Communication",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "11:00",
+    "endTime": "11:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [],
+   "description": "The Physics of Energy, Information, and Communication.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 3",
+   "title": "Introduction to Python Programming For Engineers",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "12:30",
+    "endTime": "13:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [],
+   "description": "Introduction to Python Programming For Engineers.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "MATH 4B",
+   "title": "Differential Equations",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "12:00",
+    "endTime": "12:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MATH 4A"
+   ],
+   "description": "Differential Equations.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "MATH 6A",
+   "title": "Vector Calculus with Applications, First Course",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "14:00",
+    "endTime": "15:15"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MATH 4A"
+   ],
+   "description": "Vector Calculus with Applications, First Course.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "MATH 6B",
+   "title": "Vector calculus with Applications, Second Course",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W"
+    ],
+    "startTime": "14:00",
+    "endTime": "15:15"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MATH 4B",
+    "MATH 6A"
+   ],
+   "description": "Vector calculus with Applications, Second Course.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "PHYS 7A",
+   "title": "Basic Physics",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "15:30",
+    "endTime": "16:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MATH 3A|MATH 2A"
+   ],
+   "description": "Basic Physics.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "PHYS 7B",
+   "title": "Basic Physics",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "13:00",
+    "endTime": "13:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "PHYS 7A",
+    "MATH 3B|MATH 2B"
+   ],
+   "description": "Basic Physics.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "PHYS 7C",
+   "title": "Basic Physics",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W"
+    ],
+    "startTime": "15:30",
+    "endTime": "16:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "PHYS 7B"
+   ],
+   "description": "Basic Physics.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "PHYS 7D",
+   "title": "Basic Physics",
+   "units": 3,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "09:00",
+    "endTime": "09:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "PHYS 7C",
+    "MATH 4A"
+   ],
+   "description": "Basic Physics.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "PHYS 7L",
+   "title": "Physics Laboratory",
+   "units": 1,
+   "schedule": {
+    "days": [
+     "W"
+    ],
+    "startTime": "17:00",
+    "endTime": "19:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "PHYS 7B",
+    "PHYS 7C"
+   ],
+   "description": "Physics Laboratory.",
+   "enrollmentCap": 40
+  },
+  {
+   "code": "ECE 5",
+   "title": "Introduction to Electrical & Computer Engineering",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "09:30",
+    "endTime": "10:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [],
+   "description": "Introduction to Electrical & Computer Engineering.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 10A",
+   "title": "Foundations of Analog and Digital Circuits & Systems",
+   "units": 3,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "10:00",
+    "endTime": "10:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MATH 3B|MATH 2B",
+    "MATH 4A",
+    "MATH 4B",
+    "PHYS 7B"
+   ],
+   "description": "Foundations of Analog and Digital Circuits & Systems.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 10AL",
+   "title": "Foundations of Analog and Digital Circuits and Systems Lab",
+   "units": 2,
+   "schedule": {
+    "days": [
+     "M"
+    ],
+    "startTime": "17:00",
+    "endTime": "19:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECE 10A"
+   ],
+   "description": "Foundations of Analog and Digital Circuits and Systems Lab.",
+   "enrollmentCap": 40
+  },
+  {
+   "code": "ECE 10B",
+   "title": "Foundations of Analog and Digital Circuits and Systems",
+   "units": 3,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "11:00",
+    "endTime": "12:15"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECE 10A"
+   ],
+   "description": "Foundations of Analog and Digital Circuits and Systems.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 10BL",
+   "title": "Foundations of Analog and Digital Circuits and Systems Lab",
+   "units": 2,
+   "schedule": {
+    "days": [
+     "F"
+    ],
+    "startTime": "13:00",
+    "endTime": "15:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECE 10B"
+   ],
+   "description": "Foundations of Analog and Digital Circuits and Systems Lab.",
+   "enrollmentCap": 40
+  },
+  {
+   "code": "ECE 10C",
+   "title": "Foundations of Analog and Digital Circuits and Systems",
+   "units": 3,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "11:00",
+    "endTime": "11:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECE 10B"
+   ],
+   "description": "Foundations of Analog and Digital Circuits and Systems.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 10CL",
+   "title": "Foundations of Analog and Digital Circuits and Systems Lab",
+   "units": 2,
+   "schedule": {
+    "days": [
+     "T"
+    ],
+    "startTime": "16:00",
+    "endTime": "18:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECE 10C"
+   ],
+   "description": "Foundations of Analog and Digital Circuits and Systems Lab.",
+   "enrollmentCap": 40
+  },
+  {
+   "code": "ECE 15A",
+   "title": "Fundamentals of Logic Design",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "12:30",
+    "endTime": "13:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [],
+   "description": "Fundamentals of Logic Design.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 130A",
+   "title": "Signal Analysis and Processing",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "12:00",
+    "endTime": "12:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MATH 4B"
+   ],
+   "description": "Signal Analysis and Processing.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 130B",
+   "title": "Signal Analysis and Processing",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "14:00",
+    "endTime": "15:15"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECE 130A"
+   ],
+   "description": "Signal Analysis and Processing.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 139",
+   "title": "Probability and Statistics",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W"
+    ],
+    "startTime": "14:00",
+    "endTime": "15:15"
+   },
+   "instructor": "TBA",
+   "prerequisites": [],
+   "description": "Probability and Statistics.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 134",
+   "title": "Introduction to Fields and Waves",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "15:30",
+    "endTime": "16:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "PHYS 7B",
+    "PHYS 7C",
+    "MATH 4B",
+    "MATH 6A",
+    "MATH 6B"
+   ],
+   "description": "Introduction to Fields and Waves.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 152A",
+   "title": "Digital Design Principles",
+   "units": 5,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "13:00",
+    "endTime": "13:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECE 15A",
+    "ECE 10A",
+    "ECE 10AL"
+   ],
+   "description": "Digital Design Principles.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 188A",
+   "title": "Senior Electrical Engineering Project",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W"
+    ],
+    "startTime": "15:30",
+    "endTime": "16:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECE 153A|ECE 153B"
+   ],
+   "description": "Senior Electrical Engineering Project.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 188B",
+   "title": "Senior Electrical Engineering Project",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "09:00",
+    "endTime": "09:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECE 188A"
+   ],
+   "description": "Senior Electrical Engineering Project.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 188C",
+   "title": "Senior Electrical Engineering Project",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "09:30",
+    "endTime": "10:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECE 188B"
+   ],
+   "description": "Senior Electrical Engineering Project.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ENGR 101",
+   "title": "Ethics in Engineering",
+   "units": 3,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "10:00",
+    "endTime": "10:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [],
+   "description": "Ethics in Engineering.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 153B",
+   "title": "Sensor and Peripheral Interface Design",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "11:00",
+    "endTime": "12:15"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECE 152A"
+   ],
+   "description": "Sensor and Peripheral Interface Design.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 153A",
+   "title": "Hardware/Software Interface",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "11:00",
+    "endTime": "11:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECE 152A"
+   ],
+   "description": "Hardware/Software Interface.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 132",
+   "title": "Introduction to Solid-State Electronic Devices",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "12:30",
+    "endTime": "13:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "PHYS 7D",
+    "MATH 4B"
+   ],
+   "description": "Introduction to Solid-State Electronic Devices.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 137A",
+   "title": "Circuits and Electronics I",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "12:00",
+    "endTime": "12:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECE 10C",
+    "ECE 10CL",
+    "ECE 130A",
+    "ECE 132"
+   ],
+   "description": "Circuits and Electronics I.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 137B",
+   "title": "Circuits and Electronics II",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "14:00",
+    "endTime": "15:15"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECE 10C",
+    "ECE 137A"
+   ],
+   "description": "Circuits and Electronics II.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 147A",
+   "title": "Feedback Control Systems - Theory and Design",
+   "units": 5,
+   "schedule": {
+    "days": [
+     "M",
+     "W"
+    ],
+    "startTime": "14:00",
+    "endTime": "15:15"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECE 130A",
+    "ECE 130B"
+   ],
+   "description": "Feedback Control Systems - Theory and Design.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 154A",
+   "title": "Introduction to Computer Architecture",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "15:30",
+    "endTime": "16:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECE 152A"
+   ],
+   "description": "Introduction to Computer Architecture.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 158",
+   "title": "Digital Signal Processing",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "13:00",
+    "endTime": "13:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECE 130A",
+    "ECE 130B"
+   ],
+   "description": "Digital Signal Processing.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 130C",
+   "title": "Introduction to Applied Linear Algebra",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W"
+    ],
+    "startTime": "15:30",
+    "endTime": "16:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [],
+   "description": "Introduction to Applied Linear Algebra.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 148",
+   "title": "Applications of Signal Analysis and Processing",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "09:00",
+    "endTime": "09:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECE 130A",
+    "ECE 130B"
+   ],
+   "description": "Applications of Signal Analysis and Processing.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 144",
+   "title": "Electromagnetic Fields and Waves",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "09:30",
+    "endTime": "10:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECE 134"
+   ],
+   "description": "Electromagnetic Fields and Waves.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 147B",
+   "title": "Digital Control Systems - Theory and Design",
+   "units": 5,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "10:00",
+    "endTime": "10:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECE 147A"
+   ],
+   "description": "Digital Control Systems - Theory and Design.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 120A",
+   "title": "Integrated Circuit Design and Fabrication",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "11:00",
+    "endTime": "12:15"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECE 132"
+   ],
+   "description": "Integrated Circuit Design and Fabrication.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 120B",
+   "title": "Integrated Circuit Design and Fabrication",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "11:00",
+    "endTime": "11:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECE 120A"
+   ],
+   "description": "Integrated Circuit Design and Fabrication.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 122A",
+   "title": "VLSI Principles",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "12:30",
+    "endTime": "13:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECE 152A"
+   ],
+   "description": "VLSI Principles.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 122B",
+   "title": "VLSI Architecture and Design",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "12:00",
+    "endTime": "12:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECE 122A|ECE 123"
+   ],
+   "description": "VLSI Architecture and Design.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 123",
+   "title": "High-Performance Digital Circuit Design",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "14:00",
+    "endTime": "15:15"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECE 10C",
+    "ECE 10CL"
+   ],
+   "description": "High-Performance Digital Circuit Design.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 125",
+   "title": "High Speed Digital Integrated Circuit Design",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W"
+    ],
+    "startTime": "14:00",
+    "endTime": "15:15"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECE 137A"
+   ],
+   "description": "High Speed Digital Integrated Circuit Design.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 133",
+   "title": "Introduction to Optimization and Learning",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "15:30",
+    "endTime": "16:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [],
+   "description": "Introduction to Optimization and Learning.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 135",
+   "title": "Optical Fiber Communications",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "13:00",
+    "endTime": "13:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECE 132",
+    "ECE 134"
+   ],
+   "description": "Optical Fiber Communications.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 136A",
+   "title": "Introduction to Optics and Photonics",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W"
+    ],
+    "startTime": "15:30",
+    "endTime": "16:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "PHYS 7D",
+    "PHYS 7L"
+   ],
+   "description": "Introduction to Optics and Photonics.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 136B",
+   "title": "Optics and Imaging",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "09:00",
+    "endTime": "09:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "PHYS 7D",
+    "PHYS 7L"
+   ],
+   "description": "Optics and Imaging.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 136C",
+   "title": "Quantum Photonics",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "09:30",
+    "endTime": "10:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "PHYS 7D",
+    "PHYS 7L"
+   ],
+   "description": "Quantum Photonics.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 141A",
+   "title": "Introduction to Nanoelectromechanical and Microelectromechanical systems (NEMS/MEMS)",
+   "units": 3,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "10:00",
+    "endTime": "10:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECE 130A",
+    "ECE 137A"
+   ],
+   "description": "Introduction to Nanoelectromechanical and Microelectromechanical systems (NEMS/MEMS).",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 141B",
+   "title": "MEMS: Processing and Device Characterization",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "11:00",
+    "endTime": "12:15"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECE 141A"
+   ],
+   "description": "MEMS: Processing and Device Characterization.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 142",
+   "title": "INTRODUCTION TO POWER ELECTRONICS",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "11:00",
+    "endTime": "11:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECE 132",
+    "ECE 134",
+    "ECE 137A"
+   ],
+   "description": "INTRODUCTION TO POWER ELECTRONICS.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 145A",
+   "title": "Communication Electronics",
+   "units": 5,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "12:30",
+    "endTime": "13:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECE 137A",
+    "ECE 137B"
+   ],
+   "description": "Communication Electronics.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 145B",
+   "title": "Communication Electronics II",
+   "units": 5,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "12:00",
+    "endTime": "12:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECE 145A"
+   ],
+   "description": "Communication Electronics II.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 145C",
+   "title": "Communication Electronics III",
+   "units": 5,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "14:00",
+    "endTime": "15:15"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECE 145B"
+   ],
+   "description": "Communication Electronics III.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 146A",
+   "title": "Digital Communication Fundamentals",
+   "units": 5,
+   "schedule": {
+    "days": [
+     "M",
+     "W"
+    ],
+    "startTime": "14:00",
+    "endTime": "15:15"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECE 130A",
+    "ECE 130B",
+    "ECE 139|PSTAT 120A"
+   ],
+   "description": "Digital Communication Fundamentals.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 146B",
+   "title": "Advanced Topics in Wireless Systems",
+   "units": 5,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "15:30",
+    "endTime": "16:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECE 146A"
+   ],
+   "description": "Advanced Topics in Wireless Systems.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 147C",
+   "title": "Control System Design Project",
+   "units": 5,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "13:00",
+    "endTime": "13:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECE 147A"
+   ],
+   "description": "Control System Design Project.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 149",
+   "title": "Game Theory for Networked Systems",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W"
+    ],
+    "startTime": "15:30",
+    "endTime": "16:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [],
+   "description": "Game Theory for Networked Systems.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 152B",
+   "title": "Digital System Design",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "09:00",
+    "endTime": "09:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECE 152A"
+   ],
+   "description": "Digital System Design.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 154B",
+   "title": "Advanced Computer Architecture",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "09:30",
+    "endTime": "10:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECE 154A"
+   ],
+   "description": "Advanced Computer Architecture.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 157A",
+   "title": "Machine Learning in Design and Test Automation",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "10:00",
+    "endTime": "10:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECE 152A"
+   ],
+   "description": "Machine Learning in Design and Test Automation.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 157B",
+   "title": "Artificial Intelligence in Design and Test Automation",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "11:00",
+    "endTime": "12:15"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECE 157A"
+   ],
+   "description": "Artificial Intelligence in Design and Test Automation.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 157C",
+   "title": "AI Agents for the Semiconductor Industry",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "11:00",
+    "endTime": "11:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [],
+   "description": "AI Agents for the Semiconductor Industry.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 160",
+   "title": "Multimedia Systems",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "12:30",
+    "endTime": "13:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [],
+   "description": "Multimedia Systems.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 162A",
+   "title": "The Quantum Description of Electronic Materials",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "12:00",
+    "endTime": "12:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECE 130A",
+    "ECE 130B",
+    "ECE 134"
+   ],
+   "description": "The Quantum Description of Electronic Materials.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 162B",
+   "title": "Fundamentals of the Solid State",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "14:00",
+    "endTime": "15:15"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECE 162A"
+   ],
+   "description": "Fundamentals of the Solid State.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 162C",
+   "title": "Optoelectronic Materials and Devices",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W"
+    ],
+    "startTime": "14:00",
+    "endTime": "15:15"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECE 162B"
+   ],
+   "description": "Optoelectronic Materials and Devices.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 178",
+   "title": "Introduction to Digital Image and Video Processing",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "15:30",
+    "endTime": "16:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [],
+   "description": "Introduction to Digital Image and Video Processing.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 179D",
+   "title": "Introduction to Robotics: Dynamics and Control",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "13:00",
+    "endTime": "13:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECE 130A"
+   ],
+   "description": "Introduction to Robotics: Dynamics and Control.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 179P",
+   "title": "Introduction to Robotics: Planning and Kinematics",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W"
+    ],
+    "startTime": "15:30",
+    "endTime": "16:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "MATH 4A"
+   ],
+   "description": "Introduction to Robotics: Planning and Kinematics.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 180",
+   "title": "INTRODUCTION TO DEEP LEARNING",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "09:00",
+    "endTime": "09:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [],
+   "description": "INTRODUCTION TO DEEP LEARNING.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 181",
+   "title": "Introduction to Computer Vision",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "09:30",
+    "endTime": "10:45"
+   },
+   "instructor": "TBA",
+   "prerequisites": [],
+   "description": "Introduction to Computer Vision.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 183",
+   "title": "Nonlinear Phenomena",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "10:00",
+    "endTime": "10:50"
+   },
+   "instructor": "TBA",
+   "prerequisites": [],
+   "description": "Nonlinear Phenomena.",
+   "enrollmentCap": 150
+  },
+  {
+   "code": "ECE 186",
+   "title": "Probabilistic Machine Learning",
+   "units": 4,
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "11:00",
+    "endTime": "12:15"
+   },
+   "instructor": "TBA",
+   "prerequisites": [
+    "ECE 139|PSTAT 120A"
+   ],
+   "description": "Probabilistic Machine Learning.",
+   "enrollmentCap": 150
+  }
+ ]
+}

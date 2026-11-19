@@ -48,19 +48,30 @@ export default function ProcessingPage() {
         await new Promise(r => setTimeout(r, 400));
 
         setStep(2);
-        const planResult = await postJson<unknown>(
-          "/api/plan",
-          { transcript, majorCode: majorCodes[0], majorCodes, minorCode: programs.minor || undefined, quarter: "Winter 2027", constraints },
-          "Planning failed"
-        );
+        const programBody = { majorCodes, minorCode: programs.minor || undefined };
+        // The 4-year plan is rule-based, so it still works if the AI planner fails.
+        const [planRes, fourYearRes] = await Promise.allSettled([
+          postJson<unknown>(
+            "/api/plan",
+            { transcript, majorCode: majorCodes[0], ...programBody, quarter: "Winter 2027", constraints },
+            "Planning failed"
+          ),
+          postJson<unknown>("/api/four-year-plan", { transcript, ...programBody, maxUnits: constraints.maxUnits }, "4-year plan failed"),
+        ]);
+        if (planRes.status === "rejected" && fourYearRes.status === "rejected") throw planRes.reason;
 
         setStep(3);
         await new Promise(r => setTimeout(r, 500));
         setDone(true);
-        sessionStorage.setItem("plan_result", JSON.stringify(planResult));
+        sessionStorage.removeItem("plan_result");
+        sessionStorage.removeItem("plan_error");
+        sessionStorage.removeItem("four_year_plan");
+        if (planRes.status === "fulfilled") sessionStorage.setItem("plan_result", JSON.stringify(planRes.value));
+        else sessionStorage.setItem("plan_error", planRes.reason instanceof Error ? planRes.reason.message : "Planning failed");
+        if (fourYearRes.status === "fulfilled") sessionStorage.setItem("four_year_plan", JSON.stringify(fourYearRes.value));
         sessionStorage.setItem("transcript", JSON.stringify(transcript));
         await new Promise(r => setTimeout(r, 600));
-        router.push("/dashboard");
+        router.push(planRes.status === "fulfilled" ? "/dashboard" : "/dashboard?tab=plan4");
       } catch (err) {
         setError(err instanceof Error ? err.message : "Something went wrong");
       }

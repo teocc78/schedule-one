@@ -7,17 +7,30 @@ import { ScheduleCard } from "@/components/ScheduleCard";
 import { ValidationBadge } from "@/components/ValidationBadge";
 import { PlanNotices, CourseFlags } from "@/components/PlanNotices";
 import { QuarterPlanner } from "@/components/planner/QuarterPlanner";
-import requirementsData from "@/data/requirements/statistics-data-science.json";
+import { PastGrades } from "@/components/PastGrades";
+import { FourYearPlanView } from "@/components/FourYearPlanView";
+import type { FourYearPlan } from "@/lib/four-year-plan";
+import { combinedRequirements } from "@/lib/majors";
 import offeringsData from "@/data/offerings/winter-2027.json";
 import { computeRequirementStatus } from "@/lib/requirements";
 import type { MajorRequirements, QuarterOfferings } from "@/types";
 
-const requirements = requirementsData as unknown as MajorRequirements;
+/** Requirements for the programs picked in onboarding; Stats & Data Science if none. */
+function chosenRequirements(): MajorRequirements {
+  try {
+    const p = JSON.parse(sessionStorage.getItem("programs") ?? "{}") as { majors?: string[]; minor?: string };
+    const codes = p.majors?.filter(Boolean).length ? p.majors.filter(Boolean) : ["statistics-data-science"];
+    return combinedRequirements([...codes, p.minor ?? ""]);
+  } catch {
+    return combinedRequirements(["statistics-data-science"]);
+  }
+}
 const offerings = offeringsData as unknown as QuarterOfferings;
 
 // ── Tab config (matches HTML app) ─────────────────────────────
 const TABS = [
   { id: "today",      label: "Today",      color: "#febc11" },
+  { id: "plan4",      label: "4-Year Plan", color: "#8f7ac0" },
   { id: "degree",     label: "Degree",     color: "#5ba4cf" },
   { id: "planner",    label: "Planner",    color: "#7ab87a" },
   { id: "schedule",   label: "Schedule",   color: "#5b8a5b" },
@@ -101,6 +114,7 @@ function TodayTab({ plan, transcript }: { plan: PlanResult | null; transcript: T
               <span className="fine" style={{ marginLeft: ".5rem" }}>{sc.offering.title}</span>
               <div className="fine">{startTime}–{endTime} · {sc.offering.instructor}</div>
               <CourseFlags termPattern={sc.termPattern} mustGet={sc.mustGet} mustGetReason={sc.mustGetReason} />
+              <PastGrades code={sc.offering.code} />
             </div>
             {sc.satisfies.map(g => (
               <span key={g} className="tag unk" style={{ fontSize: ".72rem" }}>{g}</span>
@@ -118,7 +132,27 @@ function TodayTab({ plan, transcript }: { plan: PlanResult | null; transcript: T
   );
 }
 
-function DegreeTab({ transcript }: { transcript: TranscriptData | null }) {
+function FourYearTab({ plan, planError }: { plan: FourYearPlan | null; planError: string }) {
+  return (
+    <div>
+      <h2 className="sec" style={{ "--acc": "#8f7ac0" } as React.CSSProperties}>4-Year Plan</h2>
+      {planError && (
+        <div className="note warn">
+          <strong>This quarter&apos;s schedule couldn&apos;t be built:</strong> <span className="fine">{planError}</span>
+        </div>
+      )}
+      {plan ? (
+        <FourYearPlanView plan={plan} />
+      ) : (
+        <div className="empty" style={{ marginTop: "1rem" }}>
+          Add a transcript on the <a href="/onboarding" style={{ color: "var(--gold)", fontWeight: 700 }}>onboarding</a> page to see your 4-year plan.
+        </div>
+      )}
+    </div>
+  );
+}
+
+function DegreeTab({ transcript, requirements }: { transcript: TranscriptData | null; requirements: MajorRequirements }) {
   if (!transcript) return (
     <div>
       <h2 className="sec">Degree Audit</h2>
@@ -346,6 +380,9 @@ export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState<TabId>("today");
   const [plan, setPlan] = useState<PlanResult | null>(null);
   const [transcript, setTranscript] = useState<TranscriptData | null>(null);
+  const [fourYear, setFourYear] = useState<FourYearPlan | null>(null);
+  const [planError, setPlanError] = useState("");
+  const [requirements, setRequirements] = useState<MajorRequirements>(() => combinedRequirements(["statistics-data-science"]));
   const [theme, setTheme] = useState<"light"|"dark">("light");
 
   useEffect(() => {
@@ -353,6 +390,12 @@ export default function DashboardPage() {
     const rawTranscript = sessionStorage.getItem("transcript");
     if (rawPlan) setPlan(JSON.parse(rawPlan));
     if (rawTranscript) setTranscript(JSON.parse(rawTranscript));
+    const rawFourYear = sessionStorage.getItem("four_year_plan");
+    if (rawFourYear) setFourYear(JSON.parse(rawFourYear));
+    setPlanError(sessionStorage.getItem("plan_error") ?? "");
+    setRequirements(chosenRequirements());
+    const tab = new URLSearchParams(window.location.search).get("tab");
+    if (tab && TABS.some((t) => t.id === tab)) setActiveTab(tab as TabId);
 
     // Respect system dark mode on first load
     if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
@@ -370,7 +413,8 @@ export default function DashboardPage() {
   function renderTab() {
     switch (activeTab) {
       case "today":      return <TodayTab plan={plan} transcript={transcript} />;
-      case "degree":     return <DegreeTab transcript={transcript} />;
+      case "plan4":      return <FourYearTab plan={fourYear} planError={planError} />;
+      case "degree":     return <DegreeTab transcript={transcript} requirements={requirements} />;
       case "planner":    return <QuarterPlanner />;
       case "schedule":   return <ScheduleTab plan={plan} />;
       case "courses":    return <CoursesTab />;

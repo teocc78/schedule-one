@@ -306,11 +306,11 @@ Return ONLY a JSON object with this exact structure:
 }
 
 Rules:
-- Include ALL courses that have a final grade (not IP/in-progress)
-- Exclude courses with grade W (withdrawn) or IP
+- Include ALL courses that have a final grade, and courses in progress with grade "IP"
+- Exclude courses with grade W (withdrawn)
 - Use the exact course code format with a space (e.g. "PSTAT 120A")
-- grade must be one of: A+, A, A-, B+, B, B-, C+, C, C-, D+, D, D-, F, P, NP
-- totalUnitsEarned is the sum of units for all included courses
+- grade must be one of: A+, A, A-, B+, B, B-, C+, C, C-, D+, D, D-, F, P, NP, IP
+- totalUnitsEarned is the sum of units for courses with a final grade (not IP)
 - studentId: use only last 4 digits shown, or "0000" if not found
 
 Transcript text:
@@ -322,20 +322,22 @@ ${text}
   return cleanTranscript(raw);
 }
 
-const GRADES = new Set(["A+", "A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-", "F", "P", "NP"]);
+const GRADES = new Set(["A+", "A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-", "F", "P", "NP", "IP"]);
 
 /** Drop rows without a code or a final grade and recompute total units in code. */
 export function cleanTranscript(raw: z.infer<typeof TranscriptDataSchema>): TranscriptData {
   const completedCourses = raw.completedCourses
     .map((c) => ({ ...c, code: c.code.trim().toUpperCase().replace(/\s+/g, " "), grade: c.grade.trim().toUpperCase() }))
     .filter((c) => c.code && GRADES.has(c.grade));
-  const totalUnitsEarned = Math.round(completedCourses.reduce((n, c) => n + c.units, 0) * 10) / 10;
+  const sum = (ip: boolean) =>
+    Math.round(completedCourses.filter((c) => (c.grade === "IP") === ip).reduce((n, c) => n + c.units, 0) * 10) / 10;
   return {
     studentName: raw.studentName,
     studentId: raw.studentId || "0000",
     major: raw.major,
     completedCourses,
-    totalUnitsEarned,
+    totalUnitsEarned: sum(false),
+    unitsInProgress: sum(true),
   } as TranscriptData;
 }
 

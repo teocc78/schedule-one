@@ -3,6 +3,9 @@ import { runPlanner, NoValidScheduleError } from "@/lib/planner";
 import type { PlanRequest } from "@/types";
 import { combinedRequirements, ProgramNotReadyError } from "@/lib/majors";
 import offeringsData from "@/data/offerings/winter-2027.json";
+import standinData from "@/data/offerings/winter-2027-standin.json";
+import { buildFourYearPlan, type FourYearPlan } from "@/lib/four-year-plan";
+import { normalizeCode } from "@/lib/course-codes";
 import historyFixture from "@/data/ucsb-fixtures/enrollment-history.json";
 import { flagsFor, historyFromFixture } from "@/lib/registration-flags";
 import type { Schedule } from "@/types";
@@ -13,16 +16,29 @@ import type { QuarterOfferings } from "@/types";
 // HTML error page instead of JSON.
 export const maxDuration = 60;
 
-const offerings = offeringsData as unknown as QuarterOfferings;
+// Real 2026-27 courses with placeholder times for Stats & Data Science, plus
+// stand-in sections for the other ready majors until the UCSB API is set.
+const base = offeringsData as unknown as QuarterOfferings;
+const standin = standinData as unknown as QuarterOfferings;
+const baseCodes = new Set(base.courses.map((c) => c.code));
+const offerings: QuarterOfferings = {
+  ...base,
+  courses: [...base.courses, ...standin.courses.filter((c) => !baseCodes.has(c.code))],
+};
 // Synthetic until the UCSB API key is set; see lib/registration-flags.ts.
 const history = historyFromFixture(historyFixture as { courses: Record<string, { quarter: string }[]> });
 
-function addFlags(s: Schedule) {
+function addFlags(s: Schedule, fourYear: FourYearPlan | null) {
+  // The 4-year plan knows which Winter courses hold up graduation.
+  const winter = new Map(
+    (fourYear?.quarters[0]?.term === "Winter 2027" ? fourYear.quarters[0].courses : []).map((c) => [normalizeCode(c.code), c])
+  );
   for (const c of s.courses) {
     const f = flagsFor(c.offering.code, "Winter", history, c.satisfies.length > 0);
+    const p = winter.get(normalizeCode(c.offering.code));
     c.termPattern = f.termPattern;
-    c.mustGet = f.mustGet;
-    c.mustGetReason = f.reason;
+    c.mustGet = f.mustGet || Boolean(p?.mustGet);
+    c.mustGetReason = f.mustGet ? f.reason : p?.mustGetReason;
   }
 }
 
@@ -41,7 +57,13 @@ export async function POST(req: NextRequest) {
     const codes = [...(body.majorCodes?.length ? body.majorCodes : [body.majorCode || "statistics-data-science"]), body.minorCode ?? ""];
     const requirements = combinedRequirements(codes);
     const result = await runPlanner(body.transcript, requirements, offerings, body.constraints);
-    [result.primary, ...result.backups].forEach(addFlags);
+    let fourYear: FourYearPlan | null = null;
+    try {
+      fourYear = buildFourYearPlan(requirements, body.transcript);
+    } catch {
+      fourYear = null;
+    }
+    [result.primary, ...result.backups].forEach((s) => addFlags(s, fourYear));
     return NextResponse.json(result);
   } catch (err) {
     if (err instanceof ProgramNotReadyError) {
