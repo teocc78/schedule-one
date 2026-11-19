@@ -1,11 +1,11 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import type { StudentConstraints, DayOfWeek, QuarterOfferings } from "@/types";
 import { majors, minors, findProgram, combinedRequirements } from "@/lib/majors";
-import { interestGroups, shortDescription } from "@/lib/interests";
+import { interestGroups, shortDescription, type CatalogLookup } from "@/lib/interests";
 import { FULL_TIME_MIN_UNITS } from "@/lib/standing";
 import offeringsData from "@/data/offerings/winter-2027.json";
 
@@ -79,6 +79,9 @@ export default function OnboardingPage() {
   const [mustInclude, setMustInclude] = useState("");
   const [mustExclude, setMustExclude] = useState("");
   const [interested, setInterested] = useState<string[]>([]);
+  // Catalog titles and descriptions for courses not offered this quarter.
+  const [catalog, setCatalog] = useState<CatalogLookup>({});
+  const requestedCodes = useRef(new Set<string>());
   const [error, setError] = useState("");
 
   const order = mode === "quick" ? QUICK_ORDER : FULL_ORDER;
@@ -88,11 +91,23 @@ export default function OnboardingPage() {
   const groups = useMemo(() => {
     const ready = [major, secondMajor, minor].filter((c) => c && findProgram(c)?.ready);
     try {
-      return interestGroups(combinedRequirements(ready), offerings);
+      return interestGroups(combinedRequirements(ready), offerings, catalog);
     } catch {
       return [];
     }
-  }, [major, secondMajor, minor]);
+  }, [major, secondMajor, minor, catalog]);
+
+  // Fetch catalog descriptions for courses this quarter's data doesn't describe.
+  useEffect(() => {
+    const codes = [...new Set(groups.flatMap((g) => g.courses).filter((c) => !c.description).map((c) => c.code))]
+      .filter((c) => !requestedCodes.current.has(c));
+    if (codes.length === 0) return;
+    codes.forEach((c) => requestedCodes.current.add(c));
+    fetch(`/api/courses?codes=${encodeURIComponent(codes.join(","))}`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => { if (d?.courses) setCatalog((prev) => ({ ...prev, ...d.courses })); })
+      .catch(() => {});
+  }, [groups]);
 
   const go = (s: Step) => { setError(""); setStep(s); };
   const goNext = () => { const i = order.indexOf(step); if (i < order.length - 1) go(order[i + 1]); };
@@ -362,6 +377,11 @@ export default function OnboardingPage() {
       <div>
         <h1 className="h">What seems interesting?</h1>
         <p className="fine lead">Tick upper-division courses you&apos;d like to take. Schedule One favors them when they fit a requirement. Skip this if you have no preference.</p>
+        <p className="fine">
+          <a href={`/courses?major=${encodeURIComponent(major)}`} target="_blank" rel="noopener noreferrer">
+            See every upper-division class for {findProgram(major)?.name ?? "your major"}
+          </a>
+        </p>
         {groups.length === 0 && <p className="fine">No upper-division courses to show for this program yet.</p>}
         {groups.map((g) => (
           <fieldset key={g.id} className="group">
