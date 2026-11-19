@@ -23,6 +23,12 @@ export interface Program {
   name: string;
   kind: "major" | "minor";
   college: College;
+  /**
+   * Catalog subjects whose upper-division courses (100 to 199) the program
+   * draws on most. Used to browse its classes; the requirement data, where
+   * there is some, decides what actually counts.
+   */
+  subjects: string[];
   ready: boolean;
 }
 
@@ -31,28 +37,28 @@ export interface Program {
  * requirement data is in data/requirements; the rest show as coming soon.
  */
 export const PROGRAMS: Program[] = [
-  { code: "economics", name: "Economics (B.A.)", kind: "major", college: "Letters & Science", ready: false },
-  { code: "economics-accounting", name: "Economics & Accounting (B.A.)", kind: "major", college: "Letters & Science", ready: true },
-  { code: "communication", name: "Communication (B.A.)", kind: "major", college: "Letters & Science", ready: false },
-  { code: "statistics-data-science", name: "Statistics & Data Science (B.S.)", kind: "major", college: "Letters & Science", ready: true },
-  { code: "computer-science", name: "Computer Science (B.S.)", kind: "major", college: "Engineering", ready: false },
-  { code: "political-science", name: "Political Science (B.A.)", kind: "major", college: "Letters & Science", ready: false },
-  { code: "psychological-brain-sciences", name: "Psychological & Brain Sciences (B.S.)", kind: "major", college: "Letters & Science", ready: false },
-  { code: "financial-math-statistics", name: "Financial Mathematics & Statistics (B.S.)", kind: "major", college: "Letters & Science", ready: false },
-  { code: "biological-sciences", name: "Biological Sciences (B.S.)", kind: "major", college: "Letters & Science", ready: true },
-  { code: "biopsychology", name: "Biopsychology (B.S.)", kind: "major", college: "Letters & Science", ready: false },
-  { code: "electrical-engineering", name: "Electrical Engineering (B.S.)", kind: "major", college: "Engineering", ready: true },
-  { code: "computer-engineering", name: "Computer Engineering (B.S.)", kind: "major", college: "Engineering", ready: false },
-  { code: "actuarial-science", name: "Actuarial Science (B.S.)", kind: "major", college: "Letters & Science", ready: false },
-  { code: "applied-mathematics", name: "Applied Mathematics (B.S.)", kind: "major", college: "Letters & Science", ready: false },
-  { code: "mathematics", name: "Mathematics (B.A. or B.S.)", kind: "major", college: "Letters & Science", ready: false },
-  { code: "history", name: "History (B.A.)", kind: "major", college: "Letters & Science", ready: false },
-  { code: "environmental-studies", name: "Environmental Studies (B.A. or B.S.)", kind: "major", college: "Letters & Science", ready: false },
-  { code: "history-policy-law-governance", name: "History of Policy, Law & Governance (B.A.)", kind: "major", college: "Letters & Science", ready: false },
-  { code: "geography", name: "Geography (B.A.)", kind: "major", college: "Letters & Science", ready: false },
-  { code: "chemical-engineering", name: "Chemical Engineering (B.S.)", kind: "major", college: "Engineering", ready: false },
-  { code: "chemistry", name: "Chemistry (B.A. or B.S.)", kind: "major", college: "Letters & Science", ready: false },
-  { code: "biochemistry", name: "Biochemistry (B.S.)", kind: "major", college: "Letters & Science", ready: false },
+  { code: "economics", name: "Economics (B.A.)", kind: "major", college: "Letters & Science", subjects: ["ECON"], ready: false },
+  { code: "economics-accounting", name: "Economics & Accounting (B.A.)", kind: "major", college: "Letters & Science", subjects: ["ECON"], ready: true },
+  { code: "communication", name: "Communication (B.A.)", kind: "major", college: "Letters & Science", subjects: ["COMM"], ready: false },
+  { code: "statistics-data-science", name: "Statistics & Data Science (B.S.)", kind: "major", college: "Letters & Science", subjects: ["PSTAT"], ready: true },
+  { code: "computer-science", name: "Computer Science (B.S.)", kind: "major", college: "Engineering", subjects: ["CMPSC"], ready: false },
+  { code: "political-science", name: "Political Science (B.A.)", kind: "major", college: "Letters & Science", subjects: ["POL S"], ready: false },
+  { code: "psychological-brain-sciences", name: "Psychological & Brain Sciences (B.S.)", kind: "major", college: "Letters & Science", subjects: ["PSY"], ready: false },
+  { code: "financial-math-statistics", name: "Financial Mathematics & Statistics (B.S.)", kind: "major", college: "Letters & Science", subjects: ["PSTAT", "MATH"], ready: false },
+  { code: "biological-sciences", name: "Biological Sciences (B.S.)", kind: "major", college: "Letters & Science", subjects: ["MCDB", "EEMB"], ready: true },
+  { code: "biopsychology", name: "Biopsychology (B.S.)", kind: "major", college: "Letters & Science", subjects: ["PSY", "MCDB"], ready: false },
+  { code: "electrical-engineering", name: "Electrical Engineering (B.S.)", kind: "major", college: "Engineering", subjects: ["ECE"], ready: true },
+  { code: "computer-engineering", name: "Computer Engineering (B.S.)", kind: "major", college: "Engineering", subjects: ["ECE", "CMPSC"], ready: false },
+  { code: "actuarial-science", name: "Actuarial Science (B.S.)", kind: "major", college: "Letters & Science", subjects: ["PSTAT"], ready: false },
+  { code: "applied-mathematics", name: "Applied Mathematics (B.S.)", kind: "major", college: "Letters & Science", subjects: ["MATH"], ready: false },
+  { code: "mathematics", name: "Mathematics (B.A. or B.S.)", kind: "major", college: "Letters & Science", subjects: ["MATH"], ready: false },
+  { code: "history", name: "History (B.A.)", kind: "major", college: "Letters & Science", subjects: ["HIST"], ready: false },
+  { code: "environmental-studies", name: "Environmental Studies (B.A. or B.S.)", kind: "major", college: "Letters & Science", subjects: ["ENV S"], ready: false },
+  { code: "history-policy-law-governance", name: "History of Policy, Law & Governance (B.A.)", kind: "major", college: "Letters & Science", subjects: ["HIST"], ready: false },
+  { code: "geography", name: "Geography (B.A.)", kind: "major", college: "Letters & Science", subjects: ["GEOG"], ready: false },
+  { code: "chemical-engineering", name: "Chemical Engineering (B.S.)", kind: "major", college: "Engineering", subjects: ["CH E"], ready: false },
+  { code: "chemistry", name: "Chemistry (B.A. or B.S.)", kind: "major", college: "Letters & Science", subjects: ["CHEM"], ready: false },
+  { code: "biochemistry", name: "Biochemistry (B.S.)", kind: "major", college: "Letters & Science", subjects: ["CHEM", "MCDB"], ready: false },
 ];
 
 const REQUIREMENTS: Record<string, MajorRequirements> = {

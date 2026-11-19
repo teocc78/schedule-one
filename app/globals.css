@@ -439,3 +439,7 @@ label {
   .app-main { padding: 0 !important; overflow: visible !important; }
   .btn { display: none !important; }
 }
+
+/* Upper-division class browser */
+.course-row { padding: .55rem 0; border-top: 1px solid var(--line); }
+.course-row:first-of-type { border-top: 0; }

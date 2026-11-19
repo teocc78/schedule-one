@@ -23,9 +23,14 @@ export default function LandingPage() {
         <span style={{ fontFamily: "var(--display)", fontSize: "1.4rem", transform: "skewX(-4deg)", display: "inline-block", letterSpacing: ".02em" }}>
           SCHEDULE ONE
         </span>
-        <Link href="/onboarding" className="btn pri" style={{ textDecoration: "none" }}>
-          Get started
-        </Link>
+        <div style={{ display: "flex", gap: ".5rem", alignItems: "center" }}>
+          <Link href="/courses" className="btn" style={{ textDecoration: "none" }}>
+            Browse classes
+          </Link>
+          <Link href="/onboarding" className="btn pri" style={{ textDecoration: "none" }}>
+            Get started
+          </Link>
+        </div>
       </nav>
 
       {/* Hero */}

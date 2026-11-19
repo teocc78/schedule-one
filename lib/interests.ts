@@ -1,7 +1,8 @@
 /**
  * Upper-division courses a student can mark "seems interesting" while
- * personalizing. Grouped by requirement, with a short description where
- * this quarter's class data has one.
+ * personalizing. Grouped by requirement. Titles and descriptions come from
+ * this quarter's class data and, for courses not offered this quarter, from
+ * the catalog entries passed in `catalog`.
  */
 import type { MajorRequirements, QuarterOfferings } from "@/types";
 import { normalizeCode } from "@/lib/course-codes";
@@ -21,7 +22,13 @@ export interface InterestGroup {
   courses: InterestCourse[];
 }
 
-export function interestGroups(req: MajorRequirements, offerings: QuarterOfferings): InterestGroup[] {
+export type CatalogLookup = Record<string, { title?: string; description?: string }>;
+
+export function interestGroups(
+  req: MajorRequirements,
+  offerings: QuarterOfferings,
+  catalog: CatalogLookup = {}
+): InterestGroup[] {
   const byCode = new Map(offerings.courses.map((o) => [normalizeCode(o.code), o]));
   return req.groups
     .map((g) => ({
@@ -32,8 +39,8 @@ export function interestGroups(req: MajorRequirements, offerings: QuarterOfferin
         const o = byCode.get(normalizeCode(code));
         return {
           code,
-          title: o?.title ?? "",
-          description: o?.description ?? "",
+          title: o?.title || catalog[code]?.title || "",
+          description: o?.description || catalog[code]?.description || "",
           offeredThisQuarter: Boolean(o),
         };
       }),
