@@ -78,15 +78,15 @@ export function FourYearPlanView({ plan }: { plan: FourYearPlan }) {
       </p>
       <div style={{ display: "flex", gap: ".75rem", flexWrap: "wrap", marginBottom: "1rem" }}>
         <div className="card" style={{ padding: ".5rem .9rem" }}>
-          <b style={{ font: "700 1.3rem var(--display)", display: "block" }}>{plan.graduationTerm ?? "Not yet"}</b>
+          <b style={{ font: "400 1.3rem var(--display)", display: "block" }}>{plan.graduationTerm ?? "Not yet"}</b>
           <span className="fine">graduation</span>
         </div>
         <div className="card" style={{ padding: ".5rem .9rem" }}>
-          <b style={{ font: "700 1.3rem var(--display)", display: "block" }}>{plan.unitsEarned + plan.unitsInProgress}</b>
+          <b style={{ font: "400 1.3rem var(--display)", display: "block" }}>{plan.unitsEarned + plan.unitsInProgress}</b>
           <span className="fine">units after this quarter</span>
         </div>
         <div className="card" style={{ padding: ".5rem .9rem" }}>
-          <b style={{ font: "700 1.3rem var(--display)", display: "block" }}>{plan.quarters.length}</b>
+          <b style={{ font: "400 1.3rem var(--display)", display: "block" }}>{plan.quarters.length}</b>
           <span className="fine">quarters left</span>
         </div>
       </div>

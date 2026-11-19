@@ -20,7 +20,7 @@
   --bad-s:   #fce8e6;
   --unk:     #5a7a8a;
   --unk-s:   #e0eaf0;
-  --display: var(--font-inter, 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif);
+  --display: var(--font-anton, 'Anton', Impact, sans-serif);
   --ui:      var(--font-inter, 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif);
   --acc:     var(--gold);
 }
@@ -107,9 +107,9 @@ body {
 
 h1, h2, h3 {
   font-family: var(--display);
-  font-weight: 700;
+  font-weight: 400;
   margin: 0;
-  letter-spacing: -0.01em;
+  letter-spacing: 0.01em;
 }
 
 button { font: inherit; color: inherit; cursor: pointer; }
@@ -194,11 +194,12 @@ button { font: inherit; color: inherit; cursor: pointer; }
 
 .rail-wordmark {
   font-family: var(--display);
-  font-weight: 700;
-  font-size: 1.3rem;
+  font-size: 1.6rem;
   color: var(--gold);
+  letter-spacing: .03em;
   line-height: 1;
   padding: .5rem 1.1rem 1.2rem;
+  transform: skewX(-4deg);
   display: block;
 }
 
@@ -209,6 +210,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
   letter-spacing: .06em;
   text-transform: uppercase;
   padding: 0 1.1rem .8rem;
+  transform: skewX(-4deg);
   margin-top: -.8rem;
   display: block;
 }
@@ -271,7 +273,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 
 /* ── Section heading ──────────────────────────────────────────── */
 h2.sec {
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   margin: 1.4rem 0 .6rem;
   display: flex;
   align-items: center;
@@ -372,8 +374,8 @@ label {
 .onboard { min-height: 100vh; background: var(--paper); }
 .onboard-inner { max-width: 640px; margin: 0 auto; padding: 1.25rem 1rem 3rem; }
 .onboard-card { margin-top: 1rem; padding: 1.5rem; }
-.brand { font-weight: 700; font-size: 1.15rem; color: var(--ink); text-decoration: none; }
-.h { font-size: 1.5rem; margin-bottom: .25rem; }
+.brand { font-family: var(--display); font-size: 1.4rem; letter-spacing: .02em; text-transform: uppercase; transform: skewX(-4deg); display: inline-block; color: var(--ink); text-decoration: none; }
+.h { font-size: 1.8rem; text-transform: uppercase; margin-bottom: .4rem; }
 .lead { margin: 0 0 1rem; }
 .steps { list-style: none; display: flex; gap: .35rem; padding: 0; margin: 0 0 1.25rem; flex-wrap: wrap; }
 .steps li { display: flex; align-items: center; gap: .3rem; font-size: .75rem; color: var(--ink3); }

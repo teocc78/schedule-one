@@ -1,16 +1,16 @@
 import Link from "next/link";
 
 const FEATURES = [
-  { title: "Bring your transcript", desc: "Upload the PDF of your unofficial transcript from GOLD, a .txt file, or paste the text. Nothing is stored on a server." },
-  { title: "Your requirements, checked", desc: "Schedule One compares what you've finished with your major's requirements and only plans courses that still count." },
-  { title: "Checked before you see it", desc: "Every schedule is checked for time conflicts, prerequisites, unit limits, class standing and your preferences." },
-  { title: "Backups for every pass time", desc: "A main schedule plus two backups, and swap options for each course in case a section fills." },
+  { icon: "📄", title: "Bring your transcript", desc: "Upload the PDF of your unofficial transcript from GOLD, a .txt file, or paste the text. Nothing is stored on a server." },
+  { icon: "🎓", title: "Your requirements, checked", desc: "Schedule One compares what you've finished with your major and only plans courses that still count." },
+  { icon: "✅", title: "Checked before you see it", desc: "Every schedule is checked for time conflicts, prerequisites, unit limits, class standing and your preferences." },
+  { icon: "🔄", title: "Backups + a 4-year plan", desc: "A main schedule plus two backups, swap options for each course, and a plan through graduation." },
 ];
 
 const STEPS = [
-  { n: "1", title: "Pick your major", desc: "Add a second major or minor if you have one" },
-  { n: "2", title: "Add your transcript", desc: "PDF, .txt or pasted text" },
-  { n: "3", title: "Get your schedule", desc: "Built for you, or personalized" },
+  { n: "01", title: "Pick your major", desc: "Plus a second major or minor" },
+  { n: "02", title: "Add your transcript", desc: "PDF, .txt or pasted text" },
+  { n: "03", title: "Get your schedule", desc: "In a few seconds" },
 ];
 
 export default function LandingPage() {
@@ -18,69 +18,88 @@ export default function LandingPage() {
     <div style={{ minHeight: "100vh", background: "var(--paper)", color: "var(--ink)" }}>
       <div className="gold-bar" />
 
+      {/* Nav */}
       <nav style={{ maxWidth: 900, margin: "0 auto", padding: ".9rem 1.5rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <span className="brand">Schedule One</span>
+        <span style={{ fontFamily: "var(--display)", fontSize: "1.4rem", transform: "skewX(-4deg)", display: "inline-block", letterSpacing: ".02em" }}>
+          SCHEDULE ONE
+        </span>
         <Link href="/onboarding" className="btn pri" style={{ textDecoration: "none" }}>
           Get started
         </Link>
       </nav>
 
-      <section style={{ maxWidth: 900, margin: "0 auto", padding: "3.5rem 1.5rem 3rem" }}>
-        <p className="fine" style={{ fontWeight: 600, margin: "0 0 .75rem" }}>UCSB, Winter 2027</p>
-        <h1 style={{ fontSize: "clamp(2rem, 5.5vw, 3.2rem)", lineHeight: 1.1, margin: "0 0 1rem", maxWidth: 640 }}>
-          Plan your next quarter around what you still need.
+      {/* Hero */}
+      <section style={{ maxWidth: 900, margin: "0 auto", padding: "4rem 1.5rem 3rem", textAlign: "center" }}>
+        <div style={{ display: "inline-block", border: "2px solid var(--line)", borderRadius: 999, padding: ".25rem .9rem", fontSize: ".78rem", fontWeight: 600, letterSpacing: ".05em", textTransform: "uppercase", color: "var(--ink2)", marginBottom: "1.5rem", background: "var(--surf)" }}>
+          UCSB · Winter 2027
+        </div>
+        <h1 style={{ fontFamily: "var(--display)", fontSize: "clamp(2.4rem, 7vw, 4.5rem)", lineHeight: 1, margin: "0 0 1.25rem", letterSpacing: ".01em" }}>
+          YOUR NEXT QUARTER,<br />
+          <span style={{ color: "var(--gold)", WebkitTextStroke: "1px var(--gold-d)" }}>PLANNED IN SECONDS.</span>
         </h1>
-        <p style={{ fontSize: "1.1rem", color: "var(--ink2)", maxWidth: 560, margin: "0 0 2rem", lineHeight: 1.6 }}>
-          Add your transcript, set a few preferences, and get a schedule with backups for each pass time. You still register in GOLD.
+        <p style={{ fontSize: "1.15rem", color: "var(--ink2)", maxWidth: 520, margin: "0 auto 2.5rem", lineHeight: 1.6 }}>
+          Add your transcript. Set your preferences. Get a checked schedule with backups. You still register in GOLD.
         </p>
-        <div style={{ display: "flex", gap: ".75rem", flexWrap: "wrap" }}>
-          <Link href="/onboarding" className="btn pri" style={{ textDecoration: "none", fontSize: "1rem", padding: ".6rem 1.5rem" }}>
+        <div style={{ display: "flex", gap: ".75rem", justifyContent: "center", flexWrap: "wrap" }}>
+          <Link href="/onboarding" className="btn pri" style={{ textDecoration: "none", fontSize: "1rem", padding: ".6rem 1.75rem" }}>
             Plan my schedule
           </Link>
-          <Link href="/dashboard" className="btn" style={{ textDecoration: "none", fontSize: "1rem", padding: ".6rem 1.5rem" }}>
-            Open dashboard
+          <Link href="/dashboard" className="btn" style={{ textDecoration: "none", fontSize: "1rem", padding: ".6rem 1.75rem" }}>
+            View dashboard
           </Link>
         </div>
       </section>
 
-      <section style={{ borderTop: "2px solid var(--line)", borderBottom: "2px solid var(--line)", background: "var(--surf)", padding: "2.5rem 1.5rem" }}>
+      {/* How it works */}
+      <section style={{ background: "var(--plate)", padding: "3rem 1.5rem" }}>
         <div style={{ maxWidth: 900, margin: "0 auto" }}>
-          <h2 style={{ fontSize: "1.3rem", marginBottom: "1.25rem" }}>How it works</h2>
-          <ol style={{ listStyle: "none", padding: 0, margin: 0, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "1.25rem" }}>
+          <h2 style={{ fontFamily: "var(--display)", fontSize: "1.8rem", color: "var(--gold)", textAlign: "center", marginBottom: "2rem" }}>
+            THREE STEPS. NO HASSLE.
+          </h2>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "1.5rem" }}>
             {STEPS.map((s) => (
-              <li key={s.n} style={{ display: "flex", gap: ".75rem", alignItems: "flex-start" }}>
-                <span style={{ width: 28, height: 28, borderRadius: "50%", background: "var(--plate)", color: "var(--gold)", display: "inline-flex", alignItems: "center", justifyContent: "center", fontWeight: 700, flex: "none" }}>{s.n}</span>
-                <div>
-                  <div style={{ fontWeight: 700 }}>{s.title}</div>
-                  <div className="fine">{s.desc}</div>
-                </div>
-              </li>
+              <div key={s.n} style={{ textAlign: "center" }}>
+                <div style={{ fontFamily: "var(--display)", fontSize: "3.5rem", color: "rgba(254,188,17,.2)", lineHeight: 1 }}>{s.n}</div>
+                <div style={{ fontWeight: 700, color: "#fff", fontSize: ".95rem", margin: ".25rem 0 .15rem" }}>{s.title}</div>
+                <div style={{ fontSize: ".82rem", color: "var(--ink3)" }}>{s.desc}</div>
+              </div>
             ))}
-          </ol>
+          </div>
         </div>
       </section>
 
-      <section style={{ maxWidth: 900, margin: "0 auto", padding: "2.5rem 1.5rem" }}>
-        <h2 style={{ fontSize: "1.3rem", marginBottom: "1.25rem" }}>What you get</h2>
+      {/* Features */}
+      <section style={{ maxWidth: 900, margin: "0 auto", padding: "3rem 1.5rem" }}>
+        <h2 style={{ fontFamily: "var(--display)", fontSize: "1.8rem", textAlign: "center", marginBottom: "2rem" }}>
+          EVERYTHING HANDLED FOR YOU.
+        </h2>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1rem" }}>
           {FEATURES.map((f) => (
-            <div key={f.title} className="card">
-              <div style={{ fontWeight: 700, marginBottom: ".25rem" }}>{f.title}</div>
-              <p className="fine" style={{ margin: 0, lineHeight: 1.5 }}>{f.desc}</p>
+            <div key={f.title} className="card" style={{ display: "flex", gap: "1rem", alignItems: "flex-start" }}>
+              <span style={{ fontSize: "1.75rem", lineHeight: 1, marginTop: ".1rem" }} aria-hidden="true">{f.icon}</span>
+              <div>
+                <div style={{ fontWeight: 700, marginBottom: ".2rem" }}>{f.title}</div>
+                <p className="fine" style={{ margin: 0, lineHeight: 1.5 }}>{f.desc}</p>
+              </div>
             </div>
           ))}
         </div>
         <div className="note" style={{ marginTop: "1.5rem" }}>
           <strong>Not here yet:</strong>{" "}
-          <span className="fine">study abroad courses (UCEAP and other universities), community-college transfer courses, and more majors and minors. They&apos;re on the way.</span>
+          <span className="fine">study abroad courses (UCEAP and other universities), community-college transfer courses, and more majors and minors.</span>
         </div>
       </section>
 
-      <section style={{ background: "var(--plate)", padding: "2.5rem 1.5rem", textAlign: "center" }}>
-        <h2 style={{ fontSize: "1.5rem", color: "var(--gold)", margin: "0 0 .5rem" }}>Ready to plan your quarter?</h2>
-        <p style={{ color: "var(--ink3)", fontSize: ".9rem", margin: "0 0 1.25rem" }}>About two minutes. No account needed.</p>
-        <Link href="/onboarding" className="btn gold" style={{ textDecoration: "none", fontSize: "1rem", padding: ".6rem 1.75rem" }}>
-          Get started
+      {/* CTA */}
+      <section style={{ background: "var(--gold)", padding: "3rem 1.5rem", textAlign: "center" }}>
+        <h2 style={{ fontFamily: "var(--display)", fontSize: "2rem", color: "var(--plate)", margin: "0 0 .75rem" }}>
+          READY TO PLAN YOUR QUARTER?
+        </h2>
+        <p style={{ color: "var(--plate)", fontSize: ".9rem", marginBottom: "1.5rem", opacity: 0.75 }}>
+          Takes about 2 minutes. No account required.
+        </p>
+        <Link href="/onboarding" className="btn pri" style={{ textDecoration: "none", fontSize: "1rem", padding: ".65rem 2rem" }}>
+          Get started free
         </Link>
       </section>
     </div>
