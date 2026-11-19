@@ -6,8 +6,8 @@ import type { PlanResult, TranscriptData } from "@/types";
 import { ScheduleCard } from "@/components/ScheduleCard";
 import { ValidationBadge } from "@/components/ValidationBadge";
 import { PlanNotices, CourseFlags } from "@/components/PlanNotices";
-import { PastGrades } from "@/components/PastGrades";
 import { FourYearPlanView } from "@/components/FourYearPlanView";
+import { showInstructor } from "@/lib/instructor";
 import type { FourYearPlan } from "@/lib/four-year-plan";
 import { combinedRequirements } from "@/lib/majors";
 import offeringsData from "@/data/offerings/winter-2027.json";
@@ -100,9 +100,8 @@ function TodayTab({ plan, transcript }: { plan: PlanResult | null; transcript: T
             <div style={{ flex: 1 }}>
               <strong style={{ fontSize: ".92rem" }}>{sc.offering.code}</strong>
               <span className="fine" style={{ marginLeft: ".5rem" }}>{sc.offering.title}</span>
-              <div className="fine">{startTime}–{endTime} · {sc.offering.instructor}</div>
+              <div className="fine">{startTime}–{endTime}{showInstructor(sc.offering.instructor) ? ` · ${sc.offering.instructor}` : ""}</div>
               <CourseFlags termPattern={sc.termPattern} mustGet={sc.mustGet} mustGetReason={sc.mustGetReason} />
-              <PastGrades code={sc.offering.code} />
             </div>
             {sc.satisfies.map(g => (
               <span key={g} className="tag unk" style={{ fontSize: ".72rem" }}>{plan.groupNames?.[g] ?? g}</span>
@@ -257,7 +256,7 @@ function CoursesTab() {
         <table>
           <thead>
             <tr>
-              <th>Code</th><th>Title</th><th>Units</th><th>Meets</th><th>Instructor</th>
+              <th>Code</th><th>Title</th><th>Units</th><th>Meets</th>
             </tr>
           </thead>
           <tbody>
@@ -269,7 +268,6 @@ function CoursesTab() {
                 <td style={{ whiteSpace: "nowrap" }}>
                   {c.schedule.days.join("")} {c.schedule.startTime}–{c.schedule.endTime}
                 </td>
-                <td className="fine">{c.instructor}</td>
               </tr>
             ))}
           </tbody>

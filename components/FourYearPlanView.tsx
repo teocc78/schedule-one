@@ -1,4 +1,3 @@
-import { PastGrades } from "@/components/PastGrades";
 import type { FourYearPlan, PlannedCourse, PlannedQuarter } from "@/lib/four-year-plan";
 
 const WHY: Record<PlannedCourse["why"], string> = {
@@ -22,7 +21,6 @@ function CourseRow({ c, quarter }: { c: PlannedCourse; quarter: string }) {
           <details className="more">
             <summary>Details</summary>
             <p>Counts for {c.countsFor}.{c.mustGet && c.mustGetReason ? ` ${c.mustGetReason}` : ""}</p>
-            <PastGrades code={c.code} open />
           </details>
         </div>
         <span className="fine" style={{ whiteSpace: "nowrap" }}>{c.units} units</span>

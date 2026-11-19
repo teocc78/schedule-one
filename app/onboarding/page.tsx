@@ -125,9 +125,9 @@ export default function OnboardingPage() {
       setExample(label);
       const majorName = findProgram(sampleMajor)?.name ?? sampleMajor;
       setSampleNote(
-        `This is an EXAMPLE transcript for a made-up ${label} student, not your own.` +
-          (changed ? ` Your major is now ${majorName} to match it.` : "") +
-          " To plan your own quarter, clear it and add your transcript."
+        `EXAMPLE: made-up ${label} student.` +
+          (changed ? ` Major set to ${majorName}.` : "") +
+          " Clear it to add yours."
       );
     }
     catch { setError("Couldn't load that sample."); }
@@ -329,8 +329,8 @@ export default function OnboardingPage() {
           </div>
         </div>
         {minUnits < FULL_TIME_MIN_UNITS
-          ? <div className="note warn">Under {FULL_TIME_MIN_UNITS} units you aren&apos;t a full-time student, which can affect financial aid, housing and visas.</div>
-          : <p className="fine">{FULL_TIME_MIN_UNITS} units is the full-time minimum. 21 units is the most you can register for in a quarter.</p>}
+          ? <div className="note warn">Under {FULL_TIME_MIN_UNITS} units is part time, which can affect aid, housing and visas.</div>
+          : <p className="fine">Full time is {FULL_TIME_MIN_UNITS}+ units. Max 21.</p>}
 
         <div className="grid2">
           <div>
@@ -442,7 +442,7 @@ export default function OnboardingPage() {
             <div><dt>Preferences</dt><dd>Built for you: 12 to 16 units, any times</dd><button className="link" onClick={() => { setMode("personal"); go("preferences"); }}>Personalize</button></div>
           )}
         </dl>
-        <p className="fine">You&apos;ll get a main schedule, two backups and a 4-year plan in a few seconds.</p>
+        <p className="fine">You&apos;ll get a schedule, two backups and a 4-year plan.</p>
         {error && <div className="tag bad">{error}</div>}
         <div className="row">
           <button className="btn" onClick={() => go(mode === "personal" ? "interests" : "mode")}>Back</button>

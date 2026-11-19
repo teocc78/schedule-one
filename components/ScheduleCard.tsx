@@ -1,8 +1,8 @@
-import { PastGrades } from "@/components/PastGrades";
 import type { Schedule } from "@/types";
 import { WeeklyCalendar } from "./WeeklyCalendar";
 import { ValidationBadge } from "./ValidationBadge";
 import { CourseFlags } from "./PlanNotices";
+import { showInstructor } from "@/lib/instructor";
 
 interface Props {
   schedule: Schedule;
@@ -69,10 +69,9 @@ export function ScheduleCard({ schedule, title, isPrimary = false, groupNames }:
                       <span className="text-xs text-gray-500 truncate">{sc.offering.title}</span>
                     </div>
                     <div className="text-xs text-gray-500 mt-0.5">
-                      {sc.offering.schedule.days.join("")} · {sc.offering.schedule.startTime}–{sc.offering.schedule.endTime} · {sc.offering.instructor}
+                      {sc.offering.schedule.days.join("")} · {sc.offering.schedule.startTime}–{sc.offering.schedule.endTime}{showInstructor(sc.offering.instructor) ? ` · ${sc.offering.instructor}` : ""}
                     </div>
                     <CourseFlags termPattern={sc.termPattern} mustGet={sc.mustGet} mustGetReason={sc.mustGetReason} />
-                    <PastGrades code={sc.offering.code} />
                     {sc.satisfies.length > 0 && (
                       <div className="flex gap-1 mt-1.5 flex-wrap">
                         {sc.satisfies.map((gid) => (
