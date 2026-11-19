@@ -19,6 +19,7 @@ import { validateSchedule } from "@/lib/validator";
 import { buildFallbackSchedules } from "@/lib/fallback-scheduler";
 import { normalizeCode } from "@/lib/course-codes";
 import { classStanding, planNotices, fullTimeNotice, FULL_TIME_MIN_UNITS } from "@/lib/standing";
+import { suggestGECourses } from "@/lib/ge-suggest";
 
 /** Thrown when no valid schedule exists at all; the API turns it into a 422. */
 export class NoValidScheduleError extends Error {}
@@ -39,7 +40,9 @@ export async function runPlanner(
   offerings: QuarterOfferings,
   constraints: StudentConstraints,
   /** Course codes the 4-year plan puts in this quarter; preferred, not required. */
-  priority: string[] = []
+  priority: string[] = [],
+  /** B.A. degrees add the European Traditions GE requirement. */
+  options: { ba?: boolean } = {}
 ): Promise<PlanResult> {
   const remainingGroups = getRemainingGroups(requirements, transcript.completedCourses);
   if (remainingGroups.length === 0) {
@@ -59,8 +62,9 @@ export async function runPlanner(
 
   // Early in a major, the rest of the major often waits on one gateway course
   // (an Econ sophomore can only take ECON 10A in Winter). When the eligible
-  // major courses can't reach the unit minimum, plan what there is and tell
-  // the student how many GE or elective units to add, instead of failing.
+  // major courses can't reach the unit minimum, fill the schedule with
+  // suggested GE classes for the student's open GE areas. If even that falls
+  // short, plan what there is and say how many units to add, instead of failing.
   const unitsByCode = new Map<string, number>();
   for (const o of eligible) {
     const k = normalizeCode(o.code);
@@ -68,21 +72,39 @@ export async function runPlanner(
   }
   const majorUnitsAvailable = [...unitsByCode.values()].reduce((a, b) => a + b, 0);
   const shortOfMinimum = majorUnitsAvailable < constraints.minUnits;
-  const planConstraints: StudentConstraints = shortOfMinimum
-    ? { ...constraints, minUnits: majorUnitsAvailable }
-    : constraints;
 
-  const ctx: Ctx = { eligible, remainingGroups, constraints: planConstraints, transcript };
+  function search(ctx: Ctx, bonus?: Map<string, number>): Schedule[] {
+    const found: Schedule[] = [];
+    const usedKeys = new Set<string>();
+    for (const f of buildFallbackSchedules(ctx.eligible, ctx.remainingGroups, ctx.constraints, 8, 5, priority, bonus)) {
+      if (found.length >= 3) break;
+      const s = fromSearch(f.courses, f.satisfies, found[0] ?? null, ctx);
+      const key = scheduleKey(s);
+      if (!s.validation.valid || usedKeys.has(key)) continue;
+      usedKeys.add(key);
+      found.push(s);
+    }
+    return found;
+  }
 
-  const valid: Schedule[] = [];
-  const usedKeys = new Set<string>();
-  for (const f of buildFallbackSchedules(eligible, remainingGroups, planConstraints, 8, 5, priority)) {
-    if (valid.length >= 3) break;
-    const s = fromSearch(f.courses, f.satisfies, valid[0] ?? null, ctx);
-    const key = scheduleKey(s);
-    if (!s.validation.valid || usedKeys.has(key)) continue;
-    usedKeys.add(key);
-    valid.push(s);
+  let valid: Schedule[] = [];
+  let usedGE = false;
+  let geGroupNames: Record<string, string> = {};
+  if (shortOfMinimum) {
+    const ge = suggestGECourses(transcript.completedCourses, options.ba);
+    if (ge.offerings.length > 0) {
+      valid = search(
+        { eligible: [...eligible, ...ge.offerings], remainingGroups: [...remainingGroups, ...ge.groups], constraints, transcript },
+        ge.bonus
+      );
+      usedGE = valid.length > 0;
+      geGroupNames = Object.fromEntries(ge.groups.map((g) => [g.groupId, g.groupName]));
+    }
+  }
+  const lowered = shortOfMinimum && !usedGE;
+  if (!usedGE) {
+    const planConstraints: StudentConstraints = lowered ? { ...constraints, minUnits: majorUnitsAvailable } : constraints;
+    valid = search({ eligible, remainingGroups, constraints: planConstraints, transcript });
   }
 
   if (valid.length === 0) {
@@ -110,7 +132,10 @@ export async function runPlanner(
     backups: [backup1, backup2],
     remainingRequirements,
     standing: classStanding(earned),
-    notices: shortOfMinimum
+    groupNames: usedGE ? geGroupNames : undefined,
+    notices: usedGE
+      ? [geNotice(majorUnitsAvailable), ...planNotices(earned, primary.totalUnits, primary.courses.map((c) => c.offering.code))]
+      : lowered
       ? [
           gapNotice(primary.totalUnits, constraints.minUnits),
           ...planNotices(earned, primary.totalUnits, primary.courses.map((c) => c.offering.code)).filter(
@@ -122,6 +147,11 @@ export async function runPlanner(
 }
 
 // ── helpers ──────────────────────────────────────────────────
+
+/** Used when suggested GE classes fill out a short major schedule. */
+export function geNotice(majorUnits: number): string {
+  return `Only ${majorUnits} major units are open this quarter, so the rest are suggested GEs for areas you still need.`;
+}
 
 /** Used when the major's eligible courses can't reach the unit minimum. */
 export function gapNotice(majorUnits: number, minUnits: number): string {
@@ -189,8 +219,11 @@ export function buildSwaps(chosen: CourseOffering[], satisfies: Map<string, stri
   for (const o of chosen) {
     const others = chosen.filter((x) => x !== o);
     const mine = new Set(satisfies.get(o.code) ?? []);
+    // A suggested GE is never offered in place of a major course.
+    const isGE = (x: CourseOffering) => Boolean(x.requirementGroups?.[0]?.startsWith("ge-"));
     const options = ctx.eligible
       .filter((alt) => !inSchedule.has(normalizeCode(alt.code)))
+      .filter((alt) => isGE(o) || !isGE(alt))
       .filter((alt) => !others.some((x) => overlaps(x, alt)))
       .filter((alt) => {
         const units = total - o.units + alt.units;

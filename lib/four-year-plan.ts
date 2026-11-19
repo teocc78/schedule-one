@@ -43,6 +43,8 @@ export interface PlannedCourse {
   /** Taking it later pushes back graduation, or it only runs this quarter. */
   mustGet?: boolean;
   mustGetReason?: string;
+  /** Set when the course only runs in one quarter, e.g. "Winter". */
+  exclusiveTo?: string;
 }
 
 export interface PlanBackup {
@@ -360,6 +362,7 @@ export function buildFourYearPlan(
       if (course.terms && course.terms.length === 1) {
         pc.mustGet = true;
         pc.mustGetReason = `Only runs in ${course.terms[0]}. Missing it means waiting a full year.`;
+        pc.exclusiveTo = course.terms[0];
       } else if (d >= 1 && q + d >= lastQ) {
         pc.mustGet = true;
         pc.mustGetReason = `Starts a chain of ${d + 1} courses (${chainOf(k).join(" → ")}). Taking it later pushes back graduation.`;

@@ -101,7 +101,7 @@ function TodayTab({ plan, transcript }: { plan: PlanResult | null; transcript: T
               <strong style={{ fontSize: ".92rem" }}>{sc.offering.code}</strong>
               <span className="fine" style={{ marginLeft: ".5rem" }}>{sc.offering.title}</span>
               <div className="fine">{startTime}–{endTime}{showInstructor(sc.offering.instructor) ? ` · ${sc.offering.instructor}` : ""}</div>
-              <CourseFlags termPattern={sc.termPattern} mustGet={sc.mustGet} mustGetReason={sc.mustGetReason} />
+              <CourseFlags termPattern={sc.termPattern} mustGet={sc.mustGet} mustGetReason={sc.mustGetReason} exclusiveTo={sc.exclusiveTo} />
             </div>
             {sc.satisfies.map(g => (
               <span key={g} className="tag unk" style={{ fontSize: ".72rem" }}>{plan.groupNames?.[g] ?? g}</span>

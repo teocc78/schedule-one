@@ -1,3 +1,4 @@
+import { mustGetLabel } from "@/lib/must-get";
 import type { FourYearPlan, PlannedCourse, PlannedQuarter } from "@/lib/four-year-plan";
 
 const WHY: Record<PlannedCourse["why"], string> = {
@@ -15,7 +16,7 @@ function CourseRow({ c, quarter }: { c: PlannedCourse; quarter: string }) {
           <div className="fine">{WHY[c.why]}</div>
           {c.mustGet && (
             <div style={{ marginTop: ".3rem" }}>
-              <span className="must-get" title={c.mustGetReason}>MUST TAKE IN {quarter.toUpperCase()}</span>
+              <span className="must-get" title={c.mustGetReason}>{mustGetLabel(quarter, c.exclusiveTo)}</span>
             </div>
           )}
           <details className="more">

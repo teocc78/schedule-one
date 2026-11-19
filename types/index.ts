@@ -122,6 +122,8 @@ export interface ScheduledCourse {
   /** Register for this in your first pass: needed and rarely offered. */
   mustGet?: boolean;
   mustGetReason?: string;
+  /** Set when the course only runs in one quarter, e.g. "Winter". */
+  exclusiveTo?: string;
 }
 
 export interface SwapOption {

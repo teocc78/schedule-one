@@ -1,4 +1,5 @@
 import type { PlanResult } from "@/types";
+import { mustGetLabel } from "@/lib/must-get";
 
 /** Class standing and plan-wide notices (full time, upper-division standing). */
 export function PlanNotices({ plan }: { plan: Pick<PlanResult, "standing" | "notices"> }) {
@@ -16,12 +17,14 @@ export function PlanNotices({ plan }: { plan: Pick<PlanResult, "standing" | "not
 }
 
 /** "Mostly a fall course" and "Must get" labels for one scheduled course. */
-export function CourseFlags({ termPattern, mustGet, mustGetReason }: { termPattern?: string; mustGet?: boolean; mustGetReason?: string }) {
+export function CourseFlags({ termPattern, mustGet, mustGetReason, exclusiveTo, quarter = "Winter" }: { termPattern?: string; mustGet?: boolean; mustGetReason?: string; exclusiveTo?: string; quarter?: string }) {
   if (!termPattern && !mustGet) return null;
+  // "Mostly a Winter course" says the same thing as the exclusive label.
+  const showPattern = termPattern && !(mustGet && exclusiveTo);
   return (
     <span style={{ display: "inline-flex", gap: ".35rem", flexWrap: "wrap", alignItems: "center", marginTop: ".25rem" }}>
-      {mustGet && <span className="must-get" title={mustGetReason}>MUST GET, or PASS TIME!</span>}
-      {termPattern && <span className="tag warn" style={{ fontSize: ".72rem" }}>{termPattern}</span>}
+      {mustGet && <span className="must-get" title={mustGetReason}>{mustGetLabel(quarter, exclusiveTo)}</span>}
+      {showPattern && <span className="tag warn" style={{ fontSize: ".72rem" }}>{termPattern}</span>}
     </span>
   );
 }

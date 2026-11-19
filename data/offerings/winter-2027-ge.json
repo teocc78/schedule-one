@@ -1,0 +1,180 @@
+{
+ "_note": "Suggested GE classes for Winter 2027 with placeholder times, used when a student's major has too few open classes to make a full schedule. Titles, units and GE areas come from data/catalog/ge-courses.json. Replace with real sections once the UCSB API is connected.",
+ "quarter": "Winter",
+ "year": 2027,
+ "sections": [
+  {
+   "code": "WRIT 50",
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "09:30",
+    "endTime": "10:45"
+   },
+   "prerequisites": [
+    "WRIT 2"
+   ]
+  },
+  {
+   "code": "ENGL 10",
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "17:00",
+    "endTime": "18:15"
+   },
+   "prerequisites": [
+    "WRIT 2"
+   ]
+  },
+  {
+   "code": "ASTRO 1",
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "11:00",
+    "endTime": "12:15"
+   },
+   "prerequisites": []
+  },
+  {
+   "code": "EARTH 1",
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "12:30",
+    "endTime": "13:45"
+   },
+   "prerequisites": []
+  },
+  {
+   "code": "ANTH 5",
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "14:00",
+    "endTime": "15:15"
+   },
+   "prerequisites": []
+  },
+  {
+   "code": "PSY 1",
+   "schedule": {
+    "days": [
+     "M",
+     "W",
+     "F"
+    ],
+    "startTime": "10:00",
+    "endTime": "10:50"
+   },
+   "prerequisites": []
+  },
+  {
+   "code": "SOC 1",
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "15:30",
+    "endTime": "16:45"
+   },
+   "prerequisites": []
+  },
+  {
+   "code": "POL S 12",
+   "schedule": {
+    "days": [
+     "M",
+     "W"
+    ],
+    "startTime": "08:00",
+    "endTime": "09:15"
+   },
+   "prerequisites": []
+  },
+  {
+   "code": "PHIL 4",
+   "schedule": {
+    "days": [
+     "M",
+     "W"
+    ],
+    "startTime": "14:00",
+    "endTime": "15:15"
+   },
+   "prerequisites": []
+  },
+  {
+   "code": "ART 1A",
+   "schedule": {
+    "days": [
+     "M",
+     "W"
+    ],
+    "startTime": "15:30",
+    "endTime": "16:45"
+   },
+   "prerequisites": []
+  },
+  {
+   "code": "FAMST 46",
+   "schedule": {
+    "days": [
+     "M",
+     "W"
+    ],
+    "startTime": "17:00",
+    "endTime": "18:15"
+   },
+   "prerequisites": []
+  },
+  {
+   "code": "ENGL 50",
+   "schedule": {
+    "days": [
+     "M",
+     "W"
+    ],
+    "startTime": "12:30",
+    "endTime": "13:45"
+   },
+   "prerequisites": []
+  },
+  {
+   "code": "CLASS 36",
+   "schedule": {
+    "days": [
+     "T",
+     "R"
+    ],
+    "startTime": "08:00",
+    "endTime": "09:15"
+   },
+   "prerequisites": []
+  },
+  {
+   "code": "CLASS 40",
+   "schedule": {
+    "days": [
+     "M",
+     "W"
+    ],
+    "startTime": "14:00",
+    "endTime": "15:15"
+   },
+   "prerequisites": []
+  }
+ ]
+}

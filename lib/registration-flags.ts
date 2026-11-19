@@ -2,9 +2,9 @@
  * Per-course registration flags shown on a planned schedule.
  *
  * - "Mostly a Fall course": from which terms the course ran in past years.
- * - "MUST GET, or PASS TIME!": a course the student still needs that runs
- *   mainly in the term being planned, so missing it likely means waiting a
- *   year. Register for it in your earliest pass.
+ * - "MUST GET, EXCLUSIVE TO WINTER": a course the student still needs that
+ *   runs mainly in the term being planned, so missing it likely means waiting
+ *   a year. Register for it in your earliest pass.
  *
  * History comes from past-quarter class searches. Until the UCSB API key is
  * set, only the synthetic fixture is available, so most courses show no
@@ -18,6 +18,8 @@ export interface CourseFlags {
   termPattern?: string;
   mustGet?: boolean;
   reason?: string;
+  /** The only quarter it (mostly) runs in, when mustGet is set. */
+  exclusiveTo?: QuarterName;
 }
 
 /** Past quarter codes (YYYYQ) the course ran in, by normalized course code. */
@@ -54,6 +56,7 @@ export function flagsFor(
   const flags: CourseFlags = { termPattern: `Mostly a ${main} course` };
   if (main === term && stillRequired) {
     flags.mustGet = true;
+    flags.exclusiveTo = term;
     flags.reason = `You still need ${code}, and it mostly runs in ${term}. If you miss it, you may wait a year. Register for it in your first pass.`;
   }
   return flags;
