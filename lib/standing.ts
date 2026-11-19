@@ -35,7 +35,7 @@ export function hasUpperDivStanding(unitsEarned: number): boolean {
 
 export function fullTimeNotice(units: number): string | null {
   return units < FULL_TIME_MIN_UNITS
-    ? `This is ${units} units. You need at least ${FULL_TIME_MIN_UNITS} units to count as a full-time student, which can matter for financial aid, housing and visas.`
+    ? `${units} units is part time (full time is ${FULL_TIME_MIN_UNITS}+), which can affect aid, housing and visas.`
     : null;
 }
 
@@ -48,7 +48,7 @@ export function planNotices(unitsEarned: number, scheduledUnits: number, schedul
     const upper = scheduledCodes.filter(isUpperDivision);
     if (upper.length) {
       notes.push(
-        `You have ${unitsEarned} units (${classStanding(unitsEarned)} standing). Some departments save upper-division seats for juniors and seniors (90+ units), so check ${upper.join(", ")} in GOLD for a class-level restriction.`
+        `Check GOLD for class-level limits on ${upper.join(", ")}: some seats are held for juniors and seniors.`
       );
     }
   }

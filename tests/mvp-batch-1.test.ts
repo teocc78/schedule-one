@@ -25,7 +25,7 @@ describe("class standing and full time", () => {
   });
 
   it("warns under 12 units only", () => {
-    expect(fullTimeNotice(11)).toMatch(/at least 12 units/);
+    expect(fullTimeNotice(11)).toMatch(/part time \(full time is 12\+\)/);
     expect(fullTimeNotice(12)).toBeNull();
   });
 

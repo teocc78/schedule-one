@@ -87,14 +87,14 @@ export async function runPlanner(
 
   if (valid.length === 0) {
     throw new NoValidScheduleError(
-      "No combination of this quarter's eligible courses fits your unit range and time preferences. Try widening the unit range, allowing earlier classes, or freeing a day."
+      "Nothing fits your units and times. Try a wider unit range or earlier classes."
     );
   }
 
   const primary = valid[0];
   // If fewer than three distinct valid schedules exist, repeat the last one
   // with a note so the UI still has its two backup tabs.
-  const same = "Same as the main schedule: no other mix of your open major courses fits your settings. Use the swap options or add GE courses in GOLD instead.";
+  const same = "Same as the main schedule: nothing else fits. Use the swap options or add a GE.";
   const backup1 = valid[1] ?? { ...primary, changeNote: same };
   const backup2 = valid[2] ?? { ...(valid[1] ?? primary), changeNote: same };
 
@@ -126,7 +126,7 @@ export async function runPlanner(
 /** Used when the major's eligible courses can't reach the unit minimum. */
 export function gapNotice(majorUnits: number, minUnits: number): string {
   const target = Math.max(minUnits, FULL_TIME_MIN_UNITS);
-  return `Only ${majorUnits} units of your major's courses are open to you this quarter, because the rest need a prerequisite first. Add at least ${target - majorUnits} units of GE or elective courses in GOLD to reach ${target} units${target === FULL_TIME_MIN_UNITS ? " (full time)" : ""}.`;
+  return `Only ${majorUnits} major units are open this quarter. Add at least ${target - majorUnits} units of GE or elective courses to reach ${target}${target === FULL_TIME_MIN_UNITS ? " (full time)" : ""}.`;
 }
 
 interface Ctx {

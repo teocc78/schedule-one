@@ -91,17 +91,15 @@ export function ScheduleCard({ schedule, title, isPrimary = false, groupNames }:
         </div>
 
         {/* Explanation */}
-        <div className="bg-blue-50 border border-blue-100 rounded-xl p-4">
-          <div className="flex items-center gap-1.5 mb-2">
-            <h4 className="text-xs font-semibold text-blue-800 uppercase tracking-wide">Why this schedule</h4>
-          </div>
-          <p className="text-sm text-blue-900 leading-relaxed">{schedule.explanation}</p>
-        </div>
+        <details className="more">
+          <summary>Why this schedule</summary>
+          <p className="text-sm leading-relaxed">{schedule.explanation}</p>
+        </details>
 
         {/* Swap options */}
         {Object.entries(schedule.swaps).length > 0 && (
-          <div>
-            <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">If a course fills up — swap options</h4>
+          <details className="more">
+            <summary>Swap options if a course fills up ({Object.values(schedule.swaps).flat().length})</summary>
             <div className="space-y-2">
               {Object.entries(schedule.swaps).map(([courseCode, options]) =>
                 options.map((swap, i) => (
@@ -114,7 +112,7 @@ export function ScheduleCard({ schedule, title, isPrimary = false, groupNames }:
                 ))
               )}
             </div>
-          </div>
+          </details>
         )}
 
         {/* Validation */}

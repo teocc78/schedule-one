@@ -13,16 +13,17 @@ function CourseRow({ c, quarter }: { c: PlannedCourse; quarter: string }) {
       <div className="row between" style={{ gap: ".5rem", alignItems: "flex-start" }}>
         <div className="grow">
           <strong className="mono">{c.code}</strong> <span>{c.title}</span>
-          <div className="fine">
-            {WHY[c.why]} · {c.countsFor}
-          </div>
-          <PastGrades code={c.code} />
+          <div className="fine">{WHY[c.why]}</div>
           {c.mustGet && (
             <div style={{ marginTop: ".3rem" }}>
-              <span className="must-get">MUST TAKE IN {quarter.toUpperCase()}</span>{" "}
-              <span className="fine">{c.mustGetReason}</span>
+              <span className="must-get" title={c.mustGetReason}>MUST TAKE IN {quarter.toUpperCase()}</span>
             </div>
           )}
+          <details className="more">
+            <summary>Details</summary>
+            <p>Counts for {c.countsFor}.{c.mustGet && c.mustGetReason ? ` ${c.mustGetReason}` : ""}</p>
+            <PastGrades code={c.code} open />
+          </details>
         </div>
         <span className="fine" style={{ whiteSpace: "nowrap" }}>{c.units} units</span>
       </div>
@@ -51,7 +52,12 @@ function QuarterCard({ q }: { q: PlannedQuarter }) {
           </li>
         )}
       </ul>
-      {q.notes.map((n) => <p key={n} className="fine" style={{ margin: ".4rem 0 0" }}>{n}</p>)}
+      {q.notes.length > 0 && (
+        <details className="more">
+          <summary>Notes ({q.notes.length})</summary>
+          {q.notes.map((n) => <p key={n} className="fine">{n}</p>)}
+        </details>
+      )}
       {q.backups.length > 0 && (
         <details style={{ marginTop: ".5rem" }}>
           <summary style={{ cursor: "pointer", fontWeight: 600, fontSize: ".9rem" }}>Backups if a class is full ({q.backups.length})</summary>
@@ -97,7 +103,7 @@ export function FourYearPlanView({ plan }: { plan: FourYearPlan }) {
           <ul className="plain-list" style={{ margin: ".3rem 0 0" }}>
             {mustGets.slice(0, 4).map((c) => (
               <li key={c.code}>
-                <span className="mono">{c.code}</span> in {c.term}. <span className="fine">{c.mustGetReason}</span>
+                <span className="mono" title={c.mustGetReason}>{c.code}</span> in {c.term}
               </li>
             ))}
           </ul>
