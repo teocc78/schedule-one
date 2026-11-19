@@ -48,7 +48,9 @@ export function buildFallbackSchedules(
   count = 3,
   maxCourses = 5,
   /** Codes the 4-year plan puts in this quarter; they win ties. */
-  priority: string[] = []
+  priority: string[] = [],
+  /** Extra points per course code, e.g. a GE that also fills special subjects. */
+  bonus: Map<string, number> = new Map()
 ): FallbackSchedule[] {
   const preferred = new Set(priority.map(normalizeCode));
   const pool = eligible.filter((o) => respectsConstraints(o, constraints));
@@ -59,7 +61,9 @@ export function buildFallbackSchedules(
   function score(courses: CourseOffering[]): { score: number; satisfies: Map<string, string[]> } {
     const satisfies = assignSatisfies(courses, remainingGroups);
     let s = 0;
-    for (const groups of satisfies.values()) s += groups.length * 10;
+    // Major requirements outrank suggested GE areas ("ge-" groups).
+    for (const groups of satisfies.values()) s += groups.reduce((n, g) => n + (g.startsWith("ge-") ? 6 : 10), 0);
+    for (const o of courses) s += bonus.get(o.code) ?? 0;
     // Courses that count toward nothing still fill units but score lower.
     s += courses.length;
     // Courses the student marked "seems interesting" win ties between

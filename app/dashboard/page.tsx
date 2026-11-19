@@ -6,8 +6,8 @@ import type { PlanResult, TranscriptData } from "@/types";
 import { ScheduleCard } from "@/components/ScheduleCard";
 import { ValidationBadge } from "@/components/ValidationBadge";
 import { PlanNotices, CourseFlags } from "@/components/PlanNotices";
-import { PastGrades } from "@/components/PastGrades";
 import { FourYearPlanView } from "@/components/FourYearPlanView";
+import { showInstructor } from "@/lib/instructor";
 import type { FourYearPlan } from "@/lib/four-year-plan";
 import { combinedRequirements } from "@/lib/majors";
 import offeringsData from "@/data/offerings/winter-2027.json";
@@ -100,9 +100,8 @@ function TodayTab({ plan, transcript }: { plan: PlanResult | null; transcript: T
             <div style={{ flex: 1 }}>
               <strong style={{ fontSize: ".92rem" }}>{sc.offering.code}</strong>
               <span className="fine" style={{ marginLeft: ".5rem" }}>{sc.offering.title}</span>
-              <div className="fine">{startTime}–{endTime} · {sc.offering.instructor}</div>
-              <CourseFlags termPattern={sc.termPattern} mustGet={sc.mustGet} mustGetReason={sc.mustGetReason} />
-              <PastGrades code={sc.offering.code} />
+              <div className="fine">{startTime}–{endTime}{showInstructor(sc.offering.instructor) ? ` · ${sc.offering.instructor}` : ""}</div>
+              <CourseFlags termPattern={sc.termPattern} mustGet={sc.mustGet} mustGetReason={sc.mustGetReason} exclusiveTo={sc.exclusiveTo} />
             </div>
             {sc.satisfies.map(g => (
               <span key={g} className="tag unk" style={{ fontSize: ".72rem" }}>{plan.groupNames?.[g] ?? g}</span>
@@ -160,8 +159,7 @@ function DegreeTab({ transcript, requirements }: { transcript: TranscriptData | 
         {requirements.major} · {done}/{statuses.length} requirement groups met
       </p>
       <div className="note">
-        <strong>Not here yet:</strong>{" "}
-        <span className="fine">study abroad courses (UCEAP and other universities) and community-college transfer courses don&apos;t count toward this audit yet.</span>
+        <span className="fine">Study abroad and transfer courses don&apos;t count yet.</span>
       </div>
 
       <div style={{ display: "flex", gap: ".75rem", flexWrap: "wrap", marginBottom: "1.5rem" }}>
@@ -245,7 +243,7 @@ function CoursesTab() {
     <div>
       <h2 className="sec" style={{ "--acc": "#c4a04a" } as React.CSSProperties}>Courses · Winter 2027</h2>
       <p className="fine" style={{ marginBottom: ".75rem" }}>
-        Sample class times until the UCSB class search is connected. Check GOLD for the real sections.
+        Sample class times. Check GOLD for real sections.
       </p>
       <input
         type="search"
@@ -258,7 +256,7 @@ function CoursesTab() {
         <table>
           <thead>
             <tr>
-              <th>Code</th><th>Title</th><th>Units</th><th>Meets</th><th>Instructor</th>
+              <th>Code</th><th>Title</th><th>Units</th><th>Meets</th>
             </tr>
           </thead>
           <tbody>
@@ -270,7 +268,6 @@ function CoursesTab() {
                 <td style={{ whiteSpace: "nowrap" }}>
                   {c.schedule.days.join("")} {c.schedule.startTime}–{c.schedule.endTime}
                 </td>
-                <td className="fine">{c.instructor}</td>
               </tr>
             ))}
           </tbody>
@@ -346,7 +343,7 @@ function ShareTab({ transcript, plan, onPrint }: { transcript: TranscriptData | 
     <div>
       <h2 className="sec" style={{ "--acc": "#c8b88a" } as React.CSSProperties}>Save & Print</h2>
       <p className="fine" style={{ marginTop: ".5rem" }}>
-        Your schedule stays in this browser tab only. Print it or download a copy to keep it.
+        Saved in this tab only.
       </p>
       <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", marginTop: "1rem" }}>
         <button className="btn gold" onClick={onPrint} disabled={!plan}>
@@ -462,10 +459,10 @@ export default function DashboardPage() {
       <main className="app-main" id="main" tabIndex={-1}>
         {example && (
           <div className="note warn" role="status" style={{ marginTop: 0 }}>
-            <strong>EXAMPLE TRANSCRIPT.</strong>{" "}
+            <strong>EXAMPLE:</strong>{" "}
             <span className="fine">
-              You&apos;re looking at a made-up {example} student, not your own record.{" "}
-              <a href="/onboarding" style={{ color: "var(--ink)", fontWeight: 700 }}>Add your transcript</a> to plan your own quarter.
+              made-up {example} student.{" "}
+              <a href="/onboarding" style={{ color: "var(--ink)", fontWeight: 700 }}>Add your transcript</a>
             </span>
           </div>
         )}

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { runPlanner, NoValidScheduleError } from "@/lib/planner";
 import type { PlanRequest } from "@/types";
-import { combinedRequirements, ProgramNotReadyError } from "@/lib/majors";
+import { combinedRequirements, findProgram, ProgramNotReadyError } from "@/lib/majors";
 import offeringsData from "@/data/offerings/winter-2027.json";
 import standinData from "@/data/offerings/winter-2027-standin.json";
 import { buildFourYearPlan, type FourYearPlan } from "@/lib/four-year-plan";
@@ -37,6 +37,7 @@ function addFlags(s: Schedule, fourYear: FourYearPlan | null) {
     c.termPattern = f.termPattern;
     c.mustGet = f.mustGet || Boolean(p?.mustGet);
     c.mustGetReason = f.mustGet ? f.reason : p?.mustGetReason;
+    c.exclusiveTo = f.mustGet ? f.exclusiveTo : p?.mustGet ? p.exclusiveTo : undefined;
   }
 }
 
@@ -62,9 +63,10 @@ export async function POST(req: NextRequest) {
     }
     // The quarter plan prefers what the 4-year plan puts in Winter 2027.
     const priority = fourYear?.quarters[0]?.term === "Winter 2027" ? fourYear.quarters[0].courses.map((c) => c.code) : [];
-    const result = await runPlanner(body.transcript, requirements, offerings, body.constraints, priority);
+    const ba = codes.some((c) => findProgram(c)?.name.includes("B.A."));
+    const result = await runPlanner(body.transcript, requirements, offerings, body.constraints, priority, { ba });
     [result.primary, ...result.backups].forEach((s) => addFlags(s, fourYear));
-    result.groupNames = Object.fromEntries(requirements.groups.map((g) => [g.id, g.name]));
+    result.groupNames = { ...result.groupNames, ...Object.fromEntries(requirements.groups.map((g) => [g.id, g.name])) };
     return NextResponse.json(result);
   } catch (err) {
     if (err instanceof ProgramNotReadyError) {

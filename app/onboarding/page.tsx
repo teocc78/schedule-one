@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import type { StudentConstraints, DayOfWeek, QuarterOfferings } from "@/types";
 import { majors, minors, findProgram, combinedRequirements } from "@/lib/majors";
-import { interestGroups, shortDescription, type CatalogLookup } from "@/lib/interests";
+import { interestGroups, type CatalogLookup } from "@/lib/interests";
 import { FULL_TIME_MIN_UNITS } from "@/lib/standing";
 import offeringsData from "@/data/offerings/winter-2027.json";
 
@@ -125,9 +125,9 @@ export default function OnboardingPage() {
       setExample(label);
       const majorName = findProgram(sampleMajor)?.name ?? sampleMajor;
       setSampleNote(
-        `This is an EXAMPLE transcript for a made-up ${label} student, not your own.` +
-          (changed ? ` Your major is now ${majorName} to match it.` : "") +
-          " To plan your own quarter, clear it and add your transcript."
+        `EXAMPLE: made-up ${label} student.` +
+          (changed ? ` Major set to ${majorName}.` : "") +
+          " Clear it to add yours."
       );
     }
     catch { setError("Couldn't load that sample."); }
@@ -197,14 +197,12 @@ export default function OnboardingPage() {
         <h1 className="h">What you need</h1>
         <p className="fine lead">About two minutes. Nothing is saved on a server.</p>
         <ul className="plain-list">
-          <li><strong>Your major</strong> <span className="tag warn">Required</span><br /><span className="fine">Add a second major or a minor if you have one.</span></li>
-          <li><strong>Your unofficial transcript</strong> <span className="tag warn">Required</span><br /><span className="fine">Upload the PDF from GOLD, a .txt file, or paste the text.</span></li>
-          <li><strong>Preferences</strong> <span className="tag unk">Optional</span><br /><span className="fine">Units, times and days off. Skip them and Schedule One uses sensible defaults.</span></li>
-          <li><strong>Your GOLD registration info</strong> <span className="tag unk">Tip</span><br /><span className="fine">Take a screenshot of your pass times, holds and unit limit in GOLD. You&apos;ll want them when you register.</span></li>
+          <li><strong>Your major</strong> <span className="tag warn">Required</span></li>
+          <li><strong>Your unofficial transcript</strong> <span className="tag warn">Required</span></li>
+          <li><strong>Preferences</strong> <span className="tag unk">Optional</span></li>
+          <li><strong>Your GOLD pass times</strong> <span className="tag unk">Tip</span></li>
         </ul>
-        <div className="note">
-          <strong>Not here yet:</strong> <span className="fine">study abroad courses (UCEAP and other universities) and transfer courses from community colleges. For now, they won&apos;t count toward your requirements.</span>
-        </div>
+        <p className="fine">Study abroad and transfer courses don&apos;t count yet.</p>
         <button className="btn pri wide" onClick={goNext}>Start</button>
       </div>
     ),
@@ -212,7 +210,7 @@ export default function OnboardingPage() {
     major: (
       <div>
         <h1 className="h">Your major</h1>
-        <p className="fine lead">Schedule One checks your requirements against what you&apos;ve finished.</p>
+        <p className="fine lead">Add a second major or minor if you have one.</p>
         <label htmlFor="major">Major</label>
         <select id="major" value={major} onChange={(e) => setMajor(e.target.value)}>
           {majors().map((p) => (
@@ -233,7 +231,7 @@ export default function OnboardingPage() {
             <option key={p.code} value={p.code} disabled={!p.ready}>{p.name}{p.ready ? "" : " (coming soon)"}</option>
           ))}
         </select>
-        <p className="fine">Programs marked &quot;coming soon&quot; are listed but can&apos;t be planned yet.</p>
+
         {error && <div className="tag bad">{error}</div>}
         <div className="row">
           <button className="btn" onClick={goBack}>Back</button>
@@ -245,7 +243,7 @@ export default function OnboardingPage() {
     transcript: (
       <div>
         <h1 className="h">Your transcript</h1>
-        <p className="fine lead">Upload your unofficial transcript or paste it. To look around first, try an example.</p>
+        <p className="fine lead">Upload or paste your unofficial transcript, or try an example.</p>
 
         <div className="fine" style={{ fontWeight: 700, textTransform: "uppercase", letterSpacing: ".05em", margin: "0 0 .4rem" }}>
           Example transcripts <span className="tag unk" style={{ marginLeft: ".3rem" }}>made-up students</span>
@@ -293,11 +291,11 @@ export default function OnboardingPage() {
         <p className="fine lead">You can switch on the review screen.</p>
         <button className={choice(mode === "quick")} onClick={() => { setMode("quick"); go("review"); }}>
           <strong>Build it for me</strong>
-          <span className="fine">12 to 16 units, any days and times. The fastest way to a schedule.</span>
+          <span className="fine">12 to 16 units, any time.</span>
         </button>
         <button className={choice(mode === "personal")} onClick={() => { setMode("personal"); go("preferences"); }}>
           <strong>Personalize</strong>
-          <span className="fine">Set units, times and days off, and pick courses that seem interesting. You can skip any part.</span>
+          <span className="fine">Units, times, days off and courses you like.</span>
         </button>
         <div className="row">
           <button className="btn" onClick={goBack}>Back</button>
@@ -331,8 +329,8 @@ export default function OnboardingPage() {
           </div>
         </div>
         {minUnits < FULL_TIME_MIN_UNITS
-          ? <div className="note warn">Under {FULL_TIME_MIN_UNITS} units you aren&apos;t a full-time student, which can affect financial aid, housing and visas.</div>
-          : <p className="fine">{FULL_TIME_MIN_UNITS} units is the full-time minimum. 21 units is the most you can register for in a quarter.</p>}
+          ? <div className="note warn">Under {FULL_TIME_MIN_UNITS} units is part time, which can affect aid, housing and visas.</div>
+          : <p className="fine">Full time is {FULL_TIME_MIN_UNITS}+ units. Max 21.</p>}
 
         <div className="grid2">
           <div>
@@ -376,29 +374,35 @@ export default function OnboardingPage() {
     interests: (
       <div>
         <h1 className="h">What seems interesting?</h1>
-        <p className="fine lead">Tick upper-division courses you&apos;d like to take. Schedule One favors them when they fit a requirement. Skip this if you have no preference.</p>
-        <p className="fine">
-          <a href={`/courses?major=${encodeURIComponent(major)}`} target="_blank" rel="noopener noreferrer">
-            See every upper-division class for {findProgram(major)?.name ?? "your major"}
-          </a>
+        <p className="fine lead">
+          Tick courses you&apos;d like. Tap Description to read more.{" "}
+          <a href={`/courses?major=${encodeURIComponent(major)}`} target="_blank" rel="noopener noreferrer">All classes</a>
         </p>
         {groups.length === 0 && <p className="fine">No upper-division courses to show for this program yet.</p>}
         {groups.map((g) => (
           <fieldset key={g.id} className="group">
             <legend>{g.name}</legend>
             {g.description && <p className="fine">{g.description}</p>}
-            {g.courses.map((c) => (
-              <label key={c.code} className="pick">
-                <input type="checkbox" checked={interested.includes(c.code)} onChange={() => toggleInterest(c.code)} />
-                <span>
-                  <strong>{c.code}</strong>{c.title ? ` ${c.title}` : ""}
-                  <span className="fine block">
-                    {c.description ? shortDescription(c.description) : "No description yet."}
-                    {!c.offeredThisQuarter && " Not offered in Winter 2027."}
-                  </span>
-                </span>
-              </label>
-            ))}
+            {g.courses.map((c) => {
+              const id = `pick-${c.code.replace(/\W+/g, "-")}`;
+              return (
+                <div key={c.code} className="pick-row">
+                  <input id={id} type="checkbox" checked={interested.includes(c.code)} onChange={() => toggleInterest(c.code)} />
+                  <div className="grow">
+                    <label htmlFor={id} className="pick-name">
+                      <strong>{c.code}</strong>{c.title ? ` ${c.title}` : ""}
+                    </label>
+                    {!c.offeredThisQuarter && <span className="tag unk" style={{ fontSize: ".7rem", marginLeft: ".35rem" }}>Not in Winter</span>}
+                    {c.description && (
+                      <details className="more">
+                        <summary>Description</summary>
+                        <p>{c.description}</p>
+                      </details>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
           </fieldset>
         ))}
         <div className="row">
@@ -438,7 +442,7 @@ export default function OnboardingPage() {
             <div><dt>Preferences</dt><dd>Built for you: 12 to 16 units, any times</dd><button className="link" onClick={() => { setMode("personal"); go("preferences"); }}>Personalize</button></div>
           )}
         </dl>
-        <p className="fine">You&apos;ll get a main schedule, two backups and a 4-year plan in a few seconds.</p>
+        <p className="fine">You&apos;ll get a schedule, two backups and a 4-year plan.</p>
         {error && <div className="tag bad">{error}</div>}
         <div className="row">
           <button className="btn" onClick={() => go(mode === "personal" ? "interests" : "mode")}>Back</button>

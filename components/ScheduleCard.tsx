@@ -1,8 +1,8 @@
-import { PastGrades } from "@/components/PastGrades";
 import type { Schedule } from "@/types";
 import { WeeklyCalendar } from "./WeeklyCalendar";
 import { ValidationBadge } from "./ValidationBadge";
 import { CourseFlags } from "./PlanNotices";
+import { showInstructor } from "@/lib/instructor";
 
 interface Props {
   schedule: Schedule;
@@ -69,10 +69,9 @@ export function ScheduleCard({ schedule, title, isPrimary = false, groupNames }:
                       <span className="text-xs text-gray-500 truncate">{sc.offering.title}</span>
                     </div>
                     <div className="text-xs text-gray-500 mt-0.5">
-                      {sc.offering.schedule.days.join("")} · {sc.offering.schedule.startTime}–{sc.offering.schedule.endTime} · {sc.offering.instructor}
+                      {sc.offering.schedule.days.join("")} · {sc.offering.schedule.startTime}–{sc.offering.schedule.endTime}{showInstructor(sc.offering.instructor) ? ` · ${sc.offering.instructor}` : ""}
                     </div>
-                    <CourseFlags termPattern={sc.termPattern} mustGet={sc.mustGet} mustGetReason={sc.mustGetReason} />
-                    <PastGrades code={sc.offering.code} />
+                    <CourseFlags termPattern={sc.termPattern} mustGet={sc.mustGet} mustGetReason={sc.mustGetReason} exclusiveTo={sc.exclusiveTo} />
                     {sc.satisfies.length > 0 && (
                       <div className="flex gap-1 mt-1.5 flex-wrap">
                         {sc.satisfies.map((gid) => (
@@ -91,17 +90,15 @@ export function ScheduleCard({ schedule, title, isPrimary = false, groupNames }:
         </div>
 
         {/* Explanation */}
-        <div className="bg-blue-50 border border-blue-100 rounded-xl p-4">
-          <div className="flex items-center gap-1.5 mb-2">
-            <h4 className="text-xs font-semibold text-blue-800 uppercase tracking-wide">Why this schedule</h4>
-          </div>
-          <p className="text-sm text-blue-900 leading-relaxed">{schedule.explanation}</p>
-        </div>
+        <details className="more">
+          <summary>Why this schedule</summary>
+          <p className="text-sm leading-relaxed">{schedule.explanation}</p>
+        </details>
 
         {/* Swap options */}
         {Object.entries(schedule.swaps).length > 0 && (
-          <div>
-            <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">If a course fills up — swap options</h4>
+          <details className="more">
+            <summary>Swap options if a course fills up ({Object.values(schedule.swaps).flat().length})</summary>
             <div className="space-y-2">
               {Object.entries(schedule.swaps).map(([courseCode, options]) =>
                 options.map((swap, i) => (
@@ -114,7 +111,7 @@ export function ScheduleCard({ schedule, title, isPrimary = false, groupNames }:
                 ))
               )}
             </div>
-          </div>
+          </details>
         )}
 
         {/* Validation */}

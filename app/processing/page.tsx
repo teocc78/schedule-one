@@ -5,17 +5,17 @@ import { useRouter } from "next/navigation";
 import { postJson } from "@/lib/fetch-json";
 
 const STEPS = [
-  { label: "Reading your transcript",    sublabel: "Extracting completed courses and grades" },
-  { label: "Mapping requirements",       sublabel: "Checking what's left in your degree plan" },
-  { label: "Building schedules",         sublabel: "Picking course combinations that fit your requirements" },
-  { label: "Checking everything",        sublabel: "Conflicts, prerequisites, class standing and your preferences" },
+  { label: "Reading your transcript",    sublabel: "Courses and grades" },
+  { label: "Mapping requirements",       sublabel: "What's left for your major" },
+  { label: "Building schedules",         sublabel: "Main plus two backups" },
+  { label: "Checking everything",        sublabel: "Conflicts and prerequisites" },
 ];
 
 const TIPS = [
-  "Take a screenshot of your GOLD registration info (pass times, holds and unit limit). It helps when you register.",
-  "You need at least 12 units to count as a full-time student.",
-  "Unit limits by pass: 11.5 units in Pass 1, 15.5 by Pass 2, and 21.0 by Pass 3.",
-  "Courses marked \"Must get\" are mostly offered in one quarter a year. Register for them in your first pass.",
+  "Screenshot your GOLD pass times before you register.",
+  "12 units makes you full time.",
+  "Unit caps: 11.5 in Pass 1, 15.5 in Pass 2, 21 in Pass 3.",
+  "Register for \"Must get\" courses in your first pass.",
 ];
 
 export default function ProcessingPage() {

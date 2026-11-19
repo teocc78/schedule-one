@@ -1,0 +1,4573 @@
+{
+ "_note": "Lower-division courses that count toward a GE area, with their GE areas and special subjects, from the UCSB General Catalog 2026-27 (catalog.ucsb.edu). Built by scripts/build-ge-courses.py.",
+ "_catalog_year": "2026-27",
+ "courses": {
+  "ANTH 1": {
+   "title": "Introduction to Human Health",
+   "units": 5,
+   "ge": [
+    "C"
+   ]
+  },
+  "ANTH 2": {
+   "title": "Introductory Cultural Anthropology",
+   "units": 5,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "NWC"
+   ]
+  },
+  "ANTH 25": {
+   "title": "Violence and the Japanese State",
+   "units": 5,
+   "ge": [
+    "D",
+    "E"
+   ],
+   "specials": [
+    "WRT",
+    "NWC"
+   ]
+  },
+  "ANTH 3": {
+   "title": "World Archaeology",
+   "units": 5,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "NWC",
+    "WRT"
+   ]
+  },
+  "ANTH 3SS": {
+   "title": "Introduction to Archaeology",
+   "units": 5,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "NWC"
+   ]
+  },
+  "ANTH 5": {
+   "title": "Introductory Biological Anthropology",
+   "units": 5,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "QNT",
+    "WRT"
+   ]
+  },
+  "ANTH 7": {
+   "title": "Introductory Biosocial Anthropology",
+   "units": 5,
+   "ge": [
+    "D"
+   ]
+  },
+  "ANTH 8": {
+   "title": "Health Beyond Borders",
+   "units": 4,
+   "ge": [
+    "D"
+   ]
+  },
+  "ANTH 9": {
+   "title": "Methods in the Human Behavioral Sciences",
+   "units": 5,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "QNT",
+    "WRT"
+   ]
+  },
+  "ANTH W 3": {
+   "title": "World Archaeology",
+   "units": 5,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "WRT",
+    "NWC"
+   ]
+  },
+  "ARB 10C": {
+   "title": "Elementary Arabic III",
+   "units": 5,
+   "ge": [
+    "B"
+   ]
+  },
+  "ARB 10D": {
+   "title": "Intermediate Arabic IV",
+   "units": 5,
+   "ge": [
+    "B"
+   ]
+  },
+  "ARB 10E": {
+   "title": "Intermediate Arabic V",
+   "units": 5,
+   "ge": [
+    "B"
+   ]
+  },
+  "ARB 10F": {
+   "title": "Intermediate Arabic VI",
+   "units": 5,
+   "ge": [
+    "B"
+   ]
+  },
+  "ART 1A": {
+   "title": "Visual Literacy",
+   "units": 5,
+   "ge": [
+    "F"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "ART 7A": {
+   "title": "The Intersections of Art and Life",
+   "units": 5,
+   "ge": [
+    "F"
+   ]
+  },
+  "ARTHI 5A": {
+   "title": "Introduction to Architecture and Environment",
+   "units": 5,
+   "ge": [
+    "F"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "ARTHI 5B": {
+   "title": "Introduction to Museum Studies",
+   "units": 5,
+   "ge": [
+    "F"
+   ]
+  },
+  "ARTHI 6B": {
+   "title": "Art Survey II: Renaissance-Baroque Art",
+   "units": 5,
+   "ge": [
+    "E",
+    "F"
+   ],
+   "specials": [
+    "WRT",
+    "EUR"
+   ]
+  },
+  "ARTHI 6C": {
+   "title": "Art Survey III: Modern-Contemporary Art",
+   "units": 5,
+   "ge": [
+    "F",
+    "E"
+   ],
+   "specials": [
+    "EUR",
+    "WRT"
+   ]
+  },
+  "ARTHI 6DL": {
+   "title": "Survey: Landscape in China",
+   "units": 5,
+   "ge": [
+    "E",
+    "F"
+   ],
+   "specials": [
+    "NWC",
+    "WRT"
+   ]
+  },
+  "ARTHI 6DS": {
+   "title": "Survey: History of Art in China",
+   "units": 5,
+   "ge": [
+    "F"
+   ],
+   "specials": [
+    "WRT",
+    "NWC"
+   ]
+  },
+  "ARTHI 6DW": {
+   "title": "Survey: Art of Japan and Korea",
+   "units": 4,
+   "ge": [
+    "F"
+   ],
+   "specials": [
+    "NWC",
+    "WRT"
+   ]
+  },
+  "ARTHI 6E": {
+   "title": "WORLD CULTURES AND CURRENTS",
+   "units": 5,
+   "ge": [
+    "F"
+   ],
+   "specials": [
+    "NWC"
+   ]
+  },
+  "ARTHI 6F": {
+   "title": "Survey: Architecture and Planning",
+   "units": 5,
+   "ge": [
+    "F"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "ARTHI 6G": {
+   "title": "Survey: History of Photography",
+   "units": 5,
+   "ge": [
+    "F"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "ARTHI 6H": {
+   "title": "Survey: Arts of the Ancient Americas",
+   "units": 5,
+   "ge": [
+    "F"
+   ],
+   "specials": [
+    "WRT",
+    "NWC"
+   ]
+  },
+  "ARTHI 6I": {
+   "title": "The Arts of the Iberian World, 1492-1700",
+   "units": 5,
+   "ge": [
+    "F"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "ARTHI 6J": {
+   "title": "Survey: Contemporary Architecture",
+   "units": 5,
+   "ge": [
+    "F"
+   ]
+  },
+  "ARTHI 6K": {
+   "title": "Survey: Islamic Art and Architecture",
+   "units": 5,
+   "ge": [
+    "F"
+   ],
+   "specials": [
+    "NWC",
+    "WRT"
+   ]
+  },
+  "ARTHI 6L": {
+   "title": "Playful Spaces: A Cultural History of Games",
+   "units": 5,
+   "ge": [
+    "E",
+    "F"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "ARTHI 6M": {
+   "title": "Survey: Eccentric Images",
+   "units": 5,
+   "ge": [
+    "E",
+    "F"
+   ],
+   "specials": [
+    "EUR",
+    "WRT"
+   ]
+  },
+  "ARTHIW 6C": {
+   "title": "Survey III: Modern-Contemporary Art History (online)",
+   "units": 5,
+   "ge": [
+    "E",
+    "F"
+   ],
+   "specials": [
+    "WRT",
+    "EUR"
+   ]
+  },
+  "ARTHIW 6F": {
+   "title": "Introduction to Architecture and Planning",
+   "units": 5,
+   "ge": [
+    "F"
+   ],
+   "specials": [
+    "WRT",
+    "NWC"
+   ]
+  },
+  "ARTHIW 6R": {
+   "title": "Rome: The Game",
+   "units": 5,
+   "ge": [
+    "E",
+    "F"
+   ],
+   "specials": [
+    "EUR",
+    "WRT"
+   ]
+  },
+  "AS AM 1": {
+   "title": "Introduction to Asian American History, 1850-Present",
+   "units": 5,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "ETH"
+   ]
+  },
+  "AS AM 10": {
+   "title": "Martial Arts in US Culture",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "ETH"
+   ]
+  },
+  "AS AM 11": {
+   "title": "Community Studies Organizing for Change",
+   "units": 5,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "ETH"
+   ]
+  },
+  "AS AM 2": {
+   "title": "American Migration Since 1965: Asians and others in the United States",
+   "units": 5,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "ETH"
+   ]
+  },
+  "AS AM 20": {
+   "title": "Introduction to Health Justice & Community",
+   "units": 4,
+   "ge": [
+    "D",
+    "E"
+   ],
+   "specials": [
+    "ETH"
+   ]
+  },
+  "AS AM 3": {
+   "title": "Asian American Personality and Identity",
+   "units": 4,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "ETH"
+   ]
+  },
+  "AS AM 4": {
+   "title": "Introduction to Asian American Popular Culture",
+   "units": 5,
+   "ge": [
+    "F"
+   ],
+   "specials": [
+    "ETH",
+    "WRT"
+   ]
+  },
+  "AS AM 5": {
+   "title": "Introduction to Asian American Literature",
+   "units": 5,
+   "ge": [
+    "G"
+   ],
+   "specials": [
+    "ETH"
+   ]
+  },
+  "AS AM 7": {
+   "title": "Globalization, Gender and Social Inequality in Asian America",
+   "units": 4,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "ETH"
+   ]
+  },
+  "AS AM 71": {
+   "title": "Introduction to Asian American Religions",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "ETH"
+   ]
+  },
+  "AS AM 79": {
+   "title": "Introduction to Dramatic Writing",
+   "units": 5,
+   "ge": [
+    "F"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "AS AM 8": {
+   "title": "Introduction to Asian American Gender and Sexuality",
+   "units": 5,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "ETH"
+   ]
+  },
+  "AS AM 9": {
+   "title": "Race and Resistance: Asian American, Black, Chicana/o and Indigenous Freedom Struggles",
+   "units": 5,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "ETH"
+   ]
+  },
+  "AS AMW 1": {
+   "title": "Introduction to Asian American History, 1850-Present",
+   "units": 5,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "ETH"
+   ]
+  },
+  "AS AMW 10": {
+   "title": "Martial Arts in U.S. Culture",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "ETH"
+   ]
+  },
+  "ASTRO 1": {
+   "title": "Basic Astronomy",
+   "units": 5,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "QNT"
+   ]
+  },
+  "ASTRO 2": {
+   "title": "History of the Universe",
+   "units": 5,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "QNT"
+   ]
+  },
+  "ASTROW 1": {
+   "title": "Basic Astronomy",
+   "units": 5,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "QNT"
+   ]
+  },
+  "BL ST 1": {
+   "title": "Introduction to African-American Studies",
+   "units": 5,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "ETH",
+    "WRT"
+   ]
+  },
+  "BL ST 11": {
+   "title": "Community Studies Organizing for Change",
+   "units": 5,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "ETH"
+   ]
+  },
+  "BL ST 14": {
+   "title": "The History of Jazz",
+   "units": 5,
+   "ge": [
+    "F"
+   ],
+   "specials": [
+    "ETH",
+    "WRT"
+   ]
+  },
+  "BL ST 15": {
+   "title": "African American Psychology",
+   "units": 5,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "ETH"
+   ]
+  },
+  "BL ST 1H": {
+   "title": "Introduction to African-American Studies- Honors Seminar",
+   "units": 1,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "ETH",
+    "WRT"
+   ]
+  },
+  "BL ST 2": {
+   "title": "Global Blackness: Race, Repair and Reparation",
+   "units": 5,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "NWC"
+   ]
+  },
+  "BL ST 3": {
+   "title": "Introduction to African Studies",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "NWC"
+   ]
+  },
+  "BL ST 33": {
+   "title": "Major Works of African Literatures",
+   "units": 5,
+   "ge": [
+    "G"
+   ],
+   "specials": [
+    "NWC",
+    "WRT"
+   ]
+  },
+  "BL ST 38A": {
+   "title": "Introduction to African-American Literature (Part 1)",
+   "units": 5,
+   "ge": [
+    "G"
+   ],
+   "specials": [
+    "WRT",
+    "ETH"
+   ]
+  },
+  "BL ST 38B": {
+   "title": "Introduction to African-American Literature (Part II)",
+   "units": 4,
+   "ge": [
+    "G"
+   ],
+   "specials": [
+    "ETH",
+    "WRT"
+   ]
+  },
+  "BL ST 4": {
+   "title": "Critical Race Theory",
+   "units": 5,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "ETH"
+   ]
+  },
+  "BL ST 45": {
+   "title": "Black Arts Expressions",
+   "units": 5,
+   "ge": [
+    "F"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "BL ST 49A": {
+   "title": "Survey of African History",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "NWC",
+    "WRT"
+   ]
+  },
+  "BL ST 49B": {
+   "title": "Survey of African History",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "NWC",
+    "WRT"
+   ]
+  },
+  "BL ST 49C": {
+   "title": "Survey of African History",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "WRT",
+    "NWC"
+   ]
+  },
+  "BL ST 5": {
+   "title": "Blacks and Western Civilization",
+   "units": 4,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "NWC",
+    "WRT"
+   ]
+  },
+  "BL ST 50": {
+   "title": "Mass Media, Blackness and the Politics of Representation",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "WRT",
+    "ETH"
+   ]
+  },
+  "BL ST 6": {
+   "title": "The Civil Rights Movement",
+   "units": 5,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "WRT",
+    "ETH"
+   ]
+  },
+  "BL ST 68": {
+   "title": "Roots & Routes: History, Politics, Reinventions",
+   "units": 4,
+   "ge": [
+    "D"
+   ]
+  },
+  "BL ST 6H": {
+   "title": "The Civil Rights Movement- Honors",
+   "units": 1,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "ETH",
+    "WRT"
+   ]
+  },
+  "BL ST 7": {
+   "title": "Introduction to Caribbean Studies",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "NWC",
+    "WRT"
+   ]
+  },
+  "C LIT 27": {
+   "title": "Memory: Bridging the Humanities and Neurosciences",
+   "units": 4,
+   "ge": [
+    "C",
+    "E"
+   ]
+  },
+  "C LIT 28": {
+   "title": "Storytelling and the Anthropocene",
+   "units": 4,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "C LIT 29": {
+   "title": "Music, Literature and Black Lives: The African American Musicoliterary",
+   "units": 4,
+   "ge": [
+    "G"
+   ],
+   "specials": [
+    "ETH",
+    "WRT"
+   ]
+  },
+  "C LIT 30A": {
+   "title": "Major Works in European Literature",
+   "units": 5,
+   "ge": [
+    "G",
+    "E"
+   ],
+   "specials": [
+    "EUR",
+    "WRT"
+   ]
+  },
+  "C LIT 30B": {
+   "title": "Major Works in European Literature",
+   "units": 5,
+   "ge": [
+    "E",
+    "G"
+   ],
+   "specials": [
+    "WRT",
+    "EUR"
+   ]
+  },
+  "C LIT 30C": {
+   "title": "Major Works in European Literature",
+   "units": 5,
+   "ge": [
+    "G",
+    "E"
+   ],
+   "specials": [
+    "EUR",
+    "WRT"
+   ]
+  },
+  "C LIT 31": {
+   "title": "Major Works of Asian Literatures",
+   "units": 5,
+   "ge": [
+    "G"
+   ],
+   "specials": [
+    "NWC",
+    "WRT"
+   ]
+  },
+  "C LIT 32": {
+   "title": "Major Works of Middle Eastern Literatures",
+   "units": 5,
+   "ge": [
+    "G"
+   ],
+   "specials": [
+    "WRT",
+    "NWC"
+   ]
+  },
+  "C LIT 33": {
+   "title": "Major Works of African Literatures",
+   "units": 5,
+   "ge": [
+    "G"
+   ],
+   "specials": [
+    "NWC",
+    "WRT"
+   ]
+  },
+  "C LIT 34": {
+   "title": "Literature of the Americas",
+   "units": 5,
+   "ge": [
+    "G"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "C LIT 35": {
+   "title": "The Making of the Modern World",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "C LIT 37": {
+   "title": "Comparative Media",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "WRT",
+    "EUR"
+   ]
+  },
+  "C LIT 40": {
+   "title": "Young Humans: Introduction to Childhood Studies",
+   "units": 4,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "C LIT 43A": {
+   "title": "Dreaming Revolutions: Introduction to Marx, Nietzsche, and Freud",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "C LIT 50": {
+   "title": "Love in the Western World, from Plato to Dating Apps",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "EUR",
+    "WRT"
+   ]
+  },
+  "C LIT 50A": {
+   "title": "Tales of Love in the Western Tradition",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "WRT",
+    "EUR"
+   ]
+  },
+  "C LIT 50B": {
+   "title": "Tales of Love in the Western Tradition",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "EUR",
+    "WRT"
+   ]
+  },
+  "C LIT 50C": {
+   "title": "Tales of Love in the Western Tradition",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "EUR",
+    "WRT"
+   ]
+  },
+  "C LIT 52": {
+   "title": "Culture and Revolution in the Americas",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "NWC"
+   ]
+  },
+  "C LIT 60": {
+   "title": "Introduction to Disability Studies",
+   "units": 4,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "C LIT 82": {
+   "title": "Modern Chinese Literature",
+   "units": 5,
+   "ge": [
+    "E",
+    "G"
+   ],
+   "specials": [
+    "NWC",
+    "WRT"
+   ]
+  },
+  "C LITW 40": {
+   "title": "Young Humans: Introduction to Childhood Studies",
+   "units": 4,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "CH ST 13": {
+   "title": "Critical Introduction to Ancient Mesoamerica",
+   "units": 4,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "NWC"
+   ]
+  },
+  "CH ST 1A": {
+   "title": "Introduction to Chicano/a Studies",
+   "units": 5,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "WRT",
+    "ETH"
+   ]
+  },
+  "CH ST 1B": {
+   "title": "Introduction to Chicano/a Studies",
+   "units": 5,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "WRT",
+    "ETH"
+   ]
+  },
+  "CH ST 1C": {
+   "title": "Introduction to Chicano/a Studies",
+   "units": 5,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "ETH",
+    "WRT"
+   ]
+  },
+  "CH STW 1B": {
+   "title": "Introduction to Chicano/a Studies",
+   "units": 5,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "ETH",
+    "WRT"
+   ]
+  },
+  "CH STW 1C": {
+   "title": "Introduction to Chicano/a Studies",
+   "units": 5,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "ETH",
+    "WRT"
+   ]
+  },
+  "CHEM 1A": {
+   "title": "General Chemistry",
+   "units": 4,
+   "ge": [
+    "C"
+   ]
+  },
+  "CHEM 25": {
+   "title": "Introductory Chemistry",
+   "units": 5,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "QNT"
+   ]
+  },
+  "CHEM 2A": {
+   "title": "General Chemistry (Honors)",
+   "units": 3,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "QNT"
+   ]
+  },
+  "CHEM 3A": {
+   "title": "General Chemistry (Majors)",
+   "units": 4,
+   "ge": [
+    "C"
+   ]
+  },
+  "CHEM 49": {
+   "title": "Critical Thinking For All",
+   "units": 5,
+   "ge": [
+    "C"
+   ]
+  },
+  "CHIN 3": {
+   "title": "Elementary Modern Chinese",
+   "units": 5,
+   "ge": [
+    "B"
+   ]
+  },
+  "CHIN 32": {
+   "title": "Contemporary Chinese Religions",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "NWC"
+   ]
+  },
+  "CHIN 3NH": {
+   "title": "First Year Chinese Heritage",
+   "units": 4,
+   "ge": [
+    "B"
+   ]
+  },
+  "CHIN 4": {
+   "title": "Intermediate Modern Chinese",
+   "units": 5,
+   "ge": [
+    "B"
+   ]
+  },
+  "CHIN 40": {
+   "title": "Popular Culture in Modern Chinese Societies",
+   "units": 5,
+   "ge": [
+    "F"
+   ],
+   "specials": [
+    "NWC",
+    "WRT"
+   ]
+  },
+  "CHIN 48": {
+   "title": "Nature and Ethics in Chinese Philosophy",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "NWC",
+    "WRT"
+   ]
+  },
+  "CHIN 4NH": {
+   "title": "Second Year Chinese Heritage",
+   "units": 4,
+   "ge": [
+    "B"
+   ]
+  },
+  "CHIN 5": {
+   "title": "Intermediate Modern Chinese",
+   "units": 5,
+   "ge": [
+    "B"
+   ]
+  },
+  "CHIN 5NH": {
+   "title": "Second Year Chinese Heritage",
+   "units": 4,
+   "ge": [
+    "B"
+   ]
+  },
+  "CHIN 6": {
+   "title": "Intermediate Modern Chinese",
+   "units": 5,
+   "ge": [
+    "B"
+   ]
+  },
+  "CHIN 80": {
+   "title": "Masterpieces in Chinese Literature",
+   "units": 5,
+   "ge": [
+    "G"
+   ]
+  },
+  "CHIN 82": {
+   "title": "Modern Chinese Literature",
+   "units": 5,
+   "ge": [
+    "E",
+    "G"
+   ],
+   "specials": [
+    "NWC",
+    "WRT"
+   ]
+  },
+  "CLASS 20A": {
+   "title": "The Ancient Greeks",
+   "units": 4,
+   "ge": [
+    "G"
+   ],
+   "specials": [
+    "EUR"
+   ]
+  },
+  "CLASS 20B": {
+   "title": "The Romans",
+   "units": 4,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "EUR"
+   ]
+  },
+  "CLASS 36": {
+   "title": "The World of Heroes",
+   "units": 4,
+   "ge": [
+    "G"
+   ],
+   "specials": [
+    "EUR"
+   ]
+  },
+  "CLASS 39": {
+   "title": "Gender and Sexuality in Greece and Rome",
+   "units": 5,
+   "ge": [
+    "G"
+   ],
+   "specials": [
+    "EUR",
+    "WRT"
+   ]
+  },
+  "CLASS 40": {
+   "title": "Greek Mythology",
+   "units": 5,
+   "ge": [
+    "G"
+   ],
+   "specials": [
+    "EUR"
+   ]
+  },
+  "CLASS 50": {
+   "title": "Introduction to Classical Archaeology",
+   "units": 4,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "EUR"
+   ]
+  },
+  "CLASS 55": {
+   "title": "Troy",
+   "units": 4,
+   "ge": [
+    "G"
+   ],
+   "specials": [
+    "EUR",
+    "WRT"
+   ]
+  },
+  "CLASSW 36": {
+   "title": "World of Heroes",
+   "units": 4,
+   "ge": [
+    "G"
+   ],
+   "specials": [
+    "EUR"
+   ]
+  },
+  "CMPSC 4": {
+   "title": "Computer Science Boot Camp",
+   "units": 4,
+   "ge": [
+    "C"
+   ]
+  },
+  "CMPSC 5A": {
+   "title": "Introduction to Data Science 1",
+   "units": 4,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "QNT"
+   ]
+  },
+  "CMPSC 5B": {
+   "title": "Introduction to Data Science 2",
+   "units": 4,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "QNT"
+   ]
+  },
+  "CMPSC 8": {
+   "title": "Introduction to Computer Science",
+   "units": 4,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "QNT"
+   ]
+  },
+  "CMPSCW 8": {
+   "title": "Introduction to Computer Science",
+   "units": 4,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "QNT"
+   ]
+  },
+  "COMM 1": {
+   "title": "Introduction to Communication",
+   "units": 5,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "COMM 87": {
+   "title": "Statistical Analysis for Communication",
+   "units": 5,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "QNT"
+   ]
+  },
+  "DANCE 35": {
+   "title": "History and Appreciation of World Dance",
+   "units": 4,
+   "ge": [
+    "F"
+   ],
+   "specials": [
+    "NWC"
+   ]
+  },
+  "DANCE 36": {
+   "title": "History of Modern Dance and Contemporary Performance",
+   "units": 5,
+   "ge": [
+    "F"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "DANCE 45": {
+   "title": "History and Appreciation of Dance",
+   "units": 4,
+   "ge": [
+    "F"
+   ]
+  },
+  "DANCEW 36": {
+   "title": "History of Modern Dance and Contemporary Performance",
+   "units": 5,
+   "ge": [
+    "F"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "EACS 21": {
+   "title": "Zen Buddhism",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "NWC",
+    "WRT"
+   ]
+  },
+  "EACS 3": {
+   "title": "Introduction to Asian Religious Traditions",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "NWC",
+    "WRT"
+   ]
+  },
+  "EACS 40": {
+   "title": "Gender and Sexuality in Modern Asia",
+   "units": 5,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "NWC"
+   ]
+  },
+  "EACS 41": {
+   "title": "Young Humans: Introduction to Childhood Studies",
+   "units": 4,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "EACS 4A": {
+   "title": "East Asian Traditions: Pre-modern",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "NWC",
+    "WRT"
+   ]
+  },
+  "EACS 4B": {
+   "title": "East Asian Traditions: Modern",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "NWC",
+    "WRT"
+   ]
+  },
+  "EACS 5": {
+   "title": "Introduction to Buddhism",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "NWC",
+    "WRT"
+   ]
+  },
+  "EACS 56": {
+   "title": "Sex, Science, and Society: A Global History",
+   "units": 5,
+   "ge": [
+    "E",
+    "D"
+   ],
+   "specials": [
+    "NWC"
+   ]
+  },
+  "EACS 7": {
+   "title": "Asian Values",
+   "units": 4,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "NWC"
+   ]
+  },
+  "EACS 80": {
+   "title": "Chinese Civilization",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "WRT",
+    "NWC"
+   ]
+  },
+  "EARTH 1": {
+   "title": "Geology and Environment",
+   "units": 4,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "QNT"
+   ]
+  },
+  "EARTH 10": {
+   "title": "Antarctica: The Last Place on Earth",
+   "units": 5,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "QNT"
+   ]
+  },
+  "EARTH 11": {
+   "title": "Volcanoes and Humans",
+   "units": 5,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "QNT"
+   ]
+  },
+  "EARTH 2": {
+   "title": "Principles of Physical Geology",
+   "units": 5,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "QNT"
+   ]
+  },
+  "EARTH 20": {
+   "title": "Geological Catastrophes",
+   "units": 5,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "QNT"
+   ]
+  },
+  "EARTH 30": {
+   "title": "The History of Life",
+   "units": 5,
+   "ge": [
+    "C"
+   ]
+  },
+  "EARTH 4": {
+   "title": "Introduction to Oceanography",
+   "units": 5,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "QNT"
+   ]
+  },
+  "EARTH 6": {
+   "title": "Mountains, Boots, and Backpacks: Field Study of the High Sierra",
+   "units": 4,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "EARTH 7": {
+   "title": "Dinosaurs",
+   "units": 5,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "QNT"
+   ]
+  },
+  "EARTH 8": {
+   "title": "Africa: Climate and Human Evolution",
+   "units": 4,
+   "ge": [
+    "C"
+   ]
+  },
+  "EARTH 9": {
+   "title": "Giant Earthquakes",
+   "units": 5,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "QNT"
+   ]
+  },
+  "EARTHW 20": {
+   "title": "Geological Catastrophes (Online)",
+   "units": 5,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "QNT"
+   ]
+  },
+  "ECON 1": {
+   "title": "Principles of Economics-Micro",
+   "units": 5,
+   "ge": [
+    "D"
+   ]
+  },
+  "ECON 2": {
+   "title": "Principles of Economics-Macro",
+   "units": 5,
+   "ge": [
+    "D"
+   ]
+  },
+  "ECON 9": {
+   "title": "Introduction to Economics",
+   "units": 5,
+   "ge": [
+    "D"
+   ]
+  },
+  "EEMB 21": {
+   "title": "General Botany",
+   "units": 4,
+   "ge": [
+    "C"
+   ]
+  },
+  "EEMB 22": {
+   "title": "Concepts and Controversies in the Biological Sciences",
+   "units": 4,
+   "ge": [
+    "C"
+   ]
+  },
+  "EEMB 23": {
+   "title": "Human Development and Reproductive Physiology",
+   "units": 4,
+   "ge": [
+    "C"
+   ]
+  },
+  "EEMB 3": {
+   "title": "Introductory Biology III",
+   "units": 3,
+   "ge": [
+    "C"
+   ]
+  },
+  "EEMB 40": {
+   "title": "Ecology of Infectious Disease",
+   "units": 4,
+   "ge": [
+    "C"
+   ]
+  },
+  "EEMB 50": {
+   "title": "Biology of Non-Infectious Disease",
+   "units": 4,
+   "ge": [
+    "C"
+   ]
+  },
+  "EEMB W 22": {
+   "title": "Concepts and Controversies in the Biological Sciences",
+   "units": 4,
+   "ge": [
+    "C"
+   ]
+  },
+  "ENGL 10": {
+   "title": "Introduction to Literary Study",
+   "units": 5,
+   "ge": [
+    "A2"
+   ]
+  },
+  "ENGL 10AC": {
+   "title": "Introduction to Literary Study - Exploring American Cultures",
+   "units": 4,
+   "ge": [
+    "A2"
+   ]
+  },
+  "ENGL 10EM": {
+   "title": "Introduction to Literary Study - Exploring Early Modern Studies",
+   "units": 4,
+   "ge": [
+    "A2"
+   ]
+  },
+  "ENGL 10LC": {
+   "title": "Introduction to Literary Study - Exploring Literature and the Culture of Information",
+   "units": 4,
+   "ge": [
+    "A2"
+   ]
+  },
+  "ENGL 15": {
+   "title": "Introduction to Shakespeare as Popular Culture",
+   "units": 5,
+   "ge": [
+    "G"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "ENGL 15SH": {
+   "title": "Shakespeare as Popular Culture",
+   "units": 4,
+   "ge": [
+    "G",
+    "F"
+   ]
+  },
+  "ENGL 22": {
+   "title": "Introduction to Literature and the Environment",
+   "units": 4,
+   "ge": [
+    "G",
+    "E"
+   ],
+   "specials": [
+    "EUR"
+   ]
+  },
+  "ENGL 23": {
+   "title": "The Climate Crisis: What It Is And What Each of Us Can Do About It",
+   "units": 4,
+   "ge": [
+    "E",
+    "G"
+   ]
+  },
+  "ENGL 24": {
+   "title": "The Climate Crisis: Local and Global Perspectives",
+   "units": 4,
+   "ge": [
+    "E",
+    "G"
+   ],
+   "specials": [
+    "NWC"
+   ]
+  },
+  "ENGL 25": {
+   "title": "Literature and the Information, Media, and Communication Revolutions",
+   "units": 5,
+   "ge": [
+    "G"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "ENGL 30B": {
+   "title": "Major Works in European Literature",
+   "units": 5,
+   "ge": [
+    "E",
+    "G"
+   ],
+   "specials": [
+    "WRT",
+    "EUR"
+   ]
+  },
+  "ENGL 34NA": {
+   "title": "Animacy and the Speaking Earth: The Power of Native Story",
+   "units": 4,
+   "ge": [
+    "E",
+    "G"
+   ]
+  },
+  "ENGL 37": {
+   "title": "Law in Everyday Life",
+   "units": 5,
+   "ge": [
+    "E"
+   ]
+  },
+  "ENGL 38A": {
+   "title": "Introduction to African-American Literature (Part 1)",
+   "units": 5,
+   "ge": [
+    "G"
+   ],
+   "specials": [
+    "WRT",
+    "ETH"
+   ]
+  },
+  "ENGL 38B": {
+   "title": "Introduction to African-American Literature (Part II)",
+   "units": 4,
+   "ge": [
+    "G"
+   ],
+   "specials": [
+    "ETH",
+    "WRT"
+   ]
+  },
+  "ENGL 39": {
+   "title": "Pan-Latinx Literatures of Transformation",
+   "units": 5,
+   "ge": [
+    "E",
+    "G"
+   ],
+   "specials": [
+    "ETH"
+   ]
+  },
+  "ENGL 40BA": {
+   "title": "Studies in Race and Ethnic Literatures- Black Literature in the early periods",
+   "units": 5,
+   "ge": [
+    "E",
+    "G"
+   ]
+  },
+  "ENGL 40BB": {
+   "title": "African American Literature 1930s-Present",
+   "units": 5,
+   "ge": [
+    "E"
+   ]
+  },
+  "ENGL 50": {
+   "title": "Introduction to Comparative Ethnic Literatures",
+   "units": 5,
+   "ge": [
+    "G"
+   ],
+   "specials": [
+    "ETH",
+    "WRT"
+   ]
+  },
+  "ENGL 65AA": {
+   "title": "Topics in Literature",
+   "units": 5,
+   "ge": [
+    "G"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "ENGL 65AL": {
+   "title": "Survey of AfroLatinx Literature and Art",
+   "units": 4,
+   "ge": [
+    "G"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "ENGL 87LL": {
+   "title": "Literature and Life",
+   "units": 5,
+   "ge": [
+    "G"
+   ]
+  },
+  "ENGL 92FE": {
+   "title": "Fantasy and the Environment",
+   "units": 5,
+   "ge": [
+    "G"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "ENGL 92RA": {
+   "title": "Reading the Apocalypse",
+   "units": 5,
+   "ge": [
+    "E",
+    "G"
+   ],
+   "specials": [
+    "ETH"
+   ]
+  },
+  "ENGL 92SS": {
+   "title": "Science Fiction Short Stories",
+   "units": 5,
+   "ge": [
+    "E",
+    "G"
+   ]
+  },
+  "ENGL 92TC": {
+   "title": "Ted Chiang: Stories",
+   "units": 5,
+   "ge": [
+    "G"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "ENV S 1": {
+   "title": "Introduction to Environmental Studies",
+   "units": 5,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "ENV S 2": {
+   "title": "Introduction to Environmental Science",
+   "units": 5,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "ENV S 3": {
+   "title": "Introduction to the Social and Cultural Environment",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "FAMST 46": {
+   "title": "Introduction to Cinema",
+   "units": 5,
+   "ge": [
+    "F"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "FAMST 55": {
+   "title": "Media Arts: The High and the Low",
+   "units": 4,
+   "ge": [
+    "F"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "FAMST 55AI": {
+   "title": "Media Industries and AI",
+   "units": 4,
+   "ge": [
+    "F"
+   ]
+  },
+  "FAMST 55BE": {
+   "title": "Media Arts: The High and the Low: The Beatles",
+   "units": 4,
+   "ge": [
+    "F"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "FAMST 55CY": {
+   "title": "Media Arts: The High and the Low: From Robots to Cyborgs",
+   "units": 4,
+   "ge": [
+    "F"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "FAMST 55LH": {
+   "title": "Latin American Cinema of Horrors, Monsters, and Zombies",
+   "units": 4,
+   "ge": [
+    "F"
+   ]
+  },
+  "FAMST 55QM": {
+   "title": "Media Arts: The High and the Low: Queen",
+   "units": 4,
+   "ge": [
+    "F"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "FAMST 55SF": {
+   "title": "Shakespeare + Film",
+   "units": 4,
+   "ge": [
+    "F",
+    "G"
+   ],
+   "specials": [
+    "EUR"
+   ]
+  },
+  "FAMST 56": {
+   "title": "Media Cultures and Thought",
+   "units": 4,
+   "ge": [
+    "F"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "FAMST 56AI": {
+   "title": "Media Culture and Thought: Critical AI",
+   "units": 4,
+   "ge": [
+    "F"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "FAMST 56FR": {
+   "title": "Film and Revolution",
+   "units": 4,
+   "ge": [
+    "F"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "FAMST 56MR": {
+   "title": "Media Cultures and Thought: Media Risk",
+   "units": 4,
+   "ge": [
+    "F"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "FAMST 56ZM": {
+   "title": "Media Cultures and Thought: GenZ Media",
+   "units": 4,
+   "ge": [
+    "F"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "FAMST 70": {
+   "title": "Media Criticism",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "FEMST 20": {
+   "title": "Gender and Power: Introduction to Feminist Studies",
+   "units": 5,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "FEMST 20H": {
+   "title": "Women, Society, and Culture Honors",
+   "units": 5,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "FEMST 30": {
+   "title": "Women, Development and Globalization",
+   "units": 5,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "WRT",
+    "NWC"
+   ]
+  },
+  "FEMST 30H": {
+   "title": "Women, Development, and Globalization Honors",
+   "units": 5,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "NWC",
+    "WRT"
+   ]
+  },
+  "FEMST 40": {
+   "title": "Women, Representation, and Cultural Production",
+   "units": 5,
+   "ge": [
+    "G"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "FEMST 40H": {
+   "title": "Women, Representation, and Cultural Production Honors",
+   "units": 5,
+   "ge": [
+    "G"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "FEMST 50": {
+   "title": "Global Feminisms and Social Justice",
+   "units": 5,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "FEMST 50H": {
+   "title": "Global Feminisms and Social Justice Honors",
+   "units": 5,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "FEMST 60": {
+   "title": "Women of Color: Race, Class, and Ethnicity",
+   "units": 5,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "ETH",
+    "WRT"
+   ]
+  },
+  "FEMST 60H": {
+   "title": "Women of Color: Race, Class, and Ethnicity Honors",
+   "units": 5,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "WRT",
+    "ETH"
+   ]
+  },
+  "FEMSTW 20": {
+   "title": "Gender and Power: Introduction to Feminist Studies",
+   "units": 5,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "FR 20X": {
+   "title": "Introduction to French Culture",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "EUR",
+    "WRT"
+   ]
+  },
+  "FR 3": {
+   "title": "Elementary French",
+   "units": 5,
+   "ge": [
+    "B"
+   ]
+  },
+  "FR 34": {
+   "title": "Literature of the Americas",
+   "units": 5,
+   "ge": [
+    "G"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "FR 4": {
+   "title": "Intermediate French",
+   "units": 5,
+   "ge": [
+    "B"
+   ]
+  },
+  "FR 40X": {
+   "title": "Memory: Bridging the Humanities and Neurosciences",
+   "units": 4,
+   "ge": [
+    "C",
+    "E"
+   ]
+  },
+  "FR 5": {
+   "title": "Intermediate French",
+   "units": 5,
+   "ge": [
+    "B"
+   ]
+  },
+  "FR 50AX": {
+   "title": "Tales of Love in the Western Tradition",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "WRT",
+    "EUR"
+   ]
+  },
+  "FR 50BX": {
+   "title": "Tales of Love in the Western Tradition",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "EUR",
+    "WRT"
+   ]
+  },
+  "FR 50CX": {
+   "title": "Tales of Love in the Western Tradition",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "EUR",
+    "WRT"
+   ]
+  },
+  "FR 6": {
+   "title": "Intermediate French",
+   "units": 5,
+   "ge": [
+    "B"
+   ]
+  },
+  "FR 6GS": {
+   "title": "Intermediate French for Global Studies and Political Science",
+   "units": 5,
+   "ge": [
+    "B"
+   ]
+  },
+  "GEOG 12": {
+   "title": "Maps and Spatial Reasoning",
+   "units": 5,
+   "ge": [
+    "C"
+   ]
+  },
+  "GEOG 2": {
+   "title": "World Regions",
+   "units": 5,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "NWC"
+   ]
+  },
+  "GEOG 20": {
+   "title": "Geography of Surfing",
+   "units": 5,
+   "ge": [
+    "D"
+   ]
+  },
+  "GEOG 3": {
+   "title": "Oceans and Atmosphere",
+   "units": 5,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "QNT"
+   ]
+  },
+  "GEOG 4": {
+   "title": "Land, Water and Life",
+   "units": 5,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "QNT"
+   ]
+  },
+  "GEOG 5": {
+   "title": "People, Place, and Environment",
+   "units": 5,
+   "ge": [
+    "D"
+   ]
+  },
+  "GEOG 6": {
+   "title": "Sex, Drugs, & Geography",
+   "units": 5,
+   "ge": [
+    "D"
+   ]
+  },
+  "GEOG 8": {
+   "title": "Introduction to Global Warming",
+   "units": 5,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "WRT",
+    "QNT"
+   ]
+  },
+  "GEOG W 12": {
+   "title": "Maps and Spatial Reasoning",
+   "units": 5,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "QNT"
+   ]
+  },
+  "GEOG W 8": {
+   "title": "Introduction to Global Warming",
+   "units": 5,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "WRT",
+    "QNT"
+   ]
+  },
+  "GER 3": {
+   "title": "Elementary German",
+   "units": 5,
+   "ge": [
+    "B"
+   ]
+  },
+  "GER 35": {
+   "title": "The Making of the Modern World",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "GER 37": {
+   "title": "Comparative Media",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "WRT",
+    "EUR"
+   ]
+  },
+  "GER 4": {
+   "title": "Intermediate German",
+   "units": 5,
+   "ge": [
+    "B"
+   ]
+  },
+  "GER 43A": {
+   "title": "Dreaming Revolutions: Introduction to Marx, Nietzsche, and Freud",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "GER 43C": {
+   "title": "Germany Today",
+   "units": 4,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "GER 5": {
+   "title": "Intermediate German",
+   "units": 5,
+   "ge": [
+    "B"
+   ]
+  },
+  "GER 55A": {
+   "title": "Contemporary German Pop Culture",
+   "units": 4,
+   "ge": [
+    "F"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "GER 6": {
+   "title": "Intermediate German",
+   "units": 5,
+   "ge": [
+    "B"
+   ]
+  },
+  "GER 95B": {
+   "title": "Intermediate Yiddish",
+   "units": 4,
+   "ge": [
+    "B"
+   ]
+  },
+  "GER 95C": {
+   "title": "Advanced Yiddish",
+   "units": 4,
+   "ge": [
+    "B"
+   ]
+  },
+  "GLOBL 1": {
+   "title": "Global History, Culture and Ideology",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "NWC"
+   ]
+  },
+  "GLOBL 12": {
+   "title": "How to Think Like a Quantitative Social Scientist",
+   "units": 4,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "QNT"
+   ]
+  },
+  "GLOBL 2": {
+   "title": "Global Socioeconomic and Political Processes",
+   "units": 5,
+   "ge": [
+    "D"
+   ]
+  },
+  "GLOBL 60C": {
+   "title": "Elementary Punjabi III",
+   "units": 4,
+   "ge": [
+    "B"
+   ]
+  },
+  "GLOBL 60D": {
+   "title": "Intermediate Punjabi IV",
+   "units": 4,
+   "ge": [
+    "B"
+   ]
+  },
+  "GLOBL 60E": {
+   "title": "Intermediate Punjabi V",
+   "units": 4,
+   "ge": [
+    "B"
+   ]
+  },
+  "GLOBL 60F": {
+   "title": "Intermediate Punjabi VI",
+   "units": 4,
+   "ge": [
+    "B"
+   ]
+  },
+  "GLOBLW 13": {
+   "title": "Global Climate Justice from the South",
+   "units": 5,
+   "ge": [
+    "D"
+   ]
+  },
+  "GREEK 3": {
+   "title": "Intermediate Greek",
+   "units": 5,
+   "ge": [
+    "B"
+   ]
+  },
+  "HEB 3": {
+   "title": "Elementary Hebrew",
+   "units": 5,
+   "ge": [
+    "B"
+   ]
+  },
+  "HEB 4": {
+   "title": "Intermediate Modern Hebrew",
+   "units": 5,
+   "ge": [
+    "B"
+   ]
+  },
+  "HEB 5": {
+   "title": "Intermediate Modern Hebrew",
+   "units": 5,
+   "ge": [
+    "B"
+   ]
+  },
+  "HEB 6": {
+   "title": "Intermediate Modern Hebrew",
+   "units": 5,
+   "ge": [
+    "B"
+   ]
+  },
+  "HIST 11A": {
+   "title": "History of America's Racial and Ethnic Minorities",
+   "units": 4,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "ETH",
+    "WRT"
+   ]
+  },
+  "HIST 17A": {
+   "title": "The American People",
+   "units": 5,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "HIST 17B": {
+   "title": "The American People",
+   "units": 5,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "HIST 17C": {
+   "title": "The American People",
+   "units": 5,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "HIST 20": {
+   "title": "Science and the Modern World",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "HIST 22": {
+   "title": "Technology and the Modern World",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "HIST 25": {
+   "title": "Violence and the Japanese State",
+   "units": 5,
+   "ge": [
+    "D",
+    "E"
+   ],
+   "specials": [
+    "WRT",
+    "NWC"
+   ]
+  },
+  "HIST 26": {
+   "title": "Sex, Science, and Society: A Global History",
+   "units": 5,
+   "ge": [
+    "E",
+    "D"
+   ],
+   "specials": [
+    "NWC"
+   ]
+  },
+  "HIST 28": {
+   "title": "Gandhi: Nonviolence, Resistance, Truth",
+   "units": 5,
+   "ge": [
+    "E"
+   ]
+  },
+  "HIST 2A": {
+   "title": "World History",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "WRT",
+    "EUR"
+   ]
+  },
+  "HIST 2B": {
+   "title": "World History",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "WRT",
+    "EUR"
+   ]
+  },
+  "HIST 2C": {
+   "title": "World History",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "WRT",
+    "EUR"
+   ]
+  },
+  "HIST 2CH": {
+   "title": "World History - Honors",
+   "units": 1,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "EUR",
+    "WRT"
+   ]
+  },
+  "HIST 46A": {
+   "title": "The Middle East from Muhammad to the Nineteenth Century",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "WRT",
+    "NWC"
+   ]
+  },
+  "HIST 46B": {
+   "title": "The Middle East: From the Nineteenth Century to the Present",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "WRT",
+    "NWC"
+   ]
+  },
+  "HIST 49A": {
+   "title": "Survey of African History",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "NWC",
+    "WRT"
+   ]
+  },
+  "HIST 49B": {
+   "title": "Survey of African History",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "NWC",
+    "WRT"
+   ]
+  },
+  "HIST 49C": {
+   "title": "Survey of African History",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "WRT",
+    "NWC"
+   ]
+  },
+  "HIST 4A": {
+   "title": "The Ancient Mediterranean and West Asia",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "WRT",
+    "EUR"
+   ]
+  },
+  "HIST 4B": {
+   "title": "Medieval and Early Modern Europe",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "EUR",
+    "WRT"
+   ]
+  },
+  "HIST 4C": {
+   "title": "Modern Europe",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "WRT",
+    "EUR"
+   ]
+  },
+  "HIST 5": {
+   "title": "The History of the Present",
+   "units": 5,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "HIST 7": {
+   "title": "Great Issues in the History of Public Policy",
+   "units": 5,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "HIST 74": {
+   "title": "Poverty, Inequality and Social Justice in Historical and Global Context",
+   "units": 5,
+   "ge": [
+    "D",
+    "E"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "HIST 80": {
+   "title": "Chinese Civilization",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "WRT",
+    "NWC"
+   ]
+  },
+  "HIST 87": {
+   "title": "Japanese History Through Art and Literature",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "NWC",
+    "WRT"
+   ]
+  },
+  "HIST 88": {
+   "title": "Survey of South Asian History",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "NWC",
+    "WRT"
+   ]
+  },
+  "HIST 8A": {
+   "title": "Latin American History: Pre-Columbian and Colonial Periods",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "WRT",
+    "NWC"
+   ]
+  },
+  "HIST 8B": {
+   "title": "Latin American History: Independence and National Period",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "NWC",
+    "WRT"
+   ]
+  },
+  "HIST W 17B": {
+   "title": "The American People",
+   "units": 5,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "HIST W 17C": {
+   "title": "The American People",
+   "units": 5,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "HIST W 2A": {
+   "title": "World History",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "EUR",
+    "WRT"
+   ]
+  },
+  "HIST W 4B": {
+   "title": "Medieval and Early Modern Europe",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "EUR",
+    "WRT"
+   ]
+  },
+  "HIST W 80": {
+   "title": "Chinese Civilization",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "NWC",
+    "WRT"
+   ]
+  },
+  "INT 34LE": {
+   "title": "Literature and Experience",
+   "units": 4,
+   "ge": [
+    "E"
+   ]
+  },
+  "INT 35HD": {
+   "title": "History of Disease and Epidemiology",
+   "units": 8,
+   "ge": [
+    "C",
+    "E"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "INT 35LT": {
+   "title": "Experiencing Shakespeare",
+   "units": 8,
+   "ge": [
+    "G"
+   ],
+   "specials": [
+    "EUR"
+   ]
+  },
+  "INT 37UD": {
+   "title": "Utopian Dreaming: History, Science Fiction, and Isla Vista",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "ITAL 20X": {
+   "title": "Introduction to Italian Culture",
+   "units": 4,
+   "ge": [
+    "E"
+   ]
+  },
+  "ITAL 3": {
+   "title": "Elementary Italian",
+   "units": 5,
+   "ge": [
+    "B"
+   ]
+  },
+  "ITAL 30X": {
+   "title": "Italy in Film",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "EUR"
+   ]
+  },
+  "ITAL 4": {
+   "title": "Intermediate Italian",
+   "units": 5,
+   "ge": [
+    "B"
+   ]
+  },
+  "ITAL 5": {
+   "title": "Intermediate Italian",
+   "units": 5,
+   "ge": [
+    "B"
+   ]
+  },
+  "ITAL 6": {
+   "title": "Intermediate Italian",
+   "units": 5,
+   "ge": [
+    "B"
+   ]
+  },
+  "JAPAN 25": {
+   "title": "Violence and the Japanese State",
+   "units": 5,
+   "ge": [
+    "D",
+    "E"
+   ],
+   "specials": [
+    "WRT",
+    "NWC"
+   ]
+  },
+  "JAPAN 3": {
+   "title": "First-Year Japanese III",
+   "units": 5,
+   "ge": [
+    "B"
+   ]
+  },
+  "JAPAN 4": {
+   "title": "Second-Year Japanese",
+   "units": 5,
+   "ge": [
+    "B"
+   ]
+  },
+  "JAPAN 5": {
+   "title": "Second-Year Japanese",
+   "units": 5,
+   "ge": [
+    "B"
+   ]
+  },
+  "JAPAN 6": {
+   "title": "Second-Year Japanese",
+   "units": 5,
+   "ge": [
+    "B"
+   ]
+  },
+  "JAPAN 63": {
+   "title": "Sociology of Japan",
+   "units": 5,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "NWC"
+   ]
+  },
+  "JAPAN 73": {
+   "title": "Introduction to Japanese Religion: Texts, Concepts, and Representations",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "NWC",
+    "WRT"
+   ]
+  },
+  "JAPAN 80": {
+   "title": "Masterpieces of Japanese Literature",
+   "units": 5,
+   "ge": [
+    "G"
+   ],
+   "specials": [
+    "WRT",
+    "NWC"
+   ]
+  },
+  "JAPANW 5": {
+   "title": "Second-Year Japanese",
+   "units": 5,
+   "ge": [
+    "B"
+   ]
+  },
+  "JAPANW 6": {
+   "title": "Second-Year Japanese",
+   "units": 5,
+   "ge": [
+    "B"
+   ]
+  },
+  "KOR 3": {
+   "title": "First Year Korean",
+   "units": 5,
+   "ge": [
+    "B"
+   ]
+  },
+  "KOR 4": {
+   "title": "Second Year Korean",
+   "units": 5,
+   "ge": [
+    "B"
+   ]
+  },
+  "KOR 5": {
+   "title": "Second Year Korean",
+   "units": 5,
+   "ge": [
+    "B"
+   ]
+  },
+  "KOR 6": {
+   "title": "Second Year Korean",
+   "units": 5,
+   "ge": [
+    "B"
+   ]
+  },
+  "KOR W 3": {
+   "title": "First Year Korean",
+   "units": 5,
+   "ge": [
+    "B"
+   ]
+  },
+  "LAIS 10": {
+   "title": "Introduction to the Latin American and Iberian World",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "WRT",
+    "NWC"
+   ]
+  },
+  "LAIS 2": {
+   "title": "Global Blackness: Race, Repair and Reparation",
+   "units": 5,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "NWC"
+   ]
+  },
+  "LAIS 6H": {
+   "title": "Survey: Arts of the Ancient Americas",
+   "units": 5,
+   "ge": [
+    "F"
+   ],
+   "specials": [
+    "WRT",
+    "NWC"
+   ]
+  },
+  "LAIS 7": {
+   "title": "Introduction to Caribbean Studies",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "NWC",
+    "WRT"
+   ]
+  },
+  "LAIS W 10": {
+   "title": "Introduction to the Latin American and Iberian World",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "WRT",
+    "NWC"
+   ]
+  },
+  "LAIS W 13": {
+   "title": "Global Climate Justice from the South",
+   "units": 5,
+   "ge": [
+    "D"
+   ]
+  },
+  "LATIN 3": {
+   "title": "Intermediate Latin",
+   "units": 4,
+   "ge": [
+    "B"
+   ]
+  },
+  "LING 15": {
+   "title": "Language in Life",
+   "units": 5,
+   "ge": [
+    "C",
+    "E"
+   ]
+  },
+  "LING 20": {
+   "title": "Language And Linguistics",
+   "units": 5,
+   "ge": [
+    "D"
+   ]
+  },
+  "LING 30": {
+   "title": "The Story of English",
+   "units": 4,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "WRT",
+    "EUR"
+   ]
+  },
+  "LING 31": {
+   "title": "Digital Humanities and Language",
+   "units": 5,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "QNT"
+   ]
+  },
+  "LING 32": {
+   "title": "Language and Computers",
+   "units": 5,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "QNT"
+   ]
+  },
+  "LING 34": {
+   "title": "Data Science and Data communication",
+   "units": 5,
+   "ge": [
+    "C",
+    "D"
+   ],
+   "specials": [
+    "QNT"
+   ]
+  },
+  "LING 36": {
+   "title": "Black American English",
+   "units": 5,
+   "ge": [
+    "D",
+    "E"
+   ],
+   "specials": [
+    "ETH"
+   ]
+  },
+  "LING 50": {
+   "title": "Language and Power",
+   "units": 5,
+   "ge": [
+    "E"
+   ]
+  },
+  "LING 70": {
+   "title": "Language in Society",
+   "units": 5,
+   "ge": [
+    "D"
+   ]
+  },
+  "LING 80": {
+   "title": "Endangered Languages",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "NWC"
+   ]
+  },
+  "LING W 15": {
+   "title": "Language in Life",
+   "units": 5,
+   "ge": [
+    "C",
+    "E"
+   ]
+  },
+  "MATH 2A": {
+   "title": "Calculus with Algebra and Trigonometry",
+   "units": 5,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "QNT"
+   ]
+  },
+  "MATH 2B": {
+   "title": "Calculus with Algebra and Trigonometry",
+   "units": 5,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "QNT"
+   ]
+  },
+  "MATH 34A": {
+   "title": "Calculus for Social and Life Sciences",
+   "units": 4,
+   "ge": [
+    "C"
+   ]
+  },
+  "MATH 34B": {
+   "title": "Calculus for Social and Life Sciences",
+   "units": 4,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "QNT"
+   ]
+  },
+  "MATH 34LA": {
+   "title": "Calculus for the Life Sciences",
+   "units": 4,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "QNT"
+   ]
+  },
+  "MATH 34LB": {
+   "title": "Calculus for the Life Sciences",
+   "units": 4,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "QNT"
+   ]
+  },
+  "MATH 3A": {
+   "title": "Calculus with Applications, First Course",
+   "units": 4,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "QNT"
+   ]
+  },
+  "MATH 3B": {
+   "title": "Calculus with Applications, Second Course",
+   "units": 4,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "QNT"
+   ]
+  },
+  "MATRL 10": {
+   "title": "Materials in Society, The Stuff of Dreams",
+   "units": 4,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "MCDB 1A": {
+   "title": "Introductory Biology I",
+   "units": 4,
+   "ge": [
+    "C"
+   ]
+  },
+  "MCDB 20": {
+   "title": "Concepts of Biology",
+   "units": 5,
+   "ge": [
+    "C"
+   ]
+  },
+  "MCDB 21": {
+   "title": "The Immune System and Aids",
+   "units": 5,
+   "ge": [
+    "C"
+   ]
+  },
+  "MCDB 23": {
+   "title": "Biology of Cancer",
+   "units": 3,
+   "ge": [
+    "C"
+   ]
+  },
+  "MCDB 24": {
+   "title": "Genetics and Human Disease",
+   "units": 3,
+   "ge": [
+    "C"
+   ]
+  },
+  "MCDB 26": {
+   "title": "Contemporary Nutrition",
+   "units": 5,
+   "ge": [
+    "C"
+   ]
+  },
+  "MCDB 28": {
+   "title": "Human Genetics and Society",
+   "units": 4,
+   "ge": [
+    "C"
+   ]
+  },
+  "MCDB 29": {
+   "title": "Fundamentals of Biomedical Research",
+   "units": 3,
+   "ge": [
+    "C"
+   ]
+  },
+  "MES 45": {
+   "title": "Introduction to Middle East Studies",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "NWC"
+   ]
+  },
+  "MS 27": {
+   "title": "American Military History and the Evolution of Western Warfare",
+   "units": 4,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "MUS 11": {
+   "title": "Fundamentals of Music",
+   "units": 5,
+   "ge": [
+    "F"
+   ]
+  },
+  "MUS 15": {
+   "title": "Constructing Communities through Music: Classical and Beyond",
+   "units": 5,
+   "ge": [
+    "F"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "MUS 16": {
+   "title": "Listening to Jazz: Demystifying Americas Musical Art Form",
+   "units": 5,
+   "ge": [
+    "F"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "MUS 17": {
+   "title": "World Music",
+   "units": 5,
+   "ge": [
+    "F"
+   ]
+  },
+  "MUS 19": {
+   "title": "Rock Music and Revolution from the Beatles to Nirvana",
+   "units": 5,
+   "ge": [
+    "E",
+    "F"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "MUS 3B": {
+   "title": "Writing about Music",
+   "units": 4,
+   "ge": [
+    "F"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "PER 57C": {
+   "title": "Elementary Persian III",
+   "units": 4,
+   "ge": [
+    "B"
+   ]
+  },
+  "PER 57D": {
+   "title": "Intermediate Persian I",
+   "units": 4,
+   "ge": [
+    "B"
+   ]
+  },
+  "PER 57E": {
+   "title": "Intermediate Persian II",
+   "units": 4,
+   "ge": [
+    "B"
+   ]
+  },
+  "PER 57F": {
+   "title": "Intermediate Persian III",
+   "units": 4,
+   "ge": [
+    "B"
+   ]
+  },
+  "PER 58C": {
+   "title": "Intensive Intermediate Persian I",
+   "units": 5,
+   "ge": [
+    "B"
+   ]
+  },
+  "PER 58D": {
+   "title": "Intensive Intermediate Persian II",
+   "units": 5,
+   "ge": [
+    "B"
+   ]
+  },
+  "PHIL 1": {
+   "title": "Short Introduction to Philosophy",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "PHIL 20A": {
+   "title": "History of Philosophy",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "WRT",
+    "EUR"
+   ]
+  },
+  "PHIL 20B": {
+   "title": "History of Philosophy",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "EUR",
+    "WRT"
+   ]
+  },
+  "PHIL 20C": {
+   "title": "History of Philosophy",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "EUR",
+    "WRT"
+   ]
+  },
+  "PHIL 3": {
+   "title": "Critical Thinking",
+   "units": 5,
+   "ge": [
+    "E"
+   ]
+  },
+  "PHIL 4": {
+   "title": "Introduction to Ethics",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "PHYS 1": {
+   "title": "Basic Physics",
+   "units": 4,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "QNT"
+   ]
+  },
+  "PHYS 10": {
+   "title": "Concepts of Physics",
+   "units": 4,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "QNT"
+   ]
+  },
+  "PHYS 21": {
+   "title": "General Physics",
+   "units": 4,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "QNT"
+   ]
+  },
+  "PHYS 6A": {
+   "title": "Introductory Physics",
+   "units": 3,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "QNT"
+   ]
+  },
+  "PHYS 6AL": {
+   "title": "Introductory Experimental Physics",
+   "units": 1,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "QNT"
+   ]
+  },
+  "PHYS 6B": {
+   "title": "Introductory Physics",
+   "units": 3,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "QNT"
+   ]
+  },
+  "PHYS 6BL": {
+   "title": "Introductory Experimental Physics",
+   "units": 1,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "QNT"
+   ]
+  },
+  "PHYS 6C": {
+   "title": "Introductory Physics",
+   "units": 3,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "QNT"
+   ]
+  },
+  "PHYS 6CL": {
+   "title": "Introductory Experimental Physics",
+   "units": 1,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "QNT"
+   ]
+  },
+  "POL S 12": {
+   "title": "American Government and Politics",
+   "units": 5,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "PORT 16B": {
+   "title": "Portuguese for Spanish Speakers II",
+   "units": 4,
+   "ge": [
+    "B"
+   ]
+  },
+  "PORT 3": {
+   "title": "Elementary Portuguese III",
+   "units": 4,
+   "ge": [
+    "B"
+   ]
+  },
+  "PORT 30": {
+   "title": "Brazil: Literature, Visual Arts, Music, and Nation",
+   "units": 5,
+   "ge": [
+    "G"
+   ]
+  },
+  "PORT 31": {
+   "title": "Literatures of the Portuguese Speaking World",
+   "units": 4,
+   "ge": [
+    "G"
+   ]
+  },
+  "PORT 32": {
+   "title": "Ocean Cultures: People, Routes, and Environments in the Portuguese-Speaking World",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "EUR",
+    "WRT"
+   ]
+  },
+  "PORT 4": {
+   "title": "Intermediate Portuguese",
+   "units": 4,
+   "ge": [
+    "B"
+   ]
+  },
+  "PORT 5": {
+   "title": "Intermediate Portuguese",
+   "units": 4,
+   "ge": [
+    "B"
+   ]
+  },
+  "PORT 6": {
+   "title": "Intermediate Portuguese",
+   "units": 4,
+   "ge": [
+    "B"
+   ]
+  },
+  "PSTAT 5A": {
+   "title": "Understanding Data",
+   "units": 5,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "QNT"
+   ]
+  },
+  "PSTAT 5LS": {
+   "title": "Statistics for Life Sciences",
+   "units": 5,
+   "ge": [
+    "C"
+   ],
+   "specials": [
+    "QNT"
+   ]
+  },
+  "PSY 1": {
+   "title": "Introduction to Psychology",
+   "units": 5,
+   "ge": [
+    "D"
+   ]
+  },
+  "PSY W 1": {
+   "title": "Introduction to Psychology",
+   "units": 5,
+   "ge": [
+    "D"
+   ]
+  },
+  "RG ST 1": {
+   "title": "Introduction to the Study of Religion",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "RG ST 11C": {
+   "title": "Elementary Hindi III",
+   "units": 4,
+   "ge": [
+    "B"
+   ]
+  },
+  "RG ST 11D": {
+   "title": "Intermediate Hindi IV",
+   "units": 4,
+   "ge": [
+    "B"
+   ]
+  },
+  "RG ST 11E": {
+   "title": "Intermediate Hindi V",
+   "units": 4,
+   "ge": [
+    "B"
+   ]
+  },
+  "RG ST 11F": {
+   "title": "Intermediate Hindi VI",
+   "units": 4,
+   "ge": [
+    "B"
+   ]
+  },
+  "RG ST 12": {
+   "title": "Religious Approaches to Death",
+   "units": 5,
+   "ge": [
+    "E"
+   ]
+  },
+  "RG ST 13": {
+   "title": "Religion and Popular Culture",
+   "units": 5,
+   "ge": [
+    "F"
+   ]
+  },
+  "RG ST 14": {
+   "title": "Introduction to Native American Religious Studies",
+   "units": 5,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "WRT",
+    "ETH"
+   ]
+  },
+  "RG ST 17C": {
+   "title": "Introduction to Biblical Hebrew III",
+   "units": 4,
+   "ge": [
+    "B"
+   ]
+  },
+  "RG ST 18": {
+   "title": "Comparing Religions",
+   "units": 5,
+   "ge": [
+    "E"
+   ]
+  },
+  "RG ST 19": {
+   "title": "The Gods and Goddesses of India",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "NWC",
+    "WRT"
+   ]
+  },
+  "RG ST 20": {
+   "title": "Indic Civilization",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "NWC"
+   ]
+  },
+  "RG ST 21": {
+   "title": "Zen Buddhism",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "NWC",
+    "WRT"
+   ]
+  },
+  "RG ST 25": {
+   "title": "Global Catholicism Today",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "EUR"
+   ]
+  },
+  "RG ST 28": {
+   "title": "Gandhi: Nonviolence, Resistance, Truth",
+   "units": 5,
+   "ge": [
+    "E"
+   ]
+  },
+  "RG ST 29": {
+   "title": "Patriarchy and Religion: A Global Perspective",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "NWC"
+   ]
+  },
+  "RG ST 3": {
+   "title": "Introduction to Asian Religious Traditions",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "NWC",
+    "WRT"
+   ]
+  },
+  "RG ST 30": {
+   "title": "Judaism",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "WRT",
+    "ETH"
+   ]
+  },
+  "RG ST 30C": {
+   "title": "Elementary Literary Tibetan III",
+   "units": 4,
+   "ge": [
+    "B"
+   ]
+  },
+  "RG ST 30D": {
+   "title": "Intermediate Tibetan IV",
+   "units": 4,
+   "ge": [
+    "B"
+   ]
+  },
+  "RG ST 30E": {
+   "title": "Intermediate Tibetan V",
+   "units": 4,
+   "ge": [
+    "B"
+   ]
+  },
+  "RG ST 30F": {
+   "title": "Intermediate Tibetan VI",
+   "units": 4,
+   "ge": [
+    "B"
+   ]
+  },
+  "RG ST 31": {
+   "title": "The Religions of Tibet",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "NWC"
+   ]
+  },
+  "RG ST 32": {
+   "title": "Contemporary Chinese Religions",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "NWC"
+   ]
+  },
+  "RG ST 35": {
+   "title": "Introduction to Religion and Politics",
+   "units": 5,
+   "ge": [
+    "D"
+   ]
+  },
+  "RG ST 37": {
+   "title": "Law in Everyday Life",
+   "units": 5,
+   "ge": [
+    "E"
+   ]
+  },
+  "RG ST 4": {
+   "title": "Introduction to Buddhism",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "NWC",
+    "WRT"
+   ]
+  },
+  "RG ST 48": {
+   "title": "Nature and Ethics in Chinese Philosophy",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "NWC",
+    "WRT"
+   ]
+  },
+  "RG ST 5": {
+   "title": "Introduction to Judaism, Christianity, and Islam",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "RG ST 6": {
+   "title": "Islam and Modernity",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "NWC"
+   ]
+  },
+  "RG ST 60C": {
+   "title": "Elementary Punjabi III",
+   "units": 4,
+   "ge": [
+    "B"
+   ]
+  },
+  "RG ST 60D": {
+   "title": "Intermediate Punjabi IV",
+   "units": 4,
+   "ge": [
+    "B"
+   ]
+  },
+  "RG ST 60E": {
+   "title": "Intermediate Punjabi V",
+   "units": 4,
+   "ge": [
+    "B"
+   ]
+  },
+  "RG ST 60F": {
+   "title": "Intermediate Punjabi VI",
+   "units": 4,
+   "ge": [
+    "B"
+   ]
+  },
+  "RG ST 61": {
+   "title": "African Religions of the Americas",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "ETH"
+   ]
+  },
+  "RG ST 62": {
+   "title": "Dark Goddesses and Black Madonnas",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "ETH"
+   ]
+  },
+  "RG ST 65C": {
+   "title": "Introduction to Turkish Language III",
+   "units": 4,
+   "ge": [
+    "B"
+   ]
+  },
+  "RG ST 65D": {
+   "title": "Intermediate Turkish Language IV",
+   "units": 4,
+   "ge": [
+    "B"
+   ]
+  },
+  "RG ST 65E": {
+   "title": "Intermediate Turkish Language V",
+   "units": 4,
+   "ge": [
+    "B"
+   ]
+  },
+  "RG ST 65F": {
+   "title": "Intermediate Turkish Language VI",
+   "units": 4,
+   "ge": [
+    "B"
+   ]
+  },
+  "RG ST 66": {
+   "title": "Introduction to African American Religion",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "ETH"
+   ]
+  },
+  "RG ST 7": {
+   "title": "Introduction to American Religion",
+   "units": 5,
+   "ge": [
+    "D"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "RG ST 71": {
+   "title": "Introduction to Asian American Religions",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "ETH"
+   ]
+  },
+  "RG ST 73": {
+   "title": "Introduction to Japanese Religion: Texts, Concepts, and Representations",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "NWC",
+    "WRT"
+   ]
+  },
+  "RG ST 80A": {
+   "title": "Religion and Western Civilization I: Ancient",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "WRT",
+    "EUR"
+   ]
+  },
+  "RG ST 80B": {
+   "title": "Religion and Western Civilization II: Medieval",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "EUR",
+    "WRT"
+   ]
+  },
+  "RG ST 80C": {
+   "title": "Religion and Western Civilization III: Modern",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "WRT",
+    "EUR"
+   ]
+  },
+  "RG ST 82": {
+   "title": "Modern Arab Culture",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "NWC",
+    "WRT"
+   ]
+  },
+  "RG ST 90VC": {
+   "title": "Elementary Vietnamese Language III",
+   "units": 5,
+   "ge": [
+    "B"
+   ]
+  },
+  "RUSS 3": {
+   "title": "Elementary Russian",
+   "units": 5,
+   "ge": [
+    "B"
+   ]
+  },
+  "RUSS 4": {
+   "title": "Intermediate Russian",
+   "units": 5,
+   "ge": [
+    "B"
+   ]
+  },
+  "RUSS 5": {
+   "title": "Intermediate Russian",
+   "units": 5,
+   "ge": [
+    "B"
+   ]
+  },
+  "RUSS 6": {
+   "title": "Intermediate Russian",
+   "units": 5,
+   "ge": [
+    "B"
+   ]
+  },
+  "SLAV 33": {
+   "title": "Russian Culture",
+   "units": 4,
+   "ge": [
+    "E"
+   ]
+  },
+  "SLAV 35": {
+   "title": "Short Fiction by Major Russian Writers",
+   "units": 4,
+   "ge": [
+    "G"
+   ],
+   "specials": [
+    "EUR",
+    "WRT"
+   ]
+  },
+  "SOC 1": {
+   "title": "Introduction to Sociology",
+   "units": 5,
+   "ge": [
+    "D"
+   ]
+  },
+  "SPAN 15": {
+   "title": "Intermediate Spanish for Heritage Speakers",
+   "units": 4,
+   "ge": [
+    "B"
+   ]
+  },
+  "SPAN 16A": {
+   "title": "Spanish for Heritage Speakers",
+   "units": 4,
+   "ge": [
+    "B"
+   ],
+   "specials": [
+    "ETH",
+    "WRT"
+   ]
+  },
+  "SPAN 16B": {
+   "title": "Spanish for Heritage Speakers",
+   "units": 4,
+   "ge": [
+    "B"
+   ],
+   "specials": [
+    "ETH",
+    "WRT"
+   ]
+  },
+  "SPAN 27": {
+   "title": "Food Studies in Latin America",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "NWC"
+   ]
+  },
+  "SPAN 3": {
+   "title": "Elementary Spanish III",
+   "units": 4,
+   "ge": [
+    "B"
+   ]
+  },
+  "SPAN 31": {
+   "title": "Literatures of the Spanish Speaking World",
+   "units": 4,
+   "ge": [
+    "G"
+   ]
+  },
+  "SPAN 39": {
+   "title": "From Bomba to Bad Bunny: A Sonic Story of Caribbean Music, Memory, and Migration",
+   "units": 5,
+   "ge": [
+    "F"
+   ],
+   "specials": [
+    "ETH"
+   ]
+  },
+  "SPAN 3HY": {
+   "title": "Hybrid Elementary Spanish III",
+   "units": 5,
+   "ge": [
+    "B"
+   ]
+  },
+  "SPAN 4": {
+   "title": "Intermediate Spanish I",
+   "units": 4,
+   "ge": [
+    "B"
+   ]
+  },
+  "SPAN 5": {
+   "title": "Intermediate Spanish II",
+   "units": 4,
+   "ge": [
+    "B"
+   ]
+  },
+  "SPAN 50": {
+   "title": "Soccer in the Hispanic World",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "NWC"
+   ]
+  },
+  "SPAN 51": {
+   "title": "Latin American Women in Popular Music: From Boleros, Salsa, and Rancheras, to Nueva Cancion and Pop",
+   "units": 5,
+   "ge": [
+    "F"
+   ]
+  },
+  "SPAN 52": {
+   "title": "Culture and Revolution in the Americas",
+   "units": 5,
+   "ge": [
+    "E"
+   ],
+   "specials": [
+    "NWC"
+   ]
+  },
+  "SPAN 59": {
+   "title": "The US/México Border",
+   "units": 5,
+   "ge": [
+    "E"
+   ]
+  },
+  "SPAN 6": {
+   "title": "Intermediate Spanish III",
+   "units": 4,
+   "ge": [
+    "B"
+   ]
+  },
+  "THTR 2A": {
+   "title": "Performance in Global Contexts: Africa and the Caribbean",
+   "units": 5,
+   "ge": [
+    "F"
+   ],
+   "specials": [
+    "NWC"
+   ]
+  },
+  "THTR 2B": {
+   "title": "Performance in Global Contexts: ASIA",
+   "units": 5,
+   "ge": [
+    "F"
+   ],
+   "specials": [
+    "NWC",
+    "WRT"
+   ]
+  },
+  "THTR 2C": {
+   "title": "Performance in Global Contexts: EUROPE",
+   "units": 5,
+   "ge": [
+    "F"
+   ],
+   "specials": [
+    "EUR",
+    "WRT"
+   ]
+  },
+  "THTR 3": {
+   "title": "Life of the Theater",
+   "units": 4,
+   "ge": [
+    "F"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "THTR 5": {
+   "title": "Introduction To Acting",
+   "units": 3,
+   "ge": [
+    "F"
+   ]
+  },
+  "THTR 7": {
+   "title": "Performance of the Human Body",
+   "units": 4,
+   "ge": [
+    "F"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "THTR 8": {
+   "title": "European Theater History",
+   "units": 4,
+   "ge": [
+    "F"
+   ],
+   "specials": [
+    "WRT",
+    "EUR"
+   ]
+  },
+  "THTR 9": {
+   "title": "Introduction to Dramatic Writing",
+   "units": 5,
+   "ge": [
+    "F"
+   ],
+   "specials": [
+    "WRT"
+   ]
+  },
+  "THTR W 2B": {
+   "title": "Performance in Global Contexts, Asia",
+   "units": 5,
+   "ge": [
+    "F"
+   ],
+   "specials": [
+    "WRT",
+    "NWC"
+   ]
+  },
+  "THTR W 43": {
+   "title": "The People’s Voice/The Odyssey Project",
+   "units": 4,
+   "ge": [
+    "F"
+   ]
+  },
+  "WRIT 2": {
+   "title": "Academic Writing",
+   "units": 5,
+   "ge": [
+    "A1"
+   ]
+  },
+  "WRIT 2CE": {
+   "title": "ACE Academic Writing",
+   "units": 5,
+   "ge": [
+    "A1"
+   ]
+  },
+  "WRIT 2E": {
+   "title": "Academic Writing for Engineers",
+   "units": 4,
+   "ge": [
+    "A1"
+   ]
+  },
+  "WRIT 2LK": {
+   "title": "Academic Writing",
+   "units": 5,
+   "ge": [
+    "A1"
+   ]
+  },
+  "WRIT 50": {
+   "title": "Writing and the Research Process",
+   "units": 5,
+   "ge": [
+    "A2"
+   ]
+  },
+  "WRIT 50E": {
+   "title": "Writing and the Research Process for Engineers",
+   "units": 4,
+   "ge": [
+    "A2"
+   ]
+  },
+  "WRIT W 6R": {
+   "title": "Rome: The Game",
+   "units": 5,
+   "ge": [
+    "E",
+    "F"
+   ],
+   "specials": [
+    "EUR",
+    "WRT"
+   ]
+  }
+ }
+}

@@ -133,9 +133,32 @@ describe("one-quarter plan for the sample students", () => {
   const constraints = { minUnits: 12, maxUnits: 16, freeDays: [], mustInclude: [], mustExclude: [], noClassBefore: "08:00" };
   const offerings = { ...standin, courses: [...(base.courses as CourseOffering[]), ...(standin.courses as CourseOffering[]).filter((c) => !base.courses.some((b) => b.code === c.code))] } as unknown as QuarterOfferings;
 
-  it("plans ECON 10A for the sophomore and says how many GE units to add", async () => {
+  it("fills the sophomore's schedule with ECON 10A plus suggested GEs", async () => {
     const { transcript } = read("transcript-econ-accounting-sophomore.txt");
-    const r = await runPlanner(transcript, combinedRequirements(["economics-accounting"]), offerings, constraints);
+    const r = await runPlanner(transcript, combinedRequirements(["economics-accounting"]), offerings, constraints, [], { ba: true });
+    for (const s of [r.primary, ...r.backups]) {
+      const codes = s.courses.map((c) => c.offering.code);
+      expect(codes).toContain("ECON 10A");
+      expect(codes.length).toBeGreaterThan(1);
+      expect(s.totalUnits).toBeGreaterThanOrEqual(12);
+      expect(s.validation.valid).toBe(true);
+      // Every GE in the schedule counts toward an open GE area.
+      for (const c of s.courses.filter((x) => x.offering.code !== "ECON 10A")) {
+        expect(c.satisfies[0]).toMatch(/^ge-[ACG]$/);
+      }
+    }
+    // The backups are real alternatives, not copies of the main schedule.
+    const keys = [r.primary, ...r.backups].map((s) => s.courses.map((c) => c.offering.code).sort().join("|"));
+    expect(new Set(keys).size).toBe(3);
+    expect(r.notices?.[0]).toMatch(/Only 5 major units are open this quarter, so the rest are suggested GEs/);
+    expect(r.groupNames?.["ge-G"]).toBe("GE Area G: Literature");
+  });
+
+  it("falls back to the unit gap notice when no suggested GE fits", async () => {
+    const { transcript } = read("transcript-econ-accounting-sophomore.txt");
+    // Mornings only, Tuesdays and Thursdays off: no suggested GE for an open area fits.
+    const tight = { ...constraints, freeDays: ["T", "R"] as ("T" | "R")[], noClassAfter: "12:00" };
+    const r = await runPlanner(transcript, combinedRequirements(["economics-accounting"]), offerings, tight, [], { ba: true });
     expect(r.primary.courses.map((c) => c.offering.code)).toEqual(["ECON 10A"]);
     expect(r.notices?.[0]).toMatch(/Add at least 7 units of GE or elective/);
   });

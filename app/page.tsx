@@ -1,10 +1,10 @@
 import Link from "next/link";
 
 const FEATURES = [
-  { icon: "📄", title: "Bring your transcript", desc: "Upload the PDF of your unofficial transcript from GOLD, a .txt file, or paste the text. Nothing is stored on a server." },
-  { icon: "🎓", title: "Your requirements, checked", desc: "Schedule One compares what you've finished with your major and only plans courses that still count." },
-  { icon: "✅", title: "Checked before you see it", desc: "Every schedule is checked for time conflicts, prerequisites, unit limits, class standing and your preferences." },
-  { icon: "🔄", title: "Backups + a 4-year plan", desc: "A main schedule plus two backups, swap options for each course, and a plan through graduation." },
+  { icon: "📄", title: "Bring your transcript", desc: "PDF, .txt or pasted. Nothing is stored." },
+  { icon: "🎓", title: "Your requirements, checked", desc: "Only plans courses that still count." },
+  { icon: "✅", title: "Checked before you see it", desc: "No time conflicts or missing prerequisites." },
+  { icon: "🔄", title: "Backups + a 4-year plan", desc: "Two backups and a plan to graduation." },
 ];
 
 const STEPS = [
@@ -43,7 +43,7 @@ export default function LandingPage() {
           <span style={{ color: "var(--gold)", WebkitTextStroke: "1px var(--gold-d)" }}>PLANNED IN SECONDS.</span>
         </h1>
         <p style={{ fontSize: "1.15rem", color: "var(--ink2)", maxWidth: 520, margin: "0 auto 2.5rem", lineHeight: 1.6 }}>
-          Add your transcript. Set your preferences. Get a checked schedule with backups. You still register in GOLD.
+          Add your transcript. Get a checked schedule with backups.
         </p>
         <div style={{ display: "flex", gap: ".75rem", justifyContent: "center", flexWrap: "wrap" }}>
           <Link href="/onboarding" className="btn pri" style={{ textDecoration: "none", fontSize: "1rem", padding: ".6rem 1.75rem" }}>
@@ -91,7 +91,7 @@ export default function LandingPage() {
         </div>
         <div className="note" style={{ marginTop: "1.5rem" }}>
           <strong>Not here yet:</strong>{" "}
-          <span className="fine">study abroad courses (UCEAP and other universities), community-college transfer courses, and more majors and minors.</span>
+          <span className="fine">study abroad and transfer courses.</span>
         </div>
       </section>
 

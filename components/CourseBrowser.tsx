@@ -5,15 +5,18 @@ import { useEffect, useState } from "react";
 import { majors } from "@/lib/majors";
 import type { ProgramCourses, UpperDivCourse } from "@/lib/upper-division";
 
+/** One class: code, title and units; the description opens on a tap. */
 function CourseRow({ c }: { c: UpperDivCourse }) {
   return (
-    <div className="course-row">
-      <div className="row between" style={{ marginTop: 0 }}>
-        <strong>{c.code} {c.title}</strong>
-        <span className="tag unk">{c.units} {c.units === "1" ? "unit" : "units"}</span>
-      </div>
-      <p className="fine" style={{ margin: ".2rem 0 0" }}>{c.description ?? "The catalog has no description for this course."}</p>
-    </div>
+    <details className="course-row">
+      <summary>
+        <span className="course-head">
+          <span><strong>{c.code}</strong> {c.title}</span>
+          <span className="fine" style={{ whiteSpace: "nowrap" }}>{c.units}u <span className="chev" aria-hidden="true">▸</span></span>
+        </span>
+      </summary>
+      <p className="fine" style={{ margin: ".3rem 0 0" }}>{c.description ?? "No catalog description."}</p>
+    </details>
   );
 }
 
@@ -47,10 +50,7 @@ export default function CourseBrowser({ initialProgram }: { initialProgram: stri
         </header>
         <div className="card onboard-card">
           <h1 className="h">Upper-division classes</h1>
-          <p className="fine lead">
-            Every 100-level class in the subjects your major draws on, with its description from the UCSB General
-            Catalog 2026-27. Check your major&apos;s requirements sheet for which ones count.
-          </p>
+          <p className="fine lead">Tap a class for its catalog description.</p>
           <label className="fine" htmlFor="major">Major</label>
           <select id="major" value={program} onChange={(e) => setProgram(e.target.value)}>
             {majors().map((m) => <option key={m.code} value={m.code}>{m.name}</option>)}
@@ -62,9 +62,7 @@ export default function CourseBrowser({ initialProgram }: { initialProgram: stri
           {data === "error" && <p className="note warn">Couldn&apos;t load these classes. Try again in a moment.</p>}
           {data && data !== "error" && (
             <>
-              <p className="fine" style={{ marginTop: "1rem" }}>
-                {data.total} classes, {data.withDescription} with a catalog description.
-              </p>
+              <p className="fine" style={{ marginTop: "1rem" }}>{data.total} classes · UCSB catalog 2026-27</p>
               {data.groups.map((g) => {
                 const shown = g.courses.filter((c) => matches(c, q));
                 return (
