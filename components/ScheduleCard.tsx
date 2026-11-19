@@ -1,11 +1,15 @@
+import { PastGrades } from "@/components/PastGrades";
 import type { Schedule } from "@/types";
 import { WeeklyCalendar } from "./WeeklyCalendar";
 import { ValidationBadge } from "./ValidationBadge";
+import { CourseFlags } from "./PlanNotices";
 
 interface Props {
   schedule: Schedule;
   title: string;
   isPrimary?: boolean;
+  /** Requirement group id to plain name; ids are shown when missing. */
+  groupNames?: Record<string, string>;
 }
 
 const COURSE_COLORS = [
@@ -25,7 +29,7 @@ const COURSE_DOT_COLORS = [
   "bg-teal-500",
 ];
 
-export function ScheduleCard({ schedule, title, isPrimary = false }: Props) {
+export function ScheduleCard({ schedule, title, isPrimary = false, groupNames }: Props) {
   return (
     <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
       {/* Change note for backups */}
@@ -67,11 +71,13 @@ export function ScheduleCard({ schedule, title, isPrimary = false }: Props) {
                     <div className="text-xs text-gray-500 mt-0.5">
                       {sc.offering.schedule.days.join("")} · {sc.offering.schedule.startTime}–{sc.offering.schedule.endTime} · {sc.offering.instructor}
                     </div>
+                    <CourseFlags termPattern={sc.termPattern} mustGet={sc.mustGet} mustGetReason={sc.mustGetReason} />
+                    <PastGrades code={sc.offering.code} />
                     {sc.satisfies.length > 0 && (
                       <div className="flex gap-1 mt-1.5 flex-wrap">
                         {sc.satisfies.map((gid) => (
                           <span key={gid} className="text-[10px] font-medium bg-white/80 text-gray-600 px-2 py-0.5 rounded-full border border-gray-200">
-                            {gid}
+                            {groupNames?.[gid] ?? gid}
                           </span>
                         ))}
                       </div>
@@ -84,10 +90,9 @@ export function ScheduleCard({ schedule, title, isPrimary = false }: Props) {
           </div>
         </div>
 
-        {/* AI explanation */}
+        {/* Explanation */}
         <div className="bg-blue-50 border border-blue-100 rounded-xl p-4">
           <div className="flex items-center gap-1.5 mb-2">
-            <span className="text-sm">✨</span>
             <h4 className="text-xs font-semibold text-blue-800 uppercase tracking-wide">Why this schedule</h4>
           </div>
           <p className="text-sm text-blue-900 leading-relaxed">{schedule.explanation}</p>

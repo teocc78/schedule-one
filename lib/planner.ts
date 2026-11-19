@@ -13,35 +13,33 @@ import {
   getRemainingGroups,
   getEligibleOfferings,
   groupCapacity,
-  assignSatisfies,
   type RequirementStatus,
 } from "@/lib/requirements";
-import { proposeSchedules, LLMConfigError, type RawPlan, type RawSchedule } from "@/lib/llm";
 import { validateSchedule } from "@/lib/validator";
 import { buildFallbackSchedules } from "@/lib/fallback-scheduler";
 import { normalizeCode } from "@/lib/course-codes";
+import { classStanding, planNotices, fullTimeNotice, FULL_TIME_MIN_UNITS } from "@/lib/standing";
 
 /** Thrown when no valid schedule exists at all; the API turns it into a 422. */
 export class NoValidScheduleError extends Error {}
 
-/** Injected for tests so they never call the real LLM. */
-export type ProposeFn = typeof proposeSchedules;
-
 /**
- * Orchestrates the full planning flow:
- * 1. Compute remaining requirements and the courses the student can take.
- * 2. Ask the LLM to propose schedules from eligible courses only.
- * 3. Validate every proposal with deterministic rules.
- * 4. If the primary fails, retry the LLM once with the validator's errors.
- * 5. If it still fails (or the LLM errors or times out), build schedules
- *    deterministically so the student still gets a valid result.
+ * Plans one quarter with rules only (no AI):
+ * 1. Work out the remaining requirements and the courses the student can take.
+ * 2. Search combinations of those courses that fit the unit range, time
+ *    preferences and free days, with no time conflicts.
+ * 3. Score them: courses that count toward requirements first, then courses
+ *    the 4-year plan puts in this quarter, then courses marked interesting.
+ * 4. Validate the best three; the first is the main schedule, the others are
+ *    backups, and each course gets swap options that fit around the rest.
  */
 export async function runPlanner(
   transcript: TranscriptData,
   requirements: MajorRequirements,
   offerings: QuarterOfferings,
   constraints: StudentConstraints,
-  propose: ProposeFn = proposeSchedules
+  /** Course codes the 4-year plan puts in this quarter; preferred, not required. */
+  priority: string[] = []
 ): Promise<PlanResult> {
   const remainingGroups = getRemainingGroups(requirements, transcript.completedCourses);
   if (remainingGroups.length === 0) {
@@ -59,74 +57,32 @@ export async function runPlanner(
     );
   }
 
-  const remainingGroupSummary = remainingGroups
-    .map((g) => {
-      const needed =
-        g.stillNeeded === g.remainingCourses.length
-          ? `All of: ${g.remainingCourses.join(", ")}`
-          : `${g.stillNeeded} more from: ${g.remainingCourses.join(", ")}`;
-      return `- ${g.groupName} (${g.groupId}): ${needed}`;
-    })
-    .join("\n");
-
-  const quarterLabel = offerings.quarter.includes(String(offerings.year))
-    ? offerings.quarter
-    : `${offerings.quarter} ${offerings.year}`;
-  const ctx: Ctx = { eligible, remainingGroups, constraints, transcript };
-
-  let schedules: Schedule[] = [];
-  let feedback: string | undefined;
-
-  for (let attempt = 1; attempt <= 2; attempt++) {
-    let raw: RawPlan;
-    try {
-      raw = await propose(
-        transcript,
-        requirements,
-        quarterLabel,
-        eligible,
-        constraints,
-        remainingGroupSummary,
-        feedback
-      );
-    } catch (err) {
-      // A missing key must surface; anything else (timeout, malformed
-      // output, model outage) falls through to the deterministic planner.
-      if (err instanceof LLMConfigError) throw err;
-      if (err instanceof Error && /api key/i.test(err.message)) {
-        throw new LLMConfigError("The Gemini API key was rejected. Check GEMINI_API_KEY.");
-      }
-      console.error("[planner] LLM proposal failed:", err instanceof Error ? err.message : err);
-      break;
-    }
-    schedules = [raw.primary, raw.backup1, raw.backup2].map((r, i) =>
-      resolveSchedule(r, i > 0, ctx)
-    );
-    if (schedules[0].validation.valid) break;
-    feedback = schedules[0].validation.errors.map((e) => `- ${e}`).join("\n");
+  // Early in a major, the rest of the major often waits on one gateway course
+  // (an Econ sophomore can only take ECON 10A in Winter). When the eligible
+  // major courses can't reach the unit minimum, plan what there is and tell
+  // the student how many GE or elective units to add, instead of failing.
+  const unitsByCode = new Map<string, number>();
+  for (const o of eligible) {
+    const k = normalizeCode(o.code);
+    unitsByCode.set(k, Math.max(unitsByCode.get(k) ?? 0, o.units));
   }
+  const majorUnitsAvailable = [...unitsByCode.values()].reduce((a, b) => a + b, 0);
+  const shortOfMinimum = majorUnitsAvailable < constraints.minUnits;
+  const planConstraints: StudentConstraints = shortOfMinimum
+    ? { ...constraints, minUnits: majorUnitsAvailable }
+    : constraints;
+
+  const ctx: Ctx = { eligible, remainingGroups, constraints: planConstraints, transcript };
 
   const valid: Schedule[] = [];
   const usedKeys = new Set<string>();
-  for (const s of schedules) {
+  for (const f of buildFallbackSchedules(eligible, remainingGroups, planConstraints, 8, 5, priority)) {
+    if (valid.length >= 3) break;
+    const s = fromSearch(f.courses, f.satisfies, valid[0] ?? null, ctx);
     const key = scheduleKey(s);
-    if (s.validation.valid && !usedKeys.has(key)) {
-      usedKeys.add(key);
-      valid.push(s);
-    }
-  }
-
-  // Top up with deterministic schedules until there are three valid ones.
-  if (valid.length < 3) {
-    const fallback = buildFallbackSchedules(eligible, remainingGroups, constraints, 6);
-    for (const f of fallback) {
-      if (valid.length >= 3) break;
-      const s = fromFallback(f.courses, f.satisfies, valid.length > 0, ctx);
-      const key = scheduleKey(s);
-      if (!s.validation.valid || usedKeys.has(key)) continue;
-      usedKeys.add(key);
-      valid.push(s);
-    }
+    if (!s.validation.valid || usedKeys.has(key)) continue;
+    usedKeys.add(key);
+    valid.push(s);
   }
 
   if (valid.length === 0) {
@@ -138,18 +94,40 @@ export async function runPlanner(
   const primary = valid[0];
   // If fewer than three distinct valid schedules exist, repeat the last one
   // with a note so the UI still has its two backup tabs.
-  const backup1 = valid[1] ?? { ...primary, changeNote: "No other valid combination found." };
-  const backup2 = valid[2] ?? { ...backup1, changeNote: "No other valid combination found." };
+  const same = "Same as the main schedule: no other mix of your open major courses fits your settings. Use the swap options or add GE courses in GOLD instead.";
+  const backup1 = valid[1] ?? { ...primary, changeNote: same };
+  const backup2 = valid[2] ?? { ...(valid[1] ?? primary), changeNote: same };
 
   const covered = new Set(primary.courses.flatMap((c) => c.satisfies));
   const remainingRequirements = remainingGroups
     .map((g) => g.groupId)
     .filter((id) => !covered.has(id));
 
-  return { primary, backups: [backup1, backup2], remainingRequirements };
+  // Courses in progress finish before the quarter being planned starts.
+  const earned = transcript.totalUnitsEarned + (transcript.unitsInProgress ?? 0);
+  return {
+    primary,
+    backups: [backup1, backup2],
+    remainingRequirements,
+    standing: classStanding(earned),
+    notices: shortOfMinimum
+      ? [
+          gapNotice(primary.totalUnits, constraints.minUnits),
+          ...planNotices(earned, primary.totalUnits, primary.courses.map((c) => c.offering.code)).filter(
+            (n) => n !== fullTimeNotice(primary.totalUnits)
+          ),
+        ]
+      : planNotices(earned, primary.totalUnits, primary.courses.map((c) => c.offering.code)),
+  };
 }
 
 // ── helpers ──────────────────────────────────────────────────
+
+/** Used when the major's eligible courses can't reach the unit minimum. */
+export function gapNotice(majorUnits: number, minUnits: number): string {
+  const target = Math.max(minUnits, FULL_TIME_MIN_UNITS);
+  return `Only ${majorUnits} units of your major's courses are open to you this quarter, because the rest need a prerequisite first. Add at least ${target - majorUnits} units of GE or elective courses in GOLD to reach ${target} units${target === FULL_TIME_MIN_UNITS ? " (full time)" : ""}.`;
+}
 
 interface Ctx {
   eligible: CourseOffering[];
@@ -187,54 +165,79 @@ function finish(
   };
 }
 
-/** Turn an LLM proposal into a Schedule, ignoring codes that aren't eligible. */
-export function resolveSchedule(raw: RawSchedule, isBackup: boolean, ctx: Ctx): Schedule {
-  const byCode = new Map(ctx.eligible.map((o) => [normalizeCode(o.code), o]));
-  const seen = new Set<string>();
-  const offerings: CourseOffering[] = [];
-  for (const rc of raw.courses) {
-    const key = normalizeCode(rc.code);
-    const o = byCode.get(key);
-    if (o && !seen.has(key)) {
-      seen.add(key);
-      offerings.push(o);
-    }
-  }
-
-  const swaps: Record<string, SwapOption[]> = {};
-  for (const [courseCode, list] of Object.entries(raw.swaps)) {
-    const owner = byCode.get(normalizeCode(courseCode));
-    if (!owner) continue;
-    swaps[owner.code] = list
-      .map((s) => {
-        const o = byCode.get(normalizeCode(s.code));
-        return o ? { offering: o, reason: s.reason } : null;
-      })
-      .filter((s): s is SwapOption => s !== null);
-  }
-
-  // Requirement credit is decided in code, not by the LLM.
-  const satisfies = assignSatisfies(offerings, ctx.remainingGroups);
-  return finish(offerings, satisfies, raw.explanation, isBackup ? raw.changeNote : undefined, swaps, ctx);
+function overlaps(a: CourseOffering, b: CourseOffering): boolean {
+  const min = (t: string) => {
+    const [h, m] = t.split(":").map(Number);
+    return h * 60 + m;
+  };
+  if (!a.schedule.days.some((d) => b.schedule.days.includes(d))) return false;
+  return min(a.schedule.startTime) < min(b.schedule.endTime) && min(b.schedule.startTime) < min(a.schedule.endTime);
 }
 
-function fromFallback(
+/**
+ * Up to three swap options per course: eligible courses not already in the
+ * schedule that fit around the others and stay within the unit range. Ones
+ * that count toward the same requirement come first.
+ */
+export function buildSwaps(chosen: CourseOffering[], satisfies: Map<string, string[]>, ctx: Ctx): Record<string, SwapOption[]> {
+  const inSchedule = new Set(chosen.map((o) => normalizeCode(o.code)));
+  const total = chosen.reduce((n, o) => n + o.units, 0);
+  const swaps: Record<string, SwapOption[]> = {};
+  const groupsOf = (o: CourseOffering) =>
+    ctx.remainingGroups.filter((g) => g.remainingCourses.some((c) => normalizeCode(c) === normalizeCode(o.code))).map((g) => g.groupId);
+  const nameOf = (id: string) => ctx.remainingGroups.find((g) => g.groupId === id)?.groupName ?? id;
+  for (const o of chosen) {
+    const others = chosen.filter((x) => x !== o);
+    const mine = new Set(satisfies.get(o.code) ?? []);
+    const options = ctx.eligible
+      .filter((alt) => !inSchedule.has(normalizeCode(alt.code)))
+      .filter((alt) => !others.some((x) => overlaps(x, alt)))
+      .filter((alt) => {
+        const units = total - o.units + alt.units;
+        return units >= ctx.constraints.minUnits && units <= ctx.constraints.maxUnits;
+      })
+      .filter((alt) => !ctx.constraints.freeDays.some((d) => alt.schedule.days.includes(d)))
+      .map((alt) => {
+        const groups = groupsOf(alt);
+        const same = groups.find((g) => mine.has(g));
+        return {
+          offering: alt,
+          sameGroup: Boolean(same),
+          reason: same
+            ? `Also counts toward ${nameOf(same)}, and fits your other classes.`
+            : `Counts toward ${groups[0] ? nameOf(groups[0]) : "your major"} instead, and fits your other classes.`,
+        };
+      })
+      .sort((a, b) => Number(b.sameGroup) - Number(a.sameGroup));
+    const seen = new Set<string>();
+    swaps[o.code] = options
+      .filter((x) => !seen.has(normalizeCode(x.offering.code)) && seen.add(normalizeCode(x.offering.code)))
+      .slice(0, 3)
+      .map(({ offering, reason }) => ({ offering, reason }));
+  }
+  return swaps;
+}
+
+function fromSearch(
   offerings: CourseOffering[],
   satisfies: Map<string, string[]>,
-  isBackup: boolean,
+  primary: Schedule | null,
   ctx: Ctx
 ): Schedule {
-  const groups = [...new Set([...satisfies.values()].flat())];
+  const groups = [...new Set([...satisfies.values()].flat())].map(
+    (id) => ctx.remainingGroups.find((g) => g.groupId === id)?.groupName ?? id
+  );
   const units = offerings.reduce((n, o) => n + o.units, 0);
   const explanation =
-    `${offerings.map((o) => o.code).join(", ")} (${units} units), picked by the rule-based planner` +
-    (groups.length ? ` to cover ${groups.join(", ")}.` : ".");
-  return finish(
-    offerings,
-    satisfies,
-    explanation,
-    isBackup ? "Alternative combination with no time conflicts." : undefined,
-    {},
-    ctx
-  );
+    `${offerings.map((o) => o.code).join(", ")} (${units} units)` +
+    (groups.length ? `, covering ${groups.join(", ")}.` : ".");
+  let changeNote: string | undefined;
+  if (primary) {
+    const main = new Set(primary.courses.map((c) => c.offering.code));
+    const mine = new Set(offerings.map((o) => o.code));
+    const out = [...main].filter((c) => !mine.has(c));
+    const add = [...mine].filter((c) => !main.has(c));
+    changeNote = out.length && add.length ? `Takes ${add.join(", ")} instead of ${out.join(", ")}.` : add.length ? `Adds ${add.join(", ")}.` : `Drops ${out.join(", ")}.`;
+  }
+  return finish(offerings, satisfies, explanation, changeNote, buildSwaps(offerings, satisfies, ctx), ctx);
 }

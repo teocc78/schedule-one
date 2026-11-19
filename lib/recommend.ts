@@ -2,8 +2,7 @@
  * Course recommendations (spec section 4): unmet requirements -> courses
  * offered next quarter -> score by open requirements covered -> keep only
  * courses that fit the calendar (via the section 1 engine). Greedy set
- * cover is enough for the MVP. Pure functions; AI may explain the result
- * but never changes it.
+ * cover is enough for the MVP. Pure functions.
  */
 import type { CourseSections, Pick, PlannerSettings, OptionRow } from "@/lib/schedule-engine";
 import { optionRows } from "@/lib/schedule-engine";

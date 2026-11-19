@@ -137,7 +137,7 @@ function checkConstraints(
   const errors: string[] = [];
 
   for (const sc of courses) {
-    const { days, startTime } = sc.offering.schedule;
+    const { days, startTime, endTime } = sc.offering.schedule;
 
     // Free days
     for (const freeDay of constraints.freeDays) {
@@ -155,6 +155,16 @@ function checkConstraints(
     ) {
       errors.push(
         `${sc.offering.code} starts at ${startTime}, before the requested start time ${constraints.noClassBefore}`
+      );
+    }
+
+    // No-later-than constraint
+    if (
+      constraints.noClassAfter &&
+      toMinutes(endTime) > toMinutes(constraints.noClassAfter)
+    ) {
+      errors.push(
+        `${sc.offering.code} ends at ${endTime}, after the requested end time ${constraints.noClassAfter}`
       );
     }
 

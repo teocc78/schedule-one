@@ -1,0 +1,146 @@
+{
+  "_note": "Economics & Accounting B.A., 2026-27 catalog (catalog.ucsb.edu program BAECACC). Math and stats alternatives are listed under equivalents. Group E is one upper-division ECON elective; the catalog list is long, so the planner picks from it.",
+  "_catalog_year": "2026-27",
+  "major": "Economics & Accounting",
+  "majorCode": "economics-accounting",
+  "equivalents": {
+    "MATH 3A": [
+      "MATH 2A",
+      "MATH 34A"
+    ],
+    "MATH 3B": [
+      "MATH 2B",
+      "MATH 34B"
+    ]
+  },
+  "groups": [
+    {
+      "id": "ecacc-premajor",
+      "name": "Pre-major",
+      "kind": "all",
+      "courses": [
+        "ECON 1",
+        "ECON 2",
+        "ECON 3A",
+        "ECON 3B",
+        "ECON 10A"
+      ],
+      "description": "Needs a 2.85 GPA and no grade below C to move into the full major."
+    },
+    {
+      "id": "ecacc-calc",
+      "name": "Calculus",
+      "kind": "all",
+      "courses": [
+        "MATH 3A",
+        "MATH 3B"
+      ],
+      "description": "MATH 2A-B or 34A-B also count."
+    },
+    {
+      "id": "ecacc-stats",
+      "name": "Statistics",
+      "kind": "choose_n",
+      "n": 1,
+      "courses": [
+        "ECON 5",
+        "PSTAT 120A"
+      ]
+    },
+    {
+      "id": "ecacc-core",
+      "name": "Upper-division core (A to D)",
+      "kind": "all",
+      "courses": [
+        "ECON 100B",
+        "ECON 101",
+        "ECON 134A",
+        "ECON 140A"
+      ]
+    },
+    {
+      "id": "ecacc-accounting",
+      "name": "Accounting core (F to H)",
+      "kind": "all",
+      "courses": [
+        "ECON 136A",
+        "ECON 136B",
+        "ECON 136C",
+        "ECON 118",
+        "ECON 137A"
+      ]
+    },
+    {
+      "id": "ecacc-elective-e",
+      "name": "Economics elective (E)",
+      "kind": "choose_n",
+      "n": 1,
+      "courses": [
+        "ECON 134B",
+        "ECON 140B",
+        "ECON 171",
+        "ECON 100C",
+        "ECON 106",
+        "ECON 107A",
+        "ECON 107B",
+        "ECON 112A",
+        "ECON 112B",
+        "ECON 113A",
+        "ECON 113B",
+        "ECON 114A",
+        "ECON 114B",
+        "ECON 115",
+        "ECON 116A",
+        "ECON 116B",
+        "ECON 116C",
+        "ECON 117A",
+        "ECON 120",
+        "ECON 122",
+        "ECON 127",
+        "ECON 130",
+        "ECON 133",
+        "ECON 134C",
+        "ECON 135",
+        "ECON 140C",
+        "ECON 141",
+        "ECON 145",
+        "ECON 150A",
+        "ECON 151",
+        "ECON 152",
+        "ECON 153",
+        "ECON 154",
+        "ECON 155",
+        "ECON 156",
+        "ECON 157",
+        "ECON 160",
+        "ECON 164",
+        "ECON 170",
+        "ECON 174",
+        "ECON 176",
+        "ECON 177",
+        "ECON 180",
+        "ECON 181",
+        "ECON 183",
+        "ECON 184",
+        "ECON 187"
+      ]
+    },
+    {
+      "id": "ecacc-accounting-electives",
+      "name": "Accounting electives (I)",
+      "kind": "choose_n",
+      "n": 2,
+      "courses": [
+        "ECON 137B",
+        "ECON 132A",
+        "ECON 138A",
+        "ECON 138B",
+        "ECON 132B",
+        "ECON 139",
+        "ECON 182",
+        "ECON 185",
+        "ECON 189"
+      ]
+    }
+  ]
+}

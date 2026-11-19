@@ -1,13 +1,6 @@
 import type { Metadata } from "next";
-import { Anton, IBM_Plex_Sans } from "next/font/google";
+import { IBM_Plex_Sans } from "next/font/google";
 import "./globals.css";
-
-const anton = Anton({
-  weight: "400",
-  variable: "--font-anton",
-  subsets: ["latin"],
-  display: "swap",
-});
 
 const ibmPlexSans = IBM_Plex_Sans({
   weight: ["400", "500", "600", "700"],
@@ -17,13 +10,13 @@ const ibmPlexSans = IBM_Plex_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Schedule One — UCSB",
-  description: "AI-powered class schedule planner for UCSB students",
+  title: "Schedule One | UCSB",
+  description: "Plan your next UCSB quarter from your transcript, with backups for every pass time.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${anton.variable} ${ibmPlexSans.variable} h-full`}>
+    <html lang="en" className={`${ibmPlexSans.variable} h-full`}>
       <body className="min-h-full">
         {children}
         {/* Required by UCSB's developer rules for student apps. */}

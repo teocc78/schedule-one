@@ -19,8 +19,12 @@ export interface TranscriptData {
   studentName: string;
   studentId: string;  // last 4 digits only, for display
   major: string;
+  /** Finished courses, plus in-progress ones with grade "IP" (they count as done for planning). */
   completedCourses: CompletedCourse[];
+  /** Units with a final grade. In-progress units are not included. */
   totalUnitsEarned: number;
+  /** Units of courses still in progress (grade "IP"). */
+  unitsInProgress?: number;
 }
 
 // ── Requirements ─────────────────────────────────────────────
@@ -41,6 +45,8 @@ export interface MajorRequirements {
   major: string;
   majorCode: string;
   groups: RequirementGroup[];
+  /** Courses that count in place of a listed course, e.g. MATH 3A: ["MATH 2A", "MATH 34A"]. */
+  equivalents?: Record<string, string[]>;
 }
 
 // ── Offerings ────────────────────────────────────────────────
@@ -84,8 +90,10 @@ export interface StudentConstraints {
   mustInclude: string[];
   /** Course codes to exclude */
   mustExclude: string[];
-  /** Free-text preferences passed to the LLM */
-  freeText?: string;
+  /** Latest end time, "HH:MM" 24-hour. No classes ending after this. */
+  noClassAfter?: string;
+  /** Course codes the student marked "seems interesting". Preferred, not required. */
+  interested?: string[];
 }
 
 // ── Validation ───────────────────────────────────────────────
@@ -109,6 +117,11 @@ export interface ScheduledCourse {
   offering: CourseOffering;
   /** Which requirement group(s) this satisfies */
   satisfies: string[];
+  /** e.g. "Mostly a Fall course" */
+  termPattern?: string;
+  /** Register for this in your first pass: needed and rarely offered. */
+  mustGet?: boolean;
+  mustGetReason?: string;
 }
 
 export interface SwapOption {
@@ -132,6 +145,12 @@ export interface PlanResult {
   backups: [Schedule, Schedule];
   /** Requirement group IDs still not covered after this quarter */
   remainingRequirements: string[];
+  /** Class standing from units earned, e.g. "Sophomore". */
+  standing?: string;
+  /** Plain-language notes for the student (full-time status, standing). */
+  notices?: string[];
+  /** Requirement group id to its plain name, for labels in the UI. */
+  groupNames?: Record<string, string>;
 }
 
 // ── API request/response shapes ──────────────────────────────
@@ -142,7 +161,11 @@ export interface ParseTranscriptRequest {
 
 export interface PlanRequest {
   transcript: TranscriptData;
+  /** Primary major. Kept for older clients; majorCodes wins when present. */
   majorCode: string;
+  /** One or two majors (double major). */
+  majorCodes?: string[];
+  minorCode?: string;
   quarter: string;
   constraints: StudentConstraints;
 }

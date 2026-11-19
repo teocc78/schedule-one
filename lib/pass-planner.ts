@@ -8,11 +8,8 @@
  * what was registered in Pass 1). The spec lists this as OPEN.
  */
 
-/**
- * TODO(spec section 10, Q2): confirm the College of Letters & Science
- * per-quarter limit used in Pass 3. 21.5 is a placeholder, UNVERIFIED.
- */
-export const COLLEGE_UNIT_LIMIT_PASS3 = 21.5;
+/** Max units by the end of Pass 3 (Teo, Nov 19 2026: 21.0 every time). */
+export const COLLEGE_UNIT_LIMIT_PASS3 = 21;
 
 export const PASS_CAPS = [11.5, 15.5, COLLEGE_UNIT_LIMIT_PASS3] as const;
 

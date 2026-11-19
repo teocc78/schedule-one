@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { PlanResult, TranscriptData } from "@/types";
 import { ScheduleCard } from "@/components/ScheduleCard";
+import { PlanNotices } from "@/components/PlanNotices";
 
 type Tab = "primary" | "backup1" | "backup2";
 
@@ -62,7 +63,7 @@ export default function ResultsPage() {
             {allValid && (
               <span className="hidden sm:flex items-center gap-1.5 text-xs font-medium text-green-700 bg-green-50 border border-green-200 px-3 py-1.5 rounded-full">
                 <span className="w-1.5 h-1.5 bg-green-500 rounded-full" />
-                All schedules validated
+                All schedules checked
               </span>
             )}
             <button
@@ -104,7 +105,6 @@ export default function ResultsPage() {
         {planResult.remainingRequirements.length > 0 && (
           <div className="bg-amber-50 border border-amber-200 rounded-xl px-5 py-4">
             <div className="flex items-start gap-2">
-              <span className="text-lg mt-0.5">⚠️</span>
               <div>
                 <div className="text-sm font-semibold text-amber-800 mb-1">Requirements still needed after this quarter</div>
                 <div className="flex flex-wrap gap-1.5">
@@ -116,6 +116,8 @@ export default function ResultsPage() {
             </div>
           </div>
         )}
+
+        <PlanNotices plan={planResult} />
 
         {/* Tab switcher */}
         <div className="flex gap-2">
@@ -146,6 +148,7 @@ export default function ResultsPage() {
           schedule={activeSchedule}
           title={activeTab === "primary" ? "Primary Schedule" : activeTab === "backup1" ? "Backup Schedule 1" : "Backup Schedule 2"}
           isPrimary={activeTab === "primary"}
+          groupNames={planResult.groupNames}
         />
 
         {/* Transcript accordion */}

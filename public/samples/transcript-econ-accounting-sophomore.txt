@@ -1,0 +1,37 @@
+MOCK DATA — University of California, Santa Barbara
+UNOFFICIAL TRANSCRIPT (sample student, not a real person)
+
+Student: Riley Brooks
+Student ID: XXXX-2041
+Major: Pre-Economics & Accounting
+Class Standing: Sophomore
+Total Units Earned: 48
+Units In Progress: 15
+
+--- Academic Record ---
+
+FALL 2025
+MATH 3A    Calculus with Applications, First Course               4.0  A-
+ECON 1     Principles of Economics-Micro                          5.0  B+
+WRIT 2     Academic Writing                                       5.0  A-
+
+WINTER 2026
+MATH 3B    Calculus with Applications, Second Course              4.0  B+
+ECON 2     Principles of Economics-Macro                          5.0  A-
+ANTH 2     Introductory Cultural Anthropology                     5.0  A
+
+SPRING 2026
+ECON 3A    Financial Accounting                                   5.0  B+
+COMM 1     Introduction to Communication                          5.0  A
+HIST 4A    The Ancient Mediterranean and West Asia                5.0  B+
+
+SUMMER 2026
+PHIL 3     Critical Thinking                                      5.0  A-
+
+FALL 2026
+ECON 3B    Financial Accounting                                   5.0  IP
+ECON 5     Statistics for Economics                               5.0  IP
+MUS 15     Constructing Communities through Music: Classical an   5.0  IP
+
+IP = in progress, Fall 2026
+--- End of Record ---

@@ -5,26 +5,62 @@ import { useRouter } from "next/navigation";
 import type { PlanResult, TranscriptData } from "@/types";
 import { ScheduleCard } from "@/components/ScheduleCard";
 import { ValidationBadge } from "@/components/ValidationBadge";
-import { QuarterPlanner } from "@/components/planner/QuarterPlanner";
-import requirementsData from "@/data/requirements/statistics-data-science.json";
+import { PlanNotices, CourseFlags } from "@/components/PlanNotices";
+import { QuarterPlanner, type PlannerStart } from "@/components/planner/QuarterPlanner";
+import { PastGrades } from "@/components/PastGrades";
+import { FourYearPlanView } from "@/components/FourYearPlanView";
+import type { FourYearPlan } from "@/lib/four-year-plan";
+import { combinedRequirements } from "@/lib/majors";
 import offeringsData from "@/data/offerings/winter-2027.json";
+import standinData from "@/data/offerings/winter-2027-standin.json";
 import { computeRequirementStatus } from "@/lib/requirements";
 import type { MajorRequirements, QuarterOfferings } from "@/types";
 
-const requirements = requirementsData as unknown as MajorRequirements;
-const offerings = offeringsData as unknown as QuarterOfferings;
+/** Requirements for the programs picked in onboarding; Stats & Data Science if none. */
+function chosenRequirements(): MajorRequirements {
+  try {
+    const p = JSON.parse(sessionStorage.getItem("programs") ?? "{}") as { majors?: string[]; minor?: string };
+    const codes = p.majors?.filter(Boolean).length ? p.majors.filter(Boolean) : ["statistics-data-science"];
+    return combinedRequirements([...codes, p.minor ?? ""]);
+  } catch {
+    return combinedRequirements(["statistics-data-science"]);
+  }
+}
+const base = offeringsData as unknown as QuarterOfferings;
+const standin = standinData as unknown as QuarterOfferings;
+/** Every Winter 2027 course the planner can pick from (base list, then stand-in sections). */
+const allCourses = [...base.courses, ...standin.courses.filter((c) => !base.courses.some((b) => b.code === c.code))];
+
+/** The student's main schedule in the Planner tab's shape. Real enroll codes come from GOLD. */
+function plannerStart(plan: PlanResult | null): PlannerStart | null {
+  if (!plan) return null;
+  const courses = plan.primary.courses;
+  return {
+    picks: courses.map(({ offering: o }) => ({
+      courseId: o.code,
+      lecture: {
+        enrollCode: "",
+        section: "0100",
+        kind: "LEC" as const,
+        meetings: [{ days: o.schedule.days, start: o.schedule.startTime, end: o.schedule.endTime }],
+        instructor: o.instructor,
+      },
+      section: null,
+    })),
+    units: Object.fromEntries(courses.map(({ offering: o }) => [o.code, o.units])),
+  };
+}
 
 // ── Tab config (matches HTML app) ─────────────────────────────
 const TABS = [
   { id: "today",      label: "Today",      color: "#febc11" },
+  { id: "plan4",      label: "4-Year Plan", color: "#8f7ac0" },
   { id: "degree",     label: "Degree",     color: "#5ba4cf" },
   { id: "planner",    label: "Planner",    color: "#7ab87a" },
   { id: "schedule",   label: "Schedule",   color: "#5b8a5b" },
   { id: "courses",    label: "Courses",    color: "#c4a04a" },
   { id: "transcript", label: "Transcript", color: "#d47a6a" },
-  { id: "inbox",      label: "Inbox",      color: "#c08090" },
-  { id: "calendar",   label: "Calendar",   color: "#93bad0" },
-  { id: "share",      label: "Share",      color: "#c8b88a" },
+  { id: "share",      label: "Save & Print", color: "#c8b88a" },
 ] as const;
 
 type TabId = (typeof TABS)[number]["id"];
@@ -33,19 +69,8 @@ type TabId = (typeof TABS)[number]["id"];
 function Fig({ value, label }: { value: string | number; label: string }) {
   return (
     <div className="card" style={{ padding: ".5rem .9rem", minWidth: 90 }}>
-      <b style={{ font: "400 1.6rem var(--display)", display: "block", lineHeight: 1.2 }}>{value}</b>
+      <b style={{ font: "700 1.6rem var(--display)", display: "block", lineHeight: 1.2 }}>{value}</b>
       <span className="fine">{label}</span>
-    </div>
-  );
-}
-
-function ComingSoon({ tab }: { tab: string }) {
-  return (
-    <div className="empty" style={{ marginTop: "2rem", padding: "2.5rem 1.5rem" }}>
-      <div style={{ fontSize: "2rem", marginBottom: ".5rem" }}>🚧</div>
-      <strong>{tab}</strong> is coming soon.
-      <br />
-      <span className="fine">This tab will be built in an upcoming sprint.</span>
     </div>
   );
 }
@@ -66,8 +91,6 @@ function TodayTab({ plan, transcript }: { plan: PlanResult | null; transcript: T
   }
 
   const courses = plan.primary.courses;
-  const days = ["M","T","W","R","F"];
-  const today = days[new Date().getDay() - 1] ?? "M";
 
   return (
     <div>
@@ -78,7 +101,10 @@ function TodayTab({ plan, transcript }: { plan: PlanResult | null; transcript: T
         <Fig value={courses.length} label="courses" />
         <Fig value={transcript.completedCourses.length} label="completed" />
         <Fig value={transcript.totalUnitsEarned} label="units earned" />
+        {plan.standing && <Fig value={plan.standing} label="class standing" />}
       </div>
+
+      <PlanNotices plan={{ notices: plan.notices }} />
 
       <h2 className="sec" style={{ "--acc": "var(--gold-d)" } as React.CSSProperties}>This week</h2>
       {courses.map((sc) => {
@@ -89,7 +115,7 @@ function TodayTab({ plan, transcript }: { plan: PlanResult | null; transcript: T
               minWidth: "3.4rem", textAlign: "center",
               background: "var(--paper)", border: "2px solid var(--ink)",
               borderRadius: 10, padding: ".1rem .3rem",
-              font: "400 .95rem var(--display)",
+              font: "700 .95rem var(--display)",
             }}>
               {cd.join("")}
             </div>
@@ -97,9 +123,11 @@ function TodayTab({ plan, transcript }: { plan: PlanResult | null; transcript: T
               <strong style={{ fontSize: ".92rem" }}>{sc.offering.code}</strong>
               <span className="fine" style={{ marginLeft: ".5rem" }}>{sc.offering.title}</span>
               <div className="fine">{startTime}–{endTime} · {sc.offering.instructor}</div>
+              <CourseFlags termPattern={sc.termPattern} mustGet={sc.mustGet} mustGetReason={sc.mustGetReason} />
+              <PastGrades code={sc.offering.code} />
             </div>
             {sc.satisfies.map(g => (
-              <span key={g} className="tag unk" style={{ fontSize: ".72rem" }}>{g}</span>
+              <span key={g} className="tag unk" style={{ fontSize: ".72rem" }}>{plan.groupNames?.[g] ?? g}</span>
             ))}
           </div>
         );
@@ -114,7 +142,27 @@ function TodayTab({ plan, transcript }: { plan: PlanResult | null; transcript: T
   );
 }
 
-function DegreeTab({ transcript }: { transcript: TranscriptData | null }) {
+function FourYearTab({ plan, planError }: { plan: FourYearPlan | null; planError: string }) {
+  return (
+    <div>
+      <h2 className="sec" style={{ "--acc": "#8f7ac0" } as React.CSSProperties}>4-Year Plan</h2>
+      {planError && (
+        <div className="note warn">
+          <strong>This quarter&apos;s schedule couldn&apos;t be built:</strong> <span className="fine">{planError}</span>
+        </div>
+      )}
+      {plan ? (
+        <FourYearPlanView plan={plan} />
+      ) : (
+        <div className="empty" style={{ marginTop: "1rem" }}>
+          Add a transcript on the <a href="/onboarding" style={{ color: "var(--gold)", fontWeight: 700 }}>onboarding</a> page to see your 4-year plan.
+        </div>
+      )}
+    </div>
+  );
+}
+
+function DegreeTab({ transcript, requirements }: { transcript: TranscriptData | null; requirements: MajorRequirements }) {
   if (!transcript) return (
     <div>
       <h2 className="sec">Degree Audit</h2>
@@ -133,6 +181,10 @@ function DegreeTab({ transcript }: { transcript: TranscriptData | null }) {
       <p className="fine" style={{ marginBottom: "1rem" }}>
         {requirements.major} · {done}/{statuses.length} requirement groups met
       </p>
+      <div className="note">
+        <strong>Not here yet:</strong>{" "}
+        <span className="fine">study abroad courses (UCEAP and other universities) and community-college transfer courses don&apos;t count toward this audit yet.</span>
+      </div>
 
       <div style={{ display: "flex", gap: ".75rem", flexWrap: "wrap", marginBottom: "1.5rem" }}>
         <Fig value={done} label="groups complete" />
@@ -199,20 +251,24 @@ function ScheduleTab({ plan }: { plan: PlanResult | null }) {
         ))}
       </div>
 
-      <ScheduleCard schedule={schedule} title={tab === "primary" ? "Primary" : tab === "backup1" ? "Backup 1" : "Backup 2"} isPrimary={tab === "primary"} />
+      <PlanNotices plan={plan} />
+      <ScheduleCard schedule={schedule} title={tab === "primary" ? "Primary" : tab === "backup1" ? "Backup 1" : "Backup 2"} isPrimary={tab === "primary"} groupNames={plan.groupNames} />
     </div>
   );
 }
 
 function CoursesTab() {
   const [filter, setFilter] = useState("");
-  const filtered = offerings.courses.filter(c =>
+  const filtered = allCourses.filter(c =>
     !filter || c.code.toLowerCase().includes(filter.toLowerCase()) || c.title.toLowerCase().includes(filter.toLowerCase())
   );
 
   return (
     <div>
-      <h2 className="sec" style={{ "--acc": "#c4a04a" } as React.CSSProperties}>Courses — Winter 2027</h2>
+      <h2 className="sec" style={{ "--acc": "#c4a04a" } as React.CSSProperties}>Courses · Winter 2027</h2>
+      <p className="fine" style={{ marginBottom: ".75rem" }}>
+        Sample class times until the UCSB class search is connected. Check GOLD for the real sections.
+      </p>
       <input
         type="search"
         placeholder="Filter by code or title…"
@@ -266,7 +322,8 @@ function TranscriptTab({ transcript }: { transcript: TranscriptData | null }) {
     <div>
       <h2 className="sec" style={{ "--acc": "#d47a6a" } as React.CSSProperties}>Transcript</h2>
       <p className="fine" style={{ marginBottom: "1rem" }}>
-        {transcript.studentName} · {transcript.totalUnitsEarned} units earned
+        {transcript.totalUnitsEarned} units earned
+        {transcript.unitsInProgress ? ` · ${transcript.unitsInProgress} units in progress` : ""}
       </p>
 
       {Object.entries(byQuarter).map(([quarter, courses]) => (
@@ -284,8 +341,8 @@ function TranscriptTab({ transcript }: { transcript: TranscriptData | null }) {
                     <td>{c.title}</td>
                     <td>{c.units}</td>
                     <td>
-                      <span className={`tag ${c.grade.startsWith("A") ? "good" : c.grade.startsWith("B") ? "unk" : "warn"}`}>
-                        {c.grade}
+                      <span className={`tag ${c.grade === "IP" ? "unk" : c.grade.startsWith("A") || c.grade === "P" ? "good" : c.grade.startsWith("B") ? "unk" : "warn"}`}>
+                        {c.grade === "IP" ? "In progress" : c.grade}
                       </span>
                     </td>
                   </tr>
@@ -299,9 +356,7 @@ function TranscriptTab({ transcript }: { transcript: TranscriptData | null }) {
   );
 }
 
-function ShareTab({ transcript, plan }: { transcript: TranscriptData | null; plan: PlanResult | null }) {
-  const [copied, setCopied] = useState(false);
-
+function ShareTab({ transcript, plan, onPrint }: { transcript: TranscriptData | null; plan: PlanResult | null; onPrint: () => void }) {
   function exportJSON() {
     const data = { transcript, plan, exportedAt: new Date().toISOString() };
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
@@ -311,20 +366,17 @@ function ShareTab({ transcript, plan }: { transcript: TranscriptData | null; pla
 
   return (
     <div>
-      <h2 className="sec" style={{ "--acc": "#c8b88a" } as React.CSSProperties}>Share & Export</h2>
-
+      <h2 className="sec" style={{ "--acc": "#c8b88a" } as React.CSSProperties}>Save & Print</h2>
+      <p className="fine" style={{ marginTop: ".5rem" }}>
+        Your schedule stays in this browser tab only. Print it or download a copy to keep it.
+      </p>
       <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", marginTop: "1rem" }}>
-        <button className="btn gold" onClick={exportJSON} disabled={!plan}>
-          Download JSON
+        <button className="btn gold" onClick={onPrint} disabled={!plan}>
+          Print schedule
         </button>
-        <button className="btn" onClick={() => { navigator.clipboard.writeText(window.location.href); setCopied(true); setTimeout(() => setCopied(false), 2000); }}>
-          {copied ? "Copied!" : "Copy link"}
+        <button className="btn" onClick={exportJSON} disabled={!plan}>
+          Download a copy
         </button>
-      </div>
-
-      <div className="card" style={{ marginTop: "1.5rem", maxWidth: 320 }}>
-        <div className="fine" style={{ marginBottom: ".5rem" }}>QR code export — coming soon</div>
-        <div className="empty">QR generation will be added in a future sprint.</div>
       </div>
     </div>
   );
@@ -337,6 +389,9 @@ export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState<TabId>("today");
   const [plan, setPlan] = useState<PlanResult | null>(null);
   const [transcript, setTranscript] = useState<TranscriptData | null>(null);
+  const [fourYear, setFourYear] = useState<FourYearPlan | null>(null);
+  const [planError, setPlanError] = useState("");
+  const [requirements, setRequirements] = useState<MajorRequirements>(() => combinedRequirements(["statistics-data-science"]));
   const [theme, setTheme] = useState<"light"|"dark">("light");
 
   useEffect(() => {
@@ -344,6 +399,12 @@ export default function DashboardPage() {
     const rawTranscript = sessionStorage.getItem("transcript");
     if (rawPlan) setPlan(JSON.parse(rawPlan));
     if (rawTranscript) setTranscript(JSON.parse(rawTranscript));
+    const rawFourYear = sessionStorage.getItem("four_year_plan");
+    if (rawFourYear) setFourYear(JSON.parse(rawFourYear));
+    setPlanError(sessionStorage.getItem("plan_error") ?? "");
+    setRequirements(chosenRequirements());
+    const tab = new URLSearchParams(window.location.search).get("tab");
+    if (tab && TABS.some((t) => t.id === tab)) setActiveTab(tab as TabId);
 
     // Respect system dark mode on first load
     if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
@@ -358,17 +419,22 @@ export default function DashboardPage() {
     document.documentElement.setAttribute("data-theme", next);
   }
 
+  /** Show the main schedule, then open the browser's print dialog. */
+  function printSchedule() {
+    setActiveTab("schedule");
+    setTimeout(() => window.print(), 150);
+  }
+
   function renderTab() {
     switch (activeTab) {
       case "today":      return <TodayTab plan={plan} transcript={transcript} />;
-      case "degree":     return <DegreeTab transcript={transcript} />;
-      case "planner":    return <QuarterPlanner />;
+      case "plan4":      return <FourYearTab plan={fourYear} planError={planError} />;
+      case "degree":     return <DegreeTab transcript={transcript} requirements={requirements} />;
+      case "planner":    return <QuarterPlanner start={plannerStart(plan)} />;
       case "schedule":   return <ScheduleTab plan={plan} />;
       case "courses":    return <CoursesTab />;
       case "transcript": return <TranscriptTab transcript={transcript} />;
-      case "inbox":      return <ComingSoon tab="Inbox" />;
-      case "calendar":   return <ComingSoon tab="Calendar" />;
-      case "share":      return <ShareTab transcript={transcript} plan={plan} />;
+      case "share":      return <ShareTab transcript={transcript} plan={plan} onPrint={printSchedule} />;
     }
   }
 

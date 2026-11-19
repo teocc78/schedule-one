@@ -1,8 +1,7 @@
 /**
- * Deterministic schedule builder used when the LLM's proposals fail
- * validation twice. It searches combinations of eligible offerings and
- * returns the best few that pass every hard rule. No AI involved, so the
- * student always gets a schedule when one exists.
+ * Deterministic schedule search. It tries combinations of eligible offerings
+ * and returns the best few that pass every hard rule, so the student always
+ * gets a schedule when one exists. This is the only planner; there is no AI.
  */
 
 import type { CourseOffering, StudentConstraints } from "@/types";
@@ -27,6 +26,7 @@ function conflicts(a: CourseOffering, b: CourseOffering): boolean {
 function respectsConstraints(o: CourseOffering, c: StudentConstraints): boolean {
   if (c.freeDays.some((d) => o.schedule.days.includes(d))) return false;
   if (c.noClassBefore && toMinutes(o.schedule.startTime) < toMinutes(c.noClassBefore)) return false;
+  if (c.noClassAfter && toMinutes(o.schedule.endTime) > toMinutes(c.noClassAfter)) return false;
   if (c.mustExclude.map(normalizeCode).includes(normalizeCode(o.code))) return false;
   return true;
 }
@@ -46,10 +46,14 @@ export function buildFallbackSchedules(
   remainingGroups: RequirementStatus[],
   constraints: StudentConstraints,
   count = 3,
-  maxCourses = 5
+  maxCourses = 5,
+  /** Codes the 4-year plan puts in this quarter; they win ties. */
+  priority: string[] = []
 ): FallbackSchedule[] {
+  const preferred = new Set(priority.map(normalizeCode));
   const pool = eligible.filter((o) => respectsConstraints(o, constraints));
   const mustInclude = constraints.mustInclude.map(normalizeCode);
+  const interested = new Set((constraints.interested ?? []).map(normalizeCode));
   const results: FallbackSchedule[] = [];
 
   function score(courses: CourseOffering[]): { score: number; satisfies: Map<string, string[]> } {
@@ -58,6 +62,12 @@ export function buildFallbackSchedules(
     for (const groups of satisfies.values()) s += groups.length * 10;
     // Courses that count toward nothing still fill units but score lower.
     s += courses.length;
+    // Courses the student marked "seems interesting" win ties between
+    // otherwise equal schedules, but never outrank a requirement.
+    s += courses.filter((o) => interested.has(normalizeCode(o.code))).length * 3;
+    // Courses the 4-year plan puts in this quarter (gateways, once-a-year
+    // courses) come next after requirements.
+    s += courses.filter((o) => preferred.has(normalizeCode(o.code))).length * 5;
     return { score: s, satisfies };
   }
 

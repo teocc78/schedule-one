@@ -16,6 +16,21 @@ export interface RequirementStatus {
 }
 
 /**
+ * True when the course, or a course that counts in its place (for example
+ * MATH 34A for MATH 3A), is in the completed set. `done` must be normalized.
+ */
+export function isCredited(
+  code: string,
+  done: Set<string>,
+  equivalents: Record<string, string[]> = {}
+): boolean {
+  const key = normalizeCode(code);
+  if (done.has(key)) return true;
+  const alts = Object.entries(equivalents).find(([k]) => normalizeCode(k) === key)?.[1] ?? [];
+  return alts.some((a) => done.has(normalizeCode(a)));
+}
+
+/**
  * Given a major's requirements and the student's completed courses,
  * returns a status object for each requirement group.
  */
@@ -24,10 +39,11 @@ export function computeRequirementStatus(
   completed: CompletedCourse[]
 ): RequirementStatus[] {
   const completedCodes = normalizeCodes(completed.map((c) => c.code));
+  const credited = (c: string) => isCredited(c, completedCodes, requirements.equivalents);
 
   return requirements.groups.map((group) => {
-    const completedInGroup = group.courses.filter((c) => completedCodes.has(normalizeCode(c)));
-    const remaining = group.courses.filter((c) => !completedCodes.has(normalizeCode(c)));
+    const completedInGroup = group.courses.filter(credited);
+    const remaining = group.courses.filter((c) => !credited(c));
 
     if (group.kind === "all") {
       return {
@@ -147,8 +163,7 @@ export function groupCapacity(remainingGroups: RequirementStatus[]): Record<stri
 /**
  * Deterministically decide which remaining group(s) each scheduled course
  * counts toward, filling each group at most up to what it still needs.
- * The LLM's own "satisfies" list is advisory only; hard requirement
- * counting stays in code.
+ * Requirement counting always happens here, in code.
  */
 export function assignSatisfies(
   offerings: CourseOffering[],

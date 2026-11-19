@@ -1,0 +1,78 @@
+MOCK DATA — University of California, Santa Barbara
+UNOFFICIAL TRANSCRIPT (sample student, not a real person)
+
+Student: Casey Morgan
+Student ID: XXXX-5530
+Major: Electrical Engineering
+Class Standing: Senior
+Total Units Earned: 155
+Units In Progress: 17
+
+--- Academic Record ---
+
+FALL 2023
+MATH 3A    Calculus with Applications, First Course               4.0  A-
+CMPSC 16   Problem Solving with Computers I                       4.0  A
+CHEM 1A    General Chemistry                                      4.0  B+
+WRIT 2     Academic Writing                                       5.0  B+
+
+WINTER 2024
+MATH 3B    Calculus with Applications, Second Course              4.0  A
+ECE 5      Introduction to Electrical & Computer Engineering      4.0  A-
+PHYS 7A    Basic Physics                                          4.0  B+
+ECON 1     Principles of Economics-Micro                          5.0  B
+
+SPRING 2024
+MATH 4A    Linear Algebra with Applications                       4.0  B+
+PHYS 7B    Basic Physics                                          4.0  B
+ECE 15A    Fundamentals of Logic Design                           4.0  A-
+HIST 4B    Medieval and Early Modern Europe                       5.0  B+
+
+FALL 2024
+MATH 4B    Differential Equations                                 4.0  B
+PHYS 7C    Basic Physics                                          4.0  B-
+ECE 10A    Foundations of Analog and Digital Circuits & Systems   3.0  B
+ECE 10AL   Foundations of Analog and Digital Circuits and Syste   2.0  A-
+ECE 139    Probability and Statistics                             4.0  B+
+
+WINTER 2025
+MATH 6A    Vector Calculus with Applications, First Course        4.0  B+
+ECE 10B    Foundations of Analog and Digital Circuits and Syste   3.0  B
+ECE 10BL   Foundations of Analog and Digital Circuits and Syste   2.0  A
+ECE 130A   Signal Analysis and Processing                         4.0  B-
+MUS 15     Constructing Communities through Music: Classical an   5.0  A
+
+SPRING 2025
+MATH 6B    Vector calculus with Applications, Second Course       4.0  B
+ECE 10C    Foundations of Analog and Digital Circuits and Syste   3.0  B+
+ECE 10CL   Foundations of Analog and Digital Circuits and Syste   2.0  A-
+ECE 130B   Signal Analysis and Processing                         4.0  B
+PHYS 7D    Basic Physics                                          3.0  B-
+PHYS 7L    Physics Laboratory                                     1.0  A
+
+FALL 2025
+ECE 152A   Digital Design Principles                              5.0  B+
+ECE 134    Introduction to Fields and Waves                       4.0  B-
+ECE 132    Introduction to Solid-State Electronic Devices         4.0  B
+GLOBL 1    Global History, Culture and Ideology                   5.0  A-
+
+WINTER 2026
+ECE 153B   Sensor and Peripheral Interface Design                 4.0  A-
+ECE 137A   Circuits and Electronics I                             4.0  B
+ECE 130C   Introduction to Applied Linear Algebra                 4.0  B+
+LING 20    Language And Linguistics                               5.0  A
+
+SPRING 2026
+ECE 137B   Circuits and Electronics II                            4.0  B
+ECE 158    Digital Signal Processing                              4.0  B+
+ECE 154A   Introduction to Computer Architecture                  4.0  A-
+ARTHI 6B   Art Survey II: Renaissance-Baroque Art                 5.0  B+
+
+FALL 2026
+ECE 188A   Senior Electrical Engineering Project                  4.0  IP
+ECE 145A   Communication Electronics                              5.0  IP
+ENGR 101   Ethics in Engineering                                  3.0  IP
+ECE 147A   Feedback Control Systems - Theory and Design           5.0  IP
+
+IP = in progress, Fall 2026
+--- End of Record ---

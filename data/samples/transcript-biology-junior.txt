@@ -1,0 +1,61 @@
+MOCK DATA — University of California, Santa Barbara
+UNOFFICIAL TRANSCRIPT (sample student, not a real person)
+
+Student: Sam Delgado
+Student ID: XXXX-3187
+Major: Biological Sciences
+Class Standing: Junior
+Total Units Earned: 93
+Units In Progress: 13
+
+--- Academic Record ---
+
+FALL 2024
+CHEM 1A    General Chemistry                                      4.0  B+
+MATH 3A    Calculus with Applications, First Course               4.0  B
+WRIT 2     Academic Writing                                       5.0  A-
+
+WINTER 2025
+CHEM 1B    General Chemistry                                      3.0  B
+CHEM 2AL   General Chemistry Lab (Part A)                         2.5  A-
+MATH 3B    Calculus with Applications, Second Course              4.0  B+
+PSY 1      Introduction to Psychology                             5.0  A
+
+SPRING 2025
+CHEM 1C    General Chemistry                                      3.0  B+
+CHEM 2BL   General Chemistry Laboratory (Part B)                  2.5  A
+PSTAT 5LS  Statistics for Life Sciences                           5.0  A-
+SOC 1      Introduction to Sociology                              5.0  B+
+
+SUMMER 2025
+ENV S 1    Introduction to Environmental Studies                  5.0  A
+
+FALL 2025
+MCDB 1A    Introductory Biology I                                 4.0  B+
+MCDB 1LL   Introductory Biology Laboratory I                      1.5  A
+CHEM 109A  Organic Chemistry                                      4.0  B-
+PHYS 6A    Introductory Physics                                   3.0  B
+PHYS 6AL   Introductory Experimental Physics                      1.0  A
+
+WINTER 2026
+MCDB 1B    Introductory Biology II--Physiology                    4.0  B
+EEMB 2     Introductory Biology II--Ecology and Evolution         3.0  B+
+CHEM 109B  Organic Chemistry                                      4.0  C+
+PHYS 6B    Introductory Physics                                   3.0  B-
+PHYS 6BL   Introductory Experimental Physics                      1.0  A-
+
+SPRING 2026
+EEMB 3     Introductory Biology III                               3.0  B+
+EEMB 2LL   Introductory Biology Laboratory II                     1.5  A
+CHEM 6AL   Laboratory Methods of Organic Chemistry                3.0  B
+PHYS 6C    Introductory Physics                                   3.0  B
+PHYS 6CL   Introductory Experimental Physics                      1.0  A
+HIST 17A   The American People                                    5.0  A-
+
+FALL 2026
+MCDB 101A  Molecular Genetics I: Prokaryotes                      4.0  IP
+EEMB 120   Introduction to Ecology                                4.0  IP
+FAMST 46   Introduction to Cinema                                 5.0  IP
+
+IP = in progress, Fall 2026
+--- End of Record ---
