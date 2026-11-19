@@ -6,7 +6,6 @@ import type { PlanResult, TranscriptData } from "@/types";
 import { ScheduleCard } from "@/components/ScheduleCard";
 import { ValidationBadge } from "@/components/ValidationBadge";
 import { PlanNotices, CourseFlags } from "@/components/PlanNotices";
-import { QuarterPlanner, type PlannerStart } from "@/components/planner/QuarterPlanner";
 import { PastGrades } from "@/components/PastGrades";
 import { FourYearPlanView } from "@/components/FourYearPlanView";
 import type { FourYearPlan } from "@/lib/four-year-plan";
@@ -28,35 +27,14 @@ function chosenRequirements(): MajorRequirements {
 }
 const base = offeringsData as unknown as QuarterOfferings;
 const standin = standinData as unknown as QuarterOfferings;
-/** Every Winter 2027 course the planner can pick from (base list, then stand-in sections). */
+/** Every Winter 2027 course in the Courses tab (base list, then stand-in sections). */
 const allCourses = [...base.courses, ...standin.courses.filter((c) => !base.courses.some((b) => b.code === c.code))];
-
-/** The student's main schedule in the Planner tab's shape. Real enroll codes come from GOLD. */
-function plannerStart(plan: PlanResult | null): PlannerStart | null {
-  if (!plan) return null;
-  const courses = plan.primary.courses;
-  return {
-    picks: courses.map(({ offering: o }) => ({
-      courseId: o.code,
-      lecture: {
-        enrollCode: "",
-        section: "0100",
-        kind: "LEC" as const,
-        meetings: [{ days: o.schedule.days, start: o.schedule.startTime, end: o.schedule.endTime }],
-        instructor: o.instructor,
-      },
-      section: null,
-    })),
-    units: Object.fromEntries(courses.map(({ offering: o }) => [o.code, o.units])),
-  };
-}
 
 // ── Tab config (matches HTML app) ─────────────────────────────
 const TABS = [
   { id: "today",      label: "Today",      color: "#febc11" },
   { id: "plan4",      label: "4-Year Plan", color: "#8f7ac0" },
   { id: "degree",     label: "Degree",     color: "#5ba4cf" },
-  { id: "planner",    label: "Planner",    color: "#7ab87a" },
   { id: "schedule",   label: "Schedule",   color: "#5b8a5b" },
   { id: "courses",    label: "Courses",    color: "#c4a04a" },
   { id: "transcript", label: "Transcript", color: "#d47a6a" },
@@ -69,7 +47,7 @@ type TabId = (typeof TABS)[number]["id"];
 function Fig({ value, label }: { value: string | number; label: string }) {
   return (
     <div className="card" style={{ padding: ".5rem .9rem", minWidth: 90 }}>
-      <b style={{ font: "700 1.6rem var(--display)", display: "block", lineHeight: 1.2 }}>{value}</b>
+      <b style={{ font: "400 1.6rem var(--display)", display: "block", lineHeight: 1.2 }}>{value}</b>
       <span className="fine">{label}</span>
     </div>
   );
@@ -115,7 +93,7 @@ function TodayTab({ plan, transcript }: { plan: PlanResult | null; transcript: T
               minWidth: "3.4rem", textAlign: "center",
               background: "var(--paper)", border: "2px solid var(--ink)",
               borderRadius: 10, padding: ".1rem .3rem",
-              font: "700 .95rem var(--display)",
+              font: "400 .95rem var(--display)",
             }}>
               {cd.join("")}
             </div>
@@ -393,6 +371,7 @@ export default function DashboardPage() {
   const [planError, setPlanError] = useState("");
   const [requirements, setRequirements] = useState<MajorRequirements>(() => combinedRequirements(["statistics-data-science"]));
   const [theme, setTheme] = useState<"light"|"dark">("light");
+  const [example, setExample] = useState("");
 
   useEffect(() => {
     const rawPlan = sessionStorage.getItem("plan_result");
@@ -402,6 +381,7 @@ export default function DashboardPage() {
     const rawFourYear = sessionStorage.getItem("four_year_plan");
     if (rawFourYear) setFourYear(JSON.parse(rawFourYear));
     setPlanError(sessionStorage.getItem("plan_error") ?? "");
+    setExample(rawTranscript ? sessionStorage.getItem("example_transcript") ?? "" : "");
     setRequirements(chosenRequirements());
     const tab = new URLSearchParams(window.location.search).get("tab");
     if (tab && TABS.some((t) => t.id === tab)) setActiveTab(tab as TabId);
@@ -430,7 +410,6 @@ export default function DashboardPage() {
       case "today":      return <TodayTab plan={plan} transcript={transcript} />;
       case "plan4":      return <FourYearTab plan={fourYear} planError={planError} />;
       case "degree":     return <DegreeTab transcript={transcript} requirements={requirements} />;
-      case "planner":    return <QuarterPlanner start={plannerStart(plan)} />;
       case "schedule":   return <ScheduleTab plan={plan} />;
       case "courses":    return <CoursesTab />;
       case "transcript": return <TranscriptTab transcript={transcript} />;
@@ -481,6 +460,15 @@ export default function DashboardPage() {
 
       {/* ── Main content ── */}
       <main className="app-main" id="main" tabIndex={-1}>
+        {example && (
+          <div className="note warn" role="status" style={{ marginTop: 0 }}>
+            <strong>EXAMPLE TRANSCRIPT.</strong>{" "}
+            <span className="fine">
+              You&apos;re looking at a made-up {example} student, not your own record.{" "}
+              <a href="/onboarding" style={{ color: "var(--ink)", fontWeight: 700 }}>Add your transcript</a> to plan your own quarter.
+            </span>
+          </div>
+        )}
         {renderTab()}
       </main>
     </div>

@@ -67,6 +67,8 @@ export default function OnboardingPage() {
   const [text, setText] = useState("");
   const [fileNote, setFileNote] = useState("");
   const [sampleNote, setSampleNote] = useState("");
+  // Label of the example transcript in the box, if one is loaded and unedited.
+  const [example, setExample] = useState("");
   const [busy, setBusy] = useState<string | null>(null);
   const [presetIdx, setPresetIdx] = useState(1);
   const [minUnits, setMinUnits] = useState(12);
@@ -96,7 +98,7 @@ export default function OnboardingPage() {
   const goNext = () => { const i = order.indexOf(step); if (i < order.length - 1) go(order[i + 1]); };
   const goBack = () => { const i = order.indexOf(step); if (i > 0) go(order[i - 1]); };
 
-  async function loadSample(file: string, sampleMajor: string) {
+  async function loadSample(file: string, sampleMajor: string, label: string) {
     setBusy(file);
     try {
       setText(await (await fetch(`/samples/${file}`)).text());
@@ -105,7 +107,13 @@ export default function OnboardingPage() {
       setSecondMajor("");
       setMinor("");
       setFileNote(file);
-      setSampleNote(changed ? `Your major is now ${findProgram(sampleMajor)?.name ?? sampleMajor}, to match this sample.` : "");
+      setExample(label);
+      const majorName = findProgram(sampleMajor)?.name ?? sampleMajor;
+      setSampleNote(
+        `This is an EXAMPLE transcript for a made-up ${label} student, not your own.` +
+          (changed ? ` Your major is now ${majorName} to match it.` : "") +
+          " To plan your own quarter, clear it and add your transcript."
+      );
     }
     catch { setError("Couldn't load that sample."); }
     finally { setBusy(null); }
@@ -123,6 +131,7 @@ export default function OnboardingPage() {
       setText(data.text);
       setFileNote(f.name);
       setSampleNote("");
+      setExample("");
     } catch (e) {
       setError(e instanceof Error ? e.message : "Couldn't read that file.");
     } finally {
@@ -157,6 +166,8 @@ export default function OnboardingPage() {
         }
       : { minUnits: 12, maxUnits: 16, freeDays: [], mustInclude: [], mustExclude: [] };
     sessionStorage.setItem("transcript_text", text);
+    if (example) sessionStorage.setItem("example_transcript", example);
+    else sessionStorage.removeItem("example_transcript");
     sessionStorage.setItem("constraints", JSON.stringify(constraints));
     sessionStorage.setItem("programs", JSON.stringify({ majors: [major, secondMajor].filter(Boolean), minor: minor || undefined }));
     router.push("/processing");
@@ -219,13 +230,17 @@ export default function OnboardingPage() {
     transcript: (
       <div>
         <h1 className="h">Your transcript</h1>
-        <p className="fine lead">Upload your unofficial transcript, paste it, or try a sample.</p>
+        <p className="fine lead">Upload your unofficial transcript or paste it. To look around first, try an example.</p>
 
+        <div className="fine" style={{ fontWeight: 700, textTransform: "uppercase", letterSpacing: ".05em", margin: "0 0 .4rem" }}>
+          Example transcripts <span className="tag unk" style={{ marginLeft: ".3rem" }}>made-up students</span>
+        </div>
         <div className="grid3">
           {SAMPLES.map((s) => (
-            <button key={s.file} className="choice" onClick={() => loadSample(s.file, s.major)}>
+            <button key={s.file} className={choice(example === s.label)} onClick={() => loadSample(s.file, s.major, s.label)}>
+              <span className="fine" style={{ fontWeight: 700, letterSpacing: ".05em" }}>EXAMPLE</span>
               <strong>{s.label}</strong>
-              <span className="fine">{busy === s.file ? "Loading..." : s.sublabel}</span>
+              <span className="fine">{busy === s.file ? "Loading..." : `Made-up ${s.sublabel.toLowerCase()}`}</span>
             </button>
           ))}
         </div>
@@ -239,15 +254,15 @@ export default function OnboardingPage() {
         <textarea
           id="paste"
           value={text}
-          onChange={(e) => { setText(e.target.value); setFileNote(""); setSampleNote(""); }}
+          onChange={(e) => { setText(e.target.value); setFileNote(""); setSampleNote(""); setExample(""); }}
           placeholder={"FALL 2024\nMATH 3A  Calculus with Applications I  4.0  A\n..."}
           className="mono"
         />
         <div className="row between">
-          <span className="fine">{text ? (fileNote ? `Read from ${fileNote}, ${lineCount} lines` : `${lineCount} lines added`) : ""}</span>
-          {text && <button className="link bad" onClick={() => { setText(""); setFileNote(""); setSampleNote(""); }}>Clear</button>}
+          <span className="fine">{text ? (example ? `Example transcript loaded, ${lineCount} lines` : fileNote ? `Read from ${fileNote}, ${lineCount} lines` : `${lineCount} lines added`) : ""}</span>
+          {text && <button className="link bad" onClick={() => { setText(""); setFileNote(""); setSampleNote(""); setExample(""); }}>Clear</button>}
         </div>
-        {sampleNote && text && <div className="note">{sampleNote}</div>}
+        {sampleNote && text && <div className="note warn">{sampleNote}</div>}
         {error && <div className="tag bad">{error}</div>}
 
         <div className="row">
@@ -381,7 +396,7 @@ export default function OnboardingPage() {
         <p className="fine lead">Here&apos;s what Schedule One will use.</p>
         <dl className="summary">
           <div><dt>Program</dt><dd>{programCodes.map((c) => findProgram(c)?.name ?? c).join(" + ")}</dd><button className="link" onClick={() => go("major")}>Edit</button></div>
-          <div><dt>Transcript</dt><dd>{text ? `${lineCount} lines` : "Not added"}</dd><button className="link" onClick={() => go("transcript")}>Edit</button></div>
+          <div><dt>Transcript</dt><dd>{!text ? "Not added" : example ? <><span className="tag warn">EXAMPLE</span> {example} (made-up student)</> : `${lineCount} lines`}</dd><button className="link" onClick={() => go("transcript")}>Edit</button></div>
           {mode === "personal" ? (
             <>
               <div><dt>Units</dt><dd>{minUnits} to {maxUnits}</dd><button className="link" onClick={() => go("preferences")}>Edit</button></div>

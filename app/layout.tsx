@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Sans } from "next/font/google";
+import { Anton, IBM_Plex_Sans } from "next/font/google";
 import "./globals.css";
+
+const anton = Anton({
+  weight: "400",
+  variable: "--font-anton",
+  subsets: ["latin"],
+  display: "swap",
+});
 
 const ibmPlexSans = IBM_Plex_Sans({
   weight: ["400", "500", "600", "700"],
@@ -16,7 +23,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${ibmPlexSans.variable} h-full`}>
+    <html lang="en" className={`${anton.variable} ${ibmPlexSans.variable} h-full`}>
       <body className="min-h-full">
         {children}
         {/* Required by UCSB's developer rules for student apps. */}

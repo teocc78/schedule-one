@@ -87,11 +87,11 @@ export default function ProcessingPage() {
 
       {/* Wordmark */}
       <div style={{ marginBottom: "2.5rem", textAlign: "center" }}>
-        <span style={{ fontWeight: 700, fontSize: "1.4rem", color: "var(--gold)" }}>
-          Schedule One
+        <span style={{ fontFamily: "var(--display)", fontSize: "2rem", color: "var(--gold)", letterSpacing: ".03em", transform: "skewX(-4deg)", display: "inline-block" }}>
+          SCHEDULE ONE
         </span>
-        <div style={{ fontSize: ".8rem", color: "var(--ink3)", marginTop: ".15rem" }}>
-          UCSB, Winter 2027
+        <div style={{ fontSize: ".75rem", color: "var(--ink3)", letterSpacing: ".08em", textTransform: "uppercase", marginTop: ".15rem" }}>
+          UCSB · Winter 2027
         </div>
       </div>
 
@@ -106,8 +106,8 @@ export default function ProcessingPage() {
               <div style={{ position: "absolute", inset: 0, borderRadius: "50%", border: "4px solid var(--gold)", borderTopColor: "transparent", animation: "spin 1s linear infinite" }} />
             </div>
           )}
-          <h1 style={{ fontSize: "1.4rem", color: "var(--gold)", margin: "0 0 .25rem" }}>
-            {done ? "Ready" : "Building your schedule"}
+          <h1 style={{ fontFamily: "var(--display)", fontSize: "1.6rem", color: "var(--gold)", margin: "0 0 .25rem" }}>
+            {done ? "READY" : "BUILDING YOUR SCHEDULE"}
           </h1>
           <p style={{ color: "var(--ink3)", fontSize: ".85rem" }}>
             {done ? "Opening your dashboard..." : "Takes a few seconds"}
