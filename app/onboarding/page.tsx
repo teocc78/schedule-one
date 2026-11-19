@@ -376,7 +376,6 @@ export default function OnboardingPage() {
                     {c.description ? shortDescription(c.description) : "No description yet."}
                     {!c.offeredThisQuarter && " Not offered in Winter 2027."}
                   </span>
-                  <span className="fine">Seems interesting</span>
                 </span>
               </label>
             ))}
