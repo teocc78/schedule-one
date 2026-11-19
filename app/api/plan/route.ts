@@ -11,10 +11,8 @@ import { flagsFor, historyFromFixture } from "@/lib/registration-flags";
 import type { Schedule } from "@/types";
 import type { QuarterOfferings } from "@/types";
 
-// The LLM call plus one corrective retry can take 20-40 s. Without this,
-// Vercel cuts the function off at its default limit and the browser gets an
-// HTML error page instead of JSON.
-export const maxDuration = 60;
+// Rules only; a large schedule search can take a few seconds.
+export const maxDuration = 30;
 
 // Real 2026-27 courses with placeholder times for Stats & Data Science, plus
 // stand-in sections for the other ready majors until the UCSB API is set.
@@ -56,14 +54,17 @@ export async function POST(req: NextRequest) {
   try {
     const codes = [...(body.majorCodes?.length ? body.majorCodes : [body.majorCode || "statistics-data-science"]), body.minorCode ?? ""];
     const requirements = combinedRequirements(codes);
-    const result = await runPlanner(body.transcript, requirements, offerings, body.constraints);
     let fourYear: FourYearPlan | null = null;
     try {
       fourYear = buildFourYearPlan(requirements, body.transcript);
     } catch {
       fourYear = null;
     }
+    // The quarter plan prefers what the 4-year plan puts in Winter 2027.
+    const priority = fourYear?.quarters[0]?.term === "Winter 2027" ? fourYear.quarters[0].courses.map((c) => c.code) : [];
+    const result = await runPlanner(body.transcript, requirements, offerings, body.constraints, priority);
     [result.primary, ...result.backups].forEach((s) => addFlags(s, fourYear));
+    result.groupNames = Object.fromEntries(requirements.groups.map((g) => [g.id, g.name]));
     return NextResponse.json(result);
   } catch (err) {
     if (err instanceof ProgramNotReadyError) {

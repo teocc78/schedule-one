@@ -8,6 +8,8 @@ interface Props {
   schedule: Schedule;
   title: string;
   isPrimary?: boolean;
+  /** Requirement group id to plain name; ids are shown when missing. */
+  groupNames?: Record<string, string>;
 }
 
 const COURSE_COLORS = [
@@ -27,7 +29,7 @@ const COURSE_DOT_COLORS = [
   "bg-teal-500",
 ];
 
-export function ScheduleCard({ schedule, title, isPrimary = false }: Props) {
+export function ScheduleCard({ schedule, title, isPrimary = false, groupNames }: Props) {
   return (
     <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
       {/* Change note for backups */}
@@ -75,7 +77,7 @@ export function ScheduleCard({ schedule, title, isPrimary = false }: Props) {
                       <div className="flex gap-1 mt-1.5 flex-wrap">
                         {sc.satisfies.map((gid) => (
                           <span key={gid} className="text-[10px] font-medium bg-white/80 text-gray-600 px-2 py-0.5 rounded-full border border-gray-200">
-                            {gid}
+                            {groupNames?.[gid] ?? gid}
                           </span>
                         ))}
                       </div>

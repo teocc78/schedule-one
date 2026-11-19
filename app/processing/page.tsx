@@ -49,7 +49,7 @@ export default function ProcessingPage() {
 
         setStep(2);
         const programBody = { majorCodes, minorCode: programs.minor || undefined };
-        // The 4-year plan is rule-based, so it still works if the AI planner fails.
+        // Both plans are rule-based; if one fails the student still sees the other.
         const [planRes, fourYearRes] = await Promise.allSettled([
           postJson<unknown>(
             "/api/plan",
@@ -110,7 +110,7 @@ export default function ProcessingPage() {
             {done ? "Ready" : "Building your schedule"}
           </h1>
           <p style={{ color: "var(--ink3)", fontSize: ".85rem" }}>
-            {done ? "Opening your dashboard..." : "Usually takes 15 to 25 seconds"}
+            {done ? "Opening your dashboard..." : "Takes a few seconds"}
           </p>
         </div>
 

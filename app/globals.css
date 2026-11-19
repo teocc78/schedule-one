@@ -429,3 +429,11 @@ label {
 .plan-quarter { padding: .75rem .9rem; }
 .plan-course { padding: .4rem 0; border-top: 1px solid var(--line); }
 .plan-course:first-child { border-top: none; }
+
+/* Print: just the schedule, no navigation. */
+@media print {
+  .rail { display: none !important; }
+  .app-shell { display: block !important; }
+  .app-main { padding: 0 !important; overflow: visible !important; }
+  .btn { display: none !important; }
+}

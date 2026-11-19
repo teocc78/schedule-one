@@ -2,7 +2,7 @@
  * Course-code helpers shared by the validator, requirements engine and
  * planners. Pure functions, no I/O.
  *
- * Transcripts parsed by the LLM come back in slightly different shapes
+ * Pasted transcripts come in slightly different shapes
  * ("pstat120a", "PSTAT  120A", "Pstat 120A"), and prerequisite lists need
  * "either/or" entries (for example MATH 8 or PSTAT 8). Comparing raw strings
  * made valid schedules fail the prerequisite check, so every comparison goes

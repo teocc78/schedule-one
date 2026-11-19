@@ -1,5 +1,5 @@
 /**
- * Rule-based 4-year plan. No AI: it works the same with or without Gemini.
+ * Rule-based 4-year plan. No AI.
  *
  * 1. Pick the courses still needed: every unfinished course in an "all"
  *    group, and for "choose n" groups the options with the fewest missing

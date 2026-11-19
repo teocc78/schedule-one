@@ -4,8 +4,7 @@ import { buildFourYearPlan } from "@/lib/four-year-plan";
 import type { TranscriptData } from "@/types";
 
 /**
- * Rule-based 4-year plan. No AI call, so it works when Gemini is down or
- * over quota. Never logs transcript contents.
+ * Rule-based 4-year plan (no AI). Never logs transcript contents.
  */
 export async function POST(req: NextRequest) {
   let body: { transcript?: TranscriptData; majorCodes?: string[]; minorCode?: string; maxUnits?: number };

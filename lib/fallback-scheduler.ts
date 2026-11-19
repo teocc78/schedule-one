@@ -1,8 +1,7 @@
 /**
- * Deterministic schedule builder used when the LLM's proposals fail
- * validation twice. It searches combinations of eligible offerings and
- * returns the best few that pass every hard rule. No AI involved, so the
- * student always gets a schedule when one exists.
+ * Deterministic schedule search. It tries combinations of eligible offerings
+ * and returns the best few that pass every hard rule, so the student always
+ * gets a schedule when one exists. This is the only planner; there is no AI.
  */
 
 import type { CourseOffering, StudentConstraints } from "@/types";
@@ -47,8 +46,11 @@ export function buildFallbackSchedules(
   remainingGroups: RequirementStatus[],
   constraints: StudentConstraints,
   count = 3,
-  maxCourses = 5
+  maxCourses = 5,
+  /** Codes the 4-year plan puts in this quarter; they win ties. */
+  priority: string[] = []
 ): FallbackSchedule[] {
+  const preferred = new Set(priority.map(normalizeCode));
   const pool = eligible.filter((o) => respectsConstraints(o, constraints));
   const mustInclude = constraints.mustInclude.map(normalizeCode);
   const interested = new Set((constraints.interested ?? []).map(normalizeCode));
@@ -63,6 +65,9 @@ export function buildFallbackSchedules(
     // Courses the student marked "seems interesting" win ties between
     // otherwise equal schedules, but never outrank a requirement.
     s += courses.filter((o) => interested.has(normalizeCode(o.code))).length * 3;
+    // Courses the 4-year plan puts in this quarter (gateways, once-a-year
+    // courses) come next after requirements.
+    s += courses.filter((o) => preferred.has(normalizeCode(o.code))).length * 5;
     return { score: s, satisfies };
   }
 

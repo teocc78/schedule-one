@@ -163,8 +163,7 @@ export function groupCapacity(remainingGroups: RequirementStatus[]): Record<stri
 /**
  * Deterministically decide which remaining group(s) each scheduled course
  * counts toward, filling each group at most up to what it still needs.
- * The LLM's own "satisfies" list is advisory only; hard requirement
- * counting stays in code.
+ * Requirement counting always happens here, in code.
  */
 export function assignSatisfies(
   offerings: CourseOffering[],

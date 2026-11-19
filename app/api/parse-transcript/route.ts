@@ -1,49 +1,28 @@
 import { NextRequest, NextResponse } from "next/server";
-import { parseTranscript, LLMConfigError, LLMBusyError } from "@/lib/llm";
+import { parseTranscriptText } from "@/lib/transcript-parser";
 import type { ParseTranscriptRequest } from "@/types";
 
-export const maxDuration = 60;
-
+/** Reads a transcript with rules (no AI). Never logs the transcript text. */
 export async function POST(req: NextRequest) {
+  let body: ParseTranscriptRequest;
   try {
-    const body: ParseTranscriptRequest = await req.json();
-    if (!body.text?.trim()) {
-      return NextResponse.json({ error: "No transcript text provided", code: "empty" }, { status: 400 });
-    }
-    const transcript = await parseTranscript(body.text);
-    if (transcript.completedCourses.length === 0) {
-      return NextResponse.json(
-        {
-          error: "No finished courses were found in that text. Paste your unofficial transcript or progress check as plain text, with course codes and grades.",
-          code: "no_courses",
-        },
-        { status: 422 }
-      );
-    }
-    return NextResponse.json(transcript);
-  } catch (err) {
-    if (err instanceof LLMConfigError) {
-      // The message names the setting to fix and never contains the key.
-      console.error("[parse-transcript] configuration:", err.message);
-      return NextResponse.json(
-        { error: "The planner's AI isn't set up correctly on the server. The site owner needs to check the Gemini settings.", code: "ai_config" },
-        { status: 503 }
-      );
-    }
-    if (err instanceof LLMBusyError) {
-      console.error("[parse-transcript] busy:", err.reason, err.message);
-      return NextResponse.json(
-        err.reason === "quota"
-          ? {
-              error: "The AI's usage limit for this site has been reached, and the transcript couldn't be read without it. Try again later, or paste it as plain text with one course per line (code, title, units, grade).",
-              code: "ai_quota",
-            }
-          : { error: "Google's AI servers are overloaded right now. Wait a minute and try again.", code: "ai_overloaded" },
-        { status: 503 }
-      );
-    }
-    // Transcript text is sensitive: log the error message only.
-    console.error("[parse-transcript]", err instanceof Error ? err.message.slice(0, 300) : "unknown error");
-    return NextResponse.json({ error: "Couldn't read that transcript. Please try again.", code: "parse_failed" }, { status: 500 });
+    body = await req.json();
+  } catch {
+    return NextResponse.json({ error: "Request body was not valid JSON", code: "bad_request" }, { status: 400 });
   }
+  if (!body.text?.trim()) {
+    return NextResponse.json({ error: "No transcript text provided", code: "empty" }, { status: 400 });
+  }
+  const { transcript } = parseTranscriptText(body.text);
+  if (transcript.completedCourses.length === 0) {
+    return NextResponse.json(
+      {
+        error:
+          "No courses were found in that text. Paste your unofficial transcript from GOLD, or one course per line with its code, units and grade, like: PSTAT 120A  Probability  4.0  A-",
+        code: "no_courses",
+      },
+      { status: 422 }
+    );
+  }
+  return NextResponse.json(transcript);
 }

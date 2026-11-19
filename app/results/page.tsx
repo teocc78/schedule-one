@@ -148,6 +148,7 @@ export default function ResultsPage() {
           schedule={activeSchedule}
           title={activeTab === "primary" ? "Primary Schedule" : activeTab === "backup1" ? "Backup Schedule 1" : "Backup Schedule 2"}
           isPrimary={activeTab === "primary"}
+          groupNames={planResult.groupNames}
         />
 
         {/* Transcript accordion */}

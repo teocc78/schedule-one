@@ -48,6 +48,14 @@ function cellsToBlocks(cells: Record<string, CellState>): TimeBlock[] {
     });
 }
 
+/** The student's own schedule as planner picks; null shows the worked example. */
+export interface PlannerStart {
+  picks: Pick[];
+  units: Record<string, number>;
+}
+
+const code = (c: string) => (c ? ` (${c})` : "");
+
 function fmt(p: { lecture: { meetings: { days: Day[]; start: string; end: string }[] } }) {
   return p.lecture.meetings.map((m) => `${m.days.join("")} ${m.start}-${m.end}`).join(", ");
 }
@@ -61,18 +69,21 @@ function Card({ title, children, acc }: { title: string; children: React.ReactNo
   );
 }
 
-export function QuarterPlanner() {
-  const [priority, setPriority] = useState<PlannerSettings["priority"]>("time");
+export function QuarterPlanner({ start = null }: { start?: PlannerStart | null }) {
+  // No ratings source yet, so lectures are ranked by time fit only.
+  const priority: PlannerSettings["priority"] = "time";
+  const startPicks = start?.picks ?? LOCKED_W27;
   const [buffer, setBuffer] = useState(0);
   const [cells, setCells] = useState<Record<string, CellState>>({});
-  const [locked, setLocked] = useState<Pick[]>(LOCKED_W27);
+  const [locked, setLocked] = useState<Pick[]>(startPicks);
   const [candidates, setCandidates] = useState<CourseSections[]>([]);
-  const [wanted, setWanted] = useState<string[]>(["JAPAN 80"]);
+  const [wanted, setWanted] = useState<string[]>(start ? [] : ["JAPAN 80"]);
   const [source, setSource] = useState<{ source: string; warning?: string } | null>(null);
   const [loadError, setLoadError] = useState("");
-  // Progress-check lines the student marks as already met. Sample: only
-  // Writing and World Cultures still open.
-  const [metLines, setMetLines] = useState<GELine[]>(["A", "B", "C", "D", "E", "F", "G", "ET", "QNT"]);
+  // Progress-check lines the student marks as already met. The worked
+  // example has only Writing and World Cultures open; a real student starts
+  // with nothing ticked and copies their GOLD progress check.
+  const [metLines, setMetLines] = useState<GELine[]>(start ? [] : ["A", "B", "C", "D", "E", "F", "G", "ET", "QNT"]);
   const [registered, setRegistered] = useState(0);
   const [waitlist, setWaitlist] = useState<string[]>([]);
   const [copied, setCopied] = useState(false);
@@ -87,7 +98,7 @@ export function QuarterPlanner() {
           setLoadError(data?.error ?? "Couldn't load class data.");
           return;
         }
-        const lockedIds = new Set(LOCKED_W27.map((p) => p.courseId));
+        const lockedIds = new Set(startPicks.map((p) => p.courseId));
         setCandidates((data.courses as CourseSections[]).filter((c) => !lockedIds.has(c.courseId)));
         setSource({ source: data.source, warning: data.warning });
       })
@@ -95,6 +106,7 @@ export function QuarterPlanner() {
     return () => {
       alive = false;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const settings: PlannerSettings = useMemo(
@@ -132,7 +144,7 @@ export function QuarterPlanner() {
   );
 
   const unitsOf = (id: string) =>
-    candidates.find((c) => c.courseId === id)?.units ?? ({ "PSY 10B": 5, "PSTAT 8": 5, "EEMB 7": 4 } as Record<string, number>)[id] ?? 4;
+    start?.units[id] ?? candidates.find((c) => c.courseId === id)?.units ?? ({ "PSY 10B": 5, "PSTAT 8": 5, "EEMB 7": 4 } as Record<string, number>)[id] ?? 4;
 
   const passPlan = useMemo(() => {
     const courses = plan.picks.map((p) => {
@@ -160,8 +172,10 @@ export function QuarterPlanner() {
     <div>
       <h2 className="sec" style={{ "--acc": "#7ab87a" } as React.CSSProperties}>Quarter Planner · {QUARTER_LABEL}</h2>
       <p className="fine" style={{ marginBottom: "1rem" }}>
-        Hard rules (conflicts, units, GE counting) are checked in code. Estimates are labeled as estimates, and GOLD wins
-        whenever it disagrees with this app.
+        {start
+          ? "Starts from your main schedule. Mark times to avoid, add classes and build your pass plan. "
+          : "This is a worked example. Build a schedule first to see your own classes here. "}
+        Estimates are labeled as estimates, and GOLD wins whenever it disagrees with this app.
         {source && (
           <>
             {" "}
@@ -175,13 +189,6 @@ export function QuarterPlanner() {
 
       <Card title="1 · Your week" acc="#93bad0">
         <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", marginBottom: ".75rem", alignItems: "center" }}>
-          <div role="radiogroup" aria-label="Priority" style={{ display: "flex", gap: ".4rem" }}>
-            {(["time", "professor"] as const).map((p) => (
-              <button key={p} className={`btn sm ${priority === p ? "gold" : ""}`} role="radio" aria-checked={priority === p} onClick={() => setPriority(p)}>
-                {p === "time" ? "Prioritize time slot" : "Prioritize professor rating"}
-              </button>
-            ))}
-          </div>
           <label className="fine">
             Buffer between classes{" "}
             <select value={buffer} onChange={(e) => setBuffer(Number(e.target.value))}>
@@ -191,12 +198,6 @@ export function QuarterPlanner() {
             </select>
           </label>
         </div>
-        {priority === "professor" && (
-          <p className="fine" style={{ marginBottom: ".5rem" }}>
-            Sections are usually led by TAs with no ratings, so discussions and labs are still ranked by time fit. Ratings
-            source isn&apos;t connected yet.
-          </p>
-        )}
         <p className="fine" style={{ marginBottom: ".4rem" }}>
           Tap a cell to mark it <span className="tag warn">avoid</span> then <span className="tag bad">never</span>.
         </p>
@@ -243,18 +244,18 @@ export function QuarterPlanner() {
 
       <Card title="2 · Plan" acc="#5b8a5b">
         <p className="fine" style={{ marginBottom: ".5rem" }}>
-          Locked classes stay put. Lectures are placed first; a lecture is only kept if one of its sections still fits.
+          Your classes stay put. New classes are placed around them; a lecture is only kept if one of its sections still fits.
         </p>
         {plan.picks.map((p) => (
           <div key={p.courseId} className="card" style={{ marginBottom: ".4rem", display: "flex", gap: ".75rem", alignItems: "center" }}>
             <div style={{ flex: 1 }}>
               <strong>{p.courseId}</strong>{" "}
               <span className="fine">
-                Lecture {p.lecture.section} ({p.lecture.enrollCode}) · {fmt(p)}
-                {p.section && ` · ${p.section.kind} ${p.section.section} (${p.section.enrollCode}) ${p.section.meetings.map((m) => `${m.days.join("")} ${m.start}-${m.end}`).join(", ")}`}
+                Lecture {p.lecture.section}{code(p.lecture.enrollCode)} · {fmt(p)}
+                {p.section && ` · ${p.section.kind} ${p.section.section}${code(p.section.enrollCode)} ${p.section.meetings.map((m) => `${m.days.join("")} ${m.start}-${m.end}`).join(", ")}`}
               </span>
             </div>
-            {locked.some((l) => l.courseId === p.courseId) ? <span className="tag unk">locked</span> : <span className="tag good">placed</span>}
+            {locked.some((l) => l.courseId === p.courseId) ? <span className="tag unk">yours</span> : <span className="tag good">placed</span>}
             <button className="btn sm" onClick={() => removePick(p.courseId)} aria-label={`Remove ${p.courseId}`}>Remove</button>
           </div>
         ))}
@@ -337,7 +338,7 @@ export function QuarterPlanner() {
 
       <Card title="4 · GE requirements" acc="#5ba4cf">
         <p className="fine" style={{ marginBottom: ".5rem" }}>
-          Mark what your progress check shows as met. A course fills only one subject area (A to G), but Writing, World
+          Tick what your GOLD progress check shows as met. A course fills only one subject area (A to G), but Writing, World
           Cultures, Ethnicity and Quantitative Relationships can stack on top of it.
         </p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: ".4rem", marginBottom: ".75rem" }}>

@@ -1,6 +1,5 @@
-import { describe, it, expect, vi } from "vitest";
-import { runPlanner, NoValidScheduleError, type ProposeFn } from "@/lib/planner";
-import { LLMConfigError } from "@/lib/llm";
+import { describe, it, expect } from "vitest";
+import { runPlanner, NoValidScheduleError } from "@/lib/planner";
 import requirementsData from "@/data/requirements/statistics-data-science.json";
 import offeringsData from "@/data/offerings/winter-2027.json";
 import type {
@@ -36,70 +35,47 @@ const constraints: StudentConstraints = {
   mustExclude: [],
 };
 
-const sched = (codes: string[]) => ({
-  courses: codes.map((code) => ({ code, satisfies: [] })),
-  explanation: "test",
-  swaps: {},
-});
+const codes = (s: { courses: { offering: { code: string } }[] }) => s.courses.map((c) => c.offering.code);
 
-describe("runPlanner (print schedule regression)", () => {
-  it("accepts a schedule with two PSTAT electives instead of returning 422", async () => {
-    const propose: ProposeFn = vi.fn(async () => ({
-      primary: sched(["PSTAT 126", "PSTAT 122", "PSTAT 174"]),
-      backup1: sched(["PSTAT 126", "PSTAT 123", "PSTAT 174"]),
-      backup2: sched(["PSTAT 126", "PSTAT 133", "PSTAT 130"]),
-    }));
-    const result = await runPlanner(transcript, requirements, offerings, constraints, propose);
-    expect(result.primary.validation.valid).toBe(true);
-    expect(result.primary.courses.map((c) => c.offering.code)).toEqual(["PSTAT 126", "PSTAT 122", "PSTAT 174"]);
-    expect(propose).toHaveBeenCalledTimes(1);
+describe("runPlanner (rules only, no AI)", () => {
+  it("returns a valid main schedule and two different valid backups", async () => {
+    const result = await runPlanner(transcript, requirements, offerings, constraints);
+    const all = [result.primary, ...result.backups];
+    for (const s of all) {
+      expect(s.validation.valid).toBe(true);
+      expect(s.totalUnits).toBeGreaterThanOrEqual(12);
+      expect(s.totalUnits).toBeLessThanOrEqual(16);
+    }
+    const keys = new Set(all.map((s) => codes(s).sort().join("|")));
+    expect(keys.size).toBe(3);
+    expect(result.backups[0].changeNote).toMatch(/instead of|Adds|Drops/);
   });
 
-  it("retries once with the validator's errors when the first proposal conflicts", async () => {
-    const propose = vi
-      .fn<ProposeFn>()
-      // PSTAT 126 (MWF 11:00) and MATH 137A (MWF 11:00) overlap.
-      .mockResolvedValueOnce({
-        primary: sched(["PSTAT 126", "MATH 137A", "PSTAT 174"]),
-        backup1: sched(["PSTAT 126"]),
-        backup2: sched(["PSTAT 126"]),
-      })
-      .mockResolvedValueOnce({
-        primary: sched(["PSTAT 126", "PSTAT 122", "PSTAT 174"]),
-        backup1: sched(["PSTAT 126", "PSTAT 123", "PSTAT 174"]),
-        backup2: sched(["PSTAT 126", "PSTAT 133", "PSTAT 130"]),
-      });
-    const withMath8 = { ...transcript, completedCourses: [...transcript.completedCourses, done("MATH 8")] };
-    const result = await runPlanner(withMath8, requirements, offerings, constraints, propose);
-    expect(propose).toHaveBeenCalledTimes(2);
-    const feedback = propose.mock.calls[1][6];
-    expect(feedback).toContain("Time conflict");
-    expect(result.primary.validation.valid).toBe(true);
+  it("never schedules a course the student already finished", async () => {
+    const result = await runPlanner(transcript, requirements, offerings, constraints);
+    const finished = new Set(transcript.completedCourses.map((c) => c.code));
+    for (const s of [result.primary, ...result.backups]) {
+      expect(codes(s).some((c) => finished.has(c))).toBe(false);
+    }
   });
 
-  it("falls back to the rule-based planner when the LLM keeps failing", async () => {
-    const propose: ProposeFn = vi.fn(async () => {
-      throw new Error("model timed out");
-    });
-    const result = await runPlanner(transcript, requirements, offerings, constraints, propose);
-    expect(result.primary.validation.valid).toBe(true);
-    expect(result.backups[0].validation.valid).toBe(true);
-    expect(result.primary.totalUnits).toBeGreaterThanOrEqual(12);
+  it("gives swap options that fit around the rest of the schedule", async () => {
+    const result = await runPlanner(transcript, requirements, offerings, constraints);
+    const inMain = new Set(codes(result.primary));
+    const swaps = Object.values(result.primary.swaps).flat();
+    expect(swaps.length).toBeGreaterThan(0);
+    for (const s of swaps) expect(inMain.has(s.offering.code)).toBe(false);
   });
 
-  it("still builds schedules when the Gemini settings are wrong", async () => {
-    const propose: ProposeFn = vi.fn(async () => {
-      throw new LLMConfigError("GEMINI_API_KEY is not set");
-    });
-    const result = await runPlanner(transcript, requirements, offerings, constraints, propose);
-    expect(result.primary.validation.valid).toBe(true);
+  it("prefers the courses the 4-year plan puts in this quarter", async () => {
+    const base = await runPlanner(transcript, requirements, offerings, constraints);
+    const notInMain = Object.values(base.primary.swaps).flat()[0].offering.code;
+    const preferred = await runPlanner(transcript, requirements, offerings, constraints, [notInMain]);
+    expect(codes(preferred.primary)).toContain(notInMain);
   });
 
   it("explains when no valid combination exists", async () => {
-    const propose: ProposeFn = vi.fn(async () => {
-      throw new Error("down");
-    });
     const tight = { ...constraints, freeDays: ["M", "T", "W", "R", "F"] as StudentConstraints["freeDays"] };
-    await expect(runPlanner(transcript, requirements, offerings, tight, propose)).rejects.toBeInstanceOf(NoValidScheduleError);
+    await expect(runPlanner(transcript, requirements, offerings, tight)).rejects.toBeInstanceOf(NoValidScheduleError);
   });
 });

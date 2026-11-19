@@ -11,9 +11,14 @@ export interface CartPromptInput {
 }
 
 export function buildCartPrompt({ quarterLabel, picks }: CartPromptInput): string {
+  // Enroll codes are only known for real GOLD sections; without one, the
+  // assistant matches by course and meeting time instead.
+  const code = (c: string) => (c ? ` (enroll code ${c})` : "");
+  const times = (m: { days: string[]; start: string; end: string }[]) => m.map((x) => `${x.days.join("")} ${x.start}-${x.end}`).join(", ");
   const lines = picks.map((p, i) => {
-    const sec = p.section ? `, with ${p.section.kind === "LAB" ? "lab" : "discussion"} section ${p.section.section} (enroll code ${p.section.enrollCode})` : "";
-    return `${i + 1}. ${p.courseId}: lecture section ${p.lecture.section} (enroll code ${p.lecture.enrollCode})${sec}`;
+    const sec = p.section ? `, with ${p.section.kind === "LAB" ? "lab" : "discussion"} section ${p.section.section}${code(p.section.enrollCode)}` : "";
+    const lec = p.lecture.enrollCode ? `lecture section ${p.lecture.section}${code(p.lecture.enrollCode)}` : `the lecture that meets ${times(p.lecture.meetings)}`;
+    return `${i + 1}. ${p.courseId}: ${lec}${sec}`;
   });
   return [
     `I'm planning my ${quarterLabel} classes in UCSB GOLD. I'm already signed in to GOLD in this browser. Please help me add these exact sections to my GOLD cart:`,

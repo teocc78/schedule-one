@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { readFileSync } from "node:fs";
-import { parseTranscriptByRules, rulesAreEnough } from "@/lib/transcript-fallback";
+import { parseTranscriptText } from "@/lib/transcript-parser";
 import { combinedRequirements } from "@/lib/majors";
 import { buildFourYearPlan, nextTerm, defaultStart } from "@/lib/four-year-plan";
 import { computeRequirementStatus } from "@/lib/requirements";
@@ -17,13 +17,13 @@ const SAMPLES = [
   { file: "transcript-ee-senior.txt", major: "electrical-engineering", earned: 155, ip: 17 },
 ];
 
-const read = (f: string) => parseTranscriptByRules(readFileSync(`data/samples/${f}`, "utf8"));
+const read = (f: string) => parseTranscriptText(readFileSync(`data/samples/${f}`, "utf8"));
 
 describe("sample transcripts", () => {
   for (const s of SAMPLES) {
     it(`${s.file} reads cleanly and uses real catalog courses`, () => {
       const r = read(s.file);
-      expect(rulesAreEnough(r)).toBe(true);
+      expect(r.unreadCourseLines).toBe(0);
       expect(r.transcript.totalUnitsEarned).toBe(s.earned);
       expect(r.transcript.unitsInProgress).toBe(s.ip);
       // public copy matches
@@ -131,19 +131,18 @@ describe("4-year plan", () => {
 
 describe("one-quarter plan for the sample students", () => {
   const constraints = { minUnits: 12, maxUnits: 16, freeDays: [], mustInclude: [], mustExclude: [], noClassBefore: "08:00" };
-  const noAI = async () => { throw new Error("no AI in tests"); };
   const offerings = { ...standin, courses: [...(base.courses as CourseOffering[]), ...(standin.courses as CourseOffering[]).filter((c) => !base.courses.some((b) => b.code === c.code))] } as unknown as QuarterOfferings;
 
   it("plans ECON 10A for the sophomore and says how many GE units to add", async () => {
     const { transcript } = read("transcript-econ-accounting-sophomore.txt");
-    const r = await runPlanner(transcript, combinedRequirements(["economics-accounting"]), offerings, constraints, noAI);
+    const r = await runPlanner(transcript, combinedRequirements(["economics-accounting"]), offerings, constraints);
     expect(r.primary.courses.map((c) => c.offering.code)).toEqual(["ECON 10A"]);
     expect(r.notices?.[0]).toMatch(/Add at least 7 units of GE or elective/);
   });
 
   it("gives the EE senior ECE 188B plus electives at full time", async () => {
     const { transcript } = read("transcript-ee-senior.txt");
-    const r = await runPlanner(transcript, combinedRequirements(["electrical-engineering"]), offerings, constraints, noAI);
+    const r = await runPlanner(transcript, combinedRequirements(["electrical-engineering"]), offerings, constraints);
     const codes = r.primary.courses.map((c) => c.offering.code);
     expect(codes).toContain("ECE 188B");
     expect(r.primary.totalUnits).toBeGreaterThanOrEqual(12);

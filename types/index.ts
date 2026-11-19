@@ -94,8 +94,6 @@ export interface StudentConstraints {
   noClassAfter?: string;
   /** Course codes the student marked "seems interesting". Preferred, not required. */
   interested?: string[];
-  /** Free-text preferences passed to the LLM */
-  freeText?: string;
 }
 
 // ── Validation ───────────────────────────────────────────────
@@ -151,6 +149,8 @@ export interface PlanResult {
   standing?: string;
   /** Plain-language notes for the student (full-time status, standing). */
   notices?: string[];
+  /** Requirement group id to its plain name, for labels in the UI. */
+  groupNames?: Record<string, string>;
 }
 
 // ── API request/response shapes ──────────────────────────────

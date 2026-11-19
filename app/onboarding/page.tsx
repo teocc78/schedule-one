@@ -29,9 +29,9 @@ const DAY_LABELS: Record<DayOfWeek, string> = { M: "Mon", T: "Tue", W: "Wed", R:
 
 // Fictional students with real 2026-27 UCSB courses. Picking one also sets the major.
 const SAMPLES = [
-  { label: "Sophomore", sublabel: "Economics & Accounting", file: "transcript-econ-accounting-sophomore.txt", major: "economics-accounting" },
-  { label: "Junior", sublabel: "Biological Sciences", file: "transcript-biology-junior.txt", major: "biological-sciences" },
-  { label: "Senior", sublabel: "Electrical Engineering", file: "transcript-ee-senior.txt", major: "electrical-engineering" },
+  { label: "Economics & Accounting", sublabel: "Sophomore", file: "transcript-econ-accounting-sophomore.txt", major: "economics-accounting" },
+  { label: "Biology", sublabel: "Junior", file: "transcript-biology-junior.txt", major: "biological-sciences" },
+  { label: "Electrical Engineering", sublabel: "Senior", file: "transcript-ee-senior.txt", major: "electrical-engineering" },
 ];
 
 // Every preset is at least 12 units, the full-time minimum.
@@ -76,7 +76,6 @@ export default function OnboardingPage() {
   const [freeDays, setFreeDays] = useState<DayOfWeek[]>([]);
   const [mustInclude, setMustInclude] = useState("");
   const [mustExclude, setMustExclude] = useState("");
-  const [freeText, setFreeText] = useState("");
   const [interested, setInterested] = useState<string[]>([]);
   const [error, setError] = useState("");
 
@@ -155,7 +154,6 @@ export default function OnboardingPage() {
           mustInclude: mustInclude.split(",").map((s) => s.trim()).filter(Boolean),
           mustExclude: mustExclude.split(",").map((s) => s.trim()).filter(Boolean),
           interested,
-          freeText: freeText || undefined,
         }
       : { minUnits: 12, maxUnits: 16, freeDays: [], mustInclude: [], mustExclude: [] };
     sessionStorage.setItem("transcript_text", text);
@@ -337,9 +335,6 @@ export default function OnboardingPage() {
           </div>
         </div>
 
-        <label htmlFor="else">Anything else?</label>
-        <input id="else" type="text" placeholder="e.g. afternoon classes, a lighter quarter" value={freeText} onChange={(e) => setFreeText(e.target.value)} />
-
         <div className="row">
           <button className="btn" onClick={goBack}>Back</button>
           <button className="btn" onClick={goNext}>Skip</button>
@@ -409,7 +404,7 @@ export default function OnboardingPage() {
             <div><dt>Preferences</dt><dd>Built for you: 12 to 16 units, any times</dd><button className="link" onClick={() => { setMode("personal"); go("preferences"); }}>Personalize</button></div>
           )}
         </dl>
-        <p className="fine">You&apos;ll get a main schedule and two backups in about 20 seconds.</p>
+        <p className="fine">You&apos;ll get a main schedule, two backups and a 4-year plan in a few seconds.</p>
         {error && <div className="tag bad">{error}</div>}
         <div className="row">
           <button className="btn" onClick={() => go(mode === "personal" ? "interests" : "mode")}>Back</button>
