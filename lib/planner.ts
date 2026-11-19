@@ -20,6 +20,7 @@ import { proposeSchedules, type RawPlan, type RawSchedule } from "@/lib/llm";
 import { validateSchedule } from "@/lib/validator";
 import { buildFallbackSchedules } from "@/lib/fallback-scheduler";
 import { normalizeCode } from "@/lib/course-codes";
+import { classStanding, planNotices } from "@/lib/standing";
 
 /** Thrown when no valid schedule exists at all; the API turns it into a 422. */
 export class NoValidScheduleError extends Error {}
@@ -143,7 +144,14 @@ export async function runPlanner(
     .map((g) => g.groupId)
     .filter((id) => !covered.has(id));
 
-  return { primary, backups: [backup1, backup2], remainingRequirements };
+  const earned = transcript.totalUnitsEarned;
+  return {
+    primary,
+    backups: [backup1, backup2],
+    remainingRequirements,
+    standing: classStanding(earned),
+    notices: planNotices(earned, primary.totalUnits, primary.courses.map((c) => c.offering.code)),
+  };
 }
 
 // ── helpers ──────────────────────────────────────────────────

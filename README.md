@@ -29,7 +29,7 @@ Most transcripts are read by rules with no AI call (`lib/transcript-fallback.ts`
 
 ## What it does
 
-1. **Upload & setup**: paste a transcript or progress check, set preferences.
+1. **Upload & setup**: pick a major (plus an optional second major or minor), upload the transcript as a PDF or .txt or paste it, then either "Build it for me" or personalize (units, earliest start, latest end, free days, and upper-division courses that seem interesting). Programs without requirement data show as "coming soon" and the plan route answers 422 `program_not_ready`.
 2. **Plan**: the LLM proposes schedules from eligible courses only; `lib/validator.ts` gates them. If the LLM fails or proposes invalid schedules, `lib/fallback-scheduler.ts` builds valid ones deterministically.
 3. **Planner tab** (dashboard): week grid with hard/soft blocks and a buffer, time-vs-professor toggle, two-phase lecture/section planning, open-slot finder with backups and swap impact, GE status and suggestions, pass plan with waitlist warning, and a copy-paste GOLD cart prompt (add to cart only).
 
@@ -46,13 +46,18 @@ npm run build
 ```
 app/api/plan, app/api/parse-transcript   # LLM routes (maxDuration 60)
 app/api/ucsb/classes                      # Course data via the UCSB layer
+app/api/extract-text                      # PDF/.txt upload to text (5 MB max, never logged)
 components/planner/QuarterPlanner.tsx     # Planner tab
 lib/
   llm.ts, planner.ts, validator.ts        # Propose -> validate -> retry -> fallback
   fallback-scheduler.ts, course-codes.ts
   ge.ts                                   # GE areas (one per course) + stacking special subjects
   schedule-engine.ts                      # Two-phase lecture/section scheduler, open slots, swaps
-  pass-planner.ts                         # Pass caps 11.5 / 15.5, waitlist >= 12 units
+  pass-planner.ts                         # Pass caps 11.5 / 15.5 / 21.0, waitlist >= 12 units
+  majors.ts                               # Program list; combines double majors and minors
+  standing.ts                             # Class standing, 12-unit full time, upper-division notice
+  registration-flags.ts                   # "Mostly a Fall course" and "Must get" from past offerings
+  interests.ts, pdf-text.ts
   recommend.ts, likelihood.ts, cart-prompt.ts, flags.ts, ratings.ts
   ucsb/                                   # Curriculums v3 client, cache, adapter, quarter codes, fixtures
 docs/
@@ -63,4 +68,6 @@ docs/
 
 - Hard rules live in code; the AI only proposes and ranks.
 - The UCSB client caches responses and limits live calls per hour; it never logs or stores student data.
+- Not built yet: study abroad and transfer courses, requirement data for majors other than Statistics & Data Science, minors, and college-specific GE rules. The UI says so.
+- Term flags use the synthetic `data/ucsb-fixtures/enrollment-history.json` until the UCSB API key is set, so most courses show no flag.
 - Professor ratings have no source yet (Rate My Professors does not allow scraping), so professor mode ranks on time fit until one is added.

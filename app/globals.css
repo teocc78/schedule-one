@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap');
 
 /* ── UCSB Design Tokens ───────────────────────────────────────── */
 :root {
@@ -21,8 +20,8 @@
   --bad-s:   #fce8e6;
   --unk:     #5a7a8a;
   --unk-s:   #e0eaf0;
-  --display: var(--font-anton, 'Anton', Impact, sans-serif);
-  --ui:      var(--font-inter, 'Inter', 'Segoe UI', system-ui, sans-serif);
+  --display: var(--font-inter, 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif);
+  --ui:      var(--font-inter, 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif);
   --acc:     var(--gold);
 }
 
@@ -108,9 +107,9 @@ body {
 
 h1, h2, h3 {
   font-family: var(--display);
-  font-weight: 400;
+  font-weight: 700;
   margin: 0;
-  letter-spacing: 0.01em;
+  letter-spacing: -0.01em;
 }
 
 button { font: inherit; color: inherit; cursor: pointer; }
@@ -195,12 +194,11 @@ button { font: inherit; color: inherit; cursor: pointer; }
 
 .rail-wordmark {
   font-family: var(--display);
-  font-size: 1.6rem;
+  font-weight: 700;
+  font-size: 1.3rem;
   color: var(--gold);
-  letter-spacing: .03em;
   line-height: 1;
   padding: .5rem 1.1rem 1.2rem;
-  transform: skewX(-4deg);
   display: block;
 }
 
@@ -211,7 +209,6 @@ button { font: inherit; color: inherit; cursor: pointer; }
   letter-spacing: .06em;
   text-transform: uppercase;
   padding: 0 1.1rem .8rem;
-  transform: skewX(-4deg);
   margin-top: -.8rem;
   display: block;
 }
@@ -274,7 +271,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 
 /* ── Section heading ──────────────────────────────────────────── */
 h2.sec {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   margin: 1.4rem 0 .6rem;
   display: flex;
   align-items: center;
@@ -370,3 +367,59 @@ label {
   margin: .5rem 0 .2rem;
   color: var(--ink2);
 }
+
+/* ── Onboarding ───────────────────────────────────────────────── */
+.onboard { min-height: 100vh; background: var(--paper); }
+.onboard-inner { max-width: 640px; margin: 0 auto; padding: 1.25rem 1rem 3rem; }
+.onboard-card { margin-top: 1rem; padding: 1.5rem; }
+.brand { font-weight: 700; font-size: 1.15rem; color: var(--ink); text-decoration: none; }
+.h { font-size: 1.5rem; margin-bottom: .25rem; }
+.lead { margin: 0 0 1rem; }
+.steps { list-style: none; display: flex; gap: .35rem; padding: 0; margin: 0 0 1.25rem; flex-wrap: wrap; }
+.steps li { display: flex; align-items: center; gap: .3rem; font-size: .75rem; color: var(--ink3); }
+.steps li .num {
+  width: 20px; height: 20px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;
+  border: 2px solid var(--line); font-weight: 700; font-size: .7rem;
+}
+.steps li.done .num { background: var(--ink); border-color: var(--ink); color: var(--surf); }
+.steps li.active { color: var(--ink); font-weight: 600; }
+.steps li.active .num { border-color: var(--gold-d); background: var(--gold); color: var(--plate); }
+@media (max-width: 520px) { .steps li:not(.active) .lbl { display: none; } }
+.plain-list { list-style: none; padding: 0; margin: 0 0 1rem; }
+.plain-list li { padding: .6rem 0; border-bottom: 1px solid var(--line); }
+.note { border: 2px solid var(--line); border-radius: 12px; padding: .7rem .9rem; margin: .75rem 0 1rem; background: var(--unk-s); font-size: .9rem; }
+.note.warn { background: var(--warn-s); border-color: var(--warn); color: var(--ink); }
+.wide { width: 100%; margin-top: .5rem; }
+.row { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; margin-top: 1rem; }
+.row.between { justify-content: space-between; margin-top: .4rem; }
+.onboard header.row { margin-top: 0; }
+.grow { flex: 1; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; margin-bottom: .75rem; }
+@media (max-width: 520px) { .grid3 { grid-template-columns: 1fr; } }
+.grid2 input, .grid2 select, .onboard-card > div > input, .onboard-card > div > select, .onboard-card textarea { width: 100%; box-sizing: border-box; }
+.choice {
+  display: flex; flex-direction: column; align-items: flex-start; gap: .1rem; text-align: left; width: 100%;
+  background: var(--surf); border: 2px solid var(--line); border-radius: 12px; padding: .7rem .85rem; margin-bottom: .5rem;
+}
+.choice:hover { border-color: var(--ink3); }
+.choice.on { border-color: var(--ink); background: var(--gold-s); }
+.choice.day { width: auto; flex-direction: row; padding: .4rem .8rem; margin: 0; font-weight: 600; }
+.mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .82rem; min-height: 160px; }
+.group { border: 2px solid var(--line); border-radius: 12px; padding: .5rem .9rem .75rem; margin: 0 0 .75rem; }
+.group legend { font-weight: 700; padding: 0 .3rem; }
+.pick { display: flex; gap: .6rem; align-items: flex-start; font-weight: 400; color: var(--ink); padding: .45rem 0; border-top: 1px solid var(--line); margin: 0; }
+.pick input { margin-top: .25rem; min-height: 0; width: 18px; height: 18px; flex: none; }
+.block { display: block; }
+.summary { margin: 0 0 1rem; }
+.summary > div { display: grid; grid-template-columns: 8rem 1fr auto; gap: .5rem; padding: .55rem 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+.summary dt { font-weight: 600; color: var(--ink2); font-size: .88rem; }
+.summary dd { margin: 0; }
+@media (max-width: 520px) { .summary > div { grid-template-columns: 1fr auto; } .summary dd { grid-column: 1 / -1; grid-row: 2; } }
+.link { background: none; border: none; padding: 0; color: var(--ink2); text-decoration: underline; font-size: .85rem; }
+.link.bad { color: var(--bad); }
+
+/* ── Plan notices and registration flags ──────────────────────── */
+.notices { list-style: none; padding: 0; margin: 0 0 1rem; }
+.notices li { border-left: 4px solid var(--warn); background: var(--warn-s); padding: .5rem .75rem; border-radius: 8px; margin-bottom: .4rem; font-size: .9rem; }
+.must-get { color: var(--bad); background: var(--bad-s); border: 2px solid var(--bad); border-radius: 999px; padding: 0 .5rem; font-weight: 700; font-size: .72rem; }

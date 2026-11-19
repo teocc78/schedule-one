@@ -7,15 +7,15 @@ import { postJson } from "@/lib/fetch-json";
 const STEPS = [
   { label: "Reading your transcript",    sublabel: "Extracting completed courses and grades" },
   { label: "Mapping requirements",       sublabel: "Checking what's left in your degree plan" },
-  { label: "Designing schedules",        sublabel: "Gemini is picking the best course combinations" },
-  { label: "Validating everything",      sublabel: "Checking conflicts, prerequisites, and your preferences" },
+  { label: "Building schedules",         sublabel: "Picking course combinations that fit your requirements" },
+  { label: "Checking everything",        sublabel: "Conflicts, prerequisites, class standing and your preferences" },
 ];
 
-const FUN_FACTS = [
-  "On average, UCSB students take 4–5 impacted courses before graduating.",
-  "Winter quarter is the most popular time to knock out upper-division requirements.",
-  "The validator checks 5 different rules on every schedule before showing it to you.",
-  "Schedules are generated fresh each time — no two results are identical.",
+const TIPS = [
+  "Take a screenshot of your GOLD registration info (pass times, holds and unit limit). It helps when you register.",
+  "You need at least 12 units to count as a full-time student.",
+  "Unit limits by pass: 11.5 units in Pass 1, 15.5 by Pass 2, and 21.0 by Pass 3.",
+  "Courses marked \"Must get\" are mostly offered in one quarter a year. Register for them in your first pass.",
 ];
 
 export default function ProcessingPage() {
@@ -24,13 +24,16 @@ export default function ProcessingPage() {
   const [done, setDone] = useState(false);
   const [error, setError] = useState("");
   const [factIdx, setFactIdx] = useState(0);
-  useEffect(() => { setFactIdx(Math.floor(Math.random() * FUN_FACTS.length)); }, []);
+  useEffect(() => { setFactIdx(Math.floor(Math.random() * TIPS.length)); }, []);
 
   useEffect(() => {
     const transcriptText = sessionStorage.getItem("transcript_text");
     const constraintsRaw = sessionStorage.getItem("constraints");
     if (!transcriptText || !constraintsRaw) { router.replace("/"); return; }
     const constraints = JSON.parse(constraintsRaw);
+    let programs: { majors?: string[]; minor?: string } = {};
+    try { programs = JSON.parse(sessionStorage.getItem("programs") ?? "{}"); } catch { programs = {}; }
+    const majorCodes = programs.majors?.filter(Boolean).length ? programs.majors.filter(Boolean) : ["statistics-data-science"];
 
     async function run() {
       try {
@@ -47,7 +50,7 @@ export default function ProcessingPage() {
         setStep(2);
         const planResult = await postJson<unknown>(
           "/api/plan",
-          { transcript, majorCode: "statistics-data-science", quarter: "Winter 2027", constraints },
+          { transcript, majorCode: majorCodes[0], majorCodes, minorCode: programs.minor || undefined, quarter: "Winter 2027", constraints },
           "Planning failed"
         );
 
@@ -73,11 +76,11 @@ export default function ProcessingPage() {
 
       {/* Wordmark */}
       <div style={{ marginBottom: "2.5rem", textAlign: "center" }}>
-        <span style={{ fontFamily: "var(--display)", fontSize: "2rem", color: "var(--gold)", letterSpacing: ".03em", transform: "skewX(-4deg)", display: "inline-block" }}>
-          SCHEDULE ONE
+        <span style={{ fontWeight: 700, fontSize: "1.4rem", color: "var(--gold)" }}>
+          Schedule One
         </span>
-        <div style={{ fontSize: ".75rem", color: "var(--ink3)", letterSpacing: ".08em", textTransform: "uppercase", marginTop: ".15rem" }}>
-          UCSB · Winter 2027
+        <div style={{ fontSize: ".8rem", color: "var(--ink3)", marginTop: ".15rem" }}>
+          UCSB, Winter 2027
         </div>
       </div>
 
@@ -92,11 +95,11 @@ export default function ProcessingPage() {
               <div style={{ position: "absolute", inset: 0, borderRadius: "50%", border: "4px solid var(--gold)", borderTopColor: "transparent", animation: "spin 1s linear infinite" }} />
             </div>
           )}
-          <h1 style={{ fontFamily: "var(--display)", fontSize: "1.6rem", color: "var(--gold)", margin: "0 0 .25rem" }}>
-            {done ? "READY" : "BUILDING YOUR SCHEDULE"}
+          <h1 style={{ fontSize: "1.4rem", color: "var(--gold)", margin: "0 0 .25rem" }}>
+            {done ? "Ready" : "Building your schedule"}
           </h1>
           <p style={{ color: "var(--ink3)", fontSize: ".85rem" }}>
-            {done ? "Opening your dashboard…" : "Usually takes 15–25 seconds"}
+            {done ? "Opening your dashboard..." : "Usually takes 15 to 25 seconds"}
           </p>
         </div>
 
@@ -140,8 +143,8 @@ export default function ProcessingPage() {
         {/* Fun fact */}
         {!error && !done && (
           <div style={{ background: "rgba(255,255,255,.05)", border: "1px solid rgba(255,255,255,.1)", borderRadius: 14, padding: ".75rem 1rem", fontSize: ".8rem", color: "var(--ink3)", lineHeight: 1.5 }}>
-            <strong style={{ color: "var(--gold)" }}>Did you know? </strong>
-            {FUN_FACTS[factIdx]}
+            <strong style={{ color: "var(--gold)" }}>Tip: </strong>
+            {TIPS[factIdx]}
           </div>
         )}
 
@@ -153,7 +156,7 @@ export default function ProcessingPage() {
               <p style={{ fontSize: ".85rem", color: "var(--bad)", margin: 0 }}>{error}</p>
             </div>
             <button className="btn" style={{ width: "100%" }} onClick={() => router.push("/onboarding")}>
-              ← Try again
+              Try again
             </button>
           </div>
         )}

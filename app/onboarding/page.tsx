@@ -1,56 +1,56 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import type { StudentConstraints, DayOfWeek } from "@/types";
+import Link from "next/link";
+import type { StudentConstraints, DayOfWeek, QuarterOfferings } from "@/types";
+import { majors, minors, findProgram, combinedRequirements } from "@/lib/majors";
+import { interestGroups, shortDescription } from "@/lib/interests";
+import { FULL_TIME_MIN_UNITS } from "@/lib/standing";
+import offeringsData from "@/data/offerings/winter-2027.json";
 
-type Step = "intro" | "transcript" | "preferences" | "review";
-const STEP_ORDER: Step[] = ["intro", "transcript", "preferences", "review"];
-const STEP_LABELS: Record<Step, string> = { intro: "What you need", transcript: "Transcript", preferences: "Preferences", review: "Review" };
+const offerings = offeringsData as unknown as QuarterOfferings;
+
+type Step = "intro" | "major" | "transcript" | "mode" | "preferences" | "interests" | "review";
+const FULL_ORDER: Step[] = ["intro", "major", "transcript", "mode", "preferences", "interests", "review"];
+const QUICK_ORDER: Step[] = ["intro", "major", "transcript", "mode", "review"];
+const STEP_LABELS: Record<Step, string> = {
+  intro: "Start",
+  major: "Major",
+  transcript: "Transcript",
+  mode: "How",
+  preferences: "Preferences",
+  interests: "Interests",
+  review: "Review",
+};
 
 const DAYS: DayOfWeek[] = ["M", "T", "W", "R", "F"];
 const DAY_LABELS: Record<DayOfWeek, string> = { M: "Mon", T: "Tue", W: "Wed", R: "Thu", F: "Fri" };
 
 const SAMPLES = [
-  { label: "Early student", sublabel: "Sophomore · 32 units", file: "transcript-early.txt" },
-  { label: "Mid student",   sublabel: "Junior · 84 units",    file: "transcript-mid.txt"   },
-  { label: "Late student",  sublabel: "Senior · 148 units",   file: "transcript-late.txt"  },
+  { label: "Early student", sublabel: "Sophomore, Stats & Data Science", file: "transcript-early.txt" },
+  { label: "Mid student", sublabel: "Junior, Stats & Data Science", file: "transcript-mid.txt" },
+  { label: "Late student", sublabel: "Senior, Stats & Data Science", file: "transcript-late.txt" },
 ];
 
+// Every preset is at least 12 units, the full-time minimum.
 const UNIT_PRESETS = [
-  { label: "Light",  min: 8,  max: 12, desc: "2–3 courses" },
-  { label: "Normal", min: 12, max: 16, desc: "3–4 courses" },
-  { label: "Heavy",  min: 16, max: 20, desc: "4–5 courses" },
+  { label: "Light", min: 12, max: 13, desc: "3 courses" },
+  { label: "Normal", min: 12, max: 16, desc: "3 to 4 courses" },
+  { label: "Heavy", min: 16, max: 20, desc: "4 to 5 courses" },
 ];
 
-function ProgressBar({ current }: { current: Step }) {
-  const idx = STEP_ORDER.indexOf(current);
+function ProgressBar({ order, current }: { order: Step[]; current: Step }) {
+  const idx = order.indexOf(current);
   return (
-    <div style={{ display: "flex", alignItems: "center", marginBottom: "2rem" }}>
-      {STEP_ORDER.map((step, i) => {
-        const done = i < idx, active = i === idx;
-        return (
-          <div key={step} style={{ display: "flex", alignItems: "center", flex: i < STEP_ORDER.length - 1 ? 1 : "none" }}>
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: ".3rem" }}>
-              <div style={{
-                width: 30, height: 30, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center",
-                fontSize: ".8rem", fontWeight: 700,
-                background: done ? "var(--good)" : active ? "var(--gold)" : "var(--line)",
-                color: done ? "#fff" : active ? "var(--plate)" : "var(--ink3)",
-                boxShadow: active ? "0 0 0 4px var(--gold-s)" : "none",
-                transition: "all .2s",
-              }}>{done ? "✓" : i + 1}</div>
-              <span style={{ fontSize: ".72rem", fontWeight: active ? 700 : 400, color: active ? "var(--gold)" : done ? "var(--ink2)" : "var(--ink3)", whiteSpace: "nowrap" }}>
-                {STEP_LABELS[step]}
-              </span>
-            </div>
-            {i < STEP_ORDER.length - 1 && (
-              <div style={{ flex: 1, height: 2, background: done ? "var(--good)" : "var(--line)", margin: "0 .5rem", marginBottom: "1.2rem", transition: "background .2s" }} />
-            )}
-          </div>
-        );
-      })}
-    </div>
+    <ol className="steps" aria-label="Progress">
+      {order.map((step, i) => (
+        <li key={step} className={i < idx ? "done" : i === idx ? "active" : ""} aria-current={i === idx ? "step" : undefined}>
+          <span className="num">{i + 1}</span>
+          <span className="lbl">{STEP_LABELS[step]}</span>
+        </li>
+      ))}
+    </ol>
   );
 }
 
@@ -59,26 +59,66 @@ export default function OnboardingPage() {
   const fileRef = useRef<HTMLInputElement>(null);
 
   const [step, setStep] = useState<Step>("intro");
+  const [mode, setMode] = useState<"quick" | "personal" | null>(null);
+  const [major, setMajor] = useState("statistics-data-science");
+  const [secondMajor, setSecondMajor] = useState("");
+  const [minor, setMinor] = useState("");
   const [text, setText] = useState("");
-  const [loadingSample, setLoadingSample] = useState<string | null>(null);
+  const [fileNote, setFileNote] = useState("");
+  const [busy, setBusy] = useState<string | null>(null);
   const [presetIdx, setPresetIdx] = useState(1);
   const [minUnits, setMinUnits] = useState(12);
   const [maxUnits, setMaxUnits] = useState(16);
   const [noClassBefore, setNoClassBefore] = useState("08:00");
+  const [noClassAfter, setNoClassAfter] = useState("");
   const [freeDays, setFreeDays] = useState<DayOfWeek[]>([]);
   const [mustInclude, setMustInclude] = useState("");
   const [mustExclude, setMustExclude] = useState("");
   const [freeText, setFreeText] = useState("");
+  const [interested, setInterested] = useState<string[]>([]);
   const [error, setError] = useState("");
 
-  const goNext = () => { setError(""); const i = STEP_ORDER.indexOf(step); if (i < STEP_ORDER.length - 1) setStep(STEP_ORDER[i + 1]); };
-  const goBack = () => { const i = STEP_ORDER.indexOf(step); if (i > 0) setStep(STEP_ORDER[i - 1]); };
+  const order = mode === "quick" ? QUICK_ORDER : FULL_ORDER;
+  const programCodes = [major, secondMajor, minor].filter(Boolean);
+  const notReady = programCodes.map(findProgram).filter((p) => p && !p.ready);
+
+  const groups = useMemo(() => {
+    const ready = [major, secondMajor, minor].filter((c) => c && findProgram(c)?.ready);
+    try {
+      return interestGroups(combinedRequirements(ready), offerings);
+    } catch {
+      return [];
+    }
+  }, [major, secondMajor, minor]);
+
+  const go = (s: Step) => { setError(""); setStep(s); };
+  const goNext = () => { const i = order.indexOf(step); if (i < order.length - 1) go(order[i + 1]); };
+  const goBack = () => { const i = order.indexOf(step); if (i > 0) go(order[i - 1]); };
 
   async function loadSample(file: string) {
-    setLoadingSample(file);
-    try { setText(await (await fetch(`/samples/${file}`)).text()); }
-    catch { setError("Could not load sample."); }
-    finally { setLoadingSample(null); }
+    setBusy(file);
+    try { setText(await (await fetch(`/samples/${file}`)).text()); setFileNote(""); }
+    catch { setError("Couldn't load that sample."); }
+    finally { setBusy(null); }
+  }
+
+  async function uploadFile(f: File) {
+    setBusy("upload");
+    setError("");
+    try {
+      const form = new FormData();
+      form.append("file", f);
+      const res = await fetch("/api/extract-text", { method: "POST", body: form });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || typeof data.text !== "string") throw new Error(data.error ?? "Couldn't read that file.");
+      setText(data.text);
+      setFileNote(f.name);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Couldn't read that file.");
+    } finally {
+      setBusy(null);
+      if (fileRef.current) fileRef.current.value = "";
+    }
   }
 
   function applyPreset(i: number) {
@@ -87,227 +127,296 @@ export default function OnboardingPage() {
     setMaxUnits(UNIT_PRESETS[i].max);
   }
 
+  function toggleInterest(code: string) {
+    setInterested((prev) => (prev.includes(code) ? prev.filter((c) => c !== code) : [...prev, code]));
+  }
+
   function submit() {
-    if (!text.trim()) { setStep("transcript"); setError("Please add your transcript."); return; }
-    const constraints: StudentConstraints = {
-      minUnits, maxUnits, noClassBefore: noClassBefore || undefined, freeDays,
-      mustInclude: mustInclude.split(",").map(s => s.trim()).filter(Boolean),
-      mustExclude: mustExclude.split(",").map(s => s.trim()).filter(Boolean),
-      freeText: freeText || undefined,
-    };
+    if (!text.trim()) { go("transcript"); setError("Add your transcript first."); return; }
+    if (notReady.length) { go("major"); setError("Pick a program Schedule One supports today."); return; }
+    const personal = mode === "personal";
+    const constraints: StudentConstraints = personal
+      ? {
+          minUnits, maxUnits,
+          noClassBefore: noClassBefore || undefined,
+          noClassAfter: noClassAfter || undefined,
+          freeDays,
+          mustInclude: mustInclude.split(",").map((s) => s.trim()).filter(Boolean),
+          mustExclude: mustExclude.split(",").map((s) => s.trim()).filter(Boolean),
+          interested,
+          freeText: freeText || undefined,
+        }
+      : { minUnits: 12, maxUnits: 16, freeDays: [], mustInclude: [], mustExclude: [] };
     sessionStorage.setItem("transcript_text", text);
     sessionStorage.setItem("constraints", JSON.stringify(constraints));
+    sessionStorage.setItem("programs", JSON.stringify({ majors: [major, secondMajor].filter(Boolean), minor: minor || undefined }));
     router.push("/processing");
   }
 
-  // ── Shared style helpers ────────────────────────────────────
-  const card = { background: "var(--surf)", border: "2px solid var(--line)", borderRadius: 18, padding: "1rem 1.1rem", marginBottom: ".5rem" };
-  const btn = (active: boolean) => ({
-    background: active ? "var(--gold)" : "var(--surf)",
-    border: `2px solid ${active ? "var(--gold-d)" : "var(--line)"}`,
-    borderRadius: 12, padding: ".5rem .9rem", cursor: "pointer",
-    fontWeight: 600, fontSize: ".88rem", fontFamily: "var(--ui)",
-    color: active ? "var(--plate)" : "var(--ink2)",
-    transition: "all .15s",
-  });
+  const choice = (active: boolean) => `choice${active ? " on" : ""}`;
+  const lineCount = text.split("\n").filter(Boolean).length;
 
   const stepContent: Record<Step, React.ReactNode> = {
     intro: (
       <div>
-        <h2 style={{ fontFamily: "var(--display)", fontSize: "1.8rem", marginBottom: ".4rem" }}>WHAT YOU'LL NEED</h2>
-        <p className="fine" style={{ marginBottom: "1.25rem" }}>This takes about 2 minutes. Here's everything required.</p>
-        {[
-          { icon: "📋", title: "Unofficial transcript", desc: "From MyUCSB → Academic History → Unofficial Transcript. Just copy the text.", req: true },
-          { icon: "🎓", title: "Your major",           desc: "Currently supports Statistics & Data Science. More majors coming soon.",        req: true },
-          { icon: "⏰", title: "Scheduling preferences", desc: "Target unit count, times to avoid, days to keep free. All optional.",          req: false },
-        ].map((item, i) => (
-          <div key={i} style={{ ...card, display: "flex", gap: ".9rem", alignItems: "flex-start" }}>
-            <span style={{ fontSize: "1.5rem", lineHeight: 1, marginTop: ".1rem" }}>{item.icon}</span>
-            <div style={{ flex: 1 }}>
-              <div style={{ display: "flex", alignItems: "center", gap: ".5rem", marginBottom: ".2rem" }}>
-                <span style={{ fontWeight: 700, fontSize: ".9rem" }}>{item.title}</span>
-                <span className={`tag ${item.req ? "warn" : "unk"}`}>{item.req ? "Required" : "Optional"}</span>
-              </div>
-              <p className="fine" style={{ margin: 0, lineHeight: 1.5 }}>{item.desc}</p>
-            </div>
-          </div>
-        ))}
-        <div style={{ ...card, background: "var(--gold-s)", borderColor: "var(--gold)", marginTop: "1rem" }}>
-          <strong>Demo note:</strong> <span className="fine">This prototype uses mock course data for Winter 2027. Real UCSB offerings can be dropped in later.</span>
+        <h1 className="h">What you need</h1>
+        <p className="fine lead">About two minutes. Nothing is saved on a server.</p>
+        <ul className="plain-list">
+          <li><strong>Your major</strong> <span className="tag warn">Required</span><br /><span className="fine">Add a second major or a minor if you have one.</span></li>
+          <li><strong>Your unofficial transcript</strong> <span className="tag warn">Required</span><br /><span className="fine">Upload the PDF from GOLD, a .txt file, or paste the text.</span></li>
+          <li><strong>Preferences</strong> <span className="tag unk">Optional</span><br /><span className="fine">Units, times and days off. Skip them and Schedule One uses sensible defaults.</span></li>
+          <li><strong>Your GOLD registration info</strong> <span className="tag unk">Tip</span><br /><span className="fine">Take a screenshot of your pass times, holds and unit limit in GOLD. You&apos;ll want them when you register.</span></li>
+        </ul>
+        <div className="note">
+          <strong>Not here yet:</strong> <span className="fine">study abroad courses (UCEAP and other universities) and transfer courses from community colleges. For now, they won&apos;t count toward your requirements.</span>
         </div>
-        <button className="btn pri" style={{ width: "100%", marginTop: "1.25rem", fontSize: ".95rem" }} onClick={goNext}>
-          I'm ready — let's go →
-        </button>
+        <button className="btn pri wide" onClick={goNext}>Start</button>
+      </div>
+    ),
+
+    major: (
+      <div>
+        <h1 className="h">Your major</h1>
+        <p className="fine lead">Schedule One checks your requirements against what you&apos;ve finished.</p>
+        <label htmlFor="major">Major</label>
+        <select id="major" value={major} onChange={(e) => setMajor(e.target.value)}>
+          {majors().map((p) => (
+            <option key={p.code} value={p.code} disabled={!p.ready}>{p.name}{p.ready ? "" : " (coming soon)"}</option>
+          ))}
+        </select>
+        <label htmlFor="major2">Second major <span className="fine">(optional)</span></label>
+        <select id="major2" value={secondMajor} onChange={(e) => setSecondMajor(e.target.value)}>
+          <option value="">None</option>
+          {majors().filter((p) => p.code !== major).map((p) => (
+            <option key={p.code} value={p.code} disabled={!p.ready}>{p.name}{p.ready ? "" : " (coming soon)"}</option>
+          ))}
+        </select>
+        <label htmlFor="minor">Minor <span className="fine">(optional)</span></label>
+        <select id="minor" value={minor} onChange={(e) => setMinor(e.target.value)} disabled={minors().length === 0}>
+          <option value="">{minors().length ? "None" : "Minors coming soon"}</option>
+          {minors().map((p) => (
+            <option key={p.code} value={p.code} disabled={!p.ready}>{p.name}{p.ready ? "" : " (coming soon)"}</option>
+          ))}
+        </select>
+        <p className="fine">Programs marked &quot;coming soon&quot; are listed but can&apos;t be planned yet.</p>
+        {error && <div className="tag bad">{error}</div>}
+        <div className="row">
+          <button className="btn" onClick={goBack}>Back</button>
+          <button className="btn pri grow" onClick={goNext}>Continue</button>
+        </div>
       </div>
     ),
 
     transcript: (
       <div>
-        <h2 style={{ fontFamily: "var(--display)", fontSize: "1.8rem", marginBottom: ".4rem" }}>ADD YOUR TRANSCRIPT</h2>
-        <p className="fine" style={{ marginBottom: "1.25rem" }}>Paste your unofficial transcript, or try a sample.</p>
+        <h1 className="h">Your transcript</h1>
+        <p className="fine lead">Upload your unofficial transcript, paste it, or try a sample.</p>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: ".6rem", marginBottom: "1rem" }}>
-          {SAMPLES.map(s => (
-            <button key={s.file} onClick={() => loadSample(s.file)} style={{ ...card, cursor: "pointer", textAlign: "left", padding: ".7rem .8rem", border: `2px solid ${text && loadingSample !== s.file ? "var(--gold)" : "var(--line)"}` }}>
-              <div style={{ fontWeight: 700, fontSize: ".82rem" }}>{s.label}</div>
-              <div className="fine" style={{ fontSize: ".75rem" }}>{loadingSample === s.file ? "Loading…" : s.sublabel}</div>
+        <div className="grid3">
+          {SAMPLES.map((s) => (
+            <button key={s.file} className="choice" onClick={() => loadSample(s.file)}>
+              <strong>{s.label}</strong>
+              <span className="fine">{busy === s.file ? "Loading..." : s.sublabel}</span>
             </button>
           ))}
         </div>
 
-        <div style={{ position: "relative", marginBottom: "1rem" }}>
-          <div style={{ position: "absolute", left: 0, right: 0, top: "50%", height: 1, background: "var(--line)" }} />
-          <div style={{ position: "relative", textAlign: "center" }}>
-            <span style={{ background: "var(--paper)", padding: "0 .75rem", fontSize: ".78rem", color: "var(--ink3)" }}>or paste your own</span>
-          </div>
-        </div>
+        <button className="btn wide" onClick={() => fileRef.current?.click()} disabled={busy === "upload"}>
+          {busy === "upload" ? "Reading file..." : "Upload PDF or .txt"}
+        </button>
+        <input ref={fileRef} type="file" accept=".pdf,.txt,application/pdf,text/plain" hidden onChange={(e) => { const f = e.target.files?.[0]; if (f) uploadFile(f); }} />
 
+        <label htmlFor="paste">Or paste it here</label>
         <textarea
+          id="paste"
           value={text}
-          onChange={e => setText(e.target.value)}
-          placeholder={"Paste your unofficial transcript here...\n\nUCSB Unofficial Transcript\nStudent: Jane Doe\nMajor: Statistics & Data Science\n…"}
-          style={{ width: "100%", height: 200, fontFamily: "monospace", fontSize: ".8rem", lineHeight: 1.6, resize: "none", boxSizing: "border-box" }}
+          onChange={(e) => { setText(e.target.value); setFileNote(""); }}
+          placeholder={"FALL 2024\nMATH 3A  Calculus with Applications I  4.0  A\n..."}
+          className="mono"
         />
-        <div style={{ display: "flex", justifyContent: "space-between", marginTop: ".35rem" }}>
-          <button onClick={() => fileRef.current?.click()} style={{ background: "none", border: "none", color: "var(--ink3)", fontSize: ".8rem", cursor: "pointer", textDecoration: "underline" }}>
-            Upload .txt file
-          </button>
-          {text && <button onClick={() => setText("")} style={{ background: "none", border: "none", color: "var(--bad)", fontSize: ".8rem", cursor: "pointer" }}>Clear</button>}
+        <div className="row between">
+          <span className="fine">{text ? (fileNote ? `Read from ${fileNote}, ${lineCount} lines` : `${lineCount} lines added`) : ""}</span>
+          {text && <button className="link bad" onClick={() => { setText(""); setFileNote(""); }}>Clear</button>}
         </div>
-        <input ref={fileRef} type="file" accept=".txt" style={{ display: "none" }} onChange={async e => { const f = e.target.files?.[0]; if (f) setText(await f.text()); }} />
+        {error && <div className="tag bad">{error}</div>}
 
-        {text && <div className="tag good" style={{ display: "inline-block", marginTop: ".75rem" }}>✓ {text.split("\n").length} lines added</div>}
-        {error && <div className="tag bad" style={{ display: "inline-block", marginTop: ".75rem" }}>{error}</div>}
-
-        <div style={{ display: "flex", gap: ".6rem", marginTop: "1.25rem" }}>
+        <div className="row">
           <button className="btn" onClick={goBack}>Back</button>
-          <button className="btn pri" style={{ flex: 1 }} onClick={() => { if (!text.trim()) { setError("Please add your transcript."); return; } setError(""); goNext(); }}>
-            Continue →
-          </button>
+          <button className="btn pri grow" onClick={() => { if (!text.trim()) { setError("Add your transcript first."); return; } goNext(); }}>Continue</button>
+        </div>
+      </div>
+    ),
+
+    mode: (
+      <div>
+        <h1 className="h">How do you want to plan?</h1>
+        <p className="fine lead">You can switch on the review screen.</p>
+        <button className={choice(mode === "quick")} onClick={() => { setMode("quick"); go("review"); }}>
+          <strong>Build it for me</strong>
+          <span className="fine">12 to 16 units, any days and times. The fastest way to a schedule.</span>
+        </button>
+        <button className={choice(mode === "personal")} onClick={() => { setMode("personal"); go("preferences"); }}>
+          <strong>Personalize</strong>
+          <span className="fine">Set units, times and days off, and pick courses that seem interesting. You can skip any part.</span>
+        </button>
+        <div className="row">
+          <button className="btn" onClick={goBack}>Back</button>
         </div>
       </div>
     ),
 
     preferences: (
       <div>
-        <h2 style={{ fontFamily: "var(--display)", fontSize: "1.8rem", marginBottom: ".4rem" }}>YOUR PREFERENCES</h2>
-        <p className="fine" style={{ marginBottom: "1.25rem" }}>All optional. The AI will do its best with whatever you share.</p>
+        <h1 className="h">Preferences</h1>
+        <p className="fine lead">All optional.</p>
 
         <label>How heavy a quarter?</label>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: ".6rem", marginBottom: "1rem" }}>
+        <div className="grid3">
           {UNIT_PRESETS.map((p, i) => (
-            <button key={i} onClick={() => applyPreset(i)} style={btn(presetIdx === i)}>
-              <div>{p.label}</div>
-              <div style={{ fontSize: ".75rem", opacity: .7 }}>{p.desc}</div>
-              <div style={{ fontSize: ".75rem" }}>{p.min}–{p.max}u</div>
+            <button key={p.label} className={choice(presetIdx === i)} onClick={() => applyPreset(i)}>
+              <strong>{p.label}</strong>
+              <span className="fine">{p.min} to {p.max} units</span>
+              <span className="fine">{p.desc}</span>
             </button>
           ))}
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: ".6rem", marginBottom: "1rem" }}>
+        <div className="grid2">
           <div>
-            <label>Min units</label>
-            <input type="number" min={4} max={28} value={minUnits} onChange={e => { setMinUnits(+e.target.value); setPresetIdx(-1); }} />
+            <label htmlFor="minu">Min units</label>
+            <input id="minu" type="number" min={4} max={21} value={minUnits} onChange={(e) => { setMinUnits(+e.target.value); setPresetIdx(-1); }} />
           </div>
           <div>
-            <label>Max units</label>
-            <input type="number" min={4} max={28} value={maxUnits} onChange={e => { setMaxUnits(+e.target.value); setPresetIdx(-1); }} />
+            <label htmlFor="maxu">Max units</label>
+            <input id="maxu" type="number" min={4} max={21} value={maxUnits} onChange={(e) => { setMaxUnits(+e.target.value); setPresetIdx(-1); }} />
+          </div>
+        </div>
+        {minUnits < FULL_TIME_MIN_UNITS
+          ? <div className="note warn">Under {FULL_TIME_MIN_UNITS} units you aren&apos;t a full-time student, which can affect financial aid, housing and visas.</div>
+          : <p className="fine">{FULL_TIME_MIN_UNITS} units is the full-time minimum. 21 units is the most you can register for in a quarter.</p>}
+
+        <div className="grid2">
+          <div>
+            <label htmlFor="start">Earliest class start</label>
+            <input id="start" type="time" value={noClassBefore} onChange={(e) => setNoClassBefore(e.target.value)} />
+          </div>
+          <div>
+            <label htmlFor="end">Latest class end</label>
+            <input id="end" type="time" value={noClassAfter} onChange={(e) => setNoClassAfter(e.target.value)} />
           </div>
         </div>
 
-        <label>Earliest class start time</label>
-        <input type="time" value={noClassBefore} onChange={e => setNoClassBefore(e.target.value)} style={{ width: "auto", marginBottom: "1rem" }} />
-
         <label>Keep these days free</label>
-        <div style={{ display: "flex", gap: ".5rem", marginBottom: "1rem" }}>
-          {DAYS.map(d => (
-            <button key={d} onClick={() => setFreeDays(prev => prev.includes(d) ? prev.filter(x => x !== d) : [...prev, d])} style={{ ...btn(freeDays.includes(d)), width: 52, height: 40, padding: 0, textAlign: "center" }}>
+        <div className="row">
+          {DAYS.map((d) => (
+            <button key={d} className={choice(freeDays.includes(d)) + " day"} aria-pressed={freeDays.includes(d)} onClick={() => setFreeDays((prev) => (prev.includes(d) ? prev.filter((x) => x !== d) : [...prev, d]))}>
               {DAY_LABELS[d]}
             </button>
           ))}
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: ".6rem", marginBottom: "1rem" }}>
+        <div className="grid2">
           <div>
-            <label>Must include</label>
-            <input type="text" placeholder="PSTAT 131, MATH 4B" value={mustInclude} onChange={e => setMustInclude(e.target.value)} />
+            <label htmlFor="inc">Must include</label>
+            <input id="inc" type="text" placeholder="PSTAT 131, MATH 4B" value={mustInclude} onChange={(e) => setMustInclude(e.target.value)} />
           </div>
           <div>
-            <label>Avoid</label>
-            <input type="text" placeholder="PSTAT 160B" value={mustExclude} onChange={e => setMustExclude(e.target.value)} />
+            <label htmlFor="exc">Avoid</label>
+            <input id="exc" type="text" placeholder="PSTAT 160B" value={mustExclude} onChange={(e) => setMustExclude(e.target.value)} />
           </div>
         </div>
 
-        <label>Anything else?</label>
-        <input type="text" placeholder="e.g. I want a lighter quarter, prefer afternoon classes" value={freeText} onChange={e => setFreeText(e.target.value)} style={{ marginBottom: "1.25rem" }} />
+        <label htmlFor="else">Anything else?</label>
+        <input id="else" type="text" placeholder="e.g. afternoon classes, a lighter quarter" value={freeText} onChange={(e) => setFreeText(e.target.value)} />
 
-        <div style={{ display: "flex", gap: ".6rem" }}>
+        <div className="row">
           <button className="btn" onClick={goBack}>Back</button>
-          <button className="btn pri" style={{ flex: 1 }} onClick={goNext}>Continue →</button>
+          <button className="btn" onClick={goNext}>Skip</button>
+          <button className="btn pri grow" onClick={goNext}>Continue</button>
+        </div>
+      </div>
+    ),
+
+    interests: (
+      <div>
+        <h1 className="h">What seems interesting?</h1>
+        <p className="fine lead">Tick upper-division courses you&apos;d like to take. Schedule One favors them when they fit a requirement. Skip this if you have no preference.</p>
+        {groups.length === 0 && <p className="fine">No upper-division courses to show for this program yet.</p>}
+        {groups.map((g) => (
+          <fieldset key={g.id} className="group">
+            <legend>{g.name}</legend>
+            {g.description && <p className="fine">{g.description}</p>}
+            {g.courses.map((c) => (
+              <label key={c.code} className="pick">
+                <input type="checkbox" checked={interested.includes(c.code)} onChange={() => toggleInterest(c.code)} />
+                <span>
+                  <strong>{c.code}</strong>{c.title ? ` ${c.title}` : ""}
+                  <span className="fine block">
+                    {c.description ? shortDescription(c.description) : "No description yet."}
+                    {!c.offeredThisQuarter && " Not offered in Winter 2027."}
+                  </span>
+                  <span className="fine">Seems interesting</span>
+                </span>
+              </label>
+            ))}
+          </fieldset>
+        ))}
+        <div className="row">
+          <button className="btn" onClick={goBack}>Back</button>
+          <button className="btn" onClick={() => { setInterested([]); goNext(); }}>Skip</button>
+          <button className="btn pri grow" onClick={goNext}>{interested.length ? `Continue with ${interested.length}` : "Continue"}</button>
         </div>
       </div>
     ),
 
     review: (
       <div>
-        <h2 style={{ fontFamily: "var(--display)", fontSize: "1.8rem", marginBottom: ".4rem" }}>READY TO BUILD</h2>
-        <p className="fine" style={{ marginBottom: "1.25rem" }}>Here's a summary of what we'll use.</p>
-
-        {[
-          { icon: "📋", title: "Transcript", value: text ? `${text.split("\n").filter(Boolean).length} lines` : "Not added", tab: "transcript" as Step },
-          { icon: "📐", title: "Unit load", value: `${minUnits}–${maxUnits} units`, tab: "preferences" as Step },
-          {
-            icon: "🗓️", title: "Schedule constraints",
-            value: [
-              noClassBefore !== "08:00" && `No classes before ${noClassBefore}`,
-              freeDays.length && `Free: ${freeDays.map(d => DAY_LABELS[d]).join(", ")}`,
-              mustInclude && `Include: ${mustInclude}`,
-              mustExclude && `Avoid: ${mustExclude}`,
-              freeText && `"${freeText}"`,
-            ].filter(Boolean).join(" · ") || "No constraints set",
-            tab: "preferences" as Step,
-          },
-        ].map(item => (
-          <div key={item.title} style={{ ...card, display: "flex", alignItems: "flex-start", gap: ".9rem" }}>
-            <span style={{ fontSize: "1.3rem" }}>{item.icon}</span>
-            <div style={{ flex: 1 }}>
-              <div style={{ fontWeight: 700, fontSize: ".9rem" }}>{item.title}</div>
-              <p className="fine" style={{ margin: ".1rem 0 0", lineHeight: 1.4 }}>{item.value}</p>
-            </div>
-            <button onClick={() => setStep(item.tab)} style={{ background: "none", border: "none", color: "var(--gold)", fontWeight: 700, cursor: "pointer", fontSize: ".82rem" }}>Edit</button>
-          </div>
-        ))}
-
-        <div style={{ ...card, background: "var(--gold-s)", borderColor: "var(--gold)", marginTop: ".5rem" }}>
-          <span className="fine">Claude will parse your transcript, check your remaining requirements, and return 3 validated schedules in ~15–25 seconds.</span>
-        </div>
-
-        {error && <div className="tag bad" style={{ display: "inline-block", marginTop: ".75rem" }}>{error}</div>}
-
-        <div style={{ display: "flex", gap: ".6rem", marginTop: "1.25rem" }}>
-          <button className="btn" onClick={goBack}>Back</button>
-          <button className="btn gold" style={{ flex: 1, fontSize: ".95rem" }} onClick={submit}>
-            Build my schedule ✦
-          </button>
+        <h1 className="h">Ready to build</h1>
+        <p className="fine lead">Here&apos;s what Schedule One will use.</p>
+        <dl className="summary">
+          <div><dt>Program</dt><dd>{programCodes.map((c) => findProgram(c)?.name ?? c).join(" + ")}</dd><button className="link" onClick={() => go("major")}>Edit</button></div>
+          <div><dt>Transcript</dt><dd>{text ? `${lineCount} lines` : "Not added"}</dd><button className="link" onClick={() => go("transcript")}>Edit</button></div>
+          {mode === "personal" ? (
+            <>
+              <div><dt>Units</dt><dd>{minUnits} to {maxUnits}</dd><button className="link" onClick={() => go("preferences")}>Edit</button></div>
+              <div>
+                <dt>Times and days</dt>
+                <dd>
+                  {[
+                    noClassBefore && noClassBefore !== "08:00" && `Start after ${noClassBefore}`,
+                    noClassAfter && `End by ${noClassAfter}`,
+                    freeDays.length && `Free: ${freeDays.map((d) => DAY_LABELS[d]).join(", ")}`,
+                    mustInclude && `Include: ${mustInclude}`,
+                    mustExclude && `Avoid: ${mustExclude}`,
+                  ].filter(Boolean).join(". ") || "No limits"}
+                </dd>
+                <button className="link" onClick={() => go("preferences")}>Edit</button>
+              </div>
+              <div><dt>Interesting</dt><dd>{interested.length ? interested.join(", ") : "None picked"}</dd><button className="link" onClick={() => go("interests")}>Edit</button></div>
+            </>
+          ) : (
+            <div><dt>Preferences</dt><dd>Built for you: 12 to 16 units, any times</dd><button className="link" onClick={() => { setMode("personal"); go("preferences"); }}>Personalize</button></div>
+          )}
+        </dl>
+        <p className="fine">You&apos;ll get a main schedule and two backups in about 20 seconds.</p>
+        {error && <div className="tag bad">{error}</div>}
+        <div className="row">
+          <button className="btn" onClick={() => go(mode === "personal" ? "interests" : "mode")}>Back</button>
+          <button className="btn pri grow" onClick={submit}>Build my schedule</button>
         </div>
       </div>
     ),
   };
 
   return (
-    <div style={{ minHeight: "100vh", background: "var(--paper)", padding: "2rem 1rem" }}>
-      <div className="gold-bar" style={{ position: "fixed", top: 0, left: 0, right: 0 }} />
-
-      <div style={{ maxWidth: 520, margin: "0 auto" }}>
-        {/* Top nav */}
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "2rem" }}>
-          <a href="/" style={{ fontFamily: "var(--display)", fontSize: "1.1rem", textDecoration: "none", color: "var(--ink)", letterSpacing: ".02em" }}>
-            SCHEDULE ONE
-          </a>
-          <span className="fine" style={{ fontSize: ".75rem", letterSpacing: ".04em" }}>UCSB · WINTER 2026</span>
-        </div>
-
-        <div className="card" style={{ borderRadius: 22 }}>
-          <ProgressBar current={step} />
+    <div className="onboard">
+      <div className="gold-bar" />
+      <div className="onboard-inner">
+        <header className="row between">
+          <Link href="/" className="brand">Schedule One</Link>
+          <span className="fine">UCSB, Winter 2027</span>
+        </header>
+        <div className="card onboard-card">
+          <ProgressBar order={order} current={step} />
           {stepContent[step]}
         </div>
       </div>

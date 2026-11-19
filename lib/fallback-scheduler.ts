@@ -27,6 +27,7 @@ function conflicts(a: CourseOffering, b: CourseOffering): boolean {
 function respectsConstraints(o: CourseOffering, c: StudentConstraints): boolean {
   if (c.freeDays.some((d) => o.schedule.days.includes(d))) return false;
   if (c.noClassBefore && toMinutes(o.schedule.startTime) < toMinutes(c.noClassBefore)) return false;
+  if (c.noClassAfter && toMinutes(o.schedule.endTime) > toMinutes(c.noClassAfter)) return false;
   if (c.mustExclude.map(normalizeCode).includes(normalizeCode(o.code))) return false;
   return true;
 }
@@ -50,6 +51,7 @@ export function buildFallbackSchedules(
 ): FallbackSchedule[] {
   const pool = eligible.filter((o) => respectsConstraints(o, constraints));
   const mustInclude = constraints.mustInclude.map(normalizeCode);
+  const interested = new Set((constraints.interested ?? []).map(normalizeCode));
   const results: FallbackSchedule[] = [];
 
   function score(courses: CourseOffering[]): { score: number; satisfies: Map<string, string[]> } {
@@ -58,6 +60,9 @@ export function buildFallbackSchedules(
     for (const groups of satisfies.values()) s += groups.length * 10;
     // Courses that count toward nothing still fill units but score lower.
     s += courses.length;
+    // Courses the student marked "seems interesting" win ties between
+    // otherwise equal schedules, but never outrank a requirement.
+    s += courses.filter((o) => interested.has(normalizeCode(o.code))).length * 3;
     return { score: s, satisfies };
   }
 

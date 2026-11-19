@@ -1,8 +1,7 @@
 /**
  * Free tier of GOLD cart help (spec section 7A): a copy-paste prompt for a
- * browser agent the student already has (for example Claude in Chrome or
- * Gemini in Chrome; availability depends on their plan). Cart only. The
- * student clicks Enroll themselves.
+ * browser assistant the student may already have. Cart only. The student
+ * clicks Enroll themselves.
  */
 import type { Pick } from "@/lib/schedule-engine";
 

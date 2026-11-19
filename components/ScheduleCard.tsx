@@ -1,6 +1,7 @@
 import type { Schedule } from "@/types";
 import { WeeklyCalendar } from "./WeeklyCalendar";
 import { ValidationBadge } from "./ValidationBadge";
+import { CourseFlags } from "./PlanNotices";
 
 interface Props {
   schedule: Schedule;
@@ -67,6 +68,7 @@ export function ScheduleCard({ schedule, title, isPrimary = false }: Props) {
                     <div className="text-xs text-gray-500 mt-0.5">
                       {sc.offering.schedule.days.join("")} · {sc.offering.schedule.startTime}–{sc.offering.schedule.endTime} · {sc.offering.instructor}
                     </div>
+                    <CourseFlags termPattern={sc.termPattern} mustGet={sc.mustGet} mustGetReason={sc.mustGetReason} />
                     {sc.satisfies.length > 0 && (
                       <div className="flex gap-1 mt-1.5 flex-wrap">
                         {sc.satisfies.map((gid) => (
@@ -84,10 +86,9 @@ export function ScheduleCard({ schedule, title, isPrimary = false }: Props) {
           </div>
         </div>
 
-        {/* AI explanation */}
+        {/* Explanation */}
         <div className="bg-blue-50 border border-blue-100 rounded-xl p-4">
           <div className="flex items-center gap-1.5 mb-2">
-            <span className="text-sm">✨</span>
             <h4 className="text-xs font-semibold text-blue-800 uppercase tracking-wide">Why this schedule</h4>
           </div>
           <p className="text-sm text-blue-900 leading-relaxed">{schedule.explanation}</p>

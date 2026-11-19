@@ -383,6 +383,8 @@ ${remainingGroupSummary}
 STUDENT CONSTRAINTS:
 - Target units: ${constraints.minUnits}–${constraints.maxUnits}
 ${constraints.noClassBefore ? `- No classes before ${constraints.noClassBefore}` : ""}
+${constraints.noClassAfter ? `- No classes ending after ${constraints.noClassAfter}` : ""}
+${constraints.interested?.length ? `- Student finds these interesting (prefer them when they fit a requirement): ${constraints.interested.join(", ")}` : ""}
 ${constraints.freeDays.length ? `- Keep free: ${constraints.freeDays.join(", ")}` : ""}
 ${constraints.mustInclude.length ? `- Must include: ${constraints.mustInclude.join(", ")}` : ""}
 ${constraints.mustExclude.length ? `- Must exclude: ${constraints.mustExclude.join(", ")}` : ""}

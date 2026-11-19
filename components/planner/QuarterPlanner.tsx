@@ -372,7 +372,7 @@ export function QuarterPlanner() {
         </label>
         {passPlan.passes.map((p) => (
           <div key={p.pass} className="card" style={{ marginTop: ".4rem" }}>
-            <strong>Pass {p.pass}</strong> <span className="fine">(cap {p.cap} units{p.pass === 3 ? ", college limit to confirm" : ""}; {p.cumulativeUnits} registered after)</span>
+            <strong>Pass {p.pass}</strong> <span className="fine">(up to {p.cap.toFixed(1)} units; {p.cumulativeUnits} registered after)</span>
             <div className="fine">
               {p.courses.length === 0
                 ? "Nothing planned"
@@ -401,8 +401,8 @@ export function QuarterPlanner() {
 
       <Card title="6 · Fill your GOLD cart" acc="#c8b88a">
         <p className="fine" style={{ marginBottom: ".4rem" }}>
-          Paste this into a browser agent you already use (for example Claude in Chrome or Gemini in Chrome, if your plan
-          includes one). It only adds to your cart; you click Enroll yourself.
+          Paste this into a browser assistant you already use, if you have one. It only adds to your cart; you click
+          Enroll yourself.
         </p>
         <textarea readOnly value={cartPrompt} rows={12} style={{ width: "100%", fontFamily: "monospace", fontSize: ".75rem", padding: ".5rem" }} />
         <button

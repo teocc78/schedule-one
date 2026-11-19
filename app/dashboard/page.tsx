@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import type { PlanResult, TranscriptData } from "@/types";
 import { ScheduleCard } from "@/components/ScheduleCard";
 import { ValidationBadge } from "@/components/ValidationBadge";
+import { PlanNotices, CourseFlags } from "@/components/PlanNotices";
 import { QuarterPlanner } from "@/components/planner/QuarterPlanner";
 import requirementsData from "@/data/requirements/statistics-data-science.json";
 import offeringsData from "@/data/offerings/winter-2027.json";
@@ -33,7 +34,7 @@ type TabId = (typeof TABS)[number]["id"];
 function Fig({ value, label }: { value: string | number; label: string }) {
   return (
     <div className="card" style={{ padding: ".5rem .9rem", minWidth: 90 }}>
-      <b style={{ font: "400 1.6rem var(--display)", display: "block", lineHeight: 1.2 }}>{value}</b>
+      <b style={{ font: "700 1.6rem var(--display)", display: "block", lineHeight: 1.2 }}>{value}</b>
       <span className="fine">{label}</span>
     </div>
   );
@@ -42,7 +43,6 @@ function Fig({ value, label }: { value: string | number; label: string }) {
 function ComingSoon({ tab }: { tab: string }) {
   return (
     <div className="empty" style={{ marginTop: "2rem", padding: "2.5rem 1.5rem" }}>
-      <div style={{ fontSize: "2rem", marginBottom: ".5rem" }}>🚧</div>
       <strong>{tab}</strong> is coming soon.
       <br />
       <span className="fine">This tab will be built in an upcoming sprint.</span>
@@ -78,7 +78,10 @@ function TodayTab({ plan, transcript }: { plan: PlanResult | null; transcript: T
         <Fig value={courses.length} label="courses" />
         <Fig value={transcript.completedCourses.length} label="completed" />
         <Fig value={transcript.totalUnitsEarned} label="units earned" />
+        {plan.standing && <Fig value={plan.standing} label="class standing" />}
       </div>
+
+      <PlanNotices plan={{ notices: plan.notices }} />
 
       <h2 className="sec" style={{ "--acc": "var(--gold-d)" } as React.CSSProperties}>This week</h2>
       {courses.map((sc) => {
@@ -89,7 +92,7 @@ function TodayTab({ plan, transcript }: { plan: PlanResult | null; transcript: T
               minWidth: "3.4rem", textAlign: "center",
               background: "var(--paper)", border: "2px solid var(--ink)",
               borderRadius: 10, padding: ".1rem .3rem",
-              font: "400 .95rem var(--display)",
+              font: "700 .95rem var(--display)",
             }}>
               {cd.join("")}
             </div>
@@ -97,6 +100,7 @@ function TodayTab({ plan, transcript }: { plan: PlanResult | null; transcript: T
               <strong style={{ fontSize: ".92rem" }}>{sc.offering.code}</strong>
               <span className="fine" style={{ marginLeft: ".5rem" }}>{sc.offering.title}</span>
               <div className="fine">{startTime}–{endTime} · {sc.offering.instructor}</div>
+              <CourseFlags termPattern={sc.termPattern} mustGet={sc.mustGet} mustGetReason={sc.mustGetReason} />
             </div>
             {sc.satisfies.map(g => (
               <span key={g} className="tag unk" style={{ fontSize: ".72rem" }}>{g}</span>
@@ -133,6 +137,10 @@ function DegreeTab({ transcript }: { transcript: TranscriptData | null }) {
       <p className="fine" style={{ marginBottom: "1rem" }}>
         {requirements.major} · {done}/{statuses.length} requirement groups met
       </p>
+      <div className="note">
+        <strong>Not here yet:</strong>{" "}
+        <span className="fine">study abroad courses (UCEAP and other universities) and community-college transfer courses don&apos;t count toward this audit yet.</span>
+      </div>
 
       <div style={{ display: "flex", gap: ".75rem", flexWrap: "wrap", marginBottom: "1.5rem" }}>
         <Fig value={done} label="groups complete" />
@@ -199,6 +207,7 @@ function ScheduleTab({ plan }: { plan: PlanResult | null }) {
         ))}
       </div>
 
+      <PlanNotices plan={plan} />
       <ScheduleCard schedule={schedule} title={tab === "primary" ? "Primary" : tab === "backup1" ? "Backup 1" : "Backup 2"} isPrimary={tab === "primary"} />
     </div>
   );
