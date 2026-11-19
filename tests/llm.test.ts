@@ -35,7 +35,7 @@ const good = {
 
 beforeEach(() => {
   generateContent.mockReset();
-  resetClientForTests();
+  resetClientForTests(async () => {});
   process.env.GEMINI_API_KEY = "test-key";
   delete process.env.GEMINI_MODEL;
 });
@@ -81,9 +81,28 @@ describe("parseTranscript", () => {
     await expect(parseTranscript("x")).rejects.toBeInstanceOf(LLMConfigError);
   });
 
-  it("reports quota errors as busy", async () => {
+  it("reports quota errors as busy with reason quota after trying every model", async () => {
     generateContent.mockRejectedValue(apiError(429, "RESOURCE_EXHAUSTED"));
-    await expect(parseTranscript("x")).rejects.toBeInstanceOf(LLMBusyError);
+    const err = await parseTranscript("x").catch((e) => e);
+    expect(err).toBeInstanceOf(LLMBusyError);
+    expect(err.reason).toBe("quota");
+    expect(new Set(generateContent.mock.calls.map((c) => c[0].model)).size).toBe(3);
+  });
+
+  it("moves to the next model when one model's quota is used up", async () => {
+    generateContent
+      .mockRejectedValueOnce(apiError(429, "RESOURCE_EXHAUSTED: quota exceeded"))
+      .mockResolvedValue({ text: JSON.stringify(good) });
+    await parseTranscript("x");
+    expect(generateContent.mock.calls.map((c) => c[0].model)).toEqual(["gemini-3.8-flash", "gemini-flash-latest"]);
+  });
+
+  it("retries the same model once when Google is overloaded", async () => {
+    generateContent
+      .mockRejectedValueOnce(apiError(503, "The model is overloaded. Please try again later."))
+      .mockResolvedValue({ text: JSON.stringify(good) });
+    await parseTranscript("x");
+    expect(generateContent.mock.calls.map((c) => c[0].model)).toEqual(["gemini-3.8-flash", "gemini-3.8-flash"]);
   });
 
   it("gives a config error naming the models when none work", async () => {
@@ -95,15 +114,46 @@ describe("parseTranscript", () => {
 describe("classifyError", () => {
   it("sorts common Gemini errors", () => {
     expect(classifyError(apiError(400, "API key not valid"))).toBe("key");
-    expect(classifyError(apiError(429, "quota exceeded"))).toBe("busy");
+    expect(classifyError(apiError(429, "quota exceeded"))).toBe("quota");
+    expect(classifyError(apiError(503, "The model is overloaded"))).toBe("overloaded");
     expect(classifyError(apiError(404, "not found"))).toBe("model");
     expect(classifyError(apiError(500, "internal"))).toBe("other");
   });
 });
 
 describe("checkAI", () => {
-  it("reports the model that worked", async () => {
-    generateContent.mockResolvedValue({ text: '{"ok":true}' });
-    expect(await checkAI()).toEqual({ ok: true, model: "gemini-3.8-flash" });
+  it("reports each model's result with Gemini's status", async () => {
+    generateContent
+      .mockRejectedValueOnce(apiError(429, "RESOURCE_EXHAUSTED: requests per day"))
+      .mockResolvedValue({ text: '{"ok":true}' });
+    const r = await checkAI();
+    expect(r.ok).toBe(true);
+    expect(r.models[0]).toMatchObject({ model: "gemini-3.8-flash", ok: false, status: 429, kind: "quota" });
+    expect(r.models[1]).toMatchObject({ model: "gemini-flash-latest", ok: true });
+  });
+
+  it("never echoes something that looks like a key", async () => {
+    generateContent.mockRejectedValue(apiError(400, "bad request for AIzaSyA1234567890abcdefghijklmnop"));
+    const r = await checkAI();
+    expect(JSON.stringify(r)).not.toContain("AIzaSy");
+  });
+});
+
+describe("rule-based transcript reading", () => {
+  it("reads a regular transcript with no AI call", async () => {
+    const fs = await import("node:fs");
+    const text = fs.readFileSync("data/samples/transcript-mid.txt", "utf8");
+    const t = await parseTranscript(text);
+    expect(generateContent).not.toHaveBeenCalled();
+    expect(t.completedCourses.length).toBeGreaterThanOrEqual(15);
+    expect(t.completedCourses[0]).toEqual({ code: "MATH 3A", title: "Calculus with Applications I", units: 4, grade: "A", quarter: "Fall 2023" });
+    expect(t.completedCourses.find((c) => c.code === "PSTAT 120A")?.quarter).toBe("Spring 2024");
+  });
+
+  it("uses what the rules found when the AI is over quota", async () => {
+    generateContent.mockRejectedValue(apiError(429, "RESOURCE_EXHAUSTED"));
+    const text = "FALL 2025\nPSTAT 8  Transition to Data Science  4.0  A-\nSome odd row PSTAT 10 4.0 ??";
+    const t = await parseTranscript(text);
+    expect(t.completedCourses.map((c) => c.code)).toEqual(["PSTAT 8"]);
   });
 });

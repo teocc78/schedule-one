@@ -31,9 +31,14 @@ export async function POST(req: NextRequest) {
       );
     }
     if (err instanceof LLMBusyError) {
-      console.error("[parse-transcript] busy:", err.message);
+      console.error("[parse-transcript] busy:", err.reason, err.message);
       return NextResponse.json(
-        { error: "The AI service is busy right now. Wait a minute and try again.", code: "ai_busy" },
+        err.reason === "quota"
+          ? {
+              error: "The AI's usage limit for this site has been reached, and the transcript couldn't be read without it. Try again later, or paste it as plain text with one course per line (code, title, units, grade).",
+              code: "ai_quota",
+            }
+          : { error: "Google's AI servers are overloaded right now. Wait a minute and try again.", code: "ai_overloaded" },
         { status: 503 }
       );
     }

@@ -23,7 +23,9 @@ Open http://localhost:3000.
 
 Set the same variables in Vercel under Project Settings > Environment Variables, then redeploy.
 
-To check the live setup, open `/api/health` (shows whether the keys are set, never their values) or `/api/health?ai=1` (also makes one tiny Gemini call and says which model worked or what went wrong).
+To check the live setup, open `/api/health` (shows whether the keys are set, never their values; `geminiModelSetting` is the GEMINI_MODEL variable, null when unset) or `/api/health?ai=1` (tries each model once and shows Gemini's status for each: 429 means the key's quota or rate limit is used up, 503 means Google is overloaded).
+
+Most transcripts are read by rules with no AI call (`lib/transcript-fallback.ts`); the AI handles unusual layouts. Schedule planning falls back to the rule-based planner when the AI is busy.
 
 ## What it does
 
